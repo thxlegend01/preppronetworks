@@ -1,6 +1,5 @@
 import { Clock, FileText, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 interface TestCardProps {
   id: string;
@@ -8,16 +7,14 @@ interface TestCardProps {
   duration: number;
   questions: number;
   subject: string;
-  difficulty: "Easy" | "Medium" | "Hard";
+  externalUrl?: string;
 }
 
-const TestCard = ({ id, title, duration, questions, subject, difficulty }: TestCardProps) => {
-  const navigate = useNavigate();
-
-  const difficultyColors = {
-    Easy: "text-success",
-    Medium: "text-primary",
-    Hard: "text-destructive",
+const TestCard = ({ title, duration, questions, subject, externalUrl }: TestCardProps) => {
+  const handleStartTest = () => {
+    if (externalUrl) {
+      window.open(externalUrl, '_blank');
+    }
   };
 
   return (
@@ -26,8 +23,8 @@ const TestCard = ({ id, title, duration, questions, subject, difficulty }: TestC
         <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-semibold rounded-full">
           {subject}
         </span>
-        <span className={`text-xs font-semibold ${difficultyColors[difficulty]}`}>
-          {difficulty}
+        <span className="text-xs font-semibold text-success">
+          Available Now
         </span>
       </div>
       
@@ -49,7 +46,7 @@ const TestCard = ({ id, title, duration, questions, subject, difficulty }: TestC
       <Button 
         variant="hero" 
         className="w-full"
-        onClick={() => navigate(`/test/${id}`)}
+        onClick={handleStartTest}
       >
         <Zap className="w-4 h-4" />
         Start Test

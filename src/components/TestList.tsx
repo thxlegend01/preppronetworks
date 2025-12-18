@@ -1,15 +1,30 @@
 import TestCard from "@/components/TestCard";
 
-const mockTests = [
-  { id: "1", title: "Full Syllabus Test 1", duration: 180, questions: 75, subject: "Physics", difficulty: "Hard" as const },
-  { id: "2", title: "Algebra & Calculus", duration: 90, questions: 30, subject: "Mathematics", difficulty: "Medium" as const },
-  { id: "3", title: "Organic Chemistry Basics", duration: 60, questions: 25, subject: "Chemistry", difficulty: "Easy" as const },
-  { id: "4", title: "Mechanics & Waves", duration: 90, questions: 30, subject: "Physics", difficulty: "Medium" as const },
-  { id: "5", title: "Inorganic Chemistry", duration: 60, questions: 25, subject: "Chemistry", difficulty: "Hard" as const },
-  { id: "6", title: "Coordinate Geometry", duration: 90, questions: 30, subject: "Mathematics", difficulty: "Medium" as const },
-  { id: "7", title: "Full Syllabus Test 2", duration: 180, questions: 75, subject: "Physics", difficulty: "Hard" as const },
-  { id: "8", title: "Physical Chemistry", duration: 60, questions: 25, subject: "Chemistry", difficulty: "Easy" as const },
-  { id: "9", title: "Trigonometry & Vectors", duration: 90, questions: 30, subject: "Mathematics", difficulty: "Medium" as const },
+const availableTests = [
+  { 
+    id: "qft1", 
+    title: "QFT 1 - Full Test 1", 
+    duration: 180, 
+    questions: 90, 
+    subject: "JEE Main Full Syllabus", 
+    externalUrl: "https://stark-beta-q8u9.onrender.com/mathongo/tests/qft1/qft1.html?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjk0MmNjMjc2NGZkZjQ0YWRkYWU0Yzc5IiwiaXNBZG1pbiI6ZmFsc2V9LCJpYXQiOjE3NjYwNDI4NzYsImV4cCI6MTc2NjQwMjg3Nn0.ilkxqTxdXtwYZ-K7aksriShMASURMKurHGfdAFGFwvA"
+  },
+  { 
+    id: "qft2", 
+    title: "QFT 2 - Full Test 2", 
+    duration: 180, 
+    questions: 90, 
+    subject: "JEE Main Full Syllabus", 
+    externalUrl: "https://stark-beta-q8u9.onrender.com/mathongo/tests/qft2/qft2.html?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjk0MmNjMjc2NGZkZjQ0YWRkYWU0Yzc5IiwiaXNBZG1pbiI6ZmFsc2V9LCJpYXQiOjE3NjYwNDI4NzYsImV4cCI6MTc2NjQwMjg3Nn0.ilkxqTxdXtwYZ-K7aksriShMASURMKurHGfdAFGFwvA"
+  },
+  { 
+    id: "qft3", 
+    title: "QFT 3 - Full Test 3", 
+    duration: 180, 
+    questions: 90, 
+    subject: "JEE Main Full Syllabus", 
+    externalUrl: "https://stark-beta-q8u9.onrender.com/mathongo/tests/qft3/qft3.html?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjk0MmNjMjc2NGZkZjQ0YWRkYWU0Yzc5IiwiaXNBZG1pbiI6ZmFsc2V9LCJpYXQiOjE3NjYwNDI4NzYsImV4cCI6MTc2NjQwMjg3Nn0.ilkxqTxdXtwYZ-K7aksriShMASURMKurHGfdAFGFwvA"
+  },
 ];
 
 const TestList = () => {
@@ -26,7 +41,7 @@ const TestList = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockTests.map((test, index) => (
+          {availableTests.map((test, index) => (
             <div 
               key={test.id} 
               className="animate-fade-in"
@@ -35,6 +50,14 @@ const TestList = () => {
               <TestCard {...test} />
             </div>
           ))}
+        </div>
+        
+        <div className="mt-8 text-center">
+          <div className="glass-card inline-block rounded-xl px-6 py-4">
+            <p className="text-muted-foreground">
+              <span className="text-primary font-semibold">More tests coming soon!</span> Check the schedule below for upcoming releases.
+            </p>
+          </div>
         </div>
       </div>
     </section>
