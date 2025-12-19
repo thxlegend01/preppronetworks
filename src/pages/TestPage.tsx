@@ -1,6 +1,6 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import edufinicLogo from "@/assets/edufinic-logo.jpg";
 
 const PDF_URL = "https://drive.google.com/drive/folders/1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_";
@@ -35,9 +35,9 @@ const TestPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="h-screen w-screen overflow-hidden flex flex-col">
       {/* Header */}
-      <header className="bg-card border-b border-border px-4 py-3 flex items-center justify-between">
+      <header className="bg-card border-b border-border px-4 py-3 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
             <ArrowLeft className="w-4 h-4" />
@@ -49,13 +49,15 @@ const TestPage = () => {
         </div>
       </header>
 
-      {/* Embedded Content */}
-      <div className="flex-1">
+      {/* Embedded Content - Takes remaining height */}
+      <div className="flex-1 w-full overflow-hidden">
         <iframe
           src={externalUrl}
           className="w-full h-full border-0"
+          style={{ minHeight: 'calc(100vh - 60px)' }}
           title={isPdfPage ? "Study Materials" : `Test ${testId}`}
           allow="fullscreen"
+          allowFullScreen
         />
       </div>
     </div>
