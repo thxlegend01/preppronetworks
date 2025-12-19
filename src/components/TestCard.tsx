@@ -64,7 +64,7 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
           onClick={handleOpenPdf}
         >
           <FolderOpen className="w-4 h-4" />
-          Study Materials (PDF)
+          QFT PDF
         </Button>
       </div>
     </div>
