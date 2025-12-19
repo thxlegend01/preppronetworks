@@ -1,4 +1,4 @@
-import { Clock, FileText, Zap } from "lucide-react";
+import { Clock, FileText, Zap, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,10 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
   
   const handleStartTest = () => {
     navigate(`/test/${id}`);
+  };
+
+  const handleOpenPdf = () => {
+    navigate("/test/pdf");
   };
 
   return (
@@ -44,14 +48,25 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
         </div>
       </div>
       
-      <Button 
-        variant="hero" 
-        className="w-full"
-        onClick={handleStartTest}
-      >
-        <Zap className="w-4 h-4" />
-        Start Test
-      </Button>
+      <div className="space-y-2">
+        <Button 
+          variant="hero" 
+          className="w-full"
+          onClick={handleStartTest}
+        >
+          <Zap className="w-4 h-4" />
+          Start Test
+        </Button>
+        
+        <Button 
+          variant="outline" 
+          className="w-full"
+          onClick={handleOpenPdf}
+        >
+          <FolderOpen className="w-4 h-4" />
+          Study Materials (PDF)
+        </Button>
+      </div>
     </div>
   );
 };
