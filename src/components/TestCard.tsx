@@ -1,5 +1,6 @@
 import { Clock, FileText, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface TestCardProps {
   id: string;
@@ -10,11 +11,11 @@ interface TestCardProps {
   externalUrl?: string;
 }
 
-const TestCard = ({ title, duration, questions, subject, externalUrl }: TestCardProps) => {
+const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) => {
+  const navigate = useNavigate();
+  
   const handleStartTest = () => {
-    if (externalUrl) {
-      window.open(externalUrl, '_blank');
-    }
+    navigate(`/test/${id}`);
   };
 
   return (
