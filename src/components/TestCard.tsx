@@ -19,7 +19,7 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
   };
 
   const handleOpenPdf = () => {
-    navigate("/test/pdf");
+    window.open("https://drive.google.com/drive/folders/1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_", "_blank");
   };
 
   return (
