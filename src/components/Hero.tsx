@@ -1,14 +1,14 @@
-import { BookOpen, Target, Users, Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import edufinicLogo from "@/assets/edufinic-logo.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
@@ -24,44 +24,30 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 rounded-full mb-6 animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Mathango 2026 Test Series</span>
+            <span className="text-sm font-semibold text-primary">Welcome to Edufinic Community</span>
           </div>
           
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight" style={{ animationDelay: "0.1s" }}>
-            Free JEE Test Series
-            <span className="block text-gradient">by Edufinic</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight animate-fade-in">
+            <span className="text-gradient">Your Complete</span>
+            <br />
+            <span className="text-foreground">Learning Ecosystem</span>
           </h1>
           
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Practice with premium Mathango 2026 tests in CBT mode. Completely free, no sign-up required.
+            Access premium batches, practice tests, study materials, and join a thriving community of JEE aspirants. Everything you need to crack your exams!
           </p>
           
-          {/* CTA Button */}
-          <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            <Button variant="hero" size="xl" asChild>
-              <a href="#tests">
-                <Target className="w-5 h-5" />
-                Start Practicing Now
-              </a>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <Button size="lg" className="text-lg px-8 py-6 rounded-xl">
+              Explore Batches
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-          </div>
-          
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 mt-16 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">25+</div>
-              <div className="text-sm text-muted-foreground mt-1">Mock Tests</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">1000+</div>
-              <div className="text-sm text-muted-foreground mt-1">Questions</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">FREE</div>
-              <div className="text-sm text-muted-foreground mt-1">Forever</div>
-            </div>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl">
+              Join Community
+            </Button>
           </div>
         </div>
       </div>

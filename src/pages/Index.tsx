@@ -1,12 +1,18 @@
 import Header from "@/components/Header";
-import ComingSoon from "@/components/ComingSoon";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+import Batches from "@/components/Batches";
+import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <ComingSoon />
+      <Hero />
+      <Features />
+      <Batches />
+      <CTA />
       <Footer />
     </div>
   );
