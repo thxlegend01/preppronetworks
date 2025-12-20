@@ -16,7 +16,7 @@ const ComingSoon = () => {
           <div className="mb-8 animate-float">
             <img 
               src={edufinicLogo} 
-              alt="Edufinic" 
+              alt="Edufusion" 
               className="w-32 h-32 mx-auto rounded-2xl glow-primary"
             />
           </div>
@@ -24,7 +24,7 @@ const ComingSoon = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 rounded-full mb-6 animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Edufinic</span>
+            <span className="text-sm font-semibold text-primary">Edufusion</span>
           </div>
           
           {/* Main Heading */}

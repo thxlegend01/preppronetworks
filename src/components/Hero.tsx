@@ -16,7 +16,7 @@ const Hero = () => {
           <div className="mb-8 animate-float">
             <img 
               src={edufinicLogo} 
-              alt="Edufinic" 
+              alt="Edufusion" 
               className="w-28 h-28 mx-auto rounded-2xl glow-primary"
             />
           </div>
@@ -24,7 +24,7 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 rounded-full mb-6 animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Welcome to Edufinic Community</span>
+            <span className="text-sm font-semibold text-primary">Welcome to Edufusion Community</span>
           </div>
           
           {/* Main Heading */}

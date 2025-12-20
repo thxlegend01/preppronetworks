@@ -8,11 +8,11 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <img 
               src={edufinicLogo} 
-              alt="Edufinic" 
+              alt="Edufusion" 
               className="w-12 h-12 rounded-lg"
             />
             <div>
-              <div className="font-bold text-lg">Edufinic</div>
+              <div className="font-bold text-lg">Edufusion</div>
               <div className="text-sm text-muted-foreground">Free Education for All</div>
             </div>
           </div>
@@ -22,7 +22,7 @@ const Footer = () => {
               Mathango 2026 Test Series - Available for free
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              © 2024 Edufinic. Made with ❤️ for JEE Aspirants
+              © 2024 Edufusion. Made with ❤️ for JEE Aspirants
             </p>
           </div>
         </div>

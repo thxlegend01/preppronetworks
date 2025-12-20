@@ -44,7 +44,7 @@ const TestPage = () => {
           <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
             <ArrowLeft className="w-4 h-4" />
           </Button>
-          <img src={edufinicLogo} alt="Edufinic" className="w-8 h-8 rounded-lg" />
+          <img src={edufinicLogo} alt="Edufusion" className="w-8 h-8 rounded-lg" />
           <span className="font-bold text-foreground">
             {isPdfPage ? "QFT PDF" : `Mathango Test - ${testId?.toUpperCase()}`}
           </span>

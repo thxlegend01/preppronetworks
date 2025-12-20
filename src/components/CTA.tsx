@@ -23,7 +23,7 @@ const CTA = () => {
           
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of successful students who cracked JEE with Edufinic. 
+            Join thousands of successful students who cracked JEE with Edufusion. 
             Get access to all courses, tests, and community features.
           </p>
           
