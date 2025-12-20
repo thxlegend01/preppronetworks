@@ -1,36 +1,96 @@
+import { useState } from "react";
+import { Menu, X, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import edufinicLogo from "@/assets/edufinic-logo.jpg";
 
 const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "#batches", label: "Batches" },
+    { href: "#tests", label: "Test Series" },
+    { href: "#about", label: "About Us" },
+  ];
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 glass-navbar">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo */}
         <div className="flex items-center gap-3">
-          <img 
-            src={edufinicLogo} 
-            alt="Edufusion Logo" 
-            className="w-10 h-10 rounded-lg object-cover"
-          />
+          <div className="relative">
+            <img 
+              src={edufinicLogo} 
+              alt="Edufusion Logo" 
+              className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/30"
+            />
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
+              <Sparkles className="w-2.5 h-2.5 text-primary-foreground" />
+            </div>
+          </div>
           <span className="text-xl font-bold text-gradient">Edufusion</span>
         </div>
         
-        <nav className="hidden md:flex items-center gap-6">
-          <a href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            Home
-          </a>
-          <a href="#tests" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            Test Series
-          </a>
-          <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            About
-          </a>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <a 
+              key={link.href}
+              href={link.href} 
+              className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
+            >
+              {link.label}
+              <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
+            </a>
+          ))}
         </nav>
         
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 bg-success/20 text-success text-xs font-bold rounded-full animate-pulse">
-            100% FREE
-          </span>
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center gap-3">
+          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+            Sign In
+          </Button>
+          <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-lg shadow-primary/25">
+            Get Started
+          </Button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="md:hidden"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </Button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden glass-card border-t border-border/40 animate-fade-in">
+          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <a 
+                key={link.href}
+                href={link.href} 
+                className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border/40">
+              <Button variant="ghost" className="w-full justify-start">
+                Sign In
+              </Button>
+              <Button className="w-full bg-gradient-to-r from-primary to-accent">
+                Get Started
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
