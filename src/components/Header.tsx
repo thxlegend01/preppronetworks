@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 import edufinicLogo from "@/assets/edufinic-logo.jpg";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "#batches", label: "Batches" },
-    { href: "#tests", label: "Test Series" },
-    { href: "#about", label: "About Us" },
+    { href: "/", label: "Home", isRoute: true },
+    { href: "/batches", label: "Batches", isRoute: true },
+    { href: "/test-series", label: "Test Series", isRoute: true },
+    { href: "#about", label: "About Us", isRoute: false },
   ];
 
   return (
@@ -33,16 +35,31 @@ const Header = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <a 
-              key={link.href}
-              href={link.href} 
-              className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
-            >
-              {link.label}
-              <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group ${
+                  location.pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.label}
+                <span className={`absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${
+                  location.pathname === link.href ? "w-full left-0" : "w-0"
+                }`} />
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
+              >
+                {link.label}
+                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
+              </a>
+            )
+          )}
         </nav>
         
         {/* CTA Buttons */}
@@ -70,16 +87,29 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden glass-card border-t border-border/40 animate-fade-in">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <a 
-                key={link.href}
-                href={link.href} 
-                className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.isRoute ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={`px-4 py-3 text-sm font-medium hover:bg-secondary/50 rounded-lg transition-colors ${
+                    location.pathname === link.href ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border/40">
               <Button variant="ghost" className="w-full justify-start">
                 Sign In
