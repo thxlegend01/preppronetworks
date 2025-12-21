@@ -1,6 +1,7 @@
 import { Clock, Users, Star, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const batches = [
   {
@@ -135,14 +136,16 @@ const Batches = () => {
         
         {/* View All Button */}
         <div className="text-center mt-16">
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-border/60 hover:bg-secondary/50 hover:border-primary/40 transition-all group"
-          >
-            View All Batches
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/batches">
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="border-border/60 hover:bg-secondary/50 hover:border-primary/40 transition-all group"
+            >
+              View All Batches
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
