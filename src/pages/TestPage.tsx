@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import edufinicLogo from "@/assets/edufinic-logo.jpg";
+import prepproLogo from "@/assets/preppro-network-logo.jpg";
 
 const PDF_URL = "https://drive.google.com/drive/folders/1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_";
 
@@ -44,7 +44,7 @@ const TestPage = () => {
           <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
             <ArrowLeft className="w-4 h-4" />
           </Button>
-          <img src={edufinicLogo} alt="Edufusion" className="w-8 h-8 rounded-lg" />
+          <img src={prepproLogo} alt="PrepPro Network" className="w-8 h-8 rounded-lg" />
           <span className="font-bold text-foreground">
             {isPdfPage ? "QFT PDF" : `Mathango Test - ${testId?.toUpperCase()}`}
           </span>
