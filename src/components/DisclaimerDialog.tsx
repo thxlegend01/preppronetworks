@@ -47,8 +47,6 @@ const DisclaimerDialog = ({
 
   const handleContinue = () => {
     onContinue();
-    window.open(externalUrl, "_blank");
-    onClose();
   };
 
   return (
