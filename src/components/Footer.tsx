@@ -1,5 +1,5 @@
 import { Github, Twitter, Linkedin, Youtube, Mail, MapPin, Phone } from "lucide-react";
-import edufinicLogo from "@/assets/edufinic-logo.jpg";
+import prepproLogo from "@/assets/preppro-network-logo.jpg";
 
 const footerLinks = {
   product: [
@@ -47,12 +47,12 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <img 
-                src={edufinicLogo} 
-                alt="Edufusion" 
+                src={prepproLogo} 
+                alt="PrepPro Network" 
                 className="w-12 h-12 rounded-xl ring-2 ring-primary/30"
               />
               <div>
-                <div className="font-bold text-xl text-gradient">Edufusion</div>
+                <div className="font-bold text-xl text-gradient">PrepPro Network</div>
                 <div className="text-xs text-muted-foreground">Education for Everyone</div>
               </div>
             </div>
@@ -135,7 +135,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 Edufusion. All rights reserved. Made with ❤️ for aspirants.
+            © 2024 PrepPro Network. All rights reserved. Made with ❤️ for aspirants.
           </p>
           
           {/* Social Links */}
