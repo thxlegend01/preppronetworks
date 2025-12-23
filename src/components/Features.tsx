@@ -1,7 +1,10 @@
 import { ArrowRight, Smartphone, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DisclaimerDialog from "./DisclaimerDialog";
+import PasswordDialog from "./PasswordDialog";
+import ComingSoonDialog from "./ComingSoonDialog";
 import { BATCHES } from "@/lib/data";
 
 // Import logos
@@ -12,6 +15,7 @@ import selectionwayLogo from "@/assets/selectionway-logo.png";
 import nexttoppersLogo from "@/assets/nexttoppers-logo.png";
 import mathangoLogo from "@/assets/mathango-logo.png";
 import prepproLogo from "@/assets/preppro-logo.jpg";
+import cdsLogo from "@/assets/cds-logo.png";
 
 // Logo mapping
 const logoMap: Record<string, string> = {
@@ -19,19 +23,51 @@ const logoMap: Record<string, string> = {
   "raw-app": rawLogo,
   "kgs-app": kgsLogo,
   "selection-way-app": selectionwayLogo,
-  "cds-app": nexttoppersLogo, // Using NextToppers logo for CDS
+  "cds-app": cdsLogo,
   "next-toppers-app": nexttoppersLogo,
   "mathango-test-series": mathangoLogo,
   "other-test-series": prepproLogo,
 };
 
 const Features = () => {
+  const navigate = useNavigate();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
-  const [selectedUrl, setSelectedUrl] = useState("");
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string } | null>(null);
 
-  const handleExplore = (url: string) => {
-    setSelectedUrl(url);
+  const handleExplore = (id: string, url: string, title: string) => {
+    // Handle Coming Soon
+    if (url === "coming-soon") {
+      setComingSoonOpen(true);
+      return;
+    }
+    
+    // Handle CDS password protection
+    if (id === "cds-app") {
+      setSelectedApp({ url, title });
+      setPasswordOpen(true);
+      return;
+    }
+    
+    // Normal flow - show disclaimer first
+    setSelectedApp({ url, title });
     setDisclaimerOpen(true);
+  };
+
+  const handlePasswordSuccess = () => {
+    if (selectedApp) {
+      setDisclaimerOpen(true);
+    }
+  };
+
+  const handleContinue = () => {
+    if (selectedApp) {
+      navigate(`/view/${encodeURIComponent(selectedApp.title)}`, {
+        state: { url: selectedApp.url, title: selectedApp.title }
+      });
+    }
+    setDisclaimerOpen(false);
   };
 
   const apps = BATCHES.filter(b => b.category === "Apps");
@@ -87,7 +123,7 @@ const Features = () => {
               
               {/* CTA */}
               <Button 
-                onClick={() => handleExplore(app.externalUrl)}
+                onClick={() => handleExplore(app.id, app.externalUrl, app.title)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group"
               >
                 Explore Now
@@ -140,10 +176,10 @@ const Features = () => {
               
               {/* CTA */}
               <Button 
-                onClick={() => handleExplore(test.externalUrl)}
+                onClick={() => handleExplore(test.id, test.externalUrl, test.title)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group"
               >
-                Explore Now
+                {test.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
@@ -154,8 +190,21 @@ const Features = () => {
       <DisclaimerDialog 
         isOpen={disclaimerOpen} 
         onClose={() => setDisclaimerOpen(false)} 
-        onContinue={() => {}}
-        externalUrl={selectedUrl}
+        onContinue={handleContinue}
+        externalUrl={selectedApp?.url || ""}
+      />
+
+      <PasswordDialog
+        isOpen={passwordOpen}
+        onClose={() => setPasswordOpen(false)}
+        onSuccess={handlePasswordSuccess}
+        correctPassword="FUTUREOFFICERS01"
+      />
+
+      <ComingSoonDialog
+        isOpen={comingSoonOpen}
+        onClose={() => setComingSoonOpen(false)}
+        title="Other Test Series"
       />
     </section>
   );

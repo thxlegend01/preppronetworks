@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import TestPage from "./pages/TestPage";
 import BatchesPage from "./pages/BatchesPage";
 import BatchDetailPage from "./pages/BatchDetailPage";
+import ViewerPage from "./pages/ViewerPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/batches" element={<BatchesPage />} />
           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
           <Route path="/test/:testId" element={<TestPage />} />
+          <Route path="/view/:appId" element={<ViewerPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

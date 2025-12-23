@@ -24,7 +24,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "https://www.pw.live",
+    externalUrl: "https://growstudy.gt.tc",
     chapters: [
       { id: "pw-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
       { id: "pw-2", title: "NEET Courses", lessons: 100, duration: "50+ hrs" },
@@ -38,7 +38,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    externalUrl: "https://example.com/raw",
+    externalUrl: "http://spidyuniverserwa.vercel.app",
     chapters: [
       { id: "raw-1", title: "NDA Preparation", lessons: 60, duration: "30 hrs" },
       { id: "raw-2", title: "CDS Preparation", lessons: 50, duration: "25 hrs" },
@@ -52,7 +52,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-    externalUrl: "https://example.com/kgs",
+    externalUrl: "https://spidykgs.vercel.app",
     chapters: [
       { id: "kgs-1", title: "UPSC Prelims", lessons: 80, duration: "40 hrs" },
       { id: "kgs-2", title: "SSC CGL", lessons: 60, duration: "30 hrs" },
@@ -66,7 +66,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://example.com/selectionway",
+    externalUrl: "https://spidyway.vercel.app/",
     chapters: [
       { id: "sw-1", title: "Railway Exams", lessons: 50, duration: "25 hrs" },
       { id: "sw-2", title: "Banking Exams", lessons: 60, duration: "30 hrs" },
@@ -80,7 +80,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1579187707643-35646d22b596?w=800&q=80",
-    externalUrl: "https://example.com/cds",
+    externalUrl: "http://Spidycds.vercel.app",
     chapters: [
       { id: "cds-1", title: "English", lessons: 40, duration: "20 hrs" },
       { id: "cds-2", title: "General Knowledge", lessons: 50, duration: "25 hrs" },
@@ -94,7 +94,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
-    externalUrl: "https://example.com/nexttoppers",
+    externalUrl: "https://edu-vibe-nt.vercel.app/",
     chapters: [
       { id: "nt-1", title: "Topper Strategies", lessons: 30, duration: "15 hrs" },
       { id: "nt-2", title: "Time Management", lessons: 20, duration: "10 hrs" },
@@ -108,7 +108,7 @@ export const BATCHES: Batch[] = [
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=800&q=80",
-    externalUrl: "https://example.com/mathango",
+    externalUrl: "https://drive.google.com/drive/folders/1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_",
     chapters: [
       { id: "mt-1", title: "JEE Main Tests", lessons: 50, duration: "25 hrs" },
       { id: "mt-2", title: "JEE Advanced Tests", lessons: 40, duration: "20 hrs" },
@@ -122,7 +122,7 @@ export const BATCHES: Batch[] = [
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=800&q=80",
-    externalUrl: "https://example.com/other",
+    externalUrl: "coming-soon",
     chapters: [
       { id: "ot-1", title: "NEET Test Series", lessons: 60, duration: "30 hrs" },
       { id: "ot-2", title: "NDA Test Series", lessons: 40, duration: "20 hrs" },
