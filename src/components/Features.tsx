@@ -4,6 +4,27 @@ import { useState } from "react";
 import DisclaimerDialog from "./DisclaimerDialog";
 import { BATCHES } from "@/lib/data";
 
+// Import logos
+import pwLogo from "@/assets/pw-logo.jpg";
+import rawLogo from "@/assets/raw-logo.jpeg";
+import kgsLogo from "@/assets/kgs-logo.png";
+import selectionwayLogo from "@/assets/selectionway-logo.png";
+import nexttoppersLogo from "@/assets/nexttoppers-logo.png";
+import mathangoLogo from "@/assets/mathango-logo.png";
+import prepproLogo from "@/assets/preppro-logo.jpg";
+
+// Logo mapping
+const logoMap: Record<string, string> = {
+  "pw-app": pwLogo,
+  "raw-app": rawLogo,
+  "kgs-app": kgsLogo,
+  "selection-way-app": selectionwayLogo,
+  "cds-app": nexttoppersLogo, // Using NextToppers logo for CDS
+  "next-toppers-app": nexttoppersLogo,
+  "mathango-test-series": mathangoLogo,
+  "other-test-series": prepproLogo,
+};
+
 const Features = () => {
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
@@ -45,9 +66,17 @@ const Features = () => {
               className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Icon */}
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20 flex items-center justify-center mb-6 mx-auto">
-                <Smartphone className="w-10 h-10 text-primary" />
+              {/* Logo */}
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg">
+                {logoMap[app.id] ? (
+                  <img 
+                    src={logoMap[app.id]} 
+                    alt={app.title} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Smartphone className="w-10 h-10 text-primary" />
+                )}
               </div>
               
               {/* Content */}
@@ -90,9 +119,17 @@ const Features = () => {
               className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Icon */}
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20 flex items-center justify-center mb-6 mx-auto">
-                <BookOpen className="w-10 h-10 text-primary" />
+              {/* Logo */}
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg">
+                {logoMap[test.id] ? (
+                  <img 
+                    src={logoMap[test.id]} 
+                    alt={test.title} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <BookOpen className="w-10 h-10 text-primary" />
+                )}
               </div>
               
               {/* Content */}
