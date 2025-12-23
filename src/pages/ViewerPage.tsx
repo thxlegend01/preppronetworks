@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeft, Loader2, RefreshCw, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Loader2, ExternalLink, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -10,56 +10,37 @@ const ViewerPage = () => {
   const title = location.state?.title || "App Viewer";
   
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
     if (!url) return;
     
-    // Simulate loading progress
-    const interval = setInterval(() => {
-      setLoadingProgress(prev => {
-        if (prev >= 90) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + Math.random() * 15;
-      });
-    }, 200);
-
-    // Timeout for slow loading
-    const timeout = setTimeout(() => {
+    // Show fallback option after 5 seconds if still loading
+    const fallbackTimer = setTimeout(() => {
       if (isLoading) {
-        setHasError(true);
-        setIsLoading(false);
+        setShowFallback(true);
       }
-    }, 30000);
+    }, 5000);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(fallbackTimer);
   }, [url, isLoading]);
 
   const handleIframeLoad = () => {
     setIsLoading(false);
-    setLoadingProgress(100);
-    setHasError(false);
+    setShowFallback(false);
   };
 
-  const handleRetry = () => {
-    setIsLoading(true);
-    setHasError(false);
-    setLoadingProgress(0);
+  const handleOpenExternal = () => {
+    window.open(url, "_blank");
   };
 
   if (!url) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center animate-fade-in">
-          <AlertTriangle className="w-16 h-16 text-destructive mx-auto mb-4 animate-pulse" />
-          <h1 className="text-2xl font-bold mb-4">No URL provided</h1>
-          <Button onClick={() => navigate("/")} variant="hero" className="hover-scale">
+          <AlertCircle className="w-12 h-12 text-destructive mx-auto mb-4" />
+          <h1 className="text-xl font-bold mb-4">No URL provided</h1>
+          <Button onClick={() => navigate("/")} variant="hero">
             Go Back Home
           </Button>
         </div>
@@ -76,71 +57,50 @@ const ViewerPage = () => {
             variant="ghost" 
             size="icon"
             onClick={() => navigate("/")}
-            className="hover:bg-secondary/50 hover-scale"
+            className="hover:bg-secondary/50"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <span className="font-semibold text-foreground">{title}</span>
+          {isLoading && <Loader2 className="w-4 h-4 animate-spin text-primary" />}
         </div>
-        {hasError && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleRetry}
-            className="gap-2 hover-scale"
-          >
-            <RefreshCw className="w-4 h-4" />
-            Retry
-          </Button>
-        )}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleOpenExternal}
+          className="gap-2"
+        >
+          <ExternalLink className="w-4 h-4" />
+          Open External
+        </Button>
       </div>
       
-      {/* Loading Overlay */}
-      {isLoading && !hasError && (
-        <div className="absolute inset-0 top-14 z-10 bg-background/95 backdrop-blur-sm flex flex-col items-center justify-center">
-          <div className="text-center animate-fade-in">
-            <div className="relative mb-6">
-              <div className="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center">
-                <Loader2 className="w-10 h-10 text-primary animate-spin" />
-              </div>
-              <div 
-                className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"
-                style={{ animationDuration: '1s' }}
-              />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Loading {title}</h3>
-            <p className="text-muted-foreground mb-4">Please wait while we connect...</p>
-            
-            {/* Progress bar */}
-            <div className="w-64 h-2 bg-secondary rounded-full overflow-hidden mx-auto">
-              <div 
-                className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-300 rounded-full"
-                style={{ width: `${loadingProgress}%` }}
-              />
-            </div>
-            <p className="text-sm text-muted-foreground mt-2">{Math.round(loadingProgress)}%</p>
+      {/* Loading/Fallback Notice */}
+      {showFallback && isLoading && (
+        <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-3 flex items-center justify-between gap-4 animate-fade-in">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="w-5 h-5 text-amber-500 flex-shrink-0" />
+            <p className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Loading slowly?</span> Some sites block embedding. Try opening externally.
+            </p>
           </div>
+          <Button
+            size="sm"
+            onClick={handleOpenExternal}
+            className="bg-amber-500 hover:bg-amber-600 text-white flex-shrink-0"
+          >
+            <ExternalLink className="w-4 h-4 mr-2" />
+            Open
+          </Button>
         </div>
       )}
-
-      {/* Error State */}
-      {hasError && (
-        <div className="absolute inset-0 top-14 z-10 bg-background flex flex-col items-center justify-center">
-          <div className="text-center animate-fade-in max-w-md px-4">
-            <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4 animate-pulse" />
-            <h3 className="text-2xl font-bold mb-2">Connection Slow or Failed</h3>
-            <p className="text-muted-foreground mb-6">
-              The website is taking too long to load. This could be due to slow internet or the site being temporarily unavailable.
-            </p>
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleRetry} variant="hero" className="hover-scale">
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Try Again
-              </Button>
-              <Button onClick={() => navigate("/")} variant="outline" className="hover-scale">
-                Go Back
-              </Button>
-            </div>
+      
+      {/* Simple Loading Overlay */}
+      {isLoading && !showFallback && (
+        <div className="absolute inset-0 top-14 z-10 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="text-center animate-fade-in">
+            <Loader2 className="w-10 h-10 text-primary animate-spin mx-auto mb-4" />
+            <p className="text-muted-foreground">Loading {title}...</p>
           </div>
         </div>
       )}
@@ -154,7 +114,6 @@ const ViewerPage = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           onLoad={handleIframeLoad}
-          onError={() => setHasError(true)}
         />
       </div>
     </div>
