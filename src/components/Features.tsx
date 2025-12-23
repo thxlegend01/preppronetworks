@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerDialog from "./DisclaimerDialog";
-import PasswordDialog from "./PasswordDialog";
 import ComingSoonDialog from "./ComingSoonDialog";
 import { BATCHES } from "@/lib/data";
 
@@ -32,7 +31,6 @@ const logoMap: Record<string, string> = {
 const Features = () => {
   const navigate = useNavigate();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
-  const [passwordOpen, setPasswordOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string } | null>(null);
 
@@ -43,22 +41,9 @@ const Features = () => {
       return;
     }
     
-    // Handle CDS password protection
-    if (id === "cds-app") {
-      setSelectedApp({ url, title });
-      setPasswordOpen(true);
-      return;
-    }
-    
     // Normal flow - show disclaimer first
     setSelectedApp({ url, title });
     setDisclaimerOpen(true);
-  };
-
-  const handlePasswordSuccess = () => {
-    if (selectedApp) {
-      setDisclaimerOpen(true);
-    }
   };
 
   const handleContinue = () => {
@@ -81,13 +66,13 @@ const Features = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Apps Section */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-            <Smartphone className="w-4 h-4 text-primary" />
+        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
+            <Smartphone className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Educational Apps</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient">Apps</span>
+            Premium <span className="text-gradient animate-pulse">Apps</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Access top educational platforms for free
@@ -99,11 +84,11 @@ const Features = () => {
           {apps.map((app, index) => (
             <div 
               key={app.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in"
+              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Logo */}
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
                 {logoMap[app.id] ? (
                   <img 
                     src={logoMap[app.id]} 
@@ -116,7 +101,7 @@ const Features = () => {
               </div>
               
               {/* Content */}
-              <h3 className="text-2xl font-bold mb-4 text-foreground">{app.title.replace(" App", "")}</h3>
+              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{app.title.replace(" App", "")}</h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 {app.description}
               </p>
@@ -124,23 +109,23 @@ const Features = () => {
               {/* CTA */}
               <Button 
                 onClick={() => handleExplore(app.id, app.externalUrl, app.title)}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group"
+                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 Explore Now
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
               </Button>
             </div>
           ))}
         </div>
 
         {/* Test Series Section */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-            <BookOpen className="w-4 h-4 text-primary" />
+        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
+            <BookOpen className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Test Series</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient">Test Series</span>
+            Premium <span className="text-gradient animate-pulse">Test Series</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Practice with the best test series available
@@ -152,11 +137,11 @@ const Features = () => {
           {testSeries.map((test, index) => (
             <div 
               key={test.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in"
+              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Logo */}
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
                 {logoMap[test.id] ? (
                   <img 
                     src={logoMap[test.id]} 
@@ -169,7 +154,7 @@ const Features = () => {
               </div>
               
               {/* Content */}
-              <h3 className="text-2xl font-bold mb-4 text-foreground">{test.title}</h3>
+              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 {test.description}
               </p>
@@ -177,10 +162,10 @@ const Features = () => {
               {/* CTA */}
               <Button 
                 onClick={() => handleExplore(test.id, test.externalUrl, test.title)}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group"
+                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 {test.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
               </Button>
             </div>
           ))}
@@ -192,13 +177,6 @@ const Features = () => {
         onClose={() => setDisclaimerOpen(false)} 
         onContinue={handleContinue}
         externalUrl={selectedApp?.url || ""}
-      />
-
-      <PasswordDialog
-        isOpen={passwordOpen}
-        onClose={() => setPasswordOpen(false)}
-        onSuccess={handlePasswordSuccess}
-        correctPassword="FUTUREOFFICERS01"
       />
 
       <ComingSoonDialog
