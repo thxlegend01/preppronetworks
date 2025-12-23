@@ -11,14 +11,13 @@ import { BATCHES, CATEGORIES, type Category } from "@/lib/data";
 const BatchesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
-  const [statusFilter, setStatusFilter] = useState<"All" | "Live" | "Recorded">("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | "Live" | "Available">("All");
 
   const filteredBatches = useMemo(() => {
     return BATCHES.filter((batch) => {
       const matchesSearch =
         batch.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        batch.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        batch.instructor.toLowerCase().includes(searchQuery.toLowerCase());
+        batch.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesCategory = selectedCategory === "All" || batch.category === selectedCategory;
       const matchesStatus = statusFilter === "All" || batch.status === statusFilter;
@@ -41,13 +40,13 @@ const BatchesPage = () => {
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">All Batches</span>
+              <span className="text-sm font-medium text-primary">All Apps & Test Series</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-              Explore Our <span className="text-gradient">Premium Batches</span>
+              Explore Our <span className="text-gradient">Free Resources</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Find the perfect course for your exam preparation journey. Filter by category, search by name, and start learning today.
+              Access premium educational apps and test series for free. Filter by category and start learning today.
             </p>
           </div>
 
@@ -58,7 +57,7 @@ const BatchesPage = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Search batches, instructors..."
+                placeholder="Search apps, test series..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-12 py-6 text-lg bg-secondary/50 border-border/50 focus:border-primary/50 rounded-xl"
@@ -88,7 +87,7 @@ const BatchesPage = () => {
             {/* Status Filters */}
             <div className="flex items-center gap-3 justify-center">
               <Filter className="w-4 h-4 text-muted-foreground" />
-              {(["All", "Live", "Recorded"] as const).map((status) => (
+              {(["All", "Live", "Available"] as const).map((status) => (
                 <Badge
                   key={status}
                   variant={statusFilter === status ? "default" : "outline"}
@@ -113,7 +112,7 @@ const BatchesPage = () => {
           {/* Results Count */}
           <div className="mb-8 flex items-center justify-between">
             <p className="text-muted-foreground">
-              Showing <span className="text-foreground font-semibold">{filteredBatches.length}</span> batches
+              Showing <span className="text-foreground font-semibold">{filteredBatches.length}</span> resources
             </p>
           </div>
 
@@ -128,7 +127,7 @@ const BatchesPage = () => {
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary/50 flex items-center justify-center">
                 <Search className="w-8 h-8 text-muted-foreground" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">No batches found</h3>
+              <h3 className="text-xl font-semibold mb-2">No resources found</h3>
               <p className="text-muted-foreground mb-6">
                 Try adjusting your search or filter criteria
               </p>
