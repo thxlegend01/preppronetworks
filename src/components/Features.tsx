@@ -32,7 +32,7 @@ const Features = () => {
   const navigate = useNavigate();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
-  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string } | null>(null);
+  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
 
   const handleExplore = (id: string, url: string, title: string) => {
     // Handle Coming Soon
@@ -42,14 +42,14 @@ const Features = () => {
     }
     
     // Normal flow - show disclaimer first
-    setSelectedApp({ url, title });
+    setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
   };
 
   const handleContinue = () => {
     if (selectedApp) {
       navigate(`/view/${encodeURIComponent(selectedApp.title)}`, {
-        state: { url: selectedApp.url, title: selectedApp.title }
+        state: { url: selectedApp.url, title: selectedApp.title, appId: selectedApp.id }
       });
     }
     setDisclaimerOpen(false);
