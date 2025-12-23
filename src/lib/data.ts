@@ -38,7 +38,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    externalUrl: "http://spidyuniverserwa.vercel.app",
+    externalUrl: "https://spidyuniverserwa.vercel.app",
     chapters: [
       { id: "raw-1", title: "NDA Preparation", lessons: 60, duration: "30 hrs" },
       { id: "raw-2", title: "CDS Preparation", lessons: 50, duration: "25 hrs" },
@@ -80,7 +80,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1579187707643-35646d22b596?w=800&q=80",
-    externalUrl: "http://Spidycds.vercel.app",
+    externalUrl: "https://spidycds.vercel.app",
     chapters: [
       { id: "cds-1", title: "English", lessons: 40, duration: "20 hrs" },
       { id: "cds-2", title: "General Knowledge", lessons: 50, duration: "25 hrs" },
