@@ -19,18 +19,18 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 glass-navbar">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 group">
           <div className="relative">
             <img 
               src={prepproLogo} 
               alt="PrepPro Network Logo" 
-              className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/30"
+              className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/30 group-hover:ring-primary/60 group-hover:scale-110 transition-all duration-300"
             />
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center animate-pulse">
               <Sparkles className="w-2.5 h-2.5 text-primary-foreground" />
             </div>
           </div>
-          <span className="text-xl font-bold text-gradient">PrepPro Network</span>
+          <span className="text-xl font-bold text-gradient group-hover:opacity-80 transition-opacity">PrepPro Network</span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -64,10 +64,10 @@ const Header = () => {
         
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95 transition-all">
             Sign In
           </Button>
-          <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-lg shadow-primary/25">
+          <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-lg shadow-primary/25 hover:scale-105 hover:shadow-xl hover:shadow-primary/40 active:scale-95">
             Get Started
           </Button>
         </div>
