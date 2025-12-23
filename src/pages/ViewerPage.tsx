@@ -1,7 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import PasswordGate from "@/components/PasswordGate";
 
 const ViewerPage = () => {
   const navigate = useNavigate();
@@ -10,9 +11,22 @@ const ViewerPage = () => {
   const title = location.state?.title || "App Viewer";
   
   const [isLoading, setIsLoading] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(() => {
+    // Check if user already has access this session
+    const access = sessionStorage.getItem("preppro_access");
+    if (access === "granted") {
+      setHasAccess(true);
+    }
+  }, []);
 
   const handleIframeLoad = () => {
     setIsLoading(false);
+  };
+
+  const handleAccessGranted = () => {
+    setHasAccess(true);
   };
 
   if (!url) {
@@ -25,6 +39,17 @@ const ViewerPage = () => {
           </Button>
         </div>
       </div>
+    );
+  }
+
+  // Show password gate if no access
+  if (!hasAccess) {
+    return (
+      <PasswordGate 
+        title={title}
+        onSuccess={handleAccessGranted}
+        onCancel={() => navigate("/")}
+      />
     );
   }
 

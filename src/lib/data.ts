@@ -108,7 +108,7 @@ export const BATCHES: Batch[] = [
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=800&q=80",
-    externalUrl: "https://drive.google.com/drive/folders/1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_",
+    externalUrl: "https://drive.google.com/embeddedfolderview?id=1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_#grid",
     chapters: [
       { id: "mt-1", title: "JEE Main Tests", lessons: 50, duration: "25 hrs" },
       { id: "mt-2", title: "JEE Advanced Tests", lessons: 40, duration: "20 hrs" },
