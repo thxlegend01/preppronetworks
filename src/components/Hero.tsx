@@ -49,17 +49,19 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/25 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95"
+              onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Explore Batches
+              Explore Apps
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="text-lg px-8 py-7 rounded-xl border-border/60 hover:bg-secondary/50 hover:border-primary/40 transition-all group hover:scale-105 active:scale-95"
+              onClick={() => document.getElementById('test-series')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
-              Start Test Series
+              Explore Test Series
             </Button>
           </div>
 

@@ -66,7 +66,7 @@ const Features = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Apps Section */}
-        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+        <div id="apps" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
             <Smartphone className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Educational Apps</span>
@@ -119,7 +119,7 @@ const Features = () => {
         </div>
 
         {/* Test Series Section */}
-        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+        <div id="test-series" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
             <BookOpen className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Test Series</span>
