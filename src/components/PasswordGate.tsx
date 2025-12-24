@@ -9,7 +9,7 @@ interface PasswordGateProps {
   title: string;
 }
 
-const VALID_PASSWORDS = ["legend", "preppro network", "give access"];
+const VALID_PASSWORDS = ["saurabh", "kl rahul", "dc"];
 
 const PasswordGate = ({ onSuccess, onCancel, title }: PasswordGateProps) => {
   const [password, setPassword] = useState("");

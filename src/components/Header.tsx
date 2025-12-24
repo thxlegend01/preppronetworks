@@ -3,6 +3,7 @@ import { Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -64,6 +65,7 @@ const Header = () => {
         
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95 transition-all">
             Sign In
           </Button>
@@ -111,6 +113,10 @@ const Header = () => {
               )
             )}
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border/40">
+              <div className="flex items-center justify-between px-4 py-2">
+                <span className="text-sm text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
               <Button variant="ghost" className="w-full justify-start">
                 Sign In
               </Button>
