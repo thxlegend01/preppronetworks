@@ -7,15 +7,22 @@ interface PasswordGateProps {
   onSuccess: () => void;
   onCancel: () => void;
   title: string;
+  appId?: string;
 }
+
+// Apps that should NOT show the thank you message
+const NO_MESSAGE_APPS = ["pw-app", "mathango-test-series"];
 
 const VALID_PASSWORDS = ["saurabh", "kl rahul", "dc"];
 
-const PasswordGate = ({ onSuccess, onCancel, title }: PasswordGateProps) => {
+const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [shake, setShake] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+
+  const shouldShowMessage = !NO_MESSAGE_APPS.includes(appId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,13 +32,47 @@ const PasswordGate = ({ onSuccess, onCancel, title }: PasswordGateProps) => {
       // Store access in session
       sessionStorage.setItem("preppro_access", "granted");
       setError(false);
-      onSuccess();
+      
+      // Show thank you message for apps that need it
+      if (shouldShowMessage) {
+        setShowThankYou(true);
+        setTimeout(() => {
+          onSuccess();
+        }, 2500);
+      } else {
+        onSuccess();
+      }
     } else {
       setError(true);
       setShake(true);
       setTimeout(() => setShake(false), 500);
     }
   };
+
+  // Thank you message screen
+  if (showThankYou) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="absolute inset-0 radial-glow opacity-50" />
+        <div className="absolute inset-0 grid-pattern opacity-20" />
+        
+        <div className="glass-card rounded-2xl p-8 max-w-md w-full relative z-10 animate-fade-in text-center">
+          <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+            <span className="text-4xl">🎉</span>
+          </div>
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Access Granted!
+          </h2>
+          <p className="text-lg text-primary font-semibold mb-2">
+            Thanks to Spidy Universe for this gesture
+          </p>
+          <p className="text-muted-foreground text-sm">
+            Redirecting to {title}...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">

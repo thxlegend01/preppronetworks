@@ -5,8 +5,8 @@ const footerLinks = {
   product: [
     { label: "Apps", href: "#apps" },
     { label: "Test Series", href: "#test-series" },
-    { label: "Study Materials", href: "#apps" },
-    { label: "Live Classes", href: "#apps" },
+    { label: "Study Materials", href: "#study-material" },
+    { label: "About Developer", href: "#developer" },
   ],
   company: [
     { label: "About Us", href: "#about" },
