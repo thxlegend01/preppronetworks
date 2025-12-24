@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import PasswordGate from "@/components/PasswordGate";
 
 // Apps that should open internally via iframe
-const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series"];
+const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "study-material"];
 
 const ViewerPage = () => {
   const navigate = useNavigate();
@@ -64,6 +64,7 @@ const ViewerPage = () => {
     return (
       <PasswordGate 
         title={title}
+        appId={appId}
         onSuccess={handleAccessGranted}
         onCancel={() => navigate("/")}
       />

@@ -45,7 +45,7 @@ const Hero = () => {
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Button 
               size="lg" 
               className="text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/25 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95"
@@ -62,6 +62,19 @@ const Hero = () => {
             >
               <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
               Explore Test Series
+            </Button>
+          </div>
+
+          {/* Study Material Shortcut */}
+          <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.35s" }}>
+            <Button 
+              size="lg" 
+              variant="ghost" 
+              className="text-lg px-6 py-6 rounded-xl border border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all group hover:scale-105 active:scale-95"
+              onClick={() => document.getElementById('study-material')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <BookOpen className="mr-2 w-5 h-5 text-primary group-hover:scale-125 transition-transform" />
+              Explore Study Material
             </Button>
           </div>
 
