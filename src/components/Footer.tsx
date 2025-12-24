@@ -3,27 +3,27 @@ import prepproLogo from "@/assets/preppro-network-logo.jpg";
 
 const footerLinks = {
   product: [
-    { label: "Batches", href: "#batches" },
-    { label: "Test Series", href: "#tests" },
-    { label: "Study Materials", href: "#" },
-    { label: "Live Classes", href: "#" },
+    { label: "Apps", href: "#apps" },
+    { label: "Test Series", href: "#test-series" },
+    { label: "Study Materials", href: "#apps" },
+    { label: "Live Classes", href: "#apps" },
   ],
   company: [
     { label: "About Us", href: "#about" },
-    { label: "Careers", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Careers", href: "#about" },
+    { label: "Blog", href: "#about" },
+    { label: "Contact", href: "#about" },
   ],
   support: [
-    { label: "Help Center", href: "#" },
-    { label: "FAQs", href: "#" },
-    { label: "Community", href: "#" },
-    { label: "Feedback", href: "#" },
+    { label: "Help Center", href: "#about" },
+    { label: "FAQs", href: "#about" },
+    { label: "Community", href: "#about" },
+    { label: "Feedback", href: "#about" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Refund Policy", href: "#" },
+    { label: "Privacy Policy", href: "#about" },
+    { label: "Terms of Service", href: "#about" },
+    { label: "Refund Policy", href: "#about" },
   ],
 };
 
