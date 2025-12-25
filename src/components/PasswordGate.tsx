@@ -30,6 +30,8 @@ const APP_PASSWORDS: Record<string, string> = {
   "study-material": "study material by preppro",
   "pyq-cbt": "pyq by preppro",
   "revision-course": "revision by preppro",
+  "pyq-cbt-test": "pyq by preppro",
+  "revision-course-app": "revision by preppro",
 };
 
 const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
