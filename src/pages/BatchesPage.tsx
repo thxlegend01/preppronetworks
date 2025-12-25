@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BatchCard from "@/components/BatchCard";
+import PageTransition from "@/components/PageTransition";
 import { BATCHES, CATEGORIES, type Category } from "@/lib/data";
 
 const BatchesPage = () => {
@@ -27,6 +28,7 @@ const BatchesPage = () => {
   }, [searchQuery, selectedCategory, statusFilter]);
 
   return (
+    <PageTransition>
     <div className="min-h-screen bg-background">
       <Header />
 
@@ -148,6 +150,7 @@ const BatchesPage = () => {
 
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

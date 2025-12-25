@@ -1,10 +1,12 @@
-import { ArrowRight, Smartphone, BookOpen } from "lucide-react";
+import { ArrowRight, Smartphone, BookOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerDialog from "./DisclaimerDialog";
 import ComingSoonDialog from "./ComingSoonDialog";
+import SearchBar from "./SearchBar";
 import { BATCHES } from "@/lib/data";
+import { useFavorites } from "@/hooks/useFavorites";
 
 // Import logos
 import pwLogo from "@/assets/pw-logo.jpg";
@@ -15,6 +17,8 @@ import nexttoppersLogo from "@/assets/nexttoppers-logo.png";
 import mathangoLogo from "@/assets/mathango-logo.png";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 import cdsLogo from "@/assets/cds-logo.png";
+import unacademyLogo from "@/assets/unacademy-logo.jpg";
+import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
 
 // Logo mapping
 const logoMap: Record<string, string> = {
@@ -26,22 +30,24 @@ const logoMap: Record<string, string> = {
   "next-toppers-app": nexttoppersLogo,
   "mathango-test-series": mathangoLogo,
   "other-test-series": prepproLogo,
+  "unacademy-app": unacademyLogo,
+  "revision-course-app": revisionCourseLogo,
+  "pyq-cbt-test": revisionCourseLogo,
 };
 
 const Features = () => {
   const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleExplore = (id: string, url: string, title: string) => {
-    // Handle Coming Soon
     if (url === "coming-soon") {
       setComingSoonOpen(true);
       return;
     }
-    
-    // Normal flow - show disclaimer first
     setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
   };
@@ -55,8 +61,17 @@ const Features = () => {
     setDisclaimerOpen(false);
   };
 
-  const apps = BATCHES.filter(b => b.category === "Apps");
-  const testSeries = BATCHES.filter(b => b.category === "Test Series");
+  const filterItems = (items: typeof BATCHES) => {
+    if (!searchQuery.trim()) return items;
+    const query = searchQuery.toLowerCase();
+    return items.filter(item => 
+      item.title.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query)
+    );
+  };
+
+  const apps = filterItems(BATCHES.filter(b => b.category === "Apps"));
+  const testSeries = filterItems(BATCHES.filter(b => b.category === "Test Series"));
 
   return (
     <section className="py-24 relative overflow-hidden">
@@ -66,7 +81,7 @@ const Features = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Apps Section */}
-        <div id="apps" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+        <div id="apps" className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
             <Smartphone className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Educational Apps</span>
@@ -78,15 +93,36 @@ const Features = () => {
             Access top educational platforms for free
           </p>
         </div>
+
+        {/* Search Bar */}
+        <SearchBar 
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search apps and test series..."
+        />
         
         {/* Apps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           {apps.map((app, index) => (
             <div 
               key={app.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group"
+              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              {/* Favorite Button */}
+              <button
+                onClick={() => toggleFavorite(app.id)}
+                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                  isFavorite(app.id) 
+                    ? 'bg-destructive/20 text-destructive' 
+                    : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                }`}
+              >
+                <Heart 
+                  className={`w-5 h-5 transition-transform ${isFavorite(app.id) ? 'fill-current animate-heart-beat' : ''}`} 
+                />
+              </button>
+
               {/* Logo */}
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
                 {logoMap[app.id] ? (
@@ -133,13 +169,27 @@ const Features = () => {
         </div>
         
         {/* Test Series Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testSeries.map((test, index) => (
             <div 
               key={test.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group"
+              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              {/* Favorite Button */}
+              <button
+                onClick={() => toggleFavorite(test.id)}
+                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                  isFavorite(test.id) 
+                    ? 'bg-destructive/20 text-destructive' 
+                    : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                }`}
+              >
+                <Heart 
+                  className={`w-5 h-5 transition-transform ${isFavorite(test.id) ? 'fill-current animate-heart-beat' : ''}`} 
+                />
+              </button>
+
               {/* Logo */}
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
                 {logoMap[test.id] ? (
@@ -170,6 +220,13 @@ const Features = () => {
             </div>
           ))}
         </div>
+
+        {/* No Results */}
+        {searchQuery && apps.length === 0 && testSeries.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">No results found for "{searchQuery}"</p>
+          </div>
+        )}
       </div>
 
       <DisclaimerDialog 

@@ -12,6 +12,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DisclaimerDialog from "@/components/DisclaimerDialog";
+import PageTransition from "@/components/PageTransition";
 import { getBatchById } from "@/lib/data";
 
 const BatchDetailPage = () => {
@@ -46,6 +47,7 @@ const BatchDetailPage = () => {
   };
 
   return (
+    <PageTransition>
     <div className="min-h-screen bg-background">
       <Header />
 
@@ -230,6 +232,7 @@ const BatchDetailPage = () => {
         externalUrl={batch.externalUrl}
       />
     </div>
+    </PageTransition>
   );
 };
 
