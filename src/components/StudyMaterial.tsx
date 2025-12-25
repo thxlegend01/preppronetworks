@@ -1,6 +1,9 @@
-import { FileText, ExternalLink, BookOpen } from "lucide-react";
+import { FileText, ExternalLink, BookOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import SearchBar from "./SearchBar";
+import { useFavorites } from "@/hooks/useFavorites";
 
 interface SubjectFolder {
   id: string;
@@ -64,6 +67,8 @@ const studyMaterials: SubjectFolder[] = [
 
 const StudyMaterial = () => {
   const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleOpenMaterial = (material: SubjectFolder) => {
     navigate(`/view/${encodeURIComponent(material.title)}`, {
@@ -75,6 +80,16 @@ const StudyMaterial = () => {
     });
   };
 
+  const filteredMaterials = studyMaterials.filter(material => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      material.title.toLowerCase().includes(query) ||
+      material.subject.toLowerCase().includes(query) ||
+      material.class.toLowerCase().includes(query)
+    );
+  });
+
   return (
     <section id="study-material" className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -83,7 +98,7 @@ const StudyMaterial = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
+        <div className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
             <FileText className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Chapter Wise Notes</span>
@@ -95,15 +110,36 @@ const StudyMaterial = () => {
             Access chapter-wise short notes for Physics, Chemistry & Maths
           </p>
         </div>
+
+        {/* Search Bar */}
+        <SearchBar 
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search study materials..."
+        />
         
         {/* Materials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {studyMaterials.map((material, index) => (
+          {filteredMaterials.map((material, index) => (
             <div 
               key={material.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group"
+              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              {/* Favorite Button */}
+              <button
+                onClick={() => toggleFavorite(material.id)}
+                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                  isFavorite(material.id) 
+                    ? 'bg-destructive/20 text-destructive' 
+                    : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                }`}
+              >
+                <Heart 
+                  className={`w-5 h-5 transition-transform ${isFavorite(material.id) ? 'fill-current animate-heart-beat' : ''}`} 
+                />
+              </button>
+
               {/* Icon */}
               <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 mx-auto text-4xl group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
                 {material.icon}
@@ -129,6 +165,13 @@ const StudyMaterial = () => {
             </div>
           ))}
         </div>
+
+        {/* No Results */}
+        {searchQuery && filteredMaterials.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">No materials found for "{searchQuery}"</p>
+          </div>
+        )}
       </div>
     </section>
   );

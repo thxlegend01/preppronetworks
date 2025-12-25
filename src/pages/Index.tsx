@@ -5,18 +5,21 @@ import StudyMaterial from "@/components/StudyMaterial";
 import AboutDeveloper from "@/components/AboutDeveloper";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <Hero />
-      <Features />
-      <StudyMaterial />
-      <AboutDeveloper />
-      <CTA />
-      <Footer />
-    </div>
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        <Header />
+        <Hero />
+        <Features />
+        <StudyMaterial />
+        <AboutDeveloper />
+        <CTA />
+        <Footer />
+      </div>
+    </PageTransition>
   );
 };
 

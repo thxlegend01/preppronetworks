@@ -10,8 +10,8 @@ interface PasswordGateProps {
   appId?: string;
 }
 
-// Apps that should NOT show the thank you message
-const NO_MESSAGE_APPS = ["pw-app", "mathango-test-series"];
+// Apps that SHOULD show the thank you message (only these 4)
+const SHOW_MESSAGE_APPS = ["raw-app", "kgs-app", "selection-way-app", "cds-app"];
 
 // Common passwords that work for all apps
 const COMMON_PASSWORDS = ["preppro network", "saurabh", "kl rahul"];
@@ -41,7 +41,7 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
   const [shake, setShake] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
-  const shouldShowMessage = !NO_MESSAGE_APPS.includes(appId);
+  const shouldShowMessage = SHOW_MESSAGE_APPS.includes(appId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
