@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowRight, Play, Users, BookOpen, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -8,6 +9,14 @@ const stats = [
 ];
 
 const Hero = () => {
+  const [activeButton, setActiveButton] = useState<string | null>(null);
+
+  const handleButtonClick = (buttonId: string, targetId: string) => {
+    setActiveButton(buttonId);
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => setActiveButton(null), 500);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background Effects */}
@@ -16,9 +25,9 @@ const Hero = () => {
       <div className="absolute inset-0 grid-pattern opacity-30" />
       
       {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
@@ -45,20 +54,19 @@ const Hero = () => {
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Button 
               size="lg" 
-              className="text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/25 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95"
-              onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
+              className={`text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/30 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/50 btn-click-effect ${activeButton === 'apps' ? 'scale-95 brightness-90' : ''}`}
+              onClick={() => handleButtonClick('apps', 'apps')}
             >
               Explore Apps
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Button>
             <Button 
               size="lg" 
-              variant="outline" 
-              className="text-lg px-8 py-7 rounded-xl border-border/60 hover:bg-secondary/50 hover:border-primary/40 transition-all group hover:scale-105 active:scale-95"
-              onClick={() => document.getElementById('test-series')?.scrollIntoView({ behavior: 'smooth' })}
+              className={`text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-accent to-primary hover:opacity-90 transition-all shadow-xl shadow-accent/30 group hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 btn-click-effect ${activeButton === 'test-series' ? 'scale-95 brightness-90' : ''}`}
+              onClick={() => handleButtonClick('test-series', 'test-series')}
             >
               <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
               Explore Test Series
@@ -69,11 +77,10 @@ const Hero = () => {
           <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.35s" }}>
             <Button 
               size="lg" 
-              variant="ghost" 
-              className="text-lg px-6 py-6 rounded-xl border border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all group hover:scale-105 active:scale-95"
-              onClick={() => document.getElementById('study-material')?.scrollIntoView({ behavior: 'smooth' })}
+              className={`text-lg px-6 py-6 rounded-xl bg-gradient-to-r from-primary/80 via-accent to-primary/80 hover:opacity-90 transition-all shadow-lg shadow-primary/25 group hover:scale-105 hover:shadow-xl hover:shadow-primary/40 btn-click-effect ${activeButton === 'study-material' ? 'scale-95 brightness-90' : ''}`}
+              onClick={() => handleButtonClick('study-material', 'study-material')}
             >
-              <BookOpen className="mr-2 w-5 h-5 text-primary group-hover:scale-125 transition-transform" />
+              <BookOpen className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
               Explore Study Material
             </Button>
           </div>
@@ -86,7 +93,7 @@ const Hero = () => {
                 className="flex items-center gap-3 group cursor-default hover-scale"
                 style={{ animationDelay: `${0.5 + index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center group-hover:bg-primary/25 group-hover:scale-110 group-hover:border-primary/60 transition-all duration-300">
                   <stat.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                 </div>
                 <div className="text-left">

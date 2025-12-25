@@ -59,22 +59,6 @@ const studyMaterials: SubjectFolder[] = [
     class: "12th",
     url: "https://drive.google.com/drive/folders/1Ls1AmFuq26w0F9lGpfLfugzh0o-zMyZ-",
     icon: "📊"
-  },
-  {
-    id: "pyq-cbt",
-    title: "PYQ in CBT",
-    subject: "Practice",
-    class: "All",
-    url: "https://novatra.in/exams/",
-    icon: "📝"
-  },
-  {
-    id: "revision-course",
-    title: "Revision Course",
-    subject: "Revision",
-    class: "All",
-    url: "https://jeesimplified.graphy.com/courses/Revision-Course--FREE---69134e88b9d9ff53efb5281d-69134e88b9d9ff53efb5281d",
-    icon: "🔄"
   }
 ];
 
