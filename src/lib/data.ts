@@ -102,6 +102,20 @@ export const BATCHES: Batch[] = [
     ],
   },
   {
+    id: "unacademy-app",
+    title: "Unacademy App",
+    description: "Access Unacademy courses and study materials for various competitive exams.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    externalUrl: "https://studyuk.site/goal/",
+    chapters: [
+      { id: "ua-1", title: "JEE Courses", lessons: 80, duration: "40 hrs" },
+      { id: "ua-2", title: "NEET Courses", lessons: 70, duration: "35 hrs" },
+      { id: "ua-3", title: "UPSC Courses", lessons: 90, duration: "45 hrs" },
+    ],
+  },
+  {
     id: "mathango-test-series",
     title: "Mathango Test Series",
     description: "Premium mathematics test series for JEE Main and Advanced preparation.",

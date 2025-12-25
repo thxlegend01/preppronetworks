@@ -13,7 +13,24 @@ interface PasswordGateProps {
 // Apps that should NOT show the thank you message
 const NO_MESSAGE_APPS = ["pw-app", "mathango-test-series"];
 
-const VALID_PASSWORDS = ["saurabh", "kl rahul", "dc"];
+// Common passwords that work for all apps
+const COMMON_PASSWORDS = ["preppro network", "saurabh", "kl rahul"];
+
+// App-specific passwords
+const APP_PASSWORDS: Record<string, string> = {
+  "pw-app": "pw by preppro",
+  "raw-app": "rwa by preppro",
+  "kgs-app": "kgs by preppro",
+  "selection-way-app": "selection way by preppro",
+  "cds-app": "cds by preppro",
+  "next-toppers-app": "next toppers by preppro",
+  "unacademy-app": "unacademy by preppro",
+  "mathango-test-series": "mathango by preppro",
+  "other-test-series": "test series by preppro",
+  "study-material": "study material by preppro",
+  "pyq-cbt": "pyq by preppro",
+  "revision-course": "revision by preppro",
+};
 
 const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
   const [password, setPassword] = useState("");
@@ -28,7 +45,12 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
     e.preventDefault();
     const normalizedPassword = password.toLowerCase().trim();
     
-    if (VALID_PASSWORDS.includes(normalizedPassword)) {
+    // Check if password is valid (common or app-specific)
+    const isCommonPassword = COMMON_PASSWORDS.includes(normalizedPassword);
+    const appSpecificPassword = APP_PASSWORDS[appId] || "";
+    const isAppSpecificPassword = normalizedPassword === appSpecificPassword;
+    
+    if (isCommonPassword || isAppSpecificPassword) {
       // Store access in session
       sessionStorage.setItem("preppro_access", "granted");
       setError(false);
