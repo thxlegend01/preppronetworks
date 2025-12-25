@@ -116,6 +116,20 @@ export const BATCHES: Batch[] = [
     ],
   },
   {
+    id: "revision-course-app",
+    title: "Revision Course",
+    description: "Free comprehensive revision course for JEE preparation by JEE Simplified.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
+    externalUrl: "https://jeesimplified.graphy.com/courses/Revision-Course--FREE---69134e88b9d9ff53efb5281d-69134e88b9d9ff53efb5281d",
+    chapters: [
+      { id: "rc-1", title: "Physics Revision", lessons: 40, duration: "20 hrs" },
+      { id: "rc-2", title: "Chemistry Revision", lessons: 40, duration: "20 hrs" },
+      { id: "rc-3", title: "Maths Revision", lessons: 40, duration: "20 hrs" },
+    ],
+  },
+  {
     id: "mathango-test-series",
     title: "Mathango Test Series",
     description: "Premium mathematics test series for JEE Main and Advanced preparation.",
@@ -127,6 +141,20 @@ export const BATCHES: Batch[] = [
       { id: "mt-1", title: "JEE Main Tests", lessons: 50, duration: "25 hrs" },
       { id: "mt-2", title: "JEE Advanced Tests", lessons: 40, duration: "20 hrs" },
       { id: "mt-3", title: "Topic-wise Tests", lessons: 80, duration: "40 hrs" },
+    ],
+  },
+  {
+    id: "pyq-cbt-test",
+    title: "PYQ in CBT",
+    description: "Practice Previous Year Questions in Computer Based Test format for JEE & NEET.",
+    category: "Test Series",
+    status: "Available",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    externalUrl: "https://novatra.in/exams/",
+    chapters: [
+      { id: "pyq-1", title: "JEE Main PYQs", lessons: 50, duration: "25 hrs" },
+      { id: "pyq-2", title: "JEE Advanced PYQs", lessons: 40, duration: "20 hrs" },
+      { id: "pyq-3", title: "NEET PYQs", lessons: 60, duration: "30 hrs" },
     ],
   },
   {
