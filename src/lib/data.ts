@@ -107,7 +107,7 @@ export const BATCHES: Batch[] = [
     description: "Access Unacademy courses and study materials for various competitive exams.",
     category: "Apps",
     status: "Live",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    image: "https://i.ibb.co/DLdPGLZ/Green-Modern-Badge-Gardening-Logo-Design.jpg",
     externalUrl: "https://studyuk.site/goal/",
     chapters: [
       { id: "ua-1", title: "JEE Courses", lessons: 80, duration: "40 hrs" },
@@ -121,7 +121,7 @@ export const BATCHES: Batch[] = [
     description: "Free comprehensive revision course for JEE preparation by JEE Simplified.",
     category: "Apps",
     status: "Live",
-    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
+    image: "https://i.ibb.co/B5QnJLg/IMG-20251201-212624-980-2.jpg",
     externalUrl: "https://jeesimplified.graphy.com/courses/Revision-Course--FREE---69134e88b9d9ff53efb5281d-69134e88b9d9ff53efb5281d",
     chapters: [
       { id: "rc-1", title: "Physics Revision", lessons: 40, duration: "20 hrs" },
@@ -149,7 +149,7 @@ export const BATCHES: Batch[] = [
     description: "Practice Previous Year Questions in Computer Based Test format for JEE & NEET.",
     category: "Test Series",
     status: "Available",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    image: "https://i.ibb.co/B5QnJLg/IMG-20251201-212624-980-2.jpg",
     externalUrl: "https://novatra.in/exams/",
     chapters: [
       { id: "pyq-1", title: "JEE Main PYQs", lessons: 50, duration: "25 hrs" },
