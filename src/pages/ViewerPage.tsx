@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PasswordGate from "@/components/PasswordGate";
+import { BATCHES } from "@/lib/data";
 
 // Apps that should open internally via iframe
-const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "study-material"];
+const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series"];
 
 const ViewerPage = () => {
   const navigate = useNavigate();
@@ -13,11 +14,15 @@ const ViewerPage = () => {
   const url = location.state?.url || "";
   const title = location.state?.title || "App Viewer";
   const appId = location.state?.appId || "";
+  const openExternal = location.state?.openExternal || false;
   
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const isInternalApp = INTERNAL_APPS.includes(appId);
+  // Check if this app should open internally based on BATCHES data
+  const batchData = BATCHES.find(b => b.id === appId);
+  const isInternalApp = INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
+  const shouldOpenExternal = openExternal || (!isInternalApp);
 
   useEffect(() => {
     // Check if user already has access this session
@@ -29,11 +34,11 @@ const ViewerPage = () => {
 
   // Open externally once access is granted (for external apps only)
   useEffect(() => {
-    if (hasAccess && url && !isInternalApp) {
+    if (hasAccess && url && shouldOpenExternal) {
       window.open(url, "_blank");
       navigate("/");
     }
-  }, [hasAccess, url, navigate, isInternalApp]);
+  }, [hasAccess, url, navigate, shouldOpenExternal]);
 
   const handleAccessGranted = () => {
     setHasAccess(true);
@@ -72,7 +77,7 @@ const ViewerPage = () => {
   }
 
   // For internal apps, show iframe
-  if (isInternalApp) {
+  if (!shouldOpenExternal) {
     return (
       <div className="h-screen flex flex-col bg-background">
         {/* Header Bar */}

@@ -15,6 +15,7 @@ interface SubjectFolder {
 }
 
 const studyMaterials: SubjectFolder[] = [
+  // Chapter Wise Notes
   {
     id: "11th-chemistry",
     title: "11th Chemistry",
@@ -62,7 +63,168 @@ const studyMaterials: SubjectFolder[] = [
     class: "12th",
     url: "https://drive.google.com/drive/folders/1Ls1AmFuq26w0F9lGpfLfugzh0o-zMyZ-",
     icon: "📊"
-  }
+  },
+  // Additional Study Materials
+  {
+    id: "mathongo-jee-adv",
+    title: "Mathongo JEE ADV",
+    subject: "JEE Advanced",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1IqndZq8JD5y7hbVVMHWAF5QpTc3ymZ7e",
+    icon: "🎯"
+  },
+  {
+    id: "fiitjee-old-papers",
+    title: "FIITJEE Old Papers",
+    subject: "Papers",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1QMHDdetiQn4QsQAqTCFXXfSDWDSzfVA3",
+    icon: "📄"
+  },
+  {
+    id: "allen-papers",
+    title: "ALLEN Papers",
+    subject: "Papers",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/14vNdkg7nSf6G3zD6WmPewmQB2Avgc6bU",
+    icon: "📝"
+  },
+  {
+    id: "allen-booster-sheets",
+    title: "ALLEN Booster Sheets",
+    subject: "Sheets",
+    class: "JEE",
+    url: "https://drive.google.com/folderview?id=1dQMhfn290NP45IHSiq9RnciAty38VCyS",
+    icon: "🚀"
+  },
+  {
+    id: "formula-booklet",
+    title: "Formula Booklet",
+    subject: "Formulas",
+    class: "All",
+    url: "https://drive.google.com/drive/folders/1_RvSIPntpjYYSWd1QWDf3vT4I-OIqFQT?usp=sharing",
+    icon: "📖"
+  },
+  {
+    id: "jee-adv-material",
+    title: "JEE ADV Material",
+    subject: "JEE Advanced",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1JdM_Mr7uRa2yTTAFvanA8rcfx2x8hoa1",
+    icon: "🏆"
+  },
+  {
+    id: "narayan-sri-chaitanya",
+    title: "Narayan & Sri Chaitanya",
+    subject: "Institute",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1XcBSnODk0Pr-JBIecNvlPW8R_u1FUYPh",
+    icon: "🏫"
+  },
+  {
+    id: "allen-latest",
+    title: "Allen Latest",
+    subject: "Institute",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1KTa7EvsN2aTXrt3iKmT3gNxF7R74nIcW",
+    icon: "📚"
+  },
+  {
+    id: "padhle-akhay",
+    title: "Padhle Akhay",
+    subject: "Notes",
+    class: "All",
+    url: "https://drive.google.com/drive/folders/1QO1pJbDnHwOgLfyoEM8e73rPy2fso-Mw",
+    icon: "✏️"
+  },
+  {
+    id: "jee-pyqs",
+    title: "JEE PYQs",
+    subject: "PYQs",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1qIuISGPPZRZXoLiFF0XarGRMsm84laGS",
+    icon: "📋"
+  },
+  {
+    id: "allen-jee-mains",
+    title: "Allen JEE Mains",
+    subject: "JEE Main",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1E9-WziWsbefDdUPEL27VgZ-pJY9vzUE2",
+    icon: "🎓"
+  },
+  {
+    id: "allen-race",
+    title: "Allen Race",
+    subject: "Practice",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1wWhR-98EKUnAlAPGDicTnrO2Nl5shBav",
+    icon: "🏃"
+  },
+  {
+    id: "allen-11th-test-series",
+    title: "Allen 11th Test Series",
+    subject: "Test Series",
+    class: "11th",
+    url: "https://drive.google.com/drive/folders/1CJyw-sE4TP_zfeRnU4rG_gr6U2wm3ekw",
+    icon: "📊"
+  },
+  {
+    id: "pw-test-series",
+    title: "PW Test Series",
+    subject: "Test Series",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1mwLdVTeOCBlZvxCY-8fy8hlPWlVxHgaF",
+    icon: "✅"
+  },
+  {
+    id: "non-academic-books",
+    title: "Non Academic Books",
+    subject: "Books",
+    class: "General",
+    url: "https://drive.google.com/drive/folders/1G2j84CYkNgKRnDA7JkHOD9CjvFkw_KhD",
+    icon: "📕"
+  },
+  {
+    id: "iit-jee-books",
+    title: "IIT JEE Books",
+    subject: "Books",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1sud8GE2Q7v8DdOVb0w0Vn_hZ1hIuTiMi",
+    icon: "📘"
+  },
+  {
+    id: "jee-neet-all-books",
+    title: "JEE & NEET All Books",
+    subject: "Books",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1Vcf-MtfhkKXB-d2AruTKoAGuVuBTR-yJ",
+    icon: "📗"
+  },
+  {
+    id: "jee-materials",
+    title: "JEE Materials",
+    subject: "Materials",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1-3L_v9w4TmyaiJ00btLMwahu63wb0XuK",
+    icon: "📦"
+  },
+  {
+    id: "allen-material",
+    title: "Allen Material",
+    subject: "Materials",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/18bWgHaYoTviwZK3dCEnA_-C14K1AhnwT",
+    icon: "🗂️"
+  },
+  {
+    id: "jee-books-test",
+    title: "JEE Books + Test",
+    subject: "Books & Tests",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1-9e_m2LSJUT5qb0fXVIEfEYfGVFhQbmy",
+    icon: "📚"
+  },
 ];
 
 const StudyMaterial = () => {
@@ -71,11 +233,13 @@ const StudyMaterial = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleOpenMaterial = (material: SubjectFolder) => {
+    // Open externally for all study materials
     navigate(`/view/${encodeURIComponent(material.title)}`, {
       state: { 
         url: material.url, 
-        title: `${material.title} - Chapter Wise Notes`, 
-        appId: "study-material" 
+        title: `${material.title} - Study Material`, 
+        appId: "study-material",
+        openExternal: true
       }
     });
   };
@@ -101,13 +265,13 @@ const StudyMaterial = () => {
         <div className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
             <FileText className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">Chapter Wise Notes</span>
+            <span className="text-sm font-medium text-primary">Study Materials</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
             Study <span className="text-gradient animate-pulse">Material</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Access chapter-wise short notes for Physics, Chemistry & Maths
+            Access comprehensive study materials, notes, papers & books
           </p>
         </div>
 
@@ -119,48 +283,49 @@ const StudyMaterial = () => {
         />
         
         {/* Materials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredMaterials.map((material, index) => (
             <div 
               key={material.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="glass-card card-hover shine-effect rounded-2xl p-6 text-center animate-fade-in group relative"
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
               {/* Favorite Button */}
               <button
                 onClick={() => toggleFavorite(material.id)}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-300 z-10 ${
                   isFavorite(material.id) 
                     ? 'bg-destructive/20 text-destructive' 
                     : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
                 }`}
               >
                 <Heart 
-                  className={`w-5 h-5 transition-transform ${isFavorite(material.id) ? 'fill-current animate-heart-beat' : ''}`} 
+                  className={`w-4 h-4 transition-transform ${isFavorite(material.id) ? 'fill-current animate-heart-beat' : ''}`} 
                 />
               </button>
 
               {/* Icon */}
-              <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 mx-auto text-4xl group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
+              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto text-3xl group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
                 {material.icon}
               </div>
               
               {/* Content */}
-              <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+              <h3 className="text-lg font-bold mb-1 text-foreground group-hover:text-primary transition-colors line-clamp-1">
                 {material.title}
               </h3>
-              <p className="text-muted-foreground mb-6">
-                Chapter Wise Short Notes
+              <p className="text-sm text-muted-foreground mb-4">
+                {material.subject} • {material.class}
               </p>
               
               {/* CTA */}
               <Button 
                 onClick={() => handleOpenMaterial(material)}
+                size="sm"
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 <BookOpen className="mr-2 w-4 h-4" />
-                Open Notes
-                <ExternalLink className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                Open
+                <ExternalLink className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
               </Button>
             </div>
           ))}

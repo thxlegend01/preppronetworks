@@ -13,6 +13,7 @@ export interface Batch {
   status: "Live" | "Available";
   image: string;
   externalUrl: string;
+  openInternal?: boolean;
   chapters: Chapter[];
 }
 
@@ -24,7 +25,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "https://growstudy.gt.tc",
+    externalUrl: "http://Pw.theeduverse.xyz/deltakeyping",
+    openInternal: true,
     chapters: [
       { id: "pw-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
       { id: "pw-2", title: "NEET Courses", lessons: 100, duration: "50+ hrs" },
@@ -108,7 +110,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://i.ibb.co/DLdPGLZ/Green-Modern-Badge-Gardening-Logo-Design.jpg",
-    externalUrl: "https://studyuk.site/goal/",
+    externalUrl: "https://pikachux.netlify.app/",
+    openInternal: true,
     chapters: [
       { id: "ua-1", title: "JEE Courses", lessons: 80, duration: "40 hrs" },
       { id: "ua-2", title: "NEET Courses", lessons: 70, duration: "35 hrs" },
@@ -137,6 +140,7 @@ export const BATCHES: Batch[] = [
     status: "Available",
     image: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=800&q=80",
     externalUrl: "https://drive.google.com/embeddedfolderview?id=1MJI-qE5ZefI1HyzRc6yAOeTqHJyPcRk_#grid",
+    openInternal: true,
     chapters: [
       { id: "mt-1", title: "JEE Main Tests", lessons: 50, duration: "25 hrs" },
       { id: "mt-2", title: "JEE Advanced Tests", lessons: 40, duration: "20 hrs" },
