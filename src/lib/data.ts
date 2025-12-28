@@ -26,7 +26,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
     externalUrl: "http://Pw.theeduverse.xyz/deltakeyping",
-    openInternal: true,
+    openInternal: false,
     chapters: [
       { id: "pw-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
       { id: "pw-2", title: "NEET Courses", lessons: 100, duration: "50+ hrs" },

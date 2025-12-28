@@ -7,6 +7,7 @@ import ComingSoonDialog from "./ComingSoonDialog";
 import SearchBar from "./SearchBar";
 import { BATCHES } from "@/lib/data";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 
 // Import logos
 import pwLogo from "@/assets/pw-logo.jpg";
@@ -38,22 +39,26 @@ const logoMap: Record<string, string> = {
 const Features = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { addToRecentlyViewed } = useRecentlyViewed();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
-  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
+  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string; isTestSeries: boolean } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleExplore = (id: string, url: string, title: string) => {
+  const handleExplore = (id: string, url: string, title: string, isTestSeries: boolean = false) => {
     if (url === "coming-soon") {
       setComingSoonOpen(true);
       return;
     }
-    setSelectedApp({ url, title, id });
+    setSelectedApp({ url, title, id, isTestSeries });
     setDisclaimerOpen(true);
   };
 
   const handleContinue = () => {
     if (selectedApp) {
+      // Track the view
+      addToRecentlyViewed(selectedApp.id, selectedApp.title, selectedApp.isTestSeries ? "material" : "app");
+      
       navigate(`/view/${encodeURIComponent(selectedApp.title)}`, {
         state: { url: selectedApp.url, title: selectedApp.title, appId: selectedApp.id }
       });
@@ -144,7 +149,7 @@ const Features = () => {
               
               {/* CTA */}
               <Button 
-                onClick={() => handleExplore(app.id, app.externalUrl, app.title)}
+                onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 Explore Now
@@ -211,7 +216,7 @@ const Features = () => {
               
               {/* CTA */}
               <Button 
-                onClick={() => handleExplore(test.id, test.externalUrl, test.title)}
+                onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 {test.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
