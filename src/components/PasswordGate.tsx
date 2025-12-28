@@ -13,26 +13,25 @@ interface PasswordGateProps {
 // Apps that SHOULD show the thank you message (only these 4)
 const SHOW_MESSAGE_APPS = ["raw-app", "kgs-app", "selection-way-app", "cds-app"];
 
-// Common passwords that work for all apps
-const COMMON_PASSWORDS = ["preppro network", "saurabh", "kl rahul"];
+// Admin passwords that work for ALL content (case-insensitive)
+const ADMIN_PASSWORDS = ["preppro network", "i am admin"];
 
-// App-specific passwords
+// App-specific passwords (case-insensitive)
 const APP_PASSWORDS: Record<string, string> = {
-  "pw-app": "pw by preppro",
-  "raw-app": "rwa by preppro",
-  "kgs-app": "kgs by preppro",
-  "selection-way-app": "selection way by preppro",
-  "cds-app": "cds by preppro",
-  "next-toppers-app": "next toppers by preppro",
-  "unacademy-app": "unacademy by preppro",
-  "mathango-test-series": "mathango by preppro",
-  "other-test-series": "test series by preppro",
-  "study-material": "study material by preppro",
-  "pyq-cbt": "pyq by preppro",
-  "revision-course": "revision by preppro",
-  "pyq-cbt-test": "pyq by preppro",
-  "revision-course-app": "revision by preppro",
+  "pw-app": "pw preppro",
+  "raw-app": "rwa preppro",
+  "kgs-app": "kgs preppro",
+  "selection-way-app": "sw preppro",
+  "cds-app": "cds preppro",
+  "next-toppers-app": "nt preppro",
+  "unacademy-app": "un preppro",
+  "mathango-test-series": "qft preppro",
+  "revision-course-app": "js preppro",
+  "pyq-cbt-test": "js preppro",
 };
+
+// Study material password
+const STUDY_MATERIAL_PASSWORD = "sm preppro";
 
 const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
   const [password, setPassword] = useState("");
@@ -47,12 +46,13 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
     e.preventDefault();
     const normalizedPassword = password.toLowerCase().trim();
     
-    // Check if password is valid (common or app-specific)
-    const isCommonPassword = COMMON_PASSWORDS.includes(normalizedPassword);
+    // Check if password is valid
+    const isAdminPassword = ADMIN_PASSWORDS.includes(normalizedPassword);
     const appSpecificPassword = APP_PASSWORDS[appId] || "";
     const isAppSpecificPassword = normalizedPassword === appSpecificPassword;
+    const isStudyMaterialPassword = appId === "study-material" && normalizedPassword === STUDY_MATERIAL_PASSWORD;
     
-    if (isCommonPassword || isAppSpecificPassword) {
+    if (isAdminPassword || isAppSpecificPassword || isStudyMaterialPassword) {
       // Store access in session
       sessionStorage.setItem("preppro_access", "granted");
       setError(false);
@@ -81,7 +81,7 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
         <div className="absolute inset-0 grid-pattern opacity-20" />
         
         <div className="glass-card rounded-2xl p-8 max-w-md w-full relative z-10 animate-fade-in text-center">
-          <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-6">
             <span className="text-4xl">🎉</span>
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -105,7 +105,7 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
       
       <div className={`glass-card rounded-2xl p-8 max-w-md w-full relative z-10 animate-fade-in ${shake ? 'animate-shake' : ''}`}>
         {/* Icon */}
-        <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6 animate-pulse">
+        <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6 animate-pulse pink-glow">
           <Shield className="w-10 h-10 text-primary" />
         </div>
         
