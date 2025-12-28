@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import MyFavorites from "@/components/MyFavorites";
+import RecentlyViewed from "@/components/RecentlyViewed";
 import Features from "@/components/Features";
 import StudyMaterial from "@/components/StudyMaterial";
 import AboutDeveloper from "@/components/AboutDeveloper";
@@ -15,6 +16,7 @@ const Index = () => {
         <Header />
         <Hero />
         <MyFavorites />
+        <RecentlyViewed />
         <Features />
         <StudyMaterial />
         <AboutDeveloper />
