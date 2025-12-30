@@ -42,9 +42,9 @@ const Hero = () => {
           
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <span className="text-foreground">Master Your</span>
+            <span className="text-foreground">Prep like a Pro</span>
             <br />
-            <span className="text-gradient animate-pulse">Exams</span>
+            <span className="text-gradient animate-pulse">With PrepPro</span>
           </h1>
           
           {/* Subtitle */}
