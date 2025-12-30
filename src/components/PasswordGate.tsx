@@ -166,10 +166,12 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
           </Button>
         </form>
 
-        {/* Hint */}
-        <p className="text-xs text-muted-foreground text-center mt-6">
-          Contact admin for access code
-        </p>
+        {/* Password hint */}
+        <div className="text-center mt-6 space-y-2">
+          <p className="text-xs text-muted-foreground">
+            Password: <span className="font-mono bg-secondary/50 px-2 py-1 rounded text-primary">preppro network</span>
+          </p>
+        </div>
       </div>
     </div>
   );
