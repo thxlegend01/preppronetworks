@@ -1,13 +1,24 @@
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const navLinks = [
     { href: "/", label: "Home", isRoute: true },
@@ -15,6 +26,15 @@ const Header = () => {
     { href: "/test-series", label: "Test Series", isRoute: true },
     { href: "#about", label: "About Us", isRoute: false },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
+  const getInitials = (email: string) => {
+    return email.charAt(0).toUpperCase();
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-navbar">
@@ -66,12 +86,52 @@ const Header = () => {
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95 transition-all">
-            Sign In
-          </Button>
-          <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-lg shadow-primary/25 hover:scale-105 hover:shadow-xl hover:shadow-primary/40 active:scale-95">
-            Get Started
-          </Button>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback className="bg-primary/20 text-primary text-sm font-medium">
+                      {getInitials(user.email || "U")}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="px-2 py-1.5">
+                  <p className="text-sm font-medium text-foreground">{user.email}</p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  <User className="w-4 h-4 mr-2" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive focus:text-destructive">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95 transition-all"
+                onClick={() => navigate("/auth")}
+              >
+                Sign In
+              </Button>
+              <Button 
+                size="sm" 
+                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-lg shadow-primary/25 hover:scale-105 hover:shadow-xl hover:shadow-primary/40 active:scale-95"
+                onClick={() => navigate("/auth")}
+              >
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -117,12 +177,46 @@ const Header = () => {
                 <span className="text-sm text-muted-foreground">Theme</span>
                 <ThemeToggle />
               </div>
-              <Button variant="ghost" className="w-full justify-start">
-                Sign In
-              </Button>
-              <Button className="w-full bg-gradient-to-r from-primary to-accent">
-                Get Started
-              </Button>
+              {user ? (
+                <>
+                  <div className="px-4 py-2">
+                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start text-destructive hover:text-destructive"
+                    onClick={() => {
+                      handleSignOut();
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      navigate("/auth");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                  <Button 
+                    className="w-full bg-gradient-to-r from-primary to-accent"
+                    onClick={() => {
+                      navigate("/auth");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
         </div>
