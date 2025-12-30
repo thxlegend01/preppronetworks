@@ -1,6 +1,8 @@
 import { Heart, ArrowRight, ExternalLink, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useDbFavorites } from "@/hooks/useDbFavorites";
+import { useAuth } from "@/hooks/useAuth";
 import { BATCHES } from "@/lib/data";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -94,7 +96,23 @@ const studyMaterialUrls: Record<string, { url: string; title: string }> = {
 
 const MyFavorites = () => {
   const navigate = useNavigate();
-  const { favorites, toggleFavorite, isFavorite } = useFavorites();
+  const { user } = useAuth();
+  
+  // Use localStorage for non-logged-in users, database for logged-in users
+  const localFavorites = useFavorites();
+  const dbFavorites = useDbFavorites();
+  
+  const favorites = user ? dbFavorites.favorites.map(f => f.item_id) : localFavorites.favorites;
+  const toggleFavorite = user 
+    ? (id: string) => {
+        const fav = dbFavorites.favorites.find(f => f.item_id === id);
+        const type = BATCHES.find(b => b.id === id) 
+          ? (BATCHES.find(b => b.id === id)?.category === "Test Series" ? "test" : "batch")
+          : "material";
+        dbFavorites.toggleFavorite(id, type as "batch" | "test" | "material");
+      }
+    : localFavorites.toggleFavorite;
+  
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
 

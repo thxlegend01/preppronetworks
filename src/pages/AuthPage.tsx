@@ -155,6 +155,21 @@ const AuthPage = () => {
             </Link>
 
             <div className="glass-card rounded-2xl p-8">
+              {/* Security Notice */}
+              <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-xl">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Lock className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground mb-1">🔒 Your Data is Safe</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      This login is only for website security purposes. Your data is encrypted and never shared with owners or any third party.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
                   {isLogin ? "Welcome back" : "Create an account"}
