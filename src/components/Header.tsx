@@ -102,7 +102,7 @@ const Header = () => {
                   <p className="text-sm font-medium text-foreground">{user.email}</p>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem onClick={() => navigate("/profile")} className="cursor-pointer">
                   <User className="w-4 h-4 mr-2" />
                   Profile
                 </DropdownMenuItem>
@@ -182,6 +182,17 @@ const Header = () => {
                   <div className="px-4 py-2">
                     <p className="text-sm text-muted-foreground">{user.email}</p>
                   </div>
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      navigate("/profile");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </Button>
                   <Button 
                     variant="ghost" 
                     className="w-full justify-start text-destructive hover:text-destructive"
