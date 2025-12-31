@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 import { BATCHES } from "@/lib/data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useAuth } from "@/hooks/useAuth";
 
 // Import logos
 import pwLogo from "@/assets/pw-logo.jpg";
@@ -40,12 +41,19 @@ const Features = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { addToRecentlyViewed } = useRecentlyViewed();
+  const { user } = useAuth();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string; isTestSeries: boolean } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleExplore = (id: string, url: string, title: string, isTestSeries: boolean = false) => {
+    // Check if user is logged in
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    
     if (url === "coming-soon") {
       setComingSoonOpen(true);
       return;
@@ -152,7 +160,7 @@ const Features = () => {
                 onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
-                Explore Now
+                {user ? "Explore Now" : "Login to Explore"}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
               </Button>
             </div>
@@ -219,7 +227,7 @@ const Features = () => {
                 onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
-                {test.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
+                {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
               </Button>
             </div>

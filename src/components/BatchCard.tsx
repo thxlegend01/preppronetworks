@@ -2,9 +2,10 @@ import { useState } from "react";
 import { ArrowRight, PlayCircle, Radio, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { Batch } from "@/lib/data";
 import DisclaimerDialog from "./DisclaimerDialog";
+import { useAuth } from "@/hooks/useAuth";
 
 interface BatchCardProps {
   batch: Batch;
@@ -13,8 +14,14 @@ interface BatchCardProps {
 
 const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAccessClick = () => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     setShowDisclaimer(true);
   };
 
@@ -76,7 +83,7 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
               className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group/btn"
             >
               <ExternalLink className="mr-2 w-4 h-4" />
-              Access Now
+              {user ? "Access Now" : "Login to Access"}
             </Button>
             <Link to={`/batches/${batch.id}`} className="block">
               <Button variant="outline" className="w-full border-border/50 hover:border-primary/50">
