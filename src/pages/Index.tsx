@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Dashboard from "@/components/Dashboard";
+import Leaderboard from "@/components/Leaderboard";
+import NewYearBanner from "@/components/NewYearBanner";
 import MyFavorites from "@/components/MyFavorites";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import Features from "@/components/Features";
@@ -17,9 +19,11 @@ const Index = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
+        <NewYearBanner />
         <Header />
         <Hero />
         {user && <Dashboard />}
+        {user && <Leaderboard />}
         <MyFavorites />
         <RecentlyViewed />
         <Features />

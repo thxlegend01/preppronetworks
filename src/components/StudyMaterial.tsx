@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useAuth } from "@/hooks/useAuth";
 
 interface SubjectFolder {
   id: string;
@@ -231,8 +232,13 @@ const StudyMaterial = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useAuth();
 
   const handleOpenMaterial = (material: SubjectFolder) => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     // Open externally for all study materials
     navigate(`/view/${encodeURIComponent(material.title)}`, {
       state: { 
@@ -324,7 +330,7 @@ const StudyMaterial = () => {
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
               >
                 <BookOpen className="mr-2 w-4 h-4" />
-                Open
+                {user ? "Open" : "Login to Open"}
                 <ExternalLink className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
               </Button>
             </div>
