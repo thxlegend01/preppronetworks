@@ -21,7 +21,7 @@ const NewYearBanner = () => {
         <div className="flex items-center justify-center gap-3 flex-wrap text-center">
           <PartyPopper className="w-5 h-5 animate-bounce" />
           <span className="font-bold text-sm md:text-base">
-            🎊 Happy New Year 2026! 🎊
+            🎊 Happy New Year 2025! 🎊
           </span>
           <Sparkles className="w-5 h-5 animate-pulse" />
           <span className="text-sm opacity-90 hidden sm:inline">
