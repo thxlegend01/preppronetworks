@@ -18,20 +18,35 @@ const ADMIN_PASSWORDS = ["preppro network", "i am admin"];
 
 // App-specific passwords (case-insensitive)
 const APP_PASSWORDS: Record<string, string> = {
-  "pw-app": "pw preppro",
-  "raw-app": "rwa preppro",
-  "kgs-app": "kgs preppro",
-  "selection-way-app": "sw preppro",
-  "cds-app": "cds preppro",
-  "next-toppers-app": "nt preppro",
-  "unacademy-app": "un preppro",
-  "mathango-test-series": "qft preppro",
-  "revision-course-app": "js preppro",
-  "pyq-cbt-test": "js preppro",
+  "pw-app": "pw",
+  "raw-app": "raw",
+  "kgs-app": "kgs",
+  "selection-way-app": "sw",
+  "cds-app": "cds",
+  "next-toppers-app": "nt",
+  "unacademy-app": "un",
+  "mathango-test-series": "mathango",
+  "revision-course-app": "revision",
+  "pyq-cbt-test": "pyq",
+};
+
+// Password display names for hints
+const APP_PASSWORD_HINTS: Record<string, string> = {
+  "pw-app": "pw",
+  "raw-app": "raw",
+  "kgs-app": "kgs",
+  "selection-way-app": "sw",
+  "cds-app": "cds",
+  "next-toppers-app": "nt",
+  "unacademy-app": "un",
+  "mathango-test-series": "mathango",
+  "revision-course-app": "revision",
+  "pyq-cbt-test": "pyq",
+  "study-material": "study",
 };
 
 // Study material password
-const STUDY_MATERIAL_PASSWORD = "sm preppro";
+const STUDY_MATERIAL_PASSWORD = "study";
 
 const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
   const [password, setPassword] = useState("");
@@ -169,7 +184,7 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
         {/* Password hint */}
         <div className="text-center mt-6 space-y-2">
           <p className="text-xs text-muted-foreground">
-            Password: <span className="font-mono bg-secondary/50 px-2 py-1 rounded text-primary">preppro network</span>
+            Password: <span className="font-mono bg-secondary/50 px-2 py-1 rounded text-primary">{APP_PASSWORD_HINTS[appId] || "preppro network"}</span>
           </p>
         </div>
       </div>
