@@ -1,4 +1,4 @@
-import { ArrowRight, Smartphone, BookOpen, Heart } from "lucide-react";
+import { ArrowRight, Smartphone, BookOpen, Heart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -156,13 +156,29 @@ const Features = () => {
               </p>
               
               {/* CTA */}
-              <Button 
-                onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
-              >
-                {user ? "Explore Now" : "Login to Explore"}
-                <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                >
+                  {user ? "Explore Now" : "Login to Explore"}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+                </Button>
+                <a 
+                  href="https://gplinks.co/wtGQu" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="secondary" 
+                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  >
+                    <ExternalLink className="mr-2 w-4 h-4" />
+                    Code and Support
+                  </Button>
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -223,13 +239,29 @@ const Features = () => {
               </p>
               
               {/* CTA */}
-              <Button 
-                onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
-              >
-                {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
-                <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                >
+                  {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+                </Button>
+                <a 
+                  href="https://gplinks.co/wtGQu" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="secondary" 
+                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  >
+                    <ExternalLink className="mr-2 w-4 h-4" />
+                    Code and Support
+                  </Button>
+                </a>
+              </div>
             </div>
           ))}
         </div>

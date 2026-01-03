@@ -346,7 +346,7 @@ const StudyMaterial = () => {
                     className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
                   >
                     <ExternalLink className="mr-2 w-4 h-4" />
-                    Support Us
+                    Code and Support
                   </Button>
                 </a>
               </div>
