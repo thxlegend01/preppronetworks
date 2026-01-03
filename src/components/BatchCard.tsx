@@ -91,6 +91,20 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
+            <a 
+              href="https://gplinks.co/wtGQu" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button 
+                variant="secondary" 
+                className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+              >
+                <ExternalLink className="mr-2 w-4 h-4" />
+                Open Shortener To Support
+              </Button>
+            </a>
           </div>
         </div>
       </div>

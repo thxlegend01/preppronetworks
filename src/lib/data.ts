@@ -25,7 +25,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "http://Pw.theeduverse.xyz/preppro-key",
+    externalUrl: "http://DeltaStudy.site/sachin-access",
     openInternal: false,
     chapters: [
       { id: "pw-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
