@@ -1,4 +1,4 @@
-import { Clock, FileText, Zap, FolderOpen } from "lucide-react";
+import { Clock, FileText, Zap, FolderOpen, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -66,6 +66,21 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
           <FolderOpen className="w-4 h-4" />
           QFT PDF
         </Button>
+        
+        <a 
+          href="https://gplinks.co/wtGQu" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <Button 
+            variant="secondary" 
+            className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Open Shortener To Support
+          </Button>
+        </a>
       </div>
     </div>
   );
