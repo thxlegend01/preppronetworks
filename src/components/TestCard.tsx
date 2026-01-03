@@ -78,7 +78,7 @@ const TestCard = ({ id, title, duration, questions, subject }: TestCardProps) =>
             className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
           >
             <ExternalLink className="w-4 h-4" />
-            Open Shortener To Support
+            Code and Support
           </Button>
         </a>
       </div>
