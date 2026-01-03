@@ -12,6 +12,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
+import FloatingSupportButton from "@/components/FloatingSupportButton";
 import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
@@ -33,6 +34,7 @@ const Index = () => {
         <CTA />
         <AdminSection />
         <Footer />
+        <FloatingSupportButton />
       </div>
     </PageTransition>
   );
