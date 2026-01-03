@@ -11,6 +11,7 @@ import AboutDeveloper from "@/components/AboutDeveloper";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import AdminSection from "@/components/AdminSection";
 import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
@@ -30,6 +31,7 @@ const Index = () => {
         <StudyMaterial />
         <AboutDeveloper />
         <CTA />
+        <AdminSection />
         <Footer />
       </div>
     </PageTransition>
