@@ -324,15 +324,32 @@ const StudyMaterial = () => {
               </p>
               
               {/* CTA */}
-              <Button 
-                onClick={() => handleOpenMaterial(material)}
-                size="sm"
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
-              >
-                <BookOpen className="mr-2 w-4 h-4" />
-                {user ? "Open" : "Login to Open"}
-                <ExternalLink className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  onClick={() => handleOpenMaterial(material)}
+                  size="sm"
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                >
+                  <BookOpen className="mr-2 w-4 h-4" />
+                  {user ? "Open" : "Login to Open"}
+                  <ExternalLink className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
+                </Button>
+                <a 
+                  href="https://gplinks.co/wtGQu" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="secondary" 
+                    size="sm"
+                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  >
+                    <ExternalLink className="mr-2 w-4 h-4" />
+                    Support Us
+                  </Button>
+                </a>
+              </div>
             </div>
           ))}
         </div>
