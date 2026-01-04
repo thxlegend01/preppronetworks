@@ -21,6 +21,7 @@ import prepproLogo from "@/assets/preppro-logo.jpg";
 import cdsLogo from "@/assets/cds-logo.png";
 import unacademyLogo from "@/assets/unacademy-logo.jpg";
 import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
+import sarvamLogo from "@/assets/sarvam-logo.jpeg";
 
 // Logo mapping
 const logoMap: Record<string, string> = {
@@ -35,6 +36,7 @@ const logoMap: Record<string, string> = {
   "unacademy-app": unacademyLogo,
   "revision-course-app": revisionCourseLogo,
   "pyq-cbt-test": revisionCourseLogo,
+  "sarvam-neet-app": sarvamLogo,
 };
 
 const Features = () => {
