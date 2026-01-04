@@ -133,6 +133,21 @@ export const BATCHES: Batch[] = [
     ],
   },
   {
+    id: "sarvam-neet-app",
+    title: "Sarvam Neet",
+    description: "Comprehensive NEET preparation platform with quality study materials and resources.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+    externalUrl: "https://sarvamxneet.netlify.app/",
+    openInternal: true,
+    chapters: [
+      { id: "sn-1", title: "Biology", lessons: 80, duration: "40 hrs" },
+      { id: "sn-2", title: "Physics", lessons: 60, duration: "30 hrs" },
+      { id: "sn-3", title: "Chemistry", lessons: 60, duration: "30 hrs" },
+    ],
+  },
+  {
     id: "mathango-test-series",
     title: "Mathango Test Series",
     description: "Premium mathematics test series for JEE Main and Advanced preparation.",
