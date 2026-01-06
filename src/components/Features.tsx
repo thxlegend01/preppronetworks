@@ -1,9 +1,10 @@
-import { ArrowRight, Smartphone, BookOpen, Heart, ExternalLink } from "lucide-react";
+import { ArrowRight, Smartphone, BookOpen, Heart, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerDialog from "./DisclaimerDialog";
 import ComingSoonDialog from "./ComingSoonDialog";
+import AccessCodeDialog from "./AccessCodeDialog";
 import SearchBar from "./SearchBar";
 import { BATCHES } from "@/lib/data";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -46,6 +47,7 @@ const Features = () => {
   const { user } = useAuth();
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [accessCodeOpen, setAccessCodeOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string; isTestSeries: boolean } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -166,20 +168,14 @@ const Features = () => {
                   {user ? "Explore Now" : "Login to Explore"}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
                 </Button>
-                <a 
-                  href="https://gplinks.co/wtGQu" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
+                <Button 
+                  variant="secondary" 
+                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  onClick={() => setAccessCodeOpen(true)}
                 >
-                  <Button 
-                    variant="secondary" 
-                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  >
-                    <ExternalLink className="mr-2 w-4 h-4" />
-                    Code and Support
-                  </Button>
-                </a>
+                  <Key className="mr-2 w-4 h-4" />
+                  Access Code
+                </Button>
               </div>
             </div>
           ))}
@@ -249,20 +245,14 @@ const Features = () => {
                   {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
                 </Button>
-                <a 
-                  href="https://gplinks.co/wtGQu" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
+                <Button 
+                  variant="secondary" 
+                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  onClick={() => setAccessCodeOpen(true)}
                 >
-                  <Button 
-                    variant="secondary" 
-                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  >
-                    <ExternalLink className="mr-2 w-4 h-4" />
-                    Code and Support
-                  </Button>
-                </a>
+                  <Key className="mr-2 w-4 h-4" />
+                  Access Code
+                </Button>
               </div>
             </div>
           ))}
@@ -287,6 +277,11 @@ const Features = () => {
         isOpen={comingSoonOpen}
         onClose={() => setComingSoonOpen(false)}
         title="Other Test Series"
+      />
+
+      <AccessCodeDialog
+        isOpen={accessCodeOpen}
+        onClose={() => setAccessCodeOpen(false)}
       />
     </section>
   );

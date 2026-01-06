@@ -1,8 +1,9 @@
-import { FileText, ExternalLink, BookOpen, Heart } from "lucide-react";
+import { FileText, BookOpen, Heart, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
+import AccessCodeDialog from "./AccessCodeDialog";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -232,6 +233,7 @@ const StudyMaterial = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState("");
+  const [accessCodeOpen, setAccessCodeOpen] = useState(false);
   const { user } = useAuth();
 
   const handleOpenMaterial = (material: SubjectFolder) => {
@@ -332,23 +334,16 @@ const StudyMaterial = () => {
                 >
                   <BookOpen className="mr-2 w-4 h-4" />
                   {user ? "Open" : "Login to Open"}
-                  <ExternalLink className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                 </Button>
-                <a 
-                  href="https://gplinks.co/wtGQu" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
+                <Button 
+                  variant="secondary" 
+                  size="sm"
+                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                  onClick={() => setAccessCodeOpen(true)}
                 >
-                  <Button 
-                    variant="secondary" 
-                    size="sm"
-                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  >
-                    <ExternalLink className="mr-2 w-4 h-4" />
-                    Code and Support
-                  </Button>
-                </a>
+                  <Key className="mr-2 w-4 h-4" />
+                  Access Code
+                </Button>
               </div>
             </div>
           ))}
@@ -361,6 +356,11 @@ const StudyMaterial = () => {
           </div>
         )}
       </div>
+
+      <AccessCodeDialog
+        isOpen={accessCodeOpen}
+        onClose={() => setAccessCodeOpen(false)}
+      />
     </section>
   );
 };
