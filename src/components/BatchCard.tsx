@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ArrowRight, PlayCircle, Radio, ExternalLink } from "lucide-react";
+import { ArrowRight, PlayCircle, Radio, ExternalLink, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from "react-router-dom";
 import type { Batch } from "@/lib/data";
 import DisclaimerDialog from "./DisclaimerDialog";
+import AccessCodeDialog from "./AccessCodeDialog";
 import { useAuth } from "@/hooks/useAuth";
 
 interface BatchCardProps {
@@ -14,6 +15,7 @@ interface BatchCardProps {
 
 const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [accessCodeOpen, setAccessCodeOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -91,20 +93,14 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <a 
-              href="https://gplinks.co/wtGQu" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block"
+            <Button 
+              variant="secondary" 
+              className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+              onClick={() => setAccessCodeOpen(true)}
             >
-              <Button 
-                variant="secondary" 
-                className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-              >
-                <ExternalLink className="mr-2 w-4 h-4" />
-                Code and Support
-              </Button>
-            </a>
+              <Key className="mr-2 w-4 h-4" />
+              Access Code
+            </Button>
           </div>
         </div>
       </div>
@@ -114,6 +110,11 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
         onClose={() => setShowDisclaimer(false)}
         onContinue={() => {}}
         externalUrl={batch.externalUrl}
+      />
+
+      <AccessCodeDialog
+        isOpen={accessCodeOpen}
+        onClose={() => setAccessCodeOpen(false)}
       />
     </>
   );
