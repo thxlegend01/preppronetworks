@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AuthProvider } from "@/hooks/useAuth";
 import { UsernameCheckProvider } from "@/hooks/useUsernameCheck";
+import { BlockCheckProvider } from "@/hooks/useBlockCheck";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import TestPage from "./pages/TestPage";
@@ -22,24 +23,26 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <AuthProvider>
-        <UsernameCheckProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/auth" element={<AuthPage />} />
-                <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
-                <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
-                <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
-                <Route path="/view/:appId" element={<ViewerPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </UsernameCheckProvider>
+        <BlockCheckProvider>
+          <UsernameCheckProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<AuthPage />} />
+                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                  <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
+                  <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
+                  <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
+                  <Route path="/view/:appId" element={<ViewerPage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </UsernameCheckProvider>
+        </BlockCheckProvider>
       </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>

@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
-import { Shield, Users, UserPlus, Eye, EyeOff, Lock, Mail, AtSign, Calendar, Clock } from "lucide-react";
+import { Shield, Users, UserPlus, Eye, EyeOff, Lock, AtSign, Calendar, Clock, Ban, UserX, CheckCircle, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const ADMIN_PASSWORD = "Legend Owner";
 
@@ -16,11 +27,17 @@ interface UserProfile {
   updated_at: string;
 }
 
+interface BlockedUser {
+  user_id: string;
+  blocked_at: string;
+  reason: string | null;
+}
+
 interface UserStats {
   totalUsers: number;
   recentSignups: number;
   todaySignups: number;
-  usersWithUsername: number;
+  blockedUsers: number;
 }
 
 const AdminSection = () => {
@@ -32,10 +49,15 @@ const AdminSection = () => {
     totalUsers: 0,
     recentSignups: 0,
     todaySignups: 0,
-    usersWithUsername: 0,
+    blockedUsers: 0,
   });
   const [users, setUsers] = useState<UserProfile[]>([]);
+  const [blockedUserIds, setBlockedUserIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
+  const [blockDialogOpen, setBlockDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
+  const [blockReason, setBlockReason] = useState("");
+  const { toast } = useToast();
 
   const handleUnlock = () => {
     if (password === ADMIN_PASSWORD) {
@@ -50,13 +72,23 @@ const AdminSection = () => {
   const fetchStats = async () => {
     setLoading(true);
     try {
-      // Get all profiles (represents all users)
+      // Get all profiles
       const { data: profiles, error: profilesError } = await supabase
         .from("profiles")
         .select("*")
         .order("created_at", { ascending: false });
 
       if (profilesError) throw profilesError;
+
+      // Get blocked users
+      const { data: blocked, error: blockedError } = await supabase
+        .from("blocked_users")
+        .select("user_id, blocked_at, reason");
+
+      if (blockedError) throw blockedError;
+
+      const blockedIds = new Set((blocked || []).map((b: BlockedUser) => b.user_id));
+      setBlockedUserIds(blockedIds);
 
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -65,13 +97,12 @@ const AdminSection = () => {
       const totalUsers = profiles?.length || 0;
       const todaySignups = profiles?.filter(p => new Date(p.created_at) >= today).length || 0;
       const recentSignups = profiles?.filter(p => new Date(p.created_at) >= lastWeek).length || 0;
-      const usersWithUsername = profiles?.filter(p => p.username).length || 0;
 
       setStats({
         totalUsers,
         recentSignups,
         todaySignups,
-        usersWithUsername,
+        blockedUsers: blockedIds.size,
       });
 
       setUsers(profiles as UserProfile[] || []);
@@ -80,6 +111,74 @@ const AdminSection = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBlockUser = async () => {
+    if (!selectedUser) return;
+
+    try {
+      const { error } = await supabase
+        .from("blocked_users")
+        .insert({
+          user_id: selectedUser.user_id,
+          blocked_by: "admin",
+          reason: blockReason || "Blocked by admin"
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "User Blocked",
+        description: `${selectedUser.display_name || selectedUser.username || "User"} has been restricted from the site.`,
+      });
+
+      setBlockedUserIds(prev => new Set([...prev, selectedUser.user_id]));
+      setStats(prev => ({ ...prev, blockedUsers: prev.blockedUsers + 1 }));
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: err.message || "Failed to block user",
+      });
+    } finally {
+      setBlockDialogOpen(false);
+      setSelectedUser(null);
+      setBlockReason("");
+    }
+  };
+
+  const handleUnblockUser = async (userId: string) => {
+    try {
+      const { error } = await supabase
+        .from("blocked_users")
+        .delete()
+        .eq("user_id", userId);
+
+      if (error) throw error;
+
+      toast({
+        title: "User Unblocked",
+        description: "User access has been restored.",
+      });
+
+      setBlockedUserIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(userId);
+        return newSet;
+      });
+      setStats(prev => ({ ...prev, blockedUsers: prev.blockedUsers - 1 }));
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: err.message || "Failed to unblock user",
+      });
+    }
+  };
+
+  const openBlockDialog = (user: UserProfile) => {
+    setSelectedUser(user);
+    setBlockDialogOpen(true);
   };
 
   if (!isUnlocked) {
@@ -138,10 +237,10 @@ const AdminSection = () => {
             <span className="text-sm font-medium">Admin Dashboard</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            User Statistics
+            User Management
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Overview of all registered users and signup activity
+            Manage users and restrict access to the platform
           </p>
         </div>
 
@@ -172,11 +271,11 @@ const AdminSection = () => {
           </div>
 
           <div className="glass-card rounded-2xl p-6 text-center">
-            <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AtSign className="w-6 h-6 text-blue-500" />
+            <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Ban className="w-6 h-6 text-destructive" />
             </div>
-            <p className="text-4xl font-bold text-blue-500 mb-2">{stats.usersWithUsername}</p>
-            <p className="text-muted-foreground">With Username</p>
+            <p className="text-4xl font-bold text-destructive mb-2">{stats.blockedUsers}</p>
+            <p className="text-muted-foreground">Blocked Users</p>
           </div>
         </div>
 
@@ -202,62 +301,94 @@ const AdminSection = () => {
                     <th className="text-left py-3 px-4 text-muted-foreground font-medium">#</th>
                     <th className="text-left py-3 px-4 text-muted-foreground font-medium">User</th>
                     <th className="text-left py-3 px-4 text-muted-foreground font-medium">Username</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">User ID</th>
+                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Status</th>
                     <th className="text-left py-3 px-4 text-muted-foreground font-medium">Joined</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Last Active</th>
+                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user, index) => (
-                    <tr key={user.id} className="border-b border-border/50 hover:bg-secondary/20 transition-colors">
-                      <td className="py-3 px-4 text-sm font-medium">{index + 1}</td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-3">
-                          {user.avatar_url ? (
-                            <img 
-                              src={user.avatar_url} 
-                              alt={user.display_name || "User"} 
-                              className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20"
-                            />
-                          ) : (
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
-                              <span className="text-sm font-bold text-primary">
-                                {(user.display_name || "U")[0].toUpperCase()}
+                  {users.map((user, index) => {
+                    const isBlocked = blockedUserIds.has(user.user_id);
+                    return (
+                      <tr key={user.id} className={`border-b border-border/50 hover:bg-secondary/20 transition-colors ${isBlocked ? 'bg-destructive/5' : ''}`}>
+                        <td className="py-3 px-4 text-sm font-medium">{index + 1}</td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-3">
+                            {user.avatar_url ? (
+                              <img 
+                                src={user.avatar_url} 
+                                alt={user.display_name || "User"} 
+                                className={`w-10 h-10 rounded-full object-cover ring-2 ${isBlocked ? 'ring-destructive/50 opacity-50' : 'ring-primary/20'}`}
+                              />
+                            ) : (
+                              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isBlocked ? 'bg-destructive/20' : 'bg-gradient-to-br from-primary/30 to-accent/30'}`}>
+                                <span className={`text-sm font-bold ${isBlocked ? 'text-destructive' : 'text-primary'}`}>
+                                  {(user.display_name || "U")[0].toUpperCase()}
+                                </span>
+                              </div>
+                            )}
+                            <div>
+                              <span className={`font-medium block ${isBlocked ? 'line-through text-muted-foreground' : ''}`}>
+                                {user.display_name || "Anonymous"}
                               </span>
                             </div>
-                          )}
-                          <div>
-                            <span className="font-medium block">{user.display_name || "Anonymous"}</span>
                           </div>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        {user.username ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 rounded-md text-sm text-primary">
-                            <AtSign className="w-3 h-3" />
-                            {user.username}
-                          </span>
-                        ) : (
-                          <span className="text-muted-foreground text-sm italic">Not set</span>
-                        )}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-muted-foreground font-mono">
-                        {user.user_id?.slice(0, 8)}...
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Calendar className="w-3 h-3" />
-                          {new Date(user.created_at).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          {new Date(user.updated_at).toLocaleDateString()}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="py-3 px-4">
+                          {user.username ? (
+                            <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isBlocked ? 'bg-destructive/10 text-destructive' : 'bg-primary/10 text-primary'}`}>
+                              <AtSign className="w-3 h-3" />
+                              {user.username}
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground text-sm italic">Not set</span>
+                          )}
+                        </td>
+                        <td className="py-3 px-4">
+                          {isBlocked ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-1 bg-destructive/10 text-destructive rounded-md text-sm">
+                              <UserX className="w-3 h-3" />
+                              Blocked
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-500/10 text-green-500 rounded-md text-sm">
+                              <CheckCircle className="w-3 h-3" />
+                              Active
+                            </span>
+                          )}
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Calendar className="w-3 h-3" />
+                            {new Date(user.created_at).toLocaleDateString()}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          {isBlocked ? (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-green-500 border-green-500/30 hover:bg-green-500/10"
+                              onClick={() => handleUnblockUser(user.user_id)}
+                            >
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              Unblock
+                            </Button>
+                          ) : (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-destructive border-destructive/30 hover:bg-destructive/10"
+                              onClick={() => openBlockDialog(user)}
+                            >
+                              <Ban className="w-4 h-4 mr-1" />
+                              Block
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
               
@@ -277,6 +408,46 @@ const AdminSection = () => {
           </Button>
         </div>
       </div>
+
+      {/* Block User Dialog */}
+      <AlertDialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-destructive" />
+              Block User
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to block <strong>{selectedUser?.display_name || selectedUser?.username || "this user"}</strong>? 
+              They will be restricted from accessing the site.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          
+          <div className="py-4">
+            <Input
+              placeholder="Reason for blocking (optional)"
+              value={blockReason}
+              onChange={(e) => setBlockReason(e.target.value)}
+            />
+          </div>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => {
+              setSelectedUser(null);
+              setBlockReason("");
+            }}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={handleBlockUser}
+            >
+              <Ban className="w-4 h-4 mr-2" />
+              Block User
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </section>
   );
 };
