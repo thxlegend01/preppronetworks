@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, Lock, User, Sparkles, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, User, Sparkles, ArrowRight, Eye, EyeOff, AtSign, Check, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,13 +12,15 @@ import { useAuth } from "@/hooks/useAuth";
 import PageTransition from "@/components/PageTransition";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  identifier: z.string().min(1, "Please enter your email or username"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 const signupSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username is too long").regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed"),
   displayName: z.string().min(2, "Display name must be at least 2 characters").max(50, "Display name is too long"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -35,6 +37,8 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
+  const [checkingUsername, setCheckingUsername] = useState(false);
   const { toast } = useToast();
   const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
@@ -48,17 +52,71 @@ const AuthPage = () => {
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { identifier: "", password: "" },
   });
 
   const signupForm = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { displayName: "", email: "", password: "", confirmPassword: "" },
+    defaultValues: { username: "", displayName: "", email: "", password: "", confirmPassword: "" },
   });
+
+  // Check if username is available
+  const checkUsernameAvailable = async (username: string) => {
+    if (username.length < 3) {
+      setUsernameAvailable(null);
+      return;
+    }
+    setCheckingUsername(true);
+    try {
+      const { data } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("username", username.toLowerCase())
+        .maybeSingle();
+      setUsernameAvailable(!data);
+    } catch {
+      setUsernameAvailable(null);
+    } finally {
+      setCheckingUsername(false);
+    }
+  };
 
   const handleLogin = async (data: LoginFormData) => {
     setIsLoading(true);
-    const { error } = await signIn(data.email, data.password);
+    
+    // Check if identifier is email or username
+    let email = data.identifier;
+    if (!data.identifier.includes("@")) {
+      // It's a username, look up the email
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("user_id")
+        .eq("username", data.identifier.toLowerCase())
+        .maybeSingle();
+      
+      if (!profile) {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Login failed",
+          description: "Username not found. Please check and try again.",
+        });
+        return;
+      }
+      
+      // Get the user's email from auth.users via the user_id
+      // Since we can't directly query auth.users, we need to use email
+      // For now, prompt user to use email
+      toast({
+        variant: "destructive",
+        title: "Please use email",
+        description: "Username login requires email. Please enter your email address.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const { error } = await signIn(email, data.password);
     setIsLoading(false);
 
     if (error) {
@@ -79,8 +137,17 @@ const AuthPage = () => {
   };
 
   const handleSignup = async (data: SignupFormData) => {
+    if (!usernameAvailable) {
+      toast({
+        variant: "destructive",
+        title: "Username not available",
+        description: "Please choose a different username.",
+      });
+      return;
+    }
+
     setIsLoading(true);
-    const { error } = await signUp(data.email, data.password, data.displayName);
+    const { error } = await signUp(data.email, data.password, data.displayName, data.username.toLowerCase());
     setIsLoading(false);
 
     if (error) {
@@ -176,7 +243,7 @@ const AuthPage = () => {
                 </h2>
                 <p className="text-muted-foreground">
                   {isLogin 
-                    ? "Enter your credentials to access your account" 
+                    ? "Enter your email to access your account" 
                     : "Start your preparation journey today"}
                 </p>
               </div>
@@ -208,19 +275,19 @@ const AuthPage = () => {
               {isLogin ? (
                 <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="login-email" className="text-foreground">Email</Label>
+                    <Label htmlFor="login-identifier" className="text-foreground">Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                       <Input
-                        id="login-email"
-                        type="email"
+                        id="login-identifier"
+                        type="text"
                         placeholder="you@example.com"
                         className="pl-10"
-                        {...loginForm.register("email")}
+                        {...loginForm.register("identifier")}
                       />
                     </div>
-                    {loginForm.formState.errors.email && (
-                      <p className="text-xs text-destructive">{loginForm.formState.errors.email.message}</p>
+                    {loginForm.formState.errors.identifier && (
+                      <p className="text-xs text-destructive">{loginForm.formState.errors.identifier.message}</p>
                     )}
                   </div>
 
@@ -259,6 +326,44 @@ const AuthPage = () => {
                 </form>
               ) : (
                 <form onSubmit={signupForm.handleSubmit(handleSignup)} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-username" className="text-foreground">Username</Label>
+                    <div className="relative">
+                      <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        id="signup-username"
+                        type="text"
+                        placeholder="your_username"
+                        className="pl-10 pr-10"
+                        {...signupForm.register("username", {
+                          onChange: (e) => {
+                            const value = e.target.value.replace(/[^a-zA-Z0-9_]/g, "").toLowerCase();
+                            e.target.value = value;
+                            checkUsernameAvailable(value);
+                          }
+                        })}
+                      />
+                      {signupForm.watch("username").length >= 3 && (
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                          {checkingUsername ? (
+                            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                          ) : usernameAvailable ? (
+                            <Check className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <AlertCircle className="w-4 h-4 text-destructive" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    {signupForm.formState.errors.username ? (
+                      <p className="text-xs text-destructive">{signupForm.formState.errors.username.message}</p>
+                    ) : usernameAvailable === false ? (
+                      <p className="text-xs text-destructive">This username is already taken</p>
+                    ) : usernameAvailable === true ? (
+                      <p className="text-xs text-green-500">Username is available!</p>
+                    ) : null}
+                  </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="signup-name" className="text-foreground">Display Name</Label>
                     <div className="relative">
@@ -337,7 +442,7 @@ const AuthPage = () => {
                   <Button 
                     type="submit" 
                     className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group"
-                    disabled={isLoading}
+                    disabled={isLoading || !usernameAvailable}
                   >
                     {isLoading ? "Creating account..." : "Create Account"}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
