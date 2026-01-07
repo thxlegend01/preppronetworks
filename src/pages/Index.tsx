@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Dashboard from "@/components/Dashboard";
-import Leaderboard from "@/components/Leaderboard";
 import NewYearBanner from "@/components/NewYearBanner";
 import MyFavorites from "@/components/MyFavorites";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -25,7 +24,6 @@ const Index = () => {
         <Header />
         <Hero />
         {user && <Dashboard />}
-        {user && <Leaderboard />}
         <MyFavorites />
         <RecentlyViewed />
         <Features />
