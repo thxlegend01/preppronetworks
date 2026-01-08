@@ -21,6 +21,13 @@ const buttonVariants = cva(
         "palette-active": "bg-primary text-primary-foreground glow-subtle",
         "palette-review": "bg-accent text-accent-foreground border border-accent",
         "palette-answered": "bg-success text-success-foreground",
+        aurora: "btn-aurora text-white border-none",
+        emerald: "btn-emerald",
+        obsidian: "btn-obsidian",
+        mirage: "btn-mirage text-white border-none",
+        magentare: "btn-magentare text-white border-none",
+        glacium: "btn-glacium",
+        verdanth: "btn-verdanth",
       },
       size: {
         default: "h-10 px-5 py-2",
