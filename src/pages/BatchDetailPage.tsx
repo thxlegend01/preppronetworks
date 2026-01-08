@@ -230,6 +230,10 @@ const BatchDetailPage = () => {
         onClose={() => setShowDisclaimer(false)}
         onContinue={() => {}}
         externalUrl={batch.externalUrl}
+        batchTitle={batch.title}
+        openInternal={batch.openInternal}
+        showLoadingAnimation={batch.showLoadingAnimation}
+        openExternalAfterLoading={batch.openExternalAfterLoading}
       />
     </div>
     </PageTransition>
