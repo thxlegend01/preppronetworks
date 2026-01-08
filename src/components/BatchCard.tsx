@@ -110,6 +110,10 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
         onClose={() => setShowDisclaimer(false)}
         onContinue={() => {}}
         externalUrl={batch.externalUrl}
+        batchTitle={batch.title}
+        openInternal={batch.openInternal}
+        showLoadingAnimation={batch.showLoadingAnimation}
+        openExternalAfterLoading={batch.openExternalAfterLoading}
       />
 
       <AccessCodeDialog

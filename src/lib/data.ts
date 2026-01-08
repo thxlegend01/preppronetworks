@@ -14,6 +14,8 @@ export interface Batch {
   image: string;
   externalUrl: string;
   openInternal?: boolean;
+  showLoadingAnimation?: boolean;
+  openExternalAfterLoading?: boolean;
   chapters: Chapter[];
 }
 
@@ -41,6 +43,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     externalUrl: "https://spidyuniverserwa.vercel.app",
+    showLoadingAnimation: true,
     chapters: [
       { id: "raw-1", title: "NDA Preparation", lessons: 60, duration: "30 hrs" },
       { id: "raw-2", title: "CDS Preparation", lessons: 50, duration: "25 hrs" },
@@ -55,6 +58,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
     externalUrl: "https://spidykgs.vercel.app",
+    showLoadingAnimation: true,
     chapters: [
       { id: "kgs-1", title: "UPSC Prelims", lessons: 80, duration: "40 hrs" },
       { id: "kgs-2", title: "SSC CGL", lessons: 60, duration: "30 hrs" },
@@ -69,6 +73,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
     externalUrl: "https://spidyway.vercel.app/",
+    showLoadingAnimation: true,
     chapters: [
       { id: "sw-1", title: "Railway Exams", lessons: 50, duration: "25 hrs" },
       { id: "sw-2", title: "Banking Exams", lessons: 60, duration: "30 hrs" },
@@ -83,6 +88,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1579187707643-35646d22b596?w=800&q=80",
     externalUrl: "https://spidycds.vercel.app",
+    showLoadingAnimation: true,
     chapters: [
       { id: "cds-1", title: "English", lessons: 40, duration: "20 hrs" },
       { id: "cds-2", title: "General Knowledge", lessons: 50, duration: "25 hrs" },
@@ -214,7 +220,8 @@ export const BATCHES: Batch[] = [
     status: "Available",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
     externalUrl: "http://Test.deltastudy.site",
-    openInternal: true,
+    openInternal: false,
+    openExternalAfterLoading: true,
     chapters: [
       { id: "pwcbt-1", title: "JEE CBT Tests", lessons: 50, duration: "25 hrs" },
       { id: "pwcbt-2", title: "NEET CBT Tests", lessons: 50, duration: "25 hrs" },
