@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { ArrowRight, Sparkles, Users, BookOpen, Trophy, Target } from "lucide-react";
+import { ArrowRight, Play, Users, BookOpen, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const stats = [
   { icon: Users, value: "50K+", label: "Students" },
-  { icon: BookOpen, value: "200+", label: "Resources" },
+  { icon: BookOpen, value: "200+", label: "Courses" },
   { icon: Trophy, value: "95%", label: "Success Rate" },
-  { icon: Target, value: "10+", label: "Exams Covered" },
 ];
 
 const Hero = () => {
@@ -19,94 +18,88 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-12">
-      {/* Royal Aurora Background */}
-      <div className="absolute inset-0 bg-aurora-gradient" />
-      <div className="absolute inset-0 aurora-mesh opacity-40" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute inset-0 radial-glow" />
+      <div className="absolute inset-0 grid-pattern opacity-30" />
       
-      {/* Animated Aurora Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aurora-primary/20 rounded-full blur-[150px] animate-aurora-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-aurora-secondary/20 rounded-full blur-[120px] animate-aurora-float" style={{ animationDelay: "2s" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-aurora-accent/15 rounded-full blur-[180px] animate-pulse" />
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-aurora-primary/40 rounded-full animate-float-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 5}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Animated gradient orbs */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-aurora-primary/15 border border-aurora-primary/30 rounded-full mb-8 animate-fade-in backdrop-blur-sm hover:bg-aurora-primary/20 transition-all duration-300 cursor-default">
-            <Sparkles className="w-4 h-4 text-aurora-primary animate-pulse" />
-            <span className="text-sm font-semibold text-aurora-primary tracking-wide">India's Smart Exam Prep Platform</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-8 animate-fade-in hover-scale cursor-default">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span className="text-sm font-medium text-primary">Welcome to the Future of Learning</span>
           </div>
           
           {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <span className="text-foreground">PrepProHub</span>
-            <span className="text-aurora-gradient"> – Your Smart</span>
-            <br className="hidden sm:block" />
-            <span className="text-aurora-gradient">Companion</span>
-            <span className="text-foreground"> for JEE, NEET</span>
-            <br className="hidden sm:block" />
-            <span className="text-foreground">& Competitive Exams</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <span className="text-foreground">Prep like a Pro</span>
+            <br />
+            <span className="text-gradient animate-pulse">With PrepPro</span>
           </h1>
           
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.2s" }}>
-            <span className="text-aurora-primary font-semibold">Concept clarity</span> • 
-            <span className="text-emerald-primary font-semibold"> Smart practice</span> • 
-            <span className="text-obsidian-primary font-semibold"> Real results</span>
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            Join India's most comprehensive learning platform. Access premium batches, 
+            practice tests, and expert mentorship to crack JEE, NEET, NDA & more.
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Button 
-              variant="aurora"
-              size="xl" 
-              className={`group hover:scale-105 transition-all duration-300 shadow-aurora ${activeButton === 'apps' ? 'scale-95' : ''}`}
+              size="lg" 
+              className={`text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/30 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/50 btn-click-effect ${activeButton === 'apps' ? 'scale-95 brightness-90' : ''}`}
               onClick={() => handleButtonClick('apps', 'apps')}
             >
-              <Sparkles className="w-5 h-5 mr-2" />
-              Start Free Preparation
+              Explore Apps
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Button>
             <Button 
-              variant="obsidian"
-              size="xl" 
-              className={`group hover:scale-105 transition-all duration-300 ${activeButton === 'features' ? 'scale-95' : ''}`}
-              onClick={() => handleButtonClick('features', 'why-preppro')}
+              size="lg" 
+              className={`text-lg px-8 py-7 rounded-xl bg-gradient-to-r from-accent to-primary hover:opacity-90 transition-all shadow-xl shadow-accent/30 group hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 btn-click-effect ${activeButton === 'test-series' ? 'scale-95 brightness-90' : ''}`}
+              onClick={() => handleButtonClick('test-series', 'test-series')}
             >
-              Explore Features
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
+              Explore Test Series
             </Button>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          {/* Study Material Shortcut */}
+          <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.35s" }}>
+            <Button 
+              size="lg" 
+              className={`text-lg px-6 py-6 rounded-xl bg-gradient-to-r from-primary/80 via-accent to-primary/80 hover:opacity-90 transition-all shadow-lg shadow-primary/25 group hover:scale-105 hover:shadow-xl hover:shadow-primary/40 btn-click-effect ${activeButton === 'study-material' ? 'scale-95 brightness-90' : ''}`}
+              onClick={() => handleButtonClick('study-material', 'study-material')}
+            >
+              <BookOpen className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
+              Explore Study Material
+            </Button>
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             {stats.map((stat, index) => (
               <div 
                 key={stat.label} 
-                className="glass-aurora rounded-2xl p-4 md:p-6 group cursor-default hover:scale-105 transition-all duration-300"
+                className="flex items-center gap-3 group cursor-default hover-scale"
                 style={{ animationDelay: `${0.5 + index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-aurora-primary/20 border border-aurora-primary/30 flex items-center justify-center mb-3 mx-auto group-hover:bg-aurora-primary/30 group-hover:scale-110 transition-all duration-300">
-                  <stat.icon className="w-6 h-6 text-aurora-primary" />
+                <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center group-hover:bg-primary/25 group-hover:scale-110 group-hover:border-primary/60 transition-all duration-300">
+                  <stat.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                 </div>
-                <div className="text-2xl md:text-3xl font-black text-foreground group-hover:text-aurora-primary transition-colors">{stat.value}</div>
-                <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
               </div>
             ))}
           </div>

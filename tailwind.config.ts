@@ -7,7 +7,7 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: "2rem",
       screens: {
         "2xl": "1400px",
       },
@@ -69,20 +69,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Aurora Theme Colors
-        aurora: {
-          primary: "hsl(var(--aurora-primary))",
-          secondary: "hsl(var(--aurora-secondary))",
-          accent: "hsl(var(--aurora-accent))",
-        },
-        emerald: {
-          primary: "hsl(var(--emerald-primary))",
-          secondary: "hsl(var(--emerald-secondary))",
-        },
-        obsidian: {
-          primary: "hsl(var(--obsidian-primary))",
-          secondary: "hsl(var(--obsidian-secondary))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -134,11 +120,6 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.3)" },
           "50%": { boxShadow: "0 0 40px hsl(var(--primary) / 0.6)" },
         },
-        "aurora-flow": {
-          "0%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-          "100%": { backgroundPosition: "0% 50%" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -152,7 +133,6 @@ export default {
         "float": "float 4s ease-in-out infinite",
         "shimmer": "shimmer 2s linear infinite",
         "glow": "glow 2s ease-in-out infinite",
-        "aurora-flow": "aurora-flow 6s ease-in-out infinite",
       },
     },
   },
