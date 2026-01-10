@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Dashboard from "@/components/Dashboard";
 import NewYearBanner from "@/components/NewYearBanner";
 import MyFavorites from "@/components/MyFavorites";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -14,18 +13,14 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
 import FloatingSupportButton from "@/components/FloatingSupportButton";
-import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
-  const { user } = useAuth();
-
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
         <NewYearBanner />
         <Header />
         <Hero />
-        {user && <Dashboard />}
         <MyFavorites />
         <RecentlyViewed />
         <Features />

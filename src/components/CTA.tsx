@@ -38,8 +38,9 @@ const CTA = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
+              variant="neonPink"
               size="lg" 
-              className="text-lg px-10 py-7 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all shadow-xl shadow-primary/25 group hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95"
+              className="text-lg px-10 py-7"
               onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Get Started for Free

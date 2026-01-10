@@ -32,7 +32,8 @@ const logoMap: Record<string, string> = {
   "selection-way-app": selectionwayLogo,
   "cds-app": cdsLogo,
   "next-toppers-app": nexttoppersLogo,
-  "mathango-test-series": mathangoLogo,
+  "mathango-pdfs": mathangoLogo,
+  "mathango-cbt": mathangoLogo,
   "other-test-series": prepproLogo,
   "unacademy-app": unacademyLogo,
   "revision-course-app": revisionCourseLogo,
@@ -162,8 +163,9 @@ const Features = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
+                  variant="neonPink"
                   onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
-                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                  className="w-full"
                 >
                   {user ? "Explore Now" : "Login to Explore"}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
@@ -239,8 +241,9 @@ const Features = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
+                  variant="neonPink"
                   onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
-                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                  className="w-full"
                 >
                   {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
