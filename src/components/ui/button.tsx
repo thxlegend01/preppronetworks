@@ -28,6 +28,7 @@ const buttonVariants = cva(
         magentare: "btn-magentare text-white border-none",
         glacium: "btn-glacium",
         verdanth: "btn-verdanth",
+        neonPink: "btn-neon-pink",
       },
       size: {
         default: "h-10 px-5 py-2",
