@@ -459,4 +459,162 @@
   .btn-verdanth:hover {
     color: #0F3D2E;
   }
+
+  /* ====== ULTRA PREMIUM NEON PINK BUTTON ====== */
+  
+  @keyframes neonPulse {
+    0%, 100% {
+      box-shadow: 
+        0 0 5px #ff2f92,
+        0 0 15px #ff2f92,
+        0 0 30px rgba(255, 47, 146, 0.4),
+        0 0 60px rgba(255, 47, 146, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 
+        0 0 8px #ff5fc8,
+        0 0 20px #ff5fc8,
+        0 0 40px rgba(255, 95, 200, 0.5),
+        0 0 80px rgba(255, 95, 200, 0.3),
+        inset 0 0 25px rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  @keyframes neonBorderFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes neonRipple {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  .btn-neon-pink {
+    position: relative;
+    padding: 16px 40px;
+    border-radius: 18px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 47, 146, 0.8), 0 0 20px rgba(255, 47, 146, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 0 5px #ff2f92,
+      0 0 15px #ff2f92,
+      0 0 30px rgba(255, 47, 146, 0.4),
+      0 0 60px rgba(255, 47, 146, 0.2),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: neonPulse 3s ease-in-out infinite;
+  }
+
+  /* Animated neon border */
+  .btn-neon-pink::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(90deg, #ff2f92, #ff5fc8, #ffffff, #ff5fc8, #ff2f92);
+    background-size: 200% 100%;
+    animation: neonBorderFlow 3s linear infinite;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Inner glow overlay */
+  .btn-neon-pink::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 95, 200, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .btn-neon-pink:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+      0 0 10px #ff2f92,
+      0 0 25px #ff2f92,
+      0 0 50px rgba(255, 47, 146, 0.6),
+      0 0 100px rgba(255, 47, 146, 0.4),
+      0 8px 30px rgba(0, 0, 0, 0.3),
+      inset 0 0 30px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 15px rgba(255, 47, 146, 1), 0 0 30px rgba(255, 47, 146, 0.6);
+  }
+
+  .btn-neon-pink:hover::after {
+    opacity: 1;
+  }
+
+  .btn-neon-pink:active {
+    transform: translateY(-2px) scale(1.02);
+    transition: all 0.15s ease;
+  }
+
+  /* Ripple effect on click */
+  .btn-neon-pink .neon-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 47, 146, 0.8) 0%, transparent 70%);
+    animation: neonRipple 0.6s ease-out forwards;
+    pointer-events: none;
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-neon-pink {
+      animation: none;
+    }
+    .btn-neon-pink::before {
+      animation: none;
+      background: linear-gradient(90deg, #ff2f92, #ff5fc8);
+    }
+  }
+
+  /* Low power device optimization */
+  @media (prefers-reduced-motion: reduce), (max-width: 768px) {
+    .btn-neon-pink {
+      box-shadow: 
+        0 0 10px #ff2f92,
+        0 0 20px rgba(255, 47, 146, 0.3);
+    }
+    .btn-neon-pink:hover {
+      box-shadow: 
+        0 0 15px #ff2f92,
+        0 0 30px rgba(255, 47, 146, 0.4);
+    }
+  }
 }
