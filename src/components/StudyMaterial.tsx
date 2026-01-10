@@ -328,9 +328,10 @@ const StudyMaterial = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
+                  variant="neonPink"
                   onClick={() => handleOpenMaterial(material)}
                   size="sm"
-                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group/btn hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+                  className="w-full"
                 >
                   <BookOpen className="mr-2 w-4 h-4" />
                   {user ? "Open" : "Login to Open"}

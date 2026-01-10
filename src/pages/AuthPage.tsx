@@ -7,6 +7,7 @@ import { Mail, Lock, User, Sparkles, ArrowRight, Eye, EyeOff, AtSign, Check, Ale
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import PageTransition from "@/components/PageTransition";
@@ -39,6 +40,9 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
   const [checkingUsername, setCheckingUsername] = useState(false);
+  const [rememberMe, setRememberMe] = useState(() => {
+    return localStorage.getItem("rememberMe") === "true";
+  });
   const { toast } = useToast();
   const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
@@ -50,9 +54,12 @@ const AuthPage = () => {
     }
   }, [user, navigate]);
 
+  // Load saved email if remember me was checked
+  const savedEmail = rememberMe ? localStorage.getItem("savedEmail") || "" : "";
+
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { identifier: "", password: "" },
+    defaultValues: { identifier: savedEmail, password: "" },
   });
 
   const signupForm = useForm<SignupFormData>({
@@ -128,6 +135,15 @@ const AuthPage = () => {
           : error.message,
       });
     } else {
+      // Save email if remember me is checked
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", "true");
+        localStorage.setItem("savedEmail", email);
+      } else {
+        localStorage.removeItem("rememberMe");
+        localStorage.removeItem("savedEmail");
+      }
+      
       toast({
         title: "Welcome back!",
         description: "You have successfully logged in.",
@@ -315,9 +331,25 @@ const AuthPage = () => {
                     )}
                   </div>
 
+                  {/* Remember Me Checkbox */}
+                  <div className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="remember-me" 
+                      checked={rememberMe}
+                      onCheckedChange={(checked) => setRememberMe(checked === true)}
+                    />
+                    <Label 
+                      htmlFor="remember-me" 
+                      className="text-sm text-muted-foreground cursor-pointer"
+                    >
+                      Remember my email for easy login
+                    </Label>
+                  </div>
+
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group"
+                    variant="neonPink"
+                    className="w-full"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing in..." : "Sign In"}
@@ -441,7 +473,8 @@ const AuthPage = () => {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group"
+                    variant="neonPink"
+                    className="w-full"
                     disabled={isLoading || !usernameAvailable}
                   >
                     {isLoading ? "Creating account..." : "Create Account"}

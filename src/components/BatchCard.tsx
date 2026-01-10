@@ -81,8 +81,9 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
           {/* CTAs */}
           <div className="space-y-2">
             <Button 
+              variant="neonPink"
               onClick={handleAccessClick}
-              className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity group/btn"
+              className="w-full"
             >
               <ExternalLink className="mr-2 w-4 h-4" />
               {user ? "Access Now" : "Login to Access"}

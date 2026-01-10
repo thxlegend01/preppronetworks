@@ -74,8 +74,8 @@ const WhyPrepProHub = () => {
         {/* CTA */}
         <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Button 
+            variant="neonPink"
             size="lg"
-            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all group hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
             onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Start Learning Now
