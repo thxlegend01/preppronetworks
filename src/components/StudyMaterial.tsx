@@ -1,11 +1,12 @@
 import { FileText, BookOpen, Heart, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import AccessCodeDialog from "./AccessCodeDialog";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
+import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
 interface SubjectFolder {
   id: string;
@@ -234,7 +235,14 @@ const StudyMaterial = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState("");
   const [accessCodeOpen, setAccessCodeOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+
+  // Simulate loading for better perceived performance
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenMaterial = (material: SubjectFolder) => {
     if (!user) {
@@ -291,6 +299,9 @@ const StudyMaterial = () => {
         />
         
         {/* Materials Grid */}
+        {isLoading ? (
+          <GridSkeleton count={8} type="material" />
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredMaterials.map((material, index) => (
             <div 
@@ -349,6 +360,7 @@ const StudyMaterial = () => {
             </div>
           ))}
         </div>
+        )}
 
         {/* No Results */}
         {searchQuery && filteredMaterials.length === 0 && (
