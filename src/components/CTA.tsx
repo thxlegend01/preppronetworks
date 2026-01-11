@@ -11,20 +11,20 @@ const CTA = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
       
-      {/* Glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+      {/* Glow effects - optimized for performance */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[150px] will-change-opacity" style={{ animation: 'pulse 4s ease-in-out infinite' }} />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="glass-card rounded-3xl p-12 md:p-16 text-center max-w-4xl mx-auto border-primary/20 animate-fade-in hover:border-primary/40 transition-colors duration-500">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-8 animate-pulse hover-scale cursor-default">
-            <Sparkles className="w-4 h-4 text-primary animate-spin" style={{ animationDuration: '3s' }} />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-8 hover-scale cursor-default" style={{ animation: 'pulse 3s ease-in-out infinite' }}>
+            <Sparkles className="w-4 h-4 text-primary" style={{ animation: 'spin 3s linear infinite' }} />
             <span className="text-sm font-medium text-primary">Start Learning Today</span>
           </div>
           
           {/* Heading */}
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Ready to <span className="text-gradient animate-pulse">Transform</span>
+            Ready to <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Transform</span>
             <br />
             Your Future?
           </h2>

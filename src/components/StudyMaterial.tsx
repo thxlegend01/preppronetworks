@@ -272,11 +272,11 @@ const StudyMaterial = () => {
         {/* Header */}
         <div className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-            <FileText className="w-4 h-4 text-primary animate-pulse" />
+            <FileText className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
             <span className="text-sm font-medium text-primary">Study Materials</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Study <span className="text-gradient animate-pulse">Material</span>
+            Study <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Material</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Access comprehensive study materials, notes, papers & books
