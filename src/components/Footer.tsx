@@ -84,7 +84,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -97,7 +97,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -110,7 +110,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -123,7 +123,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
                     {link.label}
                   </a>
                 </li>

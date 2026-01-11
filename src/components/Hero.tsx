@@ -19,15 +19,14 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Background Effects */}
+      {/* Background Effects - GPU optimized with will-change */}
       <div className="absolute inset-0 bg-background" />
-      <div className="absolute inset-0 radial-glow" />
+      <div className="absolute inset-0 radial-glow will-change-transform" />
       <div className="absolute inset-0 grid-pattern opacity-30" />
       
-      {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
+      {/* Animated gradient orbs - reduced for performance */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] will-change-opacity" style={{ animation: 'pulse 4s ease-in-out infinite' }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[120px] will-change-opacity" style={{ animation: 'pulse 4s ease-in-out infinite 1s' }} />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
@@ -44,7 +43,7 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <span className="text-foreground">Prep like a Pro</span>
             <br />
-            <span className="text-gradient animate-pulse">With PrepPro</span>
+            <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>With PrepPro</span>
           </h1>
           
           {/* Subtitle */}

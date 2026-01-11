@@ -101,11 +101,11 @@ const Features = () => {
         {/* Apps Section */}
         <div id="apps" className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-            <Smartphone className="w-4 h-4 text-primary animate-pulse" />
+            <Smartphone className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
             <span className="text-sm font-medium text-primary">Educational Apps</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient animate-pulse">Apps</span>
+            Premium <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Apps</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Access top educational platforms for free
@@ -186,11 +186,11 @@ const Features = () => {
         {/* Test Series Section */}
         <div id="test-series" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-            <BookOpen className="w-4 h-4 text-primary animate-pulse" />
+            <BookOpen className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
             <span className="text-sm font-medium text-primary">Test Series</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient animate-pulse">Test Series</span>
+            Premium <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Test Series</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Practice with the best test series available

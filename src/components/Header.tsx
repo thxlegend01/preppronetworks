@@ -40,14 +40,16 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 glass-navbar">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group no-link-style">
           <div className="relative">
             <img 
               src={prepproLogo} 
               alt="PrepPro Network Logo" 
               className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/30 group-hover:ring-primary/60 group-hover:scale-110 transition-all duration-300"
+              loading="eager"
+              decoding="async"
             />
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center animate-pulse">
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center" style={{ animation: 'pulse 3s ease-in-out infinite' }}>
               <Sparkles className="w-2.5 h-2.5 text-primary-foreground" />
             </div>
           </div>
@@ -61,8 +63,8 @@ const Header = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group ${
-                  location.pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group no-link-style ${
+                  location.pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
                 }`}
               >
                 {link.label}
@@ -74,7 +76,7 @@ const Header = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
+                className="relative px-4 py-2 text-sm font-medium text-primary/80 hover:text-primary transition-colors duration-300 group no-link-style"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
@@ -154,8 +156,8 @@ const Header = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`px-4 py-3 text-sm font-medium hover:bg-secondary/50 rounded-lg transition-colors ${
-                    location.pathname === link.href ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"
+                  className={`px-4 py-3 text-sm font-medium hover:bg-secondary/50 rounded-lg transition-colors no-link-style ${
+                    location.pathname === link.href ? "text-primary bg-secondary/30" : "text-primary/80 hover:text-primary"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -165,7 +167,7 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+                  className="px-4 py-3 text-sm font-medium text-primary/80 hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors no-link-style"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

@@ -19,11 +19,11 @@ const AboutDeveloper = () => {
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-              <User className="w-4 h-4 text-primary animate-pulse" />
+              <User className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
               <span className="text-sm font-medium text-primary">Meet the Developer</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-              About <span className="text-gradient animate-pulse">Legend</span>
+              About <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Legend</span>
             </h2>
           </div>
 
