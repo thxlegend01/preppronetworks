@@ -1,6 +1,6 @@
 import { ArrowRight, Smartphone, BookOpen, Heart, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerDialog from "./DisclaimerDialog";
 import ComingSoonDialog from "./ComingSoonDialog";
@@ -10,6 +10,7 @@ import { BATCHES } from "@/lib/data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useAuth } from "@/hooks/useAuth";
+import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
 // Import logos
 import pwLogo from "@/assets/pw-logo.jpg";
@@ -46,11 +47,18 @@ const Features = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { addToRecentlyViewed } = useRecentlyViewed();
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [accessCodeOpen, setAccessCodeOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string; isTestSeries: boolean } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Simulate loading for better perceived performance
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleExplore = (id: string, url: string, title: string, isTestSeries: boolean = false) => {
     // Check if user is logged in
@@ -120,6 +128,9 @@ const Features = () => {
         />
         
         {/* Apps Grid */}
+        {isLoading ? (
+          <GridSkeleton count={6} type="card" />
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           {apps.map((app, index) => (
             <div 
@@ -182,6 +193,7 @@ const Features = () => {
             </div>
           ))}
         </div>
+        )}
 
         {/* Test Series Section */}
         <div id="test-series" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
