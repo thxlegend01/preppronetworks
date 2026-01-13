@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +10,7 @@ import { UsernameCheckProvider } from "@/hooks/useUsernameCheck";
 import { BlockCheckProvider } from "@/hooks/useBlockCheck";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import SplashScreen from "@/components/SplashScreen";
 import { Loader2 } from "lucide-react";
 
 // Lazy load pages for code splitting
@@ -40,37 +41,51 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <BlockCheckProvider>
-            <UsernameCheckProvider>
-              <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
-                  <Suspense fallback={<PageLoader />}>
-                    <Routes>
-                      <Route path="/" element={<Index />} />
-                      <Route path="/auth" element={<AuthPage />} />
-                      <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                      <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
-                      <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
-                      <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
-                      <Route path="/view/:appId" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </Suspense>
-                </BrowserRouter>
-              </TooltipProvider>
-            </UsernameCheckProvider>
-          </BlockCheckProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+const App = () => {
+  const [showSplash, setShowSplash] = useState(() => {
+    // Only show splash once per session
+    const hasSeenSplash = sessionStorage.getItem("hasSeenSplash");
+    return !hasSeenSplash;
+  });
+
+  const handleSplashComplete = () => {
+    sessionStorage.setItem("hasSeenSplash", "true");
+    setShowSplash(false);
+  };
+
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+          <AuthProvider>
+            <BlockCheckProvider>
+              <UsernameCheckProvider>
+                <TooltipProvider>
+                  <Toaster />
+                  <Sonner />
+                  <BrowserRouter>
+                    <Suspense fallback={<PageLoader />}>
+                      <Routes>
+                        <Route path="/" element={<Index />} />
+                        <Route path="/auth" element={<AuthPage />} />
+                        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                        <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
+                        <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
+                        <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
+                        <Route path="/view/:appId" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </Suspense>
+                  </BrowserRouter>
+                </TooltipProvider>
+              </UsernameCheckProvider>
+            </BlockCheckProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

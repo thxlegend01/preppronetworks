@@ -38,7 +38,7 @@ const CTA = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              variant="neonPink"
+              variant="hero"
               size="lg" 
               className="text-lg px-10 py-7"
               onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}

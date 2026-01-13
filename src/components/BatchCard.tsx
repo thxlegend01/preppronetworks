@@ -81,7 +81,7 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
           {/* CTAs */}
           <div className="space-y-2">
             <Button 
-              variant="neonPink"
+              variant="hero"
               onClick={handleAccessClick}
               className="w-full"
             >

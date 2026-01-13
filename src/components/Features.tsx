@@ -174,7 +174,7 @@ const Features = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
-                  variant="neonPink"
+                  variant="hero"
                   onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
                   className="w-full"
                 >
@@ -253,7 +253,7 @@ const Features = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
-                  variant="neonPink"
+                  variant="hero"
                   onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
                   className="w-full"
                 >
