@@ -74,7 +74,7 @@ const WhyPrepProHub = () => {
         {/* CTA */}
         <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Button 
-            variant="neonPink"
+            variant="hero"
             size="lg"
             onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
           >

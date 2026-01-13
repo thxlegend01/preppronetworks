@@ -55,7 +55,7 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <Button 
-              variant="neonPink"
+              variant="hero"
               size="lg" 
               className={`text-lg px-8 py-7 ${activeButton === 'apps' ? 'scale-95 brightness-90' : ''}`}
               onClick={() => handleButtonClick('apps', 'apps')}
@@ -64,7 +64,7 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Button>
             <Button 
-              variant="neonPink"
+              variant="hero"
               size="lg" 
               className={`text-lg px-8 py-7 ${activeButton === 'test-series' ? 'scale-95 brightness-90' : ''}`}
               onClick={() => handleButtonClick('test-series', 'test-series')}
@@ -77,7 +77,7 @@ const Hero = () => {
           {/* Study Material Shortcut */}
           <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.35s" }}>
             <Button 
-              variant="neonPink"
+              variant="hero"
               size="lg" 
               className={`text-lg px-6 py-6 ${activeButton === 'study-material' ? 'scale-95 brightness-90' : ''}`}
               onClick={() => handleButtonClick('study-material', 'study-material')}

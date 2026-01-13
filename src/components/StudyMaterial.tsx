@@ -339,7 +339,7 @@ const StudyMaterial = () => {
               {/* CTA */}
               <div className="space-y-2">
                 <Button 
-                  variant="neonPink"
+                  variant="hero"
                   onClick={() => handleOpenMaterial(material)}
                   size="sm"
                   className="w-full"

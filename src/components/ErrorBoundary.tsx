@@ -53,7 +53,7 @@ class ErrorBoundary extends Component<Props, State> {
               We encountered an unexpected error. Please try refreshing the page.
             </p>
             <Button 
-              variant="neonPink"
+              variant="hero"
               onClick={this.handleRetry}
               className="w-full"
             >

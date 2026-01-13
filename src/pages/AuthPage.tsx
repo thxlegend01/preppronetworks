@@ -348,7 +348,7 @@ const AuthPage = () => {
 
                   <Button 
                     type="submit" 
-                    variant="neonPink"
+                    variant="hero"
                     className="w-full"
                     disabled={isLoading}
                   >
@@ -473,7 +473,7 @@ const AuthPage = () => {
 
                   <Button 
                     type="submit" 
-                    variant="neonPink"
+                    variant="hero"
                     className="w-full"
                     disabled={isLoading || !usernameAvailable}
                   >
