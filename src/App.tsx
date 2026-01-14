@@ -20,6 +20,7 @@ const BatchesPage = lazy(() => import("./pages/BatchesPage"));
 const BatchDetailPage = lazy(() => import("./pages/BatchDetailPage"));
 const ViewerPage = lazy(() => import("./pages/ViewerPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -69,6 +70,7 @@ const App = () => {
                       <Routes>
                         <Route path="/" element={<Index />} />
                         <Route path="/auth" element={<AuthPage />} />
+                        <Route path="/reset-password" element={<ResetPasswordPage />} />
                         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                         <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
                         <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
