@@ -2,6 +2,7 @@ import { ArrowRight, Smartphone, BookOpen, Heart, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import DisclaimerDialog from "./DisclaimerDialog";
 import ComingSoonDialog from "./ComingSoonDialog";
 import AccessCodeDialog from "./AccessCodeDialog";
@@ -11,6 +12,8 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useAuth } from "@/hooks/useAuth";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
+import Card3DGallery from "./Card3DGallery";
+import MotionWrapper from "./MotionWrapper";
 
 // Import logos
 import pwLogo from "@/assets/pw-logo.jpg";
@@ -107,25 +110,27 @@ const Features = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Apps Section */}
-        <div id="apps" className="text-center mb-12 max-w-3xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-            <Smartphone className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
+        <MotionWrapper direction="up" className="text-center mb-12 max-w-3xl mx-auto">
+          <div id="apps" className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
+            <Smartphone className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Educational Apps</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Apps</span>
+            Premium <span className="text-gradient">Apps</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Access top educational platforms for free
           </p>
-        </div>
+        </MotionWrapper>
 
         {/* Search Bar */}
-        <SearchBar 
-          value={searchQuery}
-          onChange={setSearchQuery}
-          placeholder="Search apps and test series..."
-        />
+        <MotionWrapper direction="up" delay={0.1}>
+          <SearchBar 
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search apps and test series..."
+          />
+        </MotionWrapper>
         
         {/* Apps Grid */}
         {isLoading ? (
@@ -133,143 +138,149 @@ const Features = () => {
         ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           {apps.map((app, index) => (
-            <div 
-              key={app.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Favorite Button */}
-              <button
-                onClick={() => toggleFavorite(app.id)}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
-                  isFavorite(app.id) 
-                    ? 'bg-destructive/20 text-destructive' 
-                    : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
-                }`}
-              >
-                <Heart 
-                  className={`w-5 h-5 transition-transform ${isFavorite(app.id) ? 'fill-current animate-heart-beat' : ''}`} 
-                />
-              </button>
-
-              {/* Logo */}
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
-                {logoMap[app.id] ? (
-                  <img 
-                    src={logoMap[app.id]} 
-                    alt={app.title} 
-                    className="w-full h-full object-cover"
+            <Card3DGallery key={app.id} index={index}>
+              <div className="glass-card shine-effect rounded-2xl p-8 text-center group relative h-full">
+                {/* Favorite Button */}
+                <motion.button
+                  onClick={() => toggleFavorite(app.id)}
+                  className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                    isFavorite(app.id) 
+                      ? 'bg-destructive/20 text-destructive' 
+                      : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                  }`}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Heart 
+                    className={`w-5 h-5 transition-transform ${isFavorite(app.id) ? 'fill-current' : ''}`} 
                   />
-                ) : (
-                  <Smartphone className="w-10 h-10 text-primary" />
-                )}
-              </div>
-              
-              {/* Content */}
-              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{app.title.replace(" App", "")}</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {app.description}
-              </p>
-              
-              {/* CTA */}
-              <div className="space-y-2">
-                <Button 
-                  variant="hero"
-                  onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
-                  className="w-full"
+                </motion.button>
+
+                {/* Logo */}
+                <motion.div 
+                  className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotateY: 10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {user ? "Explore Now" : "Login to Explore"}
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  onClick={() => setAccessCodeOpen(true)}
-                >
-                  <Key className="mr-2 w-4 h-4" />
-                  Access Code
-                </Button>
+                  {logoMap[app.id] ? (
+                    <img 
+                      src={logoMap[app.id]} 
+                      alt={app.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Smartphone className="w-10 h-10 text-primary" />
+                  )}
+                </motion.div>
+                
+                {/* Content */}
+                <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{app.title.replace(" App", "")}</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {app.description}
+                </p>
+                
+                {/* CTA */}
+                <div className="space-y-2">
+                  <Button 
+                    variant="hero"
+                    onClick={() => handleExplore(app.id, app.externalUrl, app.title, false)}
+                    className="w-full"
+                  >
+                    {user ? "Explore Now" : "Login to Explore"}
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                    onClick={() => setAccessCodeOpen(true)}
+                  >
+                    <Key className="mr-2 w-4 h-4" />
+                    Access Code
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Card3DGallery>
           ))}
         </div>
         )}
 
         {/* Test Series Section */}
-        <div id="test-series" className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
-            <BookOpen className="w-4 h-4 text-primary" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
+        <MotionWrapper direction="up" className="text-center mb-16 max-w-3xl mx-auto">
+          <div id="test-series" className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6 hover-scale cursor-default">
+            <BookOpen className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">Test Series</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Premium <span className="text-gradient" style={{ animation: 'pulse 3s ease-in-out infinite' }}>Test Series</span>
+            Premium <span className="text-gradient">Test Series</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Practice with the best test series available
           </p>
-        </div>
+        </MotionWrapper>
         
         {/* Test Series Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testSeries.map((test, index) => (
-            <div 
-              key={test.id}
-              className="glass-card card-hover shine-effect rounded-2xl p-8 text-center animate-fade-in group relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Favorite Button */}
-              <button
-                onClick={() => toggleFavorite(test.id)}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
-                  isFavorite(test.id) 
-                    ? 'bg-destructive/20 text-destructive' 
-                    : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
-                }`}
-              >
-                <Heart 
-                  className={`w-5 h-5 transition-transform ${isFavorite(test.id) ? 'fill-current animate-heart-beat' : ''}`} 
-                />
-              </button>
-
-              {/* Logo */}
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
-                {logoMap[test.id] ? (
-                  <img 
-                    src={logoMap[test.id]} 
-                    alt={test.title} 
-                    className="w-full h-full object-cover"
+            <Card3DGallery key={test.id} index={index}>
+              <div className="glass-card shine-effect rounded-2xl p-8 text-center group relative h-full">
+                {/* Favorite Button */}
+                <motion.button
+                  onClick={() => toggleFavorite(test.id)}
+                  className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
+                    isFavorite(test.id) 
+                      ? 'bg-destructive/20 text-destructive' 
+                      : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                  }`}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Heart 
+                    className={`w-5 h-5 transition-transform ${isFavorite(test.id) ? 'fill-current' : ''}`} 
                   />
-                ) : (
-                  <BookOpen className="w-10 h-10 text-primary" />
-                )}
-              </div>
-              
-              {/* Content */}
-              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {test.description}
-              </p>
-              
-              {/* CTA */}
-              <div className="space-y-2">
-                <Button 
-                  variant="hero"
-                  onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
-                  className="w-full"
+                </motion.button>
+
+                {/* Logo */}
+                <motion.div 
+                  className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotateY: 10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  onClick={() => setAccessCodeOpen(true)}
-                >
-                  <Key className="mr-2 w-4 h-4" />
-                  Access Code
-                </Button>
+                  {logoMap[test.id] ? (
+                    <img 
+                      src={logoMap[test.id]} 
+                      alt={test.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <BookOpen className="w-10 h-10 text-primary" />
+                  )}
+                </motion.div>
+                
+                {/* Content */}
+                <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {test.description}
+                </p>
+                
+                {/* CTA */}
+                <div className="space-y-2">
+                  <Button 
+                    variant="hero"
+                    onClick={() => handleExplore(test.id, test.externalUrl, test.title, true)}
+                    className="w-full"
+                  >
+                    {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
+                    onClick={() => setAccessCodeOpen(true)}
+                  >
+                    <Key className="mr-2 w-4 h-4" />
+                    Access Code
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Card3DGallery>
           ))}
         </div>
 
