@@ -14,13 +14,24 @@ import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
 import FloatingSupportButton from "@/components/FloatingSupportButton";
 import SaurabhAI from "@/components/SaurabhAI";
+import ParallaxParticles from "@/components/ParallaxParticles";
+import MagneticCursor from "@/components/MagneticCursor";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 const Index = () => {
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        {/* Global Effects */}
+        <ParallaxParticles />
+        <MagneticCursor />
+        
         <NewYearBanner />
         <Header />
+        
+        {/* Top App Download Banner */}
+        <AppDownloadBanner variant="top" />
+        
         <Hero />
         <MyFavorites />
         <RecentlyViewed />
@@ -29,6 +40,10 @@ const Index = () => {
         <WhyPrepProHub />
         <WhoIsThisFor />
         <AboutDeveloper />
+        
+        {/* Bottom App Download Banner */}
+        <AppDownloadBanner variant="bottom" />
+        
         <CTA />
         <AdminSection />
         <Footer />

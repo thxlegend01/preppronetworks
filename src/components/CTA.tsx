@@ -98,6 +98,7 @@ const CTA = () => {
                     size="lg" 
                     className="text-lg px-10 py-7"
                     onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
+                    data-magnetic
                   >
                     Get Started for Free
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
