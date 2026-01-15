@@ -130,6 +130,7 @@ const Hero = () => {
                 size="lg" 
                 className={`text-lg px-8 py-7 transition-all duration-200 ${activeButton === 'apps' ? 'scale-95 brightness-90' : ''}`}
                 onClick={() => handleButtonClick('apps', 'apps')}
+                data-magnetic
               >
                 Explore Apps
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
@@ -141,6 +142,7 @@ const Hero = () => {
                 size="lg" 
                 className={`text-lg px-8 py-7 transition-all duration-200 ${activeButton === 'test-series' ? 'scale-95 brightness-90' : ''}`}
                 onClick={() => handleButtonClick('test-series', 'test-series')}
+                data-magnetic
               >
                 <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
                 Explore Test Series
