@@ -17,6 +17,7 @@ import SaurabhAI from "@/components/SaurabhAI";
 import ParallaxParticles from "@/components/ParallaxParticles";
 import MagneticCursor from "@/components/MagneticCursor";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
+import Phone3DMockup from "@/components/Phone3DMockup";
 
 const Index = () => {
   return (
@@ -41,8 +42,8 @@ const Index = () => {
         <WhoIsThisFor />
         <AboutDeveloper />
         
-        {/* Bottom App Download Banner */}
-        <AppDownloadBanner variant="bottom" />
+        {/* 3D Phone Mockup Section */}
+        <Phone3DMockup />
         
         <CTA />
         <AdminSection />
