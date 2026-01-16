@@ -244,6 +244,21 @@ export const BATCHES: Batch[] = [
     ],
   },
   {
+    id: "kota-latest-test-series",
+    title: "Kota Latest Test Series",
+    description: "Access the latest Kota coaching test series PDFs including Allen, Resonance, and other top institutes.",
+    category: "Test Series",
+    status: "Available",
+    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
+    externalUrl: "https://drive.google.com/drive/folders/1wGoTPzAWO6Om1Te0-vlUU4cRcLZ-o4Jk",
+    openInternal: false,
+    chapters: [
+      { id: "kota-1", title: "Allen Test Series", lessons: 100, duration: "50 hrs" },
+      { id: "kota-2", title: "Resonance Tests", lessons: 80, duration: "40 hrs" },
+      { id: "kota-3", title: "Other Institute Tests", lessons: 60, duration: "30 hrs" },
+    ],
+  },
+  {
     id: "other-test-series",
     title: "Other Test Series",
     description: "Collection of various test series for multiple competitive examinations.",

@@ -14,6 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import NotificationManager from "./NotificationManager";
 
 const ADMIN_PASSWORD = "Legend Owner";
 
@@ -398,6 +399,9 @@ const AdminSection = () => {
             </div>
           )}
         </div>
+
+        {/* Notification Manager */}
+        <NotificationManager />
 
         <div className="text-center mt-8">
           <Button 
