@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 import ThemeToggle from "@/components/ThemeToggle";
+import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 import {
   DropdownMenu,
@@ -87,6 +88,7 @@ const Header = () => {
         
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
+          <NotificationBell />
           <ThemeToggle />
           {user ? (
             <DropdownMenu>
