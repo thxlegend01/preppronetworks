@@ -14,12 +14,24 @@ import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
 import FloatingSupportButton from "@/components/FloatingSupportButton";
 import SaurabhAI from "@/components/SaurabhAI";
+import SaurabhAIWatermark from "@/components/SaurabhAIWatermark";
 import ParallaxParticles from "@/components/ParallaxParticles";
 import MagneticCursor from "@/components/MagneticCursor";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 import Phone3DMockup from "@/components/Phone3DMockup";
+import { useServiceWorker } from "@/hooks/useServiceWorker";
+import { useEffect } from "react";
 
 const Index = () => {
+  // Initialize service worker for offline support & push notifications
+  const { isRegistered } = useServiceWorker();
+  
+  useEffect(() => {
+    if (isRegistered) {
+      console.log('[App] Service worker ready for offline support');
+    }
+  }, [isRegistered]);
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
@@ -50,6 +62,7 @@ const Index = () => {
         <Footer />
         <FloatingSupportButton />
         <SaurabhAI />
+        <SaurabhAIWatermark />
       </div>
     </PageTransition>
   );
