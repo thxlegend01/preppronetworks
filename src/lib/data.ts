@@ -19,35 +19,37 @@ export interface Batch {
   chapters: Chapter[];
 }
 
+import pwLogoNew from "@/assets/pw-logo-new.jpg";
+
 export const BATCHES: Batch[] = [
   {
     id: "pw-app-1",
     title: "PW App 1",
-    description: "Access Physics Wallah courses and study materials for JEE, NEET and other competitive exams.",
+    description: "Access Physics Wallah premium courses and study materials with enhanced features.",
     category: "Apps",
     status: "Live",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "http://DeltaStudy.site/sachin-access",
-    openInternal: false,
+    image: pwLogoNew,
+    externalUrl: "https://studysagar.vercel.app/",
+    openInternal: true,
     chapters: [
-      { id: "pw-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
-      { id: "pw-2", title: "NEET Courses", lessons: 100, duration: "50+ hrs" },
-      { id: "pw-3", title: "Foundation Courses", lessons: 80, duration: "40+ hrs" },
+      { id: "pw1-1", title: "JEE Advanced", lessons: 120, duration: "60+ hrs" },
+      { id: "pw1-2", title: "NEET Advanced", lessons: 110, duration: "55+ hrs" },
+      { id: "pw1-3", title: "Premium Courses", lessons: 90, duration: "45+ hrs" },
     ],
   },
   {
     id: "pw-app-2",
     title: "PW App 2",
-    description: "Access Physics Wallah premium courses and study materials with enhanced features.",
+    description: "Access Physics Wallah courses and study materials for JEE, NEET and other competitive exams.",
     category: "Apps",
     status: "Live",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "https://studysagar.vercel.app/",
-    openInternal: true,
+    image: pwLogoNew,
+    externalUrl: "http://DeltaStudy.site/sachin-access",
+    openInternal: false,
     chapters: [
-      { id: "pw2-1", title: "JEE Advanced", lessons: 120, duration: "60+ hrs" },
-      { id: "pw2-2", title: "NEET Advanced", lessons: 110, duration: "55+ hrs" },
-      { id: "pw2-3", title: "Premium Courses", lessons: 90, duration: "45+ hrs" },
+      { id: "pw2-1", title: "JEE Courses", lessons: 100, duration: "50+ hrs" },
+      { id: "pw2-2", title: "NEET Courses", lessons: 100, duration: "50+ hrs" },
+      { id: "pw2-3", title: "Foundation Courses", lessons: 80, duration: "40+ hrs" },
     ],
   },
   {
