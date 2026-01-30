@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Shield, Users, UserPlus, Eye, EyeOff, Lock, AtSign, Calendar, Clock, Ban, UserX, CheckCircle, AlertTriangle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Shield, Users, UserPlus, Eye, EyeOff, Lock, AtSign, Calendar, Ban, UserX, CheckCircle, AlertTriangle, Bell, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -41,11 +42,14 @@ interface UserStats {
   blockedUsers: number;
 }
 
+type AdminTab = "notifications" | "system";
+
 const AdminSection = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState<AdminTab | null>(null);
   const [stats, setStats] = useState<UserStats>({
     totalUsers: 0,
     recentSignups: 0,
@@ -64,7 +68,6 @@ const AdminSection = () => {
     if (password === ADMIN_PASSWORD) {
       setIsUnlocked(true);
       setError("");
-      fetchStats();
     } else {
       setError("Incorrect password");
     }
@@ -113,6 +116,12 @@ const AdminSection = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (activeTab === "system") {
+      fetchStats();
+    }
+  }, [activeTab]);
 
   const handleBlockUser = async () => {
     if (!selectedUser) return;
@@ -192,7 +201,7 @@ const AdminSection = () => {
             </div>
             <h3 className="text-xl font-bold mb-2">Admin Access</h3>
             <p className="text-muted-foreground text-sm mb-6">
-              Enter the admin password to view statistics
+              Enter the admin password to access controls
             </p>
             
             <div className="space-y-4">
@@ -229,188 +238,291 @@ const AdminSection = () => {
     );
   }
 
+  // Tab Selection Screen
+  if (!activeTab) {
+    return (
+      <section className="py-16 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
+              <Shield className="w-4 h-4" />
+              <span className="text-sm font-medium">Admin Dashboard</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Welcome, Owner
+            </h2>
+            <p className="text-muted-foreground max-w-lg mx-auto">
+              Choose what you want to manage
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.button
+              onClick={() => setActiveTab("notifications")}
+              className="glass-card rounded-2xl p-8 text-center hover:border-primary/50 transition-all group"
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Bell className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Notifications</h3>
+              <p className="text-muted-foreground text-sm">
+                Send push notifications to all users on web & app
+              </p>
+            </motion.button>
+
+            <motion.button
+              onClick={() => setActiveTab("system")}
+              className="glass-card rounded-2xl p-8 text-center hover:border-primary/50 transition-all group"
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Settings className="w-10 h-10 text-accent" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">System</h3>
+              <p className="text-muted-foreground text-sm">
+                Manage users, view signups, block/unblock members
+              </p>
+            </motion.button>
+          </div>
+
+          <div className="text-center mt-8">
+            <Button 
+              variant="outline" 
+              onClick={() => setIsUnlocked(false)}
+            >
+              Lock Admin Panel
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
-            <Shield className="w-4 h-4" />
-            <span className="text-sm font-medium">Admin Dashboard</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            User Management
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Manage users and restrict access to the platform
-          </p>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-6 h-6 text-primary" />
-            </div>
-            <p className="text-4xl font-bold text-primary mb-2">{stats.totalUsers}</p>
-            <p className="text-muted-foreground">Total Users</p>
-          </div>
-
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <UserPlus className="w-6 h-6 text-green-500" />
-            </div>
-            <p className="text-4xl font-bold text-green-500 mb-2">{stats.todaySignups}</p>
-            <p className="text-muted-foreground">Today's Signups</p>
-          </div>
-
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-6 h-6 text-accent" />
-            </div>
-            <p className="text-4xl font-bold text-accent mb-2">{stats.recentSignups}</p>
-            <p className="text-muted-foreground">Last 7 Days</p>
-          </div>
-
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Ban className="w-6 h-6 text-destructive" />
-            </div>
-            <p className="text-4xl font-bold text-destructive mb-2">{stats.blockedUsers}</p>
-            <p className="text-muted-foreground">Blocked Users</p>
-          </div>
-        </div>
-
-        {/* Users Table */}
-        <div className="glass-card rounded-2xl p-6 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-bold">All Registered Users</h3>
-            <Button variant="outline" size="sm" onClick={fetchStats}>
-              Refresh
-            </Button>
-          </div>
-          
-          {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto"></div>
-              <p className="text-muted-foreground mt-2">Loading...</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">#</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">User</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Username</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Status</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Joined</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user, index) => {
-                    const isBlocked = blockedUserIds.has(user.user_id);
-                    return (
-                      <tr key={user.id} className={`border-b border-border/50 hover:bg-secondary/20 transition-colors ${isBlocked ? 'bg-destructive/5' : ''}`}>
-                        <td className="py-3 px-4 text-sm font-medium">{index + 1}</td>
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            {user.avatar_url ? (
-                              <img 
-                                src={user.avatar_url} 
-                                alt={user.display_name || "User"} 
-                                className={`w-10 h-10 rounded-full object-cover ring-2 ${isBlocked ? 'ring-destructive/50 opacity-50' : 'ring-primary/20'}`}
-                              />
-                            ) : (
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isBlocked ? 'bg-destructive/20' : 'bg-gradient-to-br from-primary/30 to-accent/30'}`}>
-                                <span className={`text-sm font-bold ${isBlocked ? 'text-destructive' : 'text-primary'}`}>
-                                  {(user.display_name || "U")[0].toUpperCase()}
-                                </span>
-                              </div>
-                            )}
-                            <div>
-                              <span className={`font-medium block ${isBlocked ? 'line-through text-muted-foreground' : ''}`}>
-                                {user.display_name || "Anonymous"}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4">
-                          {user.username ? (
-                            <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isBlocked ? 'bg-destructive/10 text-destructive' : 'bg-primary/10 text-primary'}`}>
-                              <AtSign className="w-3 h-3" />
-                              {user.username}
-                            </span>
-                          ) : (
-                            <span className="text-muted-foreground text-sm italic">Not set</span>
-                          )}
-                        </td>
-                        <td className="py-3 px-4">
-                          {isBlocked ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 bg-destructive/10 text-destructive rounded-md text-sm">
-                              <UserX className="w-3 h-3" />
-                              Blocked
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-500/10 text-green-500 rounded-md text-sm">
-                              <CheckCircle className="w-3 h-3" />
-                              Active
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                            <Calendar className="w-3 h-3" />
-                            {new Date(user.created_at).toLocaleDateString()}
-                          </div>
-                        </td>
-                        <td className="py-3 px-4">
-                          {isBlocked ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-green-500 border-green-500/30 hover:bg-green-500/10"
-                              onClick={() => handleUnblockUser(user.user_id)}
-                            >
-                              <CheckCircle className="w-4 h-4 mr-1" />
-                              Unblock
-                            </Button>
-                          ) : (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-destructive border-destructive/30 hover:bg-destructive/10"
-                              onClick={() => openBlockDialog(user)}
-                            >
-                              <Ban className="w-4 h-4 mr-1" />
-                              Block
-                            </Button>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              
-              {users.length === 0 && (
-                <p className="text-center py-8 text-muted-foreground">No users found</p>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Notification Manager */}
-        <NotificationManager />
-
-        <div className="text-center mt-8">
+        {/* Header with Back Button */}
+        <div className="flex items-center justify-between mb-8">
+          <Button 
+            variant="ghost" 
+            onClick={() => setActiveTab(null)}
+            className="gap-2"
+          >
+            ← Back to Dashboard
+          </Button>
           <Button 
             variant="outline" 
             onClick={() => setIsUnlocked(false)}
           >
-            Lock Admin Panel
+            Lock Panel
           </Button>
         </div>
+
+        <AnimatePresence mode="wait">
+          {activeTab === "notifications" && (
+            <motion.div
+              key="notifications"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
+                  <Bell className="w-4 h-4" />
+                  <span className="text-sm font-medium">Notification Center</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Send Notifications
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Send push notifications to all users on both web and the Android app
+                </p>
+              </div>
+              
+              <NotificationManager />
+            </motion.div>
+          )}
+
+          {activeTab === "system" && (
+            <motion.div
+              key="system"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent mb-4">
+                  <Settings className="w-4 h-4" />
+                  <span className="text-sm font-medium">System Management</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  User Management
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  View all registered users, manage access, and block/unblock members
+                </p>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                <div className="glass-card rounded-2xl p-6 text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-4xl font-bold text-primary mb-2">{stats.totalUsers}</p>
+                  <p className="text-muted-foreground">Total Users</p>
+                </div>
+
+                <div className="glass-card rounded-2xl p-6 text-center">
+                  <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <UserPlus className="w-6 h-6 text-green-500" />
+                  </div>
+                  <p className="text-4xl font-bold text-green-500 mb-2">{stats.todaySignups}</p>
+                  <p className="text-muted-foreground">Today's Signups</p>
+                </div>
+
+                <div className="glass-card rounded-2xl p-6 text-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Calendar className="w-6 h-6 text-accent" />
+                  </div>
+                  <p className="text-4xl font-bold text-accent mb-2">{stats.recentSignups}</p>
+                  <p className="text-muted-foreground">Last 7 Days</p>
+                </div>
+
+                <div className="glass-card rounded-2xl p-6 text-center">
+                  <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Ban className="w-6 h-6 text-destructive" />
+                  </div>
+                  <p className="text-4xl font-bold text-destructive mb-2">{stats.blockedUsers}</p>
+                  <p className="text-muted-foreground">Blocked Users</p>
+                </div>
+              </div>
+
+              {/* Users Table */}
+              <div className="glass-card rounded-2xl p-6 overflow-hidden">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold">All Registered Users</h3>
+                  <Button variant="outline" size="sm" onClick={fetchStats}>
+                    Refresh
+                  </Button>
+                </div>
+                
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto"></div>
+                    <p className="text-muted-foreground mt-2">Loading...</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">#</th>
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">User</th>
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">Username</th>
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">Status</th>
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">Joined</th>
+                          <th className="text-left py-3 px-4 text-muted-foreground font-medium">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {users.map((user, index) => {
+                          const isBlocked = blockedUserIds.has(user.user_id);
+                          return (
+                            <tr key={user.id} className={`border-b border-border/50 hover:bg-secondary/20 transition-colors ${isBlocked ? 'bg-destructive/5' : ''}`}>
+                              <td className="py-3 px-4 text-sm font-medium">{index + 1}</td>
+                              <td className="py-3 px-4">
+                                <div className="flex items-center gap-3">
+                                  {user.avatar_url ? (
+                                    <img 
+                                      src={user.avatar_url} 
+                                      alt={user.display_name || "User"} 
+                                      className={`w-10 h-10 rounded-full object-cover ring-2 ${isBlocked ? 'ring-destructive/50 opacity-50' : 'ring-primary/20'}`}
+                                    />
+                                  ) : (
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isBlocked ? 'bg-destructive/20' : 'bg-gradient-to-br from-primary/30 to-accent/30'}`}>
+                                      <span className={`text-sm font-bold ${isBlocked ? 'text-destructive' : 'text-primary'}`}>
+                                        {(user.display_name || "U")[0].toUpperCase()}
+                                      </span>
+                                    </div>
+                                  )}
+                                  <div>
+                                    <span className={`font-medium block ${isBlocked ? 'line-through text-muted-foreground' : ''}`}>
+                                      {user.display_name || "Anonymous"}
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-3 px-4">
+                                {user.username ? (
+                                  <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isBlocked ? 'bg-destructive/10 text-destructive' : 'bg-primary/10 text-primary'}`}>
+                                    <AtSign className="w-3 h-3" />
+                                    {user.username}
+                                  </span>
+                                ) : (
+                                  <span className="text-muted-foreground text-sm italic">Not set</span>
+                                )}
+                              </td>
+                              <td className="py-3 px-4">
+                                {isBlocked ? (
+                                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-destructive/10 text-destructive rounded-md text-sm">
+                                    <UserX className="w-3 h-3" />
+                                    Blocked
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-500/10 text-green-500 rounded-md text-sm">
+                                    <CheckCircle className="w-3 h-3" />
+                                    Active
+                                  </span>
+                                )}
+                              </td>
+                              <td className="py-3 px-4">
+                                <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                                  <Calendar className="w-3 h-3" />
+                                  {new Date(user.created_at).toLocaleDateString()}
+                                </div>
+                              </td>
+                              <td className="py-3 px-4">
+                                {isBlocked ? (
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="text-green-500 border-green-500/30 hover:bg-green-500/10"
+                                    onClick={() => handleUnblockUser(user.user_id)}
+                                  >
+                                    <CheckCircle className="w-4 h-4 mr-1" />
+                                    Good
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="text-destructive border-destructive/30 hover:bg-destructive/10"
+                                    onClick={() => openBlockDialog(user)}
+                                  >
+                                    <Ban className="w-4 h-4 mr-1" />
+                                    Block
+                                  </Button>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    
+                    {users.length === 0 && (
+                      <p className="text-center py-8 text-muted-foreground">No users found</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Block User Dialog */}
