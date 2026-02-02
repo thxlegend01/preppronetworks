@@ -21,10 +21,16 @@ export interface Batch {
 
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
 
+// App-specific access codes (only for apps that need them)
+export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> = {
+  "unacademy-app": { code: "PUSHPARAJ", label: "Use Code" },
+  "cds-app": { code: "FUTUREOFFICERS01", label: "Use Code" },
+};
+
 export const BATCHES: Batch[] = [
   {
     id: "pw-app",
-    title: "PW App",
+    title: "Physics Wallah",
     description: "Access Physics Wallah premium courses and study materials with enhanced features.",
     category: "Apps",
     status: "Live",

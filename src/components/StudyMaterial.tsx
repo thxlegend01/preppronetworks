@@ -1,9 +1,8 @@
-import { FileText, BookOpen, Heart, Key } from "lucide-react";
+import { FileText, BookOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
-import AccessCodeDialog from "./AccessCodeDialog";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
@@ -569,7 +568,6 @@ const StudyMaterial = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState("");
-  const [accessCodeOpen, setAccessCodeOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
 
@@ -671,27 +669,16 @@ const StudyMaterial = () => {
                 {material.subject} • {material.class}
               </p>
               
-              {/* CTA */}
-              <div className="space-y-2">
-                <Button 
-                  variant="hero"
-                  onClick={() => handleOpenMaterial(material)}
-                  size="sm"
-                  className="w-full"
-                >
-                  <BookOpen className="mr-2 w-4 h-4" />
-                  {user ? "Open" : "Login to Open"}
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                  onClick={() => setAccessCodeOpen(true)}
-                >
-                  <Key className="mr-2 w-4 h-4" />
-                  Access Code
-                </Button>
-              </div>
+              {/* CTA - Only Open Button */}
+              <Button 
+                variant="hero"
+                onClick={() => handleOpenMaterial(material)}
+                size="sm"
+                className="w-full"
+              >
+                <BookOpen className="mr-2 w-4 h-4" />
+                {user ? "Open" : "Login to Open"}
+              </Button>
             </div>
           ))}
         </div>
@@ -704,11 +691,6 @@ const StudyMaterial = () => {
           </div>
         )}
       </div>
-
-      <AccessCodeDialog
-        isOpen={accessCodeOpen}
-        onClose={() => setAccessCodeOpen(false)}
-      />
     </section>
   );
 };
