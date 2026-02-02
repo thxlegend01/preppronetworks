@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { ArrowRight, PlayCircle, Radio, ExternalLink, Key } from "lucide-react";
+import { ArrowRight, PlayCircle, Radio, ExternalLink, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from "react-router-dom";
 import type { Batch } from "@/lib/data";
+import { APP_ACCESS_CODES } from "@/lib/data";
 import DisclaimerDialog from "./DisclaimerDialog";
-import AccessCodeDialog from "./AccessCodeDialog";
 import { useAuth } from "@/hooks/useAuth";
 import Card3DGallery from "./Card3DGallery";
+import { useToast } from "@/hooks/use-toast";
 
 interface BatchCardProps {
   batch: Batch;
@@ -16,9 +17,13 @@ interface BatchCardProps {
 
 const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const [accessCodeOpen, setAccessCodeOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Check if this app has a specific access code
+  const appCode = APP_ACCESS_CODES[batch.id];
 
   const handleAccessClick = () => {
     if (!user) {
@@ -26,6 +31,26 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
       return;
     }
     setShowDisclaimer(true);
+  };
+
+  const handleCopyCode = async () => {
+    if (!appCode) return;
+    
+    try {
+      await navigator.clipboard.writeText(appCode.code);
+      setCopied(true);
+      toast({
+        title: "Code Copied!",
+        description: `${appCode.code} copied to clipboard`,
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Failed to copy",
+        description: "Please copy manually: " + appCode.code,
+      });
+    }
   };
 
   return (
@@ -93,14 +118,27 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button 
-                variant="secondary" 
-                className="w-full bg-success/20 text-success hover:bg-success/30 border border-success/30"
-                onClick={() => setAccessCodeOpen(true)}
-              >
-                <Key className="mr-2 w-4 h-4" />
-                Access Code
-              </Button>
+              
+              {/* Show copy code button only for apps with specific codes */}
+              {appCode && (
+                <Button 
+                  variant="secondary" 
+                  className="w-full bg-accent/20 text-accent hover:bg-accent/30 border border-accent/30"
+                  onClick={handleCopyCode}
+                >
+                  {copied ? (
+                    <>
+                      <Check className="mr-2 w-4 h-4" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="mr-2 w-4 h-4" />
+                      {appCode.label}: {appCode.code}
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -115,11 +153,6 @@ const BatchCard = ({ batch, index = 0 }: BatchCardProps) => {
         openInternal={batch.openInternal}
         showLoadingAnimation={batch.showLoadingAnimation}
         openExternalAfterLoading={batch.openExternalAfterLoading}
-      />
-
-      <AccessCodeDialog
-        isOpen={accessCodeOpen}
-        onClose={() => setAccessCodeOpen(false)}
       />
     </>
   );
