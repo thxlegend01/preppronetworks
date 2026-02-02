@@ -67,7 +67,342 @@ const studyMaterials: SubjectFolder[] = [
     url: "https://drive.google.com/drive/folders/1Ls1AmFuq26w0F9lGpfLfugzh0o-zMyZ-",
     icon: "📊"
   },
-  // Additional Study Materials
+  // JEE PYQs & Test Series
+  {
+    id: "jee-mains-adv-pyqs",
+    title: "JEE Mains/Advanced PYQs",
+    subject: "PYQs",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1qIuISGPPZRZXoLiFF0XarGRMsm84laGS",
+    icon: "📋"
+  },
+  {
+    id: "jee-test-series",
+    title: "JEE Test Series",
+    subject: "Test Series",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1A3jeVcbHMNUhhIwQRiPRWsV6InBRxwfa",
+    icon: "✅"
+  },
+  // Coaching Study Packages
+  {
+    id: "fiitjee-study-package",
+    title: "FIITJEE Study Package",
+    subject: "Study Package",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1adRa1tKV5ES8TunqjYbXaCZMsfnu5NfJ",
+    icon: "📚"
+  },
+  {
+    id: "resonance-sheets-jee",
+    title: "Resonance Sheets for JEE",
+    subject: "Sheets",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1yCe8Eu4cAmd4dCcBsOKVyMFNsSty_nm0",
+    icon: "📝"
+  },
+  {
+    id: "unacademy-iconic-notes",
+    title: "Unacademy Iconic JEE Notes",
+    subject: "Notes",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1vUi5JqmpQQTCuRtj5Fp7Qb_xKcCdS9Ph",
+    icon: "✏️"
+  },
+  {
+    id: "motion-dpps",
+    title: "Motion DPPs",
+    subject: "DPPs",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1Jro0mFynKdYHF_USWIjQmKbw4U4fhRSb",
+    icon: "📄"
+  },
+  // Books
+  {
+    id: "cengage-books",
+    title: "Cengage Books",
+    subject: "Books",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1WqqHCfNvvZKYBiGgIZZKx70Tr4R6upWP",
+    icon: "📘"
+  },
+  {
+    id: "arihant-books",
+    title: "Arihant Books",
+    subject: "Books",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/10JTt9MYbYc1J7wKFiyPvJ4gngGVUYahu",
+    icon: "📗"
+  },
+  {
+    id: "arihant-books-pt2",
+    title: "Arihant Books pt 2",
+    subject: "Books",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/14tD2zdst6s5r4CKGtfDqz2z7bzSicdVf",
+    icon: "📗"
+  },
+  // Sheets & DPPs
+  {
+    id: "e-saral-sheets",
+    title: "E Saral Sheets",
+    subject: "Sheets",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1Bd4xKzf5JdCaiCLThyLMnhMKL7ZwpjGO",
+    icon: "📝"
+  },
+  {
+    id: "aakash-crunches",
+    title: "Aakash Crunches",
+    subject: "Practice",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1GvuA65mVgJDyuz_AWaGKgUDsNT4oetM7",
+    icon: "🏃"
+  },
+  // Subject-wise Books
+  {
+    id: "chemistry-jee-books",
+    title: "Chemistry JEE Books",
+    subject: "Chemistry",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1JwbtFUAY8XZsC_TUn0OLWePPgAdj1jZY",
+    icon: "🧪"
+  },
+  {
+    id: "physics-jee-books",
+    title: "Physics JEE Books",
+    subject: "Physics",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1ZH8ZCjSgb1hCgIU7T2FQ6trcUQaton5p",
+    icon: "⚛️"
+  },
+  {
+    id: "mathematics-books",
+    title: "Mathematics Books",
+    subject: "Maths",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1OP741lTQpGPXBgsO3WOVb1Gi0vQmP1gE",
+    icon: "📐"
+  },
+  // Handbooks & Notes
+  {
+    id: "iitjee-adv-revisions",
+    title: "IITJEE Advanced Revisions",
+    subject: "Revision",
+    class: "JEE Advanced",
+    url: "https://drive.google.com/drive/folders/1J2Go2quobqgOWuOlZbdJ6PNNYLj1L7Di",
+    icon: "🔄"
+  },
+  {
+    id: "jee-handbook",
+    title: "JEE HandBook",
+    subject: "Handbook",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1GM4lQqbvs8KKZSL9nsxRBEPTXBJQd-Tm",
+    icon: "📖"
+  },
+  {
+    id: "jee-shortnotes-handwritten",
+    title: "JEE ShortNotes Hand Written",
+    subject: "Notes",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1owd3QqogTreEmuLpRpiMlmN00ToDTdf8",
+    icon: "✍️"
+  },
+  {
+    id: "allen-jee-handbooks",
+    title: "Allen JEE Handbooks",
+    subject: "Handbook",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/10Nw9lcQFKib0TLQsCRYrTb0Du8VeDN-9",
+    icon: "📕"
+  },
+  // Test Series
+  {
+    id: "mathango-adv-series",
+    title: "Mathango Advance Series",
+    subject: "Test Series",
+    class: "JEE Advanced",
+    url: "https://drive.google.com/drive/folders/1IqndZq8JD5y7hbVVMHWAF5QpTc3ymZ7e",
+    icon: "🎯"
+  },
+  {
+    id: "allen-all-test-series",
+    title: "Allen All Test Series",
+    subject: "Test Series",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/14vNdkg7nSf6G3zD6WmPewmQB2Avgc6bU",
+    icon: "📊"
+  },
+  // All Books Collections
+  {
+    id: "biology-all-books",
+    title: "Biology All Books",
+    subject: "Biology",
+    class: "NEET",
+    url: "https://drive.google.com/drive/folders/1ppN67wQHXGJzfu3tNqNKl-3p-lyLxxzG",
+    icon: "🧬"
+  },
+  {
+    id: "physics-all-books-pt2",
+    title: "Physics All Books pt.2",
+    subject: "Physics",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1-V2h5WbGiD4NE3_L706zyBvLizyuJHBb",
+    icon: "⚛️"
+  },
+  {
+    id: "chemistry-all-books-pt2",
+    title: "Chemistry All Books pt 2",
+    subject: "Chemistry",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/12B2mQ68LuvnFS1WAvC9QEFanQJ0pk3cZ",
+    icon: "🧪"
+  },
+  {
+    id: "maths-all-books-pt2",
+    title: "Maths All Books pt 2",
+    subject: "Maths",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1BBF5zIZ-Eiv2hYbnn8FlXCdce-8hJcku",
+    icon: "📐"
+  },
+  // Allen Module
+  {
+    id: "allen-module",
+    title: "Allen Module",
+    subject: "Module",
+    class: "JEE/NEET",
+    url: "https://drive.google.com/drive/folders/1-bwtrDr3yjyDf0_wiPSxmIe14F41nkHo",
+    icon: "📚"
+  },
+  // Resonance 10th
+  {
+    id: "resonance-biology-10th",
+    title: "Resonance Biology 10th",
+    subject: "Biology",
+    class: "10th",
+    url: "https://drive.google.com/drive/folders/1orPV9ArXpHWFmGgHPk-OlvQj_OBsP8_C",
+    icon: "🧬"
+  },
+  {
+    id: "resonance-chemistry-10th",
+    title: "Resonance Chemistry 10th",
+    subject: "Chemistry",
+    class: "10th",
+    url: "https://drive.google.com/drive/folders/1H7CnzO3hkYrwET_wX4lFc68AI1O_HSD1",
+    icon: "🧪"
+  },
+  {
+    id: "resonance-physics-10th",
+    title: "Resonance Physics 10th",
+    subject: "Physics",
+    class: "10th",
+    url: "https://drive.google.com/file/d/1z0pBGNYxTyxL2yALu28cOKJm12wargHP/view?usp=drivesdk",
+    icon: "⚛️"
+  },
+  {
+    id: "resonance-10th-dpps",
+    title: "Resonance 10th DPPs",
+    subject: "DPPs",
+    class: "10th",
+    url: "https://drive.google.com/drive/folders/18dtYpyPl3NW3MBcwmzu2siJZ9jIQF4ox",
+    icon: "📝"
+  },
+  // Resonance JEE Study Packages
+  {
+    id: "resonance-11th-jee",
+    title: "Resonance 11th Study Package JEE",
+    subject: "Study Package",
+    class: "11th",
+    url: "https://drive.google.com/drive/folders/1BDNxTETD-G-8O0PIHo_XaYVZIcESn7oy",
+    icon: "📚"
+  },
+  {
+    id: "resonance-12th-jee",
+    title: "Resonance 12th Study Package JEE",
+    subject: "Study Package",
+    class: "12th",
+    url: "https://drive.google.com/drive/folders/1LOqXDhWVmwJsgCRypomki3AT2Wct_SGU",
+    icon: "📚"
+  },
+  // Class 11th Files
+  {
+    id: "class-11th-maths",
+    title: "Class 11th Maths",
+    subject: "Maths",
+    class: "11th",
+    url: "https://drive.google.com/file/d/1EhqzBKrPBqUaq1qgci77ilPVQOw57Qfs/view?usp=drivesdk",
+    icon: "📐"
+  },
+  {
+    id: "class-11th-physics",
+    title: "Class 11th Physics",
+    subject: "Physics",
+    class: "11th",
+    url: "https://drive.google.com/file/d/1ICGXKV0_2FlMHz4Al1C9W2DVUS6b66ty/view?usp=drivesdk",
+    icon: "⚛️"
+  },
+  {
+    id: "class-11th-chemistry",
+    title: "Class 11th Chemistry",
+    subject: "Chemistry",
+    class: "11th",
+    url: "https://drive.google.com/file/d/1D_A0UbQsaLobzMVJsSiEB1NEu9YOGU9E/view?usp=drivesdk",
+    icon: "🧪"
+  },
+  // JEE Advanced Materials
+  {
+    id: "jee-advanced-study-package",
+    title: "JEE Advanced Study Package",
+    subject: "Study Package",
+    class: "JEE Advanced",
+    url: "https://drive.google.com/drive/folders/1JdM_Mr7uRa2yTTAFvanA8rcfx2x8hoa1",
+    icon: "🏆"
+  },
+  {
+    id: "jee-notes",
+    title: "JEE Notes",
+    subject: "Notes",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1sulVgEQE-FOS5maQZkD2c58_lr4DKayn",
+    icon: "📝"
+  },
+  {
+    id: "jee-advanced-material",
+    title: "JEE Advanced Material",
+    subject: "Material",
+    class: "JEE Advanced",
+    url: "https://drive.google.com/drive/folders/1bIieyKO_uhrA9EU8uxhqbzgjI5mW44RI",
+    icon: "🎯"
+  },
+  // NEET
+  {
+    id: "neet-in-9-hours",
+    title: "NEET in 9 Hours",
+    subject: "Crash Course",
+    class: "NEET",
+    url: "https://drive.google.com/file/d/1osNsev0ivaPLEY3hgmNWkvISjXfjbbx-/view?usp=drivesdk",
+    icon: "⏰"
+  },
+  // Mathango DPPs
+  {
+    id: "mathango-dpps",
+    title: "Mathango DPPs",
+    subject: "DPPs",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1qqBixF3yXMysZV58OoWuKdINpGzqMjsG",
+    icon: "📄"
+  },
+  {
+    id: "jee-chapterwise-dpps",
+    title: "JEE Chapter Wise DPPs",
+    subject: "DPPs",
+    class: "JEE",
+    url: "https://drive.google.com/drive/folders/1el8T4tJHLl04e5dLW8mCWiiCYdqYGIl8",
+    icon: "📝"
+  },
+  // Previous existing materials
   {
     id: "mathongo-jee-adv",
     title: "Mathongo JEE ADV",
