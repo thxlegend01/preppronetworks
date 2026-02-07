@@ -1,0 +1,153 @@
+import { useState, useEffect } from "react";
+import { BookOpen, ArrowRight, Heart, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { BATCHES } from "@/lib/data";
+import { useFavorites } from "@/hooks/useFavorites";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useAuth } from "@/hooks/useAuth";
+import DisclaimerDialog from "@/components/DisclaimerDialog";
+import ComingSoonDialog from "@/components/ComingSoonDialog";
+import SearchBar from "@/components/SearchBar";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
+
+import mathangoLogo from "@/assets/mathango-logo.png";
+import prepproLogo from "@/assets/preppro-logo.jpg";
+import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
+import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
+
+const logoMap: Record<string, string> = {
+  "mathango-pdfs": mathangoLogo,
+  "mathango-cbt": mathangoLogo,
+  "other-test-series": prepproLogo,
+  "pyq-cbt-test": revisionCourseLogo,
+  "rj-vikramjeet-test": rjVikramjeetLogo,
+};
+
+const TestSeriesPage = () => {
+  const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { addToRecentlyViewed } = useRecentlyViewed();
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [disclaimerOpen, setDisclaimerOpen] = useState(false);
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const testSeries = BATCHES.filter(b => b.category === "Test Series").filter(t => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q);
+  });
+
+  const handleExplore = (id: string, url: string, title: string) => {
+    if (!user) { navigate("/auth"); return; }
+    if (url === "coming-soon") { setComingSoonOpen(true); return; }
+    setSelectedApp({ url, title, id });
+    setDisclaimerOpen(true);
+  };
+
+  const handleContinue = () => {
+    if (selectedApp) {
+      addToRecentlyViewed(selectedApp.id, selectedApp.title, "material");
+      navigate(`/view/${encodeURIComponent(selectedApp.title)}`, {
+        state: { url: selectedApp.url, title: selectedApp.title, appId: selectedApp.id }
+      });
+    }
+    setDisclaimerOpen(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="container mx-auto px-4 pt-24 pb-16">
+        <Button variant="ghost" onClick={() => navigate("/")} className="mb-6 gap-2">
+          <ArrowLeft className="w-4 h-4" />Back to Home
+        </Button>
+
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
+            <BookOpen className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Test Series</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+            Premium <span className="text-gradient">Test Series</span>
+          </h1>
+          <p className="text-lg text-muted-foreground">Practice with the best test series available</p>
+        </div>
+
+        <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search test series..." />
+
+        {isLoading ? (
+          <GridSkeleton count={6} type="card" />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {testSeries.map((test, index) => (
+              <motion.div
+                key={test.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+              >
+                <div className="glass-card shine-effect rounded-2xl p-8 text-center group relative h-full">
+                  <button
+                    onClick={() => toggleFavorite(test.id)}
+                    className={`absolute top-4 right-4 p-2 rounded-full transition-all z-10 ${
+                      isFavorite(test.id) ? 'bg-destructive/20 text-destructive' : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isFavorite(test.id) ? 'fill-current' : ''}`} />
+                  </button>
+
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all">
+                    {logoMap[test.id] ? (
+                      <img src={logoMap[test.id]} alt={test.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <BookOpen className="w-10 h-10 text-primary" />
+                    )}
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{test.description}</p>
+
+                  <Button variant="hero" onClick={() => handleExplore(test.id, test.externalUrl, test.title)} className="w-full">
+                    {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {searchQuery && testSeries.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">No test series found for "{searchQuery}"</p>
+          </div>
+        )}
+      </div>
+
+      <Footer />
+
+      <DisclaimerDialog
+        isOpen={disclaimerOpen}
+        onClose={() => setDisclaimerOpen(false)}
+        onContinue={handleContinue}
+        externalUrl={selectedApp?.url || ""}
+        batchTitle={selectedApp?.title}
+      />
+      <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="Other Test Series" />
+    </div>
+  );
+};
+
+export default TestSeriesPage;

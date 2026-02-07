@@ -22,6 +22,9 @@ const ViewerPage = lazy(() => import("./pages/ViewerPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const AppsPage = lazy(() => import("./pages/AppsPage"));
+const TestSeriesPage = lazy(() => import("./pages/TestSeriesPage"));
+const StudyMaterialPage = lazy(() => import("./pages/StudyMaterialPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -34,8 +37,8 @@ const PageLoader = () => (
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      gcTime: 1000 * 60 * 30, // 30 minutes (formerly cacheTime)
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
       retry: 1,
       refetchOnWindowFocus: false,
     },
@@ -44,7 +47,6 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(() => {
-    // Only show splash once per session
     const hasSeenSplash = sessionStorage.getItem("hasSeenSplash");
     return !hasSeenSplash;
   });
@@ -72,6 +74,9 @@ const App = () => {
                         <Route path="/auth" element={<AuthPage />} />
                         <Route path="/reset-password" element={<ResetPasswordPage />} />
                         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                        <Route path="/apps" element={<AppsPage />} />
+                        <Route path="/test-series" element={<TestSeriesPage />} />
+                        <Route path="/study-material" element={<StudyMaterialPage />} />
                         <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
                         <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
                         <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
