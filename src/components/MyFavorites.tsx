@@ -29,8 +29,8 @@ const logoMap: Record<string, string> = {
   "next-toppers-app": nexttoppersLogo,
   "mathango-test-series": mathangoLogo,
   "other-test-series": prepproLogo,
-  "unacademy-app": unacademyLogo,
-  "revision-course-app": revisionCourseLogo,
+  "unacademy-app": revisionCourseLogo,
+  "revision-course-app": unacademyLogo,
   "pyq-cbt-test": revisionCourseLogo,
 };
 
