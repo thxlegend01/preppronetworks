@@ -36,7 +36,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: pwLogoNew,
     externalUrl: "https://deltastudy.site/study-v2/batches",
-    openInternal: true,
+    openInternal: false,
     chapters: [
       { id: "pw-1", title: "JEE Advanced", lessons: 120, duration: "60+ hrs" },
       { id: "pw-2", title: "NEET Advanced", lessons: 110, duration: "55+ hrs" },
