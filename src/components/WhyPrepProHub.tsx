@@ -1,87 +1,77 @@
-import { BookOpen, Brain, BarChart3, Target, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Brain, Target, BarChart3, BookOpen, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const features = [
-  {
-    icon: Brain,
-    title: "Concept-Focused Learning",
-    description: "Build strong foundations with clear, visual explanations. Master concepts before attempting problems.",
-    delay: "0s"
-  },
-  {
-    icon: Target,
-    title: "Smart Practice System",
-    description: "AI-powered question recommendations based on your weak areas. Practice smarter, not harder.",
-    delay: "0.1s"
-  },
-  {
-    icon: BarChart3,
-    title: "Performance Tracking",
-    description: "Detailed analytics to track your progress. Know exactly where you stand and what to improve.",
-    delay: "0.2s"
-  },
-  {
-    icon: BookOpen,
-    title: "Exam-Oriented Approach",
-    description: "Content curated specifically for JEE, NEET & competitive exams. Every resource aligned with exam patterns.",
-    delay: "0.3s"
-  }
+  { icon: Brain, title: "Concept-Focused Learning", description: "Build strong foundations with clear, visual explanations." },
+  { icon: Target, title: "Smart Practice", description: "AI-powered recommendations based on your weak areas." },
+  { icon: BarChart3, title: "Performance Tracking", description: "Detailed analytics to track your progress." },
+  { icon: BookOpen, title: "Exam-Oriented", description: "Content curated for JEE, NEET & competitive exams." },
 ];
 
 const WhyPrepProHub = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <section id="why-preppro" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-            <Brain className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Why Choose Us</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+    <section className="py-14 relative">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-6"
+        >
+          <h2 className="text-2xl md:text-3xl font-black mb-2 tracking-tight">
             Why <span className="text-gradient">PrepPro Network</span>?
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Everything you need to crack competitive exams, all in one place
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+            Everything you need to crack competitive exams — all free, organized, and in one place. Top coaching apps, CBT test series, and 50+ study resources.
           </p>
-        </div>
-        
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-          {features.map((feature) => (
-            <div 
-              key={feature.title}
-              className="glass-card rounded-3xl p-8 group hover:scale-[1.02] transition-all duration-500 animate-fade-in cursor-default card-hover"
-              style={{ animationDelay: feature.delay }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                <feature.icon className="w-8 h-8 text-primary-foreground" />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+        </motion.div>
+
+        {/* Expandable details */}
+        <div className="text-center">
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 transition-colors"
+            whileTap={{ scale: 0.95 }}
+          >
+            {isOpen ? "Hide Details" : "View Details"}
+            <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <ChevronDown className="w-3.5 h-3.5" />
+            </motion.div>
+          </motion.button>
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          <Button 
-            variant="hero"
-            size="lg"
-            onClick={() => document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Start Learning Now
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
-          </Button>
-        </div>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                {features.map((f, i) => (
+                  <motion.div
+                    key={f.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                    className="glass-card rounded-xl p-4 text-center group hover:scale-[1.03] transition-transform"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                      <f.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-xs font-bold mb-1 text-foreground">{f.title}</h3>
+                    <p className="text-[11px] text-muted-foreground leading-snug">{f.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
