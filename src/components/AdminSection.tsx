@@ -50,6 +50,7 @@ const AdminSection = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState<AdminTab | null>(null);
+  const [showLoginForm, setShowLoginForm] = useState(false);
   const [stats, setStats] = useState<UserStats>({
     totalUsers: 0,
     recentSignups: 0,
@@ -193,46 +194,59 @@ const AdminSection = () => {
 
   if (!isUnlocked) {
     return (
-      <section className="py-16 px-4">
-        <div className="max-w-md mx-auto">
-          <div className="glass-card rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-primary" />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Admin Access</h3>
-            <p className="text-muted-foreground text-sm mb-6">
-              Enter the admin password to access controls
-            </p>
-            
-            <div className="space-y-4">
-              <div className="relative">
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter admin password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleUnlock()}
-                  className="pr-10"
-                />
+      <section className="py-6 px-4">
+        <div className="max-w-xs mx-auto">
+          <AnimatePresence>
+            {!showLoginForm ? (
+              <motion.div key="link" className="text-center" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowLoginForm(true)}
+                  className="text-[11px] text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  Admin Panel
                 </button>
-              </div>
-              
-              {error && (
-                <p className="text-destructive text-sm">{error}</p>
-              )}
-              
-              <Button onClick={handleUnlock} className="w-full">
-                <Shield className="mr-2 w-4 h-4" />
-                Unlock Admin Panel
-              </Button>
-            </div>
-          </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="glass-card rounded-xl p-5 text-center"
+              >
+                <Lock className="w-5 h-5 text-muted-foreground mx-auto mb-3" />
+                <div className="space-y-3">
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleUnlock()}
+                      className="pr-10 text-sm h-9"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                  {error && <p className="text-destructive text-xs">{error}</p>}
+                  <div className="flex gap-2">
+                    <Button variant="ghost" size="sm" onClick={() => setShowLoginForm(false)} className="flex-1 text-xs h-8">
+                      Cancel
+                    </Button>
+                    <Button size="sm" onClick={handleUnlock} className="flex-1 text-xs h-8">
+                      <Shield className="mr-1 w-3 h-3" />
+                      Unlock
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     );

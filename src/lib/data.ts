@@ -35,7 +35,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: pwLogoNew,
-    externalUrl: "https://studysagar.vercel.app/",
+    externalUrl: "https://deltastudy.site/study-v2/batches",
     openInternal: true,
     chapters: [
       { id: "pw-1", title: "JEE Advanced", lessons: 120, duration: "60+ hrs" },
@@ -110,7 +110,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
-    externalUrl: "https://edu-vibe-nt.vercel.app/",
+    externalUrl: "https://trmsnt.nextmate.site/",
     chapters: [
       { id: "nt-1", title: "Topper Strategies", lessons: 30, duration: "15 hrs" },
       { id: "nt-2", title: "Time Management", lessons: 20, duration: "10 hrs" },
