@@ -38,6 +38,72 @@ export type Database = {
         }
         Relationships: []
       }
+      friend_requests: {
+        Row: {
+          created_at: string
+          from_user_id: string
+          id: string
+          status: Database["public"]["Enums"]["friend_request_status"]
+          to_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          from_user_id: string
+          id?: string
+          status?: Database["public"]["Enums"]["friend_request_status"]
+          to_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          from_user_id?: string
+          id?: string
+          status?: Database["public"]["Enums"]["friend_request_status"]
+          to_user_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      friends: {
+        Row: {
+          created_at: string
+          friend_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          friend_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          friend_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      motivational_quotes: {
+        Row: {
+          author: string | null
+          id: string
+          quote: string
+        }
+        Insert: {
+          author?: string | null
+          id?: string
+          quote: string
+        }
+        Update: {
+          author?: string | null
+          id?: string
+          quote?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -68,6 +134,180 @@ export type Database = {
         }
         Relationships: []
       }
+      room_participants: {
+        Row: {
+          id: string
+          joined_at: string
+          room_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          room_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          room_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_participants_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "study_rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      study_rooms: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_global: boolean
+          max_participants: number
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_global?: boolean
+          max_participants?: number
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_global?: boolean
+          max_participants?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      study_sessions: {
+        Row: {
+          created_at: string
+          duration_seconds: number | null
+          ended_at: string | null
+          id: string
+          is_active: boolean
+          last_tick_at: string
+          mode: Database["public"]["Enums"]["timer_mode"]
+          notes: string | null
+          rating: number | null
+          started_at: string
+          subject_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          is_active?: boolean
+          last_tick_at?: string
+          mode?: Database["public"]["Enums"]["timer_mode"]
+          notes?: string | null
+          rating?: number | null
+          started_at?: string
+          subject_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          is_active?: boolean
+          last_tick_at?: string
+          mode?: Database["public"]["Enums"]["timer_mode"]
+          notes?: string | null
+          rating?: number | null
+          started_at?: string
+          subject_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_sessions_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subject_goals: {
+        Row: {
+          created_at: string
+          daily_goal_minutes: number
+          id: string
+          subject_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          daily_goal_minutes?: number
+          id?: string
+          subject_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          daily_goal_minutes?: number
+          id?: string
+          subject_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subject_goals_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subjects: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_favorites: {
         Row: {
           created_at: string
@@ -88,6 +328,93 @@ export type Database = {
           id?: string
           item_id?: string
           item_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_goals: {
+        Row: {
+          created_at: string
+          daily_goal_minutes: number
+          id: string
+          streak_minimum_minutes: number
+          updated_at: string
+          user_id: string
+          weekly_goal_minutes: number
+        }
+        Insert: {
+          created_at?: string
+          daily_goal_minutes?: number
+          id?: string
+          streak_minimum_minutes?: number
+          updated_at?: string
+          user_id: string
+          weekly_goal_minutes?: number
+        }
+        Update: {
+          created_at?: string
+          daily_goal_minutes?: number
+          id?: string
+          streak_minimum_minutes?: number
+          updated_at?: string
+          user_id?: string
+          weekly_goal_minutes?: number
+        }
+        Relationships: []
+      }
+      user_notifications: {
+        Row: {
+          created_at: string
+          data: Json | null
+          id: string
+          is_read: boolean
+          message: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json | null
+          id?: string
+          is_read?: boolean
+          message?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json | null
+          id?: string
+          is_read?: boolean
+          message?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_presence: {
+        Row: {
+          id: string
+          last_seen: string
+          status: Database["public"]["Enums"]["presence_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          last_seen?: string
+          status?: Database["public"]["Enums"]["presence_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          last_seen?: string
+          status?: Database["public"]["Enums"]["presence_status"]
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -116,6 +443,72 @@ export type Database = {
           item_type?: string
           user_id?: string
           viewed_at?: string
+        }
+        Relationships: []
+      }
+      user_streaks: {
+        Row: {
+          current_streak: number
+          id: string
+          last_study_date: string | null
+          longest_streak: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          current_streak?: number
+          id?: string
+          last_study_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          current_streak?: number
+          id?: string
+          last_study_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_study_profiles: {
+        Row: {
+          created_at: string
+          id: string
+          notification_friend_online: boolean
+          notification_friend_studying: boolean
+          notification_goals: boolean
+          notification_streak: boolean
+          target_exam: string | null
+          updated_at: string
+          user_id: string
+          visibility: Database["public"]["Enums"]["visibility_setting"]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notification_friend_online?: boolean
+          notification_friend_studying?: boolean
+          notification_goals?: boolean
+          notification_streak?: boolean
+          target_exam?: string | null
+          updated_at?: string
+          user_id: string
+          visibility?: Database["public"]["Enums"]["visibility_setting"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notification_friend_online?: boolean
+          notification_friend_studying?: boolean
+          notification_goals?: boolean
+          notification_streak?: boolean
+          target_exam?: string | null
+          updated_at?: string
+          user_id?: string
+          visibility?: Database["public"]["Enums"]["visibility_setting"]
         }
         Relationships: []
       }
@@ -154,7 +547,10 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      friend_request_status: "pending" | "accepted" | "rejected"
+      presence_status: "online" | "offline" | "studying" | "break"
+      timer_mode: "normal" | "pomodoro_25_5" | "pomodoro_50_10"
+      visibility_setting: "public" | "friends_only" | "private"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -281,6 +677,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      friend_request_status: ["pending", "accepted", "rejected"],
+      presence_status: ["online", "offline", "studying", "break"],
+      timer_mode: ["normal", "pomodoro_25_5", "pomodoro_50_10"],
+      visibility_setting: ["public", "friends_only", "private"],
+    },
   },
 } as const

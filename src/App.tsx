@@ -25,6 +25,7 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const AppsPage = lazy(() => import("./pages/AppsPage"));
 const TestSeriesPage = lazy(() => import("./pages/TestSeriesPage"));
 const StudyMaterialPage = lazy(() => import("./pages/StudyMaterialPage"));
+const StudyTrackerPage = lazy(() => import("./pages/StudyTrackerPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -78,6 +79,7 @@ const App = () => {
                         <Route path="/test-series" element={<TestSeriesPage />} />
                         <Route path="/study-material" element={<StudyMaterialPage />} />
                         <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
+                        <Route path="/study-tracker" element={<ProtectedRoute><StudyTrackerPage /></ProtectedRoute>} />
                         <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
                         <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
                         <Route path="/view/:appId" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
