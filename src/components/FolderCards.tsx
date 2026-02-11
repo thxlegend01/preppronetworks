@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, Sparkles, Rocket, GraduationCap, ArrowRight } from "lucide-react";
+import { Smartphone, BookOpen, FileText, Sparkles, Rocket, GraduationCap, ArrowRight, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
@@ -34,6 +34,16 @@ const sections = [
     path: "/study-material",
     count: "50+",
   },
+  {
+    id: "study-tracker",
+    title: "Study Tracker",
+    tagline: "YPT Style — Track, Compete & Grow",
+    description: "Timer, Analytics, Study Rooms, Leaderboard & Friends",
+    icon: Timer,
+    sticker: Rocket,
+    path: "/study-tracker",
+    count: "🔥",
+  },
 ];
 
 const FolderCards = () => {
@@ -62,7 +72,7 @@ const FolderCards = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 max-w-6xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={section.id}
