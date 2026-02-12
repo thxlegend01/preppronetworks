@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, Sparkles, Rocket, GraduationCap, ArrowRight, Timer } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
@@ -10,9 +10,11 @@ const sections = [
     tagline: "Top Coaching Apps — Unlocked & Free",
     description: "PW, Unacademy, KGS, UTKARSH & 7+ premium platforms",
     icon: Smartphone,
-    sticker: Rocket,
     path: "/apps",
     count: "10+",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    iconBg: "from-blue-500 to-cyan-500",
+    borderHover: "hover:border-blue-500/50",
   },
   {
     id: "test-series",
@@ -20,9 +22,11 @@ const sections = [
     tagline: "CBT Practice — Just Like Real Exams",
     description: "Mathango, PW CBT, Kota Test Series & PYQ papers",
     icon: BookOpen,
-    sticker: GraduationCap,
     path: "/test-series",
     count: "7+",
+    gradient: "from-violet-500/20 to-purple-500/20",
+    iconBg: "from-violet-500 to-purple-500",
+    borderHover: "hover:border-violet-500/50",
   },
   {
     id: "study-material",
@@ -30,9 +34,11 @@ const sections = [
     tagline: "Every Resource You'll Ever Need",
     description: "Allen, FIITJEE, Resonance notes + Cengage, Arihant books",
     icon: FileText,
-    sticker: Sparkles,
     path: "/study-material",
     count: "50+",
+    gradient: "from-emerald-500/20 to-teal-500/20",
+    iconBg: "from-emerald-500 to-teal-500",
+    borderHover: "hover:border-emerald-500/50",
   },
   {
     id: "study-tracker",
@@ -40,9 +46,11 @@ const sections = [
     tagline: "YPT Style — Track, Compete & Grow",
     description: "Timer, Analytics, Study Rooms, Leaderboard & Friends",
     icon: Timer,
-    sticker: Rocket,
     path: "/study-tracker",
     count: "🔥",
+    gradient: "from-orange-500/20 to-rose-500/20",
+    iconBg: "from-orange-500 to-rose-500",
+    borderHover: "hover:border-orange-500/50",
   },
 ];
 
@@ -72,48 +80,51 @@ const FolderCards = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={section.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.12, type: "spring", stiffness: 120 }}
-              whileHover={{ y: -8, scale: 1.03 }}
+              transition={{ delay: index * 0.1, type: "spring", stiffness: 100, damping: 15 }}
+              whileHover={{ y: -10, scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate(section.path)}
               className="cursor-pointer group"
             >
-              <div className="relative rounded-2xl p-6 border border-border/50 hover:border-primary/40 transition-all duration-300 bg-card/80 backdrop-blur-sm overflow-hidden h-full">
-                <motion.div
-                  className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity"
-                  animate={{ rotate: [0, 8, -8, 0] }}
-                  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                >
-                  <section.sticker className="w-10 h-10 text-primary" />
-                </motion.div>
-
-                <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-border/50 group-hover:border-primary/50 transition-all mb-4 shadow-md group-hover:scale-105">
-                  <img src={prepproLogo} alt="PrepPro" className="w-full h-full object-cover" />
+              <div className={`relative rounded-2xl p-6 border border-border/50 ${section.borderHover} transition-all duration-500 bg-card/80 backdrop-blur-sm overflow-hidden h-full`}>
+                {/* Background gradient glow on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${section.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
+                
+                {/* Shine sweep effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent rotate-12 group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
                 </div>
 
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                      {section.title}
-                    </h3>
-                    <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/15 text-primary rounded-full">
-                      {section.count}
-                    </span>
+                {/* Icon */}
+                <div className="relative z-10">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${section.iconBg} flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300`}>
+                    <section.icon className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-xs font-semibold text-primary/70 mb-1.5">{section.tagline}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{section.description}</p>
-                </div>
 
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all">
-                  <span>Explore</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {section.title}
+                      </h3>
+                      <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/15 text-primary rounded-full">
+                        {section.count}
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-primary/70 mb-1.5">{section.tagline}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{section.description}</p>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-3 transition-all duration-300">
+                    <span>Explore</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
                 </div>
               </div>
             </motion.div>

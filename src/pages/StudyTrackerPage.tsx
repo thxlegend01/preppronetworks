@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { usePresence } from "@/hooks/usePresence";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
 import PageTransition from "@/components/PageTransition";
 import StudyTimerWidget from "@/components/study/StudyTimerWidget";
 import StatsWidget from "@/components/study/StatsWidget";
@@ -112,7 +112,7 @@ const StudyTrackerPage = () => {
           </div>
         </div>
 
-        <Footer />
+        
       </div>
     </PageTransition>
   );

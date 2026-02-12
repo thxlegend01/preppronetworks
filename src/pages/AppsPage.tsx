@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import DisclaimerDialog from "@/components/DisclaimerDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
@@ -192,7 +192,7 @@ const AppsPage = () => {
           )}
         </div>
 
-        <Footer />
+        
 
         <DisclaimerDialog
           isOpen={disclaimerOpen}

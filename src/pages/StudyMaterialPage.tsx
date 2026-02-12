@@ -7,7 +7,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
@@ -257,7 +257,7 @@ const StudyMaterialPage = () => {
           )}
         </div>
 
-        <Footer />
+        
       </div>
     </PageTransition>
   );

@@ -1,31 +1,14 @@
-import { Github, Twitter, Linkedin, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import { Github, Youtube, Linkedin, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 
-const footerLinks = {
-  product: [
-    { label: "Apps", href: "#apps" },
-    { label: "Test Series", href: "#test-series" },
-    { label: "Study Materials", href: "#study-material" },
-    { label: "About Developer", href: "#developer" },
-  ],
-  company: [
-    { label: "About Us", href: "#about" },
-    { label: "Careers", href: "#about" },
-    { label: "Blog", href: "#about" },
-    { label: "Contact", href: "#about" },
-  ],
-  support: [
-    { label: "Help Center", href: "#about" },
-    { label: "FAQs", href: "#about" },
-    { label: "Community", href: "#about" },
-    { label: "Feedback", href: "#about" },
-  ],
-  legal: [
-    { label: "Privacy Policy", href: "#about" },
-    { label: "Terms of Service", href: "#about" },
-    { label: "Refund Policy", href: "#about" },
-  ],
-};
+const quickLinks = [
+  { label: "Premium Apps", href: "/apps" },
+  { label: "Test Series", href: "/test-series" },
+  { label: "Study Material", href: "/study-material" },
+  { label: "Study Tracker", href: "/study-tracker" },
+  { label: "About Developer", href: "/#developer" },
+];
 
 const socialLinks = [
   { icon: Twitter, href: "#", label: "Twitter" },
@@ -37,95 +20,37 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer id="about" className="border-t border-border/40 bg-card/30 relative overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 grid-pattern opacity-10" />
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Main Footer */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+        <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
               <img 
                 src={prepproLogo} 
                 alt="PrepPro Network" 
-                className="w-12 h-12 rounded-xl ring-2 ring-primary/30"
+                className="w-10 h-10 rounded-xl ring-2 ring-primary/30"
               />
               <div>
-                <div className="font-bold text-xl text-gradient">PrepPro Network</div>
-                <div className="text-xs text-muted-foreground">Education for Everyone</div>
+                <div className="font-bold text-lg text-gradient">PrepPro Network</div>
+                <div className="text-xs text-muted-foreground">Prep like a Pro</div>
               </div>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
-              India's most comprehensive learning platform for competitive exam preparation. 
-              Join us and transform your future.
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+              Your one-stop platform for JEE, NEET & competitive exam preparation.
             </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary/70" />
-                <span>thxlegend01era@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary/70" />
-                <span>+91 98765 43210</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary/70" />
-                <span>New Delhi, India</span>
-              </div>
-            </div>
           </div>
           
-          {/* Links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Product</h4>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
+            <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Support</h4>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-sm text-primary/80 hover:text-primary transition-colors">
-                    {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -133,19 +58,18 @@ const Footer = () => {
         </div>
         
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="py-5 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 PrepPro Network. All rights reserved. Made with ❤️ for aspirants.
+            © {new Date().getFullYear()} PrepPro Network. Made with ❤️ for aspirants.
           </p>
           
-          {/* Social Links */}
           <div className="flex items-center gap-2">
             {socialLinks.map((social) => (
               <a 
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="w-10 h-10 rounded-lg bg-secondary/50 hover:bg-primary/20 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                className="w-9 h-9 rounded-lg bg-secondary/50 hover:bg-primary/20 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
               >
                 <social.icon className="w-4 h-4" />
               </a>
