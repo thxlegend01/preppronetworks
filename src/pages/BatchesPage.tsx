@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
 import BatchCard from "@/components/BatchCard";
 import PageTransition from "@/components/PageTransition";
 import MotionWrapper from "@/components/MotionWrapper";
@@ -168,7 +168,7 @@ const BatchesPage = () => {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
     </PageTransition>
   );

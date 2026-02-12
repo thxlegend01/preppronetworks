@@ -23,9 +23,10 @@ const Header = () => {
 
   const navLinks = [
     { href: "/", label: "Home", isRoute: true },
-    { href: "/batches", label: "Batches", isRoute: true },
+    { href: "/apps", label: "Apps", isRoute: true },
     { href: "/test-series", label: "Test Series", isRoute: true },
-    { href: "#about", label: "About Us", isRoute: false },
+    { href: "/study-material", label: "Study Material", isRoute: true },
+    { href: "/study-tracker", label: "Study Tracker", isRoute: true },
   ];
 
   const handleSignOut = async () => {

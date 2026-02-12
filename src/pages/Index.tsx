@@ -11,12 +11,10 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
-import FloatingSupportButton from "@/components/FloatingSupportButton";
 import SaurabhAI from "@/components/SaurabhAI";
-import SaurabhAIWatermark from "@/components/SaurabhAIWatermark";
 import ParallaxParticles from "@/components/ParallaxParticles";
 import MagneticCursor from "@/components/MagneticCursor";
-import AppDownloadBanner from "@/components/AppDownloadBanner";
+
 import Phone3DMockup from "@/components/Phone3DMockup";
 import { useServiceWorker } from "@/hooks/useServiceWorker";
 import { useEffect } from "react";
@@ -38,7 +36,7 @@ const Index = () => {
         
         <NewYearBanner />
         <Header />
-        <AppDownloadBanner variant="top" />
+        
         <Hero />
         <MyFavorites />
         <RecentlyViewed />
@@ -50,9 +48,7 @@ const Index = () => {
         <CTA />
         <AdminSection />
         <Footer />
-        <FloatingSupportButton />
         <SaurabhAI />
-        <SaurabhAIWatermark />
       </div>
     </PageTransition>
   );
