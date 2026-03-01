@@ -72,9 +72,9 @@ const AppsPage = () => {
   const visibleApps = searchQuery.trim() ? allApps : showAll ? allApps : featuredApps;
 
   const handleExplore = (id: string, url: string, title: string) => {
-    if (!user) { navigate("/auth"); return; }
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     setSelectedApp({ url, title, id });
+    setDisclaimerOpen(true);
     setDisclaimerOpen(true);
   };
 
@@ -136,7 +136,7 @@ const AppsPage = () => {
 
           <div className="space-y-2">
             <Button variant="hero" onClick={() => handleExplore(app.id, app.externalUrl, app.title)} className="w-full">
-              {app.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
+              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
 
