@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, Sparkles } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, Sparkles, Globe } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
@@ -11,7 +11,7 @@ const sections = [
     id: "apps",
     title: "Premium Apps",
     tagline: "Top Coaching Apps — Unlocked & Free",
-    description: "PW, Unacademy, KGS, UTKARSH & 7+ premium platforms",
+    description: "PW, Unacademy, Next Toppers & more premium platforms",
     icon: Smartphone,
     logo: pwLogoNew,
     path: "/apps",
@@ -26,13 +26,13 @@ const sections = [
   },
   {
     id: "test-series",
-    title: "Test Series",
+    title: "Test Series / PYQs",
     tagline: "CBT Practice — Just Like Real Exams",
-    description: "Mathango, PW CBT, Kota Test Series & PYQ papers",
+    description: "PW Test Series, PYQs CBT & Chapter-wise Tests",
     icon: BookOpen,
     logo: mathangoLogo,
     path: "/test-series",
-    count: "7+",
+    count: "4",
     accentFrom: "from-violet-500",
     accentTo: "to-purple-400",
     glowColor: "shadow-violet-500/25",
@@ -75,6 +75,23 @@ const sections = [
     bgTint: "bg-orange-500/5",
     dotColor: "bg-orange-400",
   },
+  {
+    id: "preppro-world",
+    title: "PrepPro Networks World",
+    tagline: "Our Universe — Explore Everything",
+    description: "Community, updates, announcements & exclusive content",
+    icon: Globe,
+    logo: prepproLogo,
+    path: "/preppro-world",
+    count: "🌍",
+    accentFrom: "from-pink-500",
+    accentTo: "to-fuchsia-400",
+    glowColor: "shadow-pink-500/25",
+    borderColor: "border-pink-500/30",
+    borderHover: "hover:border-pink-400",
+    bgTint: "bg-pink-500/5",
+    dotColor: "bg-pink-400",
+  },
 ];
 
 const containerVariants = {
@@ -100,7 +117,6 @@ const FolderCards = () => {
 
   return (
     <section id="apps" className="py-24 relative overflow-hidden">
-      {/* Ambient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/5 to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -134,7 +150,7 @@ const FolderCards = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto"
         >
           {sections.map((section) => (
             <motion.div
@@ -152,33 +168,22 @@ const FolderCards = () => {
               <div
                 className={`relative rounded-3xl border-2 ${section.borderColor} ${section.borderHover} ${section.bgTint} transition-all duration-500 overflow-hidden h-full backdrop-blur-md group-hover:${section.glowColor} group-hover:shadow-2xl`}
               >
-                {/* Top accent bar */}
                 <div className={`h-1.5 w-full bg-gradient-to-r ${section.accentFrom} ${section.accentTo}`} />
-
-                {/* Animated corner glow */}
                 <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${section.accentFrom} ${section.accentTo} rounded-full opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-700`} />
-
-                {/* Shine sweep */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                   <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/8 to-transparent rotate-12 group-hover:translate-x-[200%] transition-transform duration-[1200ms] ease-out" />
                 </div>
 
                 <div className="relative z-10 p-6">
-                  {/* Logo + Icon row */}
                   <div className="flex items-center justify-between mb-5">
                     <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-border/50 shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300 bg-background">
-                      <img
-                        src={section.logo}
-                        alt={section.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={section.logo} alt={section.title} className="w-full h-full object-cover" />
                     </div>
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${section.accentFrom} ${section.accentTo} flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500`}>
                       <section.icon className="w-5 h-5 text-white" />
                     </div>
                   </div>
 
-                  {/* Title + count badge */}
                   <div className="flex items-center gap-2 mb-1.5">
                     <h3 className="text-lg font-extrabold text-foreground group-hover:text-primary transition-colors duration-300">
                       {section.title}
@@ -191,7 +196,6 @@ const FolderCards = () => {
                   <p className="text-xs font-semibold text-primary/70 mb-2">{section.tagline}</p>
                   <p className="text-xs text-muted-foreground leading-relaxed mb-5">{section.description}</p>
 
-                  {/* CTA */}
                   <div className={`flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-xl bg-gradient-to-r ${section.accentFrom}/10 ${section.accentTo}/10 group-hover:${section.accentFrom}/20 transition-all duration-300`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${section.dotColor} animate-pulse`} />
                     <span className="text-primary">Explore Now</span>
