@@ -49,7 +49,6 @@ const TestSeriesPage = () => {
   });
 
   const handleExplore = (id: string, url: string, title: string) => {
-    if (!user) { navigate("/auth"); return; }
     if (url === "coming-soon") {
       setComingSoonTitle(title);
       setComingSoonOpen(true);
@@ -132,7 +131,7 @@ const TestSeriesPage = () => {
                     )}
 
                     <Button variant="hero" onClick={() => handleExplore(test.id, test.externalUrl, test.title)} className="w-full">
-                      {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Start Practice" : "Login to Practice"}
+                      {test.externalUrl === "coming-soon" ? "Coming Soon" : "Start Practice"}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </div>

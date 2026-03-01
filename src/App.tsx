@@ -75,16 +75,16 @@ const App = () => {
                         <Route path="/" element={<Index />} />
                         <Route path="/auth" element={<AuthPage />} />
                         <Route path="/reset-password" element={<ResetPasswordPage />} />
-                        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/apps" element={<AppsPage />} />
                         <Route path="/test-series" element={<TestSeriesPage />} />
                         <Route path="/study-material" element={<StudyMaterialPage />} />
-                        <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
-                        <Route path="/study-tracker" element={<ProtectedRoute><StudyTrackerPage /></ProtectedRoute>} />
+                        <Route path="/batches" element={<BatchesPage />} />
+                        <Route path="/study-tracker" element={<StudyTrackerPage />} />
                         <Route path="/preppro-world" element={<PrepProWorldPage />} />
-                        <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
-                        <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
-                        <Route path="/view/:appId" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
+                        <Route path="/batches/:batchId" element={<BatchDetailPage />} />
+                        <Route path="/test/:testId" element={<TestPage />} />
+                        <Route path="/view/:appId" element={<ViewerPage />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </Suspense>
