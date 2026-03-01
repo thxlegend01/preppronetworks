@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookOpen, ArrowRight, Heart, ArrowLeft } from "lucide-react";
+import { BookOpen, ArrowRight, Heart, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -11,21 +11,18 @@ import DisclaimerDialog from "@/components/DisclaimerDialog";
 import ComingSoonDialog from "@/components/ComingSoonDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
-
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
 import mathangoLogo from "@/assets/mathango-logo.png";
-import prepproLogo from "@/assets/preppro-logo.jpg";
+import pwLogoNew from "@/assets/pw-logo-new.jpg";
 import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
-import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
 
 const logoMap: Record<string, string> = {
-  "mathango-pdfs": mathangoLogo,
-  "mathango-cbt": mathangoLogo,
-  "other-test-series": prepproLogo,
+  "pw-test-series": pwLogoNew,
+  "mathango-test": mathangoLogo,
   "pyq-cbt-test": revisionCourseLogo,
-  "rj-vikramjeet-test": rjVikramjeetLogo,
+  "chapter-wise-test": revisionCourseLogo,
 };
 
 const TestSeriesPage = () => {
@@ -36,6 +33,7 @@ const TestSeriesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [comingSoonTitle, setComingSoonTitle] = useState("");
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,7 +50,11 @@ const TestSeriesPage = () => {
 
   const handleExplore = (id: string, url: string, title: string) => {
     if (!user) { navigate("/auth"); return; }
-    if (url === "coming-soon") { setComingSoonOpen(true); return; }
+    if (url === "coming-soon") {
+      setComingSoonTitle(title);
+      setComingSoonOpen(true);
+      return;
+    }
     setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
   };
@@ -76,27 +78,23 @@ const TestSeriesPage = () => {
             <ArrowLeft className="w-4 h-4" />Back to Home
           </Button>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
               <BookOpen className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Test Series</span>
+              <span className="text-sm font-medium text-primary">Test Series / PYQs</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
-              Premium <span className="text-gradient">Test Series</span>
+              Test Series & <span className="text-gradient">PYQs</span>
             </h1>
-            <p className="text-lg text-muted-foreground">Practice with the best test series available</p>
+            <p className="text-lg text-muted-foreground">Practice with the best test series & previous year questions</p>
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search test series..." />
 
           {isLoading ? (
-            <GridSkeleton count={6} type="card" />
+            <GridSkeleton count={4} type="card" />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
               {testSeries.map((test, index) => (
                 <motion.div
                   key={test.id}
@@ -124,10 +122,17 @@ const TestSeriesPage = () => {
                     </div>
 
                     <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{test.description}</p>
+                    <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{test.description}</p>
+
+                    {test.externalUrl === "coming-soon" && (
+                      <div className="flex items-center gap-2 justify-center mb-4 px-3 py-2 bg-warning/10 border border-warning/20 rounded-lg">
+                        <AlertCircle className="w-4 h-4 text-warning" />
+                        <span className="text-xs text-warning font-medium">Tests will be added manually soon</span>
+                      </div>
+                    )}
 
                     <Button variant="hero" onClick={() => handleExplore(test.id, test.externalUrl, test.title)} className="w-full">
-                      {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Explore Now" : "Login to Explore"}
+                      {test.externalUrl === "coming-soon" ? "Coming Soon" : user ? "Start Practice" : "Login to Practice"}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </div>
@@ -143,8 +148,6 @@ const TestSeriesPage = () => {
           )}
         </div>
 
-        
-
         <DisclaimerDialog
           isOpen={disclaimerOpen}
           onClose={() => setDisclaimerOpen(false)}
@@ -152,7 +155,7 @@ const TestSeriesPage = () => {
           externalUrl={selectedApp?.url || ""}
           batchTitle={selectedApp?.title}
         />
-        <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="Other Test Series" />
+        <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title={comingSoonTitle || "Mathango"} />
       </div>
     </PageTransition>
   );
