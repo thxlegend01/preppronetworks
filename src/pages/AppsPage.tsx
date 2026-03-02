@@ -75,7 +75,6 @@ const AppsPage = () => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
-    setDisclaimerOpen(true);
   };
 
   const handleContinue = () => {

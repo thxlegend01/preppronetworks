@@ -54,6 +54,10 @@ const TestSeriesPage = () => {
       setComingSoonOpen(true);
       return;
     }
+    if (id === "mathango-test") {
+      navigate("/mathango-tests");
+      return;
+    }
     setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
   };
