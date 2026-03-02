@@ -37,7 +37,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: pwLogoNew,
     externalUrl: "http://PwPrepPro.lovable.app",
-    openInternal: true,
+    openInternal: false,
     featured: true,
     chapters: [
       { id: "pw-1", title: "JEE Advanced", lessons: 120, duration: "60+ hrs" },
@@ -207,7 +207,7 @@ export const BATCHES: Batch[] = [
     status: "Available",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
     externalUrl: "http://PwPrepPro.lovable.app",
-    openInternal: true,
+    openInternal: false,
     chapters: [
       { id: "pwts-1", title: "JEE Tests", lessons: 50, duration: "25 hrs" },
       { id: "pwts-2", title: "NEET Tests", lessons: 50, duration: "25 hrs" },
@@ -215,15 +215,15 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "mathango-test",
-    title: "Mathango",
-    description: "Mathango Test Series — Tests will be added manually soon. Stay tuned!",
+    title: "Mathango Test Series",
+    description: "25 Full Length Mock Tests for JEE MAINS Preparation with video solutions.",
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=800&q=80",
-    externalUrl: "coming-soon",
+    externalUrl: "/mathango-tests",
     openInternal: true,
     chapters: [
-      { id: "mt-1", title: "JEE Main Tests", lessons: 50, duration: "25 hrs" },
+      { id: "mt-1", title: "JEE Main Tests", lessons: 25, duration: "75 hrs" },
     ],
   },
   {
