@@ -122,7 +122,6 @@ const StudyMaterialPage = () => {
   }, []);
 
   const handleOpenMaterial = (material: StudyItem) => {
-    if (!user) { navigate("/auth"); return; }
     window.open(material.url, "_blank");
   };
 
@@ -241,7 +240,7 @@ const StudyMaterialPage = () => {
 
                       <Button variant="hero" onClick={() => handleOpenMaterial(material)} size="sm" className="w-full">
                         <BookOpen className="mr-2 w-4 h-4" />
-                        {user ? "Open" : "Login to Open"}
+                        Open
                       </Button>
                     </div>
                   </motion.div>

@@ -12,6 +12,13 @@ const tests = [
   { id: "qft-3", title: "JEE MAINS TEST 3", subtitle: "QFT 3 - Full Test", url: "/tests/qft-3.html" },
   { id: "qft-4", title: "JEE MAINS TEST 4", subtitle: "QFT 4 - Full Test", url: "/tests/qft-4.html" },
   { id: "qft-5", title: "JEE MAINS TEST 5", subtitle: "QFT 5 - Full Test", url: "/tests/qft-5.html" },
+  { id: "qft-6", title: "JEE MAINS TEST 6", subtitle: "QFT 6 - Full Test", url: "/tests/qft-6.html" },
+  { id: "qft-7", title: "JEE MAINS TEST 7", subtitle: "QFT 7 - Full Test", url: "/tests/qft-7.html" },
+  { id: "qft-8", title: "JEE MAINS TEST 8", subtitle: "QFT 8 - Full Test", url: "/tests/qft-8.html" },
+  { id: "qft-9", title: "JEE MAINS TEST 9", subtitle: "QFT 9 - Full Test", url: "/tests/qft-9.html" },
+  { id: "qft-10", title: "JEE MAINS TEST 10", subtitle: "QFT 10 - Full Test", url: "/tests/qft-10.html" },
+  { id: "qft-11", title: "JEE MAINS TEST 11", subtitle: "QFT 11 - Full Test", url: "/tests/qft-11.html" },
+  { id: "qft-12", title: "JEE MAINS TEST 12", subtitle: "QFT 12 - Full Test", url: "/tests/qft-12.html" },
 ];
 
 const MathangoTestsPage = () => {
