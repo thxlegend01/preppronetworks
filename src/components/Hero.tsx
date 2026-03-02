@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Play, Users, BookOpen, Trophy } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Smartphone, ClipboardCheck, Library, Users, BookOpen, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import Tilt3D from "./Tilt3D";
 
@@ -119,50 +118,78 @@ const Hero = () => {
             practice tests, and expert mentorship to crack JEE, NEET, NDA & more.
           </motion.p>
           
-          {/* CTA Buttons */}
+          {/* Premium CTA Cards */}
           <motion.div 
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-6"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full max-w-3xl mx-auto"
           >
-            <Tilt3D intensity={8} scale={1.02}>
-              <Button 
-                variant="hero"
-                size="lg" 
-                className={`text-lg px-8 py-7 transition-all duration-200 ${activeButton === 'apps' ? 'scale-95 brightness-90' : ''}`}
-                onClick={() => handleButtonClick('apps', 'apps')}
-                data-magnetic
-              >
-                Explore Apps
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
-              </Button>
-            </Tilt3D>
-            <Tilt3D intensity={8} scale={1.02}>
-              <Button 
-                variant="hero"
-                size="lg" 
-                className={`text-lg px-8 py-7 transition-all duration-200 ${activeButton === 'test-series' ? 'scale-95 brightness-90' : ''}`}
-                onClick={() => handleButtonClick('test-series', 'test-series')}
-                data-magnetic
-              >
-                <Play className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
-                Explore Test Series
-              </Button>
-            </Tilt3D>
-          </motion.div>
+            {[
+              {
+                id: "apps",
+                target: "apps",
+                icon: Smartphone,
+                title: "Explore Premium Apps",
+                subtitle: "Access India's top learning platforms",
+                gradientFrom: "from-pink-500",
+                gradientTo: "to-purple-600",
+                glowColor: "hover:shadow-pink-500/30",
+              },
+              {
+                id: "test-series",
+                target: "test-series",
+                icon: ClipboardCheck,
+                title: "Start Test Series",
+                subtitle: "Practice like real exam environment",
+                gradientFrom: "from-violet-500",
+                gradientTo: "to-indigo-600",
+                glowColor: "hover:shadow-violet-500/30",
+              },
+              {
+                id: "study-material",
+                target: "study-material",
+                icon: Library,
+                title: "Study Resources",
+                subtitle: "Books, PDFs & curated materials",
+                gradientFrom: "from-fuchsia-500",
+                gradientTo: "to-pink-600",
+                glowColor: "hover:shadow-fuchsia-500/30",
+              },
+            ].map((cta) => (
+              <Tilt3D key={cta.id} intensity={6} scale={1.0}>
+                <motion.button
+                  whileHover={{ y: -6, scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleButtonClick(cta.id, cta.target)}
+                  className={`group relative w-full min-h-[70px] flex items-center gap-4 px-5 py-4 rounded-[20px] cursor-pointer
+                    bg-background/40 backdrop-blur-xl
+                    border border-white/15 dark:border-white/10
+                    shadow-lg ${cta.glowColor} hover:shadow-2xl
+                    transition-all duration-300 ease-out overflow-hidden
+                  `}
+                >
+                  {/* Gradient border glow */}
+                  <div className={`absolute inset-0 rounded-[20px] bg-gradient-to-br ${cta.gradientFrom} ${cta.gradientTo} opacity-0 group-hover:opacity-[0.12] transition-opacity duration-300 pointer-events-none`} />
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden rounded-[20px]">
+                    <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-12 group-hover:translate-x-[200%] transition-transform duration-[1200ms] ease-out" />
+                  </div>
 
-          {/* Study Material Shortcut */}
-          <motion.div variants={itemVariants} className="flex justify-center mb-16">
-            <Tilt3D intensity={8} scale={1.02}>
-              <Button 
-                variant="hero"
-                size="lg" 
-                className={`text-lg px-6 py-6 transition-all duration-200 ${activeButton === 'study-material' ? 'scale-95 brightness-90' : ''}`}
-                onClick={() => handleButtonClick('study-material', 'study-material')}
-              >
-                <BookOpen className="mr-2 w-5 h-5 group-hover:scale-125 transition-transform" />
-                Explore Study Material
-              </Button>
-            </Tilt3D>
+                  {/* Icon */}
+                  <div className={`relative z-10 flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br ${cta.gradientFrom} ${cta.gradientTo} flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}>
+                    <cta.icon className="w-5 h-5 text-white" />
+                  </div>
+
+                  {/* Text */}
+                  <div className="relative z-10 flex-1 text-left min-w-0">
+                    <span className="block text-[15px] sm:text-base font-bold text-foreground leading-tight truncate">{cta.title}</span>
+                    <span className="block text-[11px] sm:text-xs text-muted-foreground mt-0.5 truncate">{cta.subtitle}</span>
+                  </div>
+
+                  {/* Arrow */}
+                  <ArrowRight className="relative z-10 flex-shrink-0 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1.5 transition-all duration-300" />
+                </motion.button>
+              </Tilt3D>
+            ))}
           </motion.div>
 
           {/* Stats */}
