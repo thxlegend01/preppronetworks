@@ -1,0 +1,2998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizrr Full Test (QFT) - 8 (with Video Solutions)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2196F3;
+            --primary-dark: #1976D2;
+            --secondary: #42A5F5;
+            --accent: #64B5F6;
+            --light-blue: #E3F2FD;
+            --dark: #1565C0;
+            --light: #FFFFFF;
+            --gray: #9E9E9E;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        body {
+            background: var(--light);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            position: relative;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .navbar {
+            background: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem;
+        }
+
+        .navbar-brand {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white !important;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand i {
+            font-size: 1.1rem;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .timer {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .nav-action-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-action-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav-action-btn.submit-btn {
+            background: #4CAF50;
+        }
+
+        .nav-action-btn.submit-btn:hover {
+            background: #43A047;
+        }
+
+        .option-card.attempted {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Modern Welcome Screen */
+        .welcome-screen {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .test-info-card {
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.05);
+        }
+
+        .test-info-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .test-info-header i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            padding: 1rem;
+            border-radius: 16px;
+        }
+
+        .test-info-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .test-info-body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .info-item div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .info-item label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .instructions-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .instructions-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .instructions-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .instructions-header h4 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+            padding: 0;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8faff;
+            border-radius: 12px;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .instruction-item:hover {
+            transform: translateX(5px);
+            background: white;
+            border-color: var(--primary);
+        }
+
+        .instruction-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            color: white;
+            background: var(--primary);
+        }
+
+        .instruction-icon.success { background: #4CAF50; }
+        .instruction-icon.danger { background: #F44336; }
+        .instruction-icon.warning { background: #FFC107; }
+        .instruction-icon.info { background: #2196F3; }
+
+        .instruction-text {
+            font-size: 1rem;
+            color: #2c3e50;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .start-test-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .start-test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+        }
+
+        .start-test-btn i {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-screen {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .test-info-body {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .info-item {
+                padding: 0.8rem;
+            }
+
+            .info-item i {
+                font-size: 1.2rem;
+            }
+
+            .info-item span {
+                font-size: 1.1rem;
+            }
+
+            .instructions-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .instruction-item {
+                padding: 0.8rem;
+            }
+
+            .instruction-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .instruction-text {
+                font-size: 0.9rem;
+            }
+
+            .start-test-btn {
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            max-width: 900px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--golden);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .option-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1rem 1rem 3rem;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .option-card:hover {
+            background: var(--light-blue);
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .option-card::before {
+            content: attr(data-option);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 100%;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary);
+            border-radius: 9px 0 0 9px;
+        }
+
+        .option-card.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .option-card.correct {
+            background: rgba(0, 200, 83, 0.2);
+            border-color: var(--success);
+        }
+
+        .option-card.incorrect {
+            background: rgba(213, 0, 0, 0.2);
+            border-color: var(--danger);
+        }
+
+        .question-box {
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .question-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--primary), var(--golden));
+            border-radius: 20px 0 0 20px;
+        }
+
+        .stats-mini {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .stats-mini-item {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .stats-mini-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .stats-mini-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .stats-mini-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-top: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.15);
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
+            background: #f5f5f5;
+            color: #999;
+            border-color: #ddd;
+            box-shadow: none;
+        }
+
+        .question-number {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .grid-btn {
+            aspect-ratio: 1;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--primary);
+        }
+
+        .grid-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .grid-btn.btn-success {
+            background: var(--success);
+        }
+
+        .grid-btn.btn-warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .grid-btn.btn-primary {
+            background: var(--accent);
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--golden);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(75, 54, 33, 0.9) 100%);
+            color: var(--golden);
+            border-radius: 15px 15px 0 0;
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--golden);
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .stats-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--golden);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .stats-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--golden);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .stats-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            padding: 0 1rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-card {
+            flex: 1;
+            min-width: 180px;
+            background: #f8f9ff;
+            border: 1px solid #eef0f7;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .instruction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1.2rem;
+            background: #f8f9ff;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #eef0f7;
+        }
+
+        .instruction-icon {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .instruction-text {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+                padding-bottom: 60px;
+            }
+            
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                min-width: auto;
+                font-size: 0.8rem;
+            }
+            
+            .nav-btn span {
+                display: none;
+            }
+            
+            .welcome-screen, .question-card {
+                margin: 0.8rem;
+                padding: 1.2rem;
+            }
+
+            .stats-mini {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .stats-mini-item {
+                flex: 1 1 auto;
+                min-width: 100px;
+            }
+
+            .option-card {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .bottom-nav {
+                padding: 0.8rem;
+            }
+            .stats-container {
+                padding: 0 0.5rem;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+            
+            .stats-card {
+                min-width: 140px;
+                padding: 0.6rem;
+                gap: 0.6rem;
+            }
+            
+            .stats-card i {
+                font-size: 1rem;
+                width: 30px;
+                height: 30px;
+            }
+            
+            .stats-value {
+                font-size: 0.9rem;
+            }
+            
+            .stats-label {
+                font-size: 0.7rem;
+            }
+
+            .instruction-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            
+            .instruction-item {
+                padding: 0.7rem;
+            }
+            
+            .instruction-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .instruction-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Modern Result Display */
+        .score-animation {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 2rem auto;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+        }
+
+        .score-value {
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            padding: 0 1rem;
+        }
+
+        .stat-item {
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            border-radius: 20px;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .wrong-answers-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .wrong-answer-card {
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .wrong-answer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .wrong-answer, .correct-answer {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .stats-mini {
+                padding: 0.8rem;
+            }
+            
+            .stats-mini-item {
+                padding: 0 0.5rem;
+            }
+            
+            .stats-mini-value {
+                font-size: 1.2rem;
+            }
+            
+            .wrong-answer-card {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            
+            .score-value {
+                font-size: 3rem;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eef0f7;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-title i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .grid-btn {
+            aspect-ratio: 1;
+            border: 1px solid #eef0f7;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            background: white;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .grid-btn:hover {
+            background: #f8f9ff;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .grid-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .grid-btn.answered {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+
+        .grid-btn.marked {
+            background: #fff3e0;
+            color: #f57c00;
+            border-color: #ffcc80;
+        }
+
+        .grid-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1rem;
+            border-top: 1px solid #eef0f7;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1rem auto;
+            max-width: 800px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eef0f7;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-number i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .question-status {
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .question-box {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.6;
+            border: 1px solid #eef0f7;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .option-card {
+            background: white;
+            border: 1px solid #eef0f7;
+            border-radius: 8px;
+            padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #475569;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-card:hover {
+            background: #f8f9ff;
+            border-color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .option-card::before {
+            content: attr(data-option);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.2rem;
+            height: 100%;
+            background: #f8f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            border-right: 1px solid #eef0f7;
+        }
+
+        .option-card.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .option-card.selected::before {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .option-card.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+
+        .option-card.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+
+        @media (max-width: 768px) {
+            .questions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+                gap: 0.4rem;
+                padding: 0.8rem;
+            }
+
+            .grid-btn {
+                font-size: 0.8rem;
+            }
+
+            .question-box {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .option-card {
+                padding: 0.7rem 0.7rem 0.7rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .option-card::before {
+                width: 2rem;
+                font-size: 0.85rem;
+            }
+
+            .legend-item {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Add new styles at the end */
+        
+        /* Modern Disclaimer */
+        .disclaimer-alert {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .disclaimer-alert::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #2196F3, #1976D2);
+        }
+
+        .disclaimer-icon {
+            font-size: 2rem;
+            color: #2196F3;
+            flex-shrink: 0;
+        }
+
+        .disclaimer-content h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .disclaimer-content p {
+            color: #505c6d;
+            line-height: 1.6;
+        }
+
+        .disclaimer-content a {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .disclaimer-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Join Channel Modal */
+        #joinChannelModal .modal-content {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        #joinChannelModal .modal-header {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            border: none;
+            padding: 1.5rem;
+        }
+
+        #joinChannelModal .btn-close {
+            color: white;
+            opacity: 1;
+            filter: brightness(0) invert(1);
+        }
+
+        #joinChannelModal .modal-body {
+            padding: 2rem;
+        }
+
+        #joinChannelModal .btn-primary {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        #joinChannelModal .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Modern Navigation Buttons */
+        .nav-action-btn {
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-action-btn:hover {
+            transform: translateY(-2px);
+            border-color: #2196F3;
+            color: #2196F3;
+        }
+
+        .nav-action-btn.submit-btn {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .nav-action-btn.submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Question Navigation Grid */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 0.8rem;
+            padding: 1.2rem;
+        }
+
+        .grid-btn {
+            aspect-ratio: 1;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: #4a5568;
+        }
+
+        .grid-btn:hover {
+            background: #f8f9fa;
+            border-color: #2196F3;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(33, 150, 243, 0.1);
+        }
+
+        .grid-btn.active {
+            background: #2196F3;
+            color: white;
+            border-color: #2196F3;
+            box-shadow: 0 2px 10px rgba(33, 150, 243, 0.2);
+        }
+
+        .grid-btn.answered {
+            background: #48bb78;
+            color: white;
+            border-color: #48bb78;
+        }
+
+        .grid-btn.marked {
+            background: #ecc94b;
+            color: #744210;
+            border-color: #ecc94b;
+        }
+
+        /* Wrong Answers Display */
+        .wrong-answer-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eef0f7;
+        }
+
+        .wrong-answer-card .question-text {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eef0f7;
+        }
+
+        .wrong-answer, .correct-answer {
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wrong-answer {
+            background: #fff5f5;
+            color: #e53e3e;
+        }
+
+        .correct-answer {
+            background: #f0fff4;
+            color: #38a169;
+        }
+
+        .wrong-answer i, .correct-answer i {
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .alert-primary {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+
+            .nav-action-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .grid-btn {
+                font-size: 0.8rem;
+            }
+
+            .wrong-answer-card {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+
+            .wrong-answer, .correct-answer {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <script>
+        // Render math after page load
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false,
+                trust: true,
+                strict: false
+            });
+        });
+        
+        // Helper function to render math in dynamically added content
+        function renderMath(element) {
+            if (window.renderMathInElement) {
+                renderMathInElement(element || document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    strict: false
+                });
+            }
+        }
+    </script>
+    </head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a href="https://t.me/Medicoarmy" target="_blank" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                Medicoarmy
+            </a>
+            <!-- Before test starts -->
+            <div class="navbar-actions" id="pre-test-actions">
+                <a href="https://t.me/+Pj63W1nrdxMzODY5" target="_blank" class="nav-action-btn website-btn">
+                    <i class="fas fa-globe"></i>
+                    Telegram
+                </a>
+            </div>
+            <!-- After test starts -->
+            <div class="navbar-actions" id="test-actions" style="display: none;">
+                <div class="timer" id="timer">
+                    <i class="far fa-clock me-2"></i>00:00:00
+                </div>
+                <button class="nav-action-btn overview-btn" onclick="showQuestionsGrid()">
+                    <i class="fas fa-th"></i>
+                    Overview
+                </button>
+                <button class="nav-action-btn submit-btn" onclick="confirmSubmit()">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Join Channel Popup -->
+    <div class="modal fade" id="joinChannelModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <div class="mb-4">
+                        <i class="fas fa-robot fa-4x" style="color: var(--primary)"></i>
+                    </div>
+                    <h3 class="mb-3">Join Medicoarmy!</h3>
+                    <p class="text-muted mb-4">Get access to more free tests and study materials!</p>
+                    <a href="https://t.me/Medicoarmy" target="_blank" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fab fa-telegram me-2"></i>Join Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen (Enhanced) -->
+    <div class="welcome-screen" id="welcome-screen">
+        <div class="welcome-header">
+            <div class="welcome-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="welcome-title">
+                <h2>Alternating Current Test 1</h2>
+                <p>Powered by <a href="https://t.me/Medicoarmy" target="_blank">@Medicoarmy</a></p>
+            </div>
+        </div>
+
+        <!-- Modern Disclaimer -->
+        <div class="disclaimer-alert mb-4">
+            <div class="disclaimer-content">
+                <div class="disclaimer-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    Important Notice
+                </div>
+                <div class="disclaimer-text">
+                    <p class="mb-2">🎯 This test series is provided <strong>FREE</strong> by <a href="https://t.me/Medicoarmy" target="_blank">@Medicoarmy</a></p>
+                    <p class="mb-2">📚 Prepare better, Score higher with our curated test series!</p>
+                    <div class="disclaimer-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            High Quality Questions
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            Detailed Solutions
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            Real Exam Pattern
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="small text-muted mb-0">
+                        Content belongs to respective institutes. This is an unofficial version for practice only.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-info-card mb-4">
+            <div class="test-info-header">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Quizrr Full Test (QFT) - 8 (with Video Solutions)</h3>
+            </div>
+            <div class="test-info-body">
+                <div class="info-item">
+                    <i class="fas fa-question-circle"></i>
+                    <div>
+                        <span id="total-questions">0</span>
+                        <label>Questions</label>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <span>180</span>
+                        <label>Minutes</label>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-star"></i>
+                    <div>
+                        <span id="total-marks">0</span>
+                        <label>Total Marks</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions-card">
+            <div class="instructions-header">
+                <i class="fas fa-info-circle"></i>
+                <h4>Test Instructions</h4>
+            </div>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <div class="instruction-icon success">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="instruction-text">
+                        Each correct answer earns positive marks
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon danger">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                    <div class="instruction-text">
+                        Wrong answers have negative marking
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="instruction-text">
+                        You can change answers before final submission
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon info">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <div class="instruction-text">
+                        Mark important questions for review
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="start-test-btn" onclick="startTest()">
+            <i class="fas fa-play"></i>
+            Start Test
+        </button>
+    </div>
+
+    <!-- Test Content -->
+    <div id="test-content" style="display: none;">
+        <div class="container py-4">
+            <!-- Stats Mini Section (Modified to show only total and attempted) -->
+            <div class="stats-mini">
+                <div class="stats-mini-item">
+                    <div class="stats-mini-icon" style="background: var(--primary)">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div>
+                        <div class="stats-mini-value" id="mini-total">0/0</div>
+                        <div class="stats-mini-label">Total Questions</div>
+                    </div>
+                </div>
+                <div class="stats-mini-item">
+                    <div class="stats-mini-icon" style="background: var(--success)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>
+                        <div class="stats-mini-value" id="mini-attempted">0</div>
+                        <div class="stats-mini-label">Attempted</div>
+                    </div>
+                </div>
+                <div class="stats-mini-item">
+                    <div class="stats-mini-icon" style="background: var(--warning)">
+                        <i class="fas fa-minus-circle"></i>
+                    </div>
+                    <div>
+                        <div class="stats-mini-value" id="mini-skipped">0</div>
+                        <div class="stats-mini-label">Skipped</div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">
+                        <i class="fas fa-pencil-alt"></i>
+                        Question <span id="current-question">1</span> of <span id="total-questions">0</span>
+                    </div>
+                    <div class="question-status" id="question-status"></div>
+                </div>
+                <div class="question-box" id="question-container"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav" id="bottom-nav" style="display: none;">
+        <button class="nav-btn nav-btn-outline" onclick="prevQuestion()" id="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+            <span>Previous</span>
+        </button>
+        <button class="nav-btn nav-btn-primary" onclick="markForReview()" id="review-btn">
+            <i class="fas fa-bookmark"></i>
+            <span>Review</span>
+        </button>
+        <button class="nav-btn nav-btn-outline" onclick="nextQuestion()" id="next-btn">
+            <i class="fas fa-chevron-right"></i>
+            <span>Next</span>
+        </button>
+    </div>
+
+    <!-- Questions Grid Modal -->
+    <div class="modal fade" id="questionsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-th"></i>
+                        Questions Overview
+                    </h5>
+                    <button type="button" class="btn-close-modern" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="questions-grid" id="questions-grid"></div>
+                    <div class="grid-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--primary)"></div>
+                            <span>Current</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #2e7d32"></div>
+                            <span>Answered</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #f57c00"></div>
+                            <span>Marked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this modal HTML before closing body tag -->
+    <div class="modal fade" id="submitConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <i class="fas fa-paper-plane text-primary me-2"></i>
+                        Submit Test
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="submit-stats mb-4">
+                        <div class="submit-stat-item">
+                            <div class="submit-stat-icon bg-success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="submit-stat-info">
+                                <div class="submit-stat-value" id="submit-attempted">0</div>
+                                <div class="submit-stat-label">Attempted</div>
+                            </div>
+                        </div>
+                        <div class="submit-stat-item">
+                            <div class="submit-stat-icon bg-warning">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <div class="submit-stat-info">
+                                <div class="submit-stat-value" id="submit-marked">0</div>
+                                <div class="submit-stat-label">Marked for Review</div>
+                            </div>
+                        </div>
+                        <div class="submit-stat-item">
+                            <div class="submit-stat-icon bg-danger">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <div class="submit-stat-info">
+                                <div class="submit-stat-value" id="submit-unattempted">0</div>
+                                <div class="submit-stat-label">Not Attempted</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning mb-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Are you sure you want to submit? You cannot change your answers after submission.
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary px-4" onclick="finalSubmit()">
+                            <i class="fas fa-check me-2"></i>
+                            Submit Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize variables
+        let currentQuestion = 0;
+        let answers = {};
+        let markedForReview = {};
+        let submitted = false;
+        let testStarted = false;
+        let startTime = null;
+        let endTime = null;
+        
+        // Load questions data
+        const questions = [
+  {
+    "question": "$A\\left(z_1=2+2 i\\right), B\\left(z_2\\right), C\\left(z_3\\right)$ are three points on the Argand plane satisfying $\\left|z_k-2 i\\right|=2,(k=1,2,3)$. If $\\triangle A B C$ encloses the maximum area, then the sum of the imaginary parts of $z_2$ and $z_3$ is.....",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "4",
+    "option_2": "3",
+    "option_3": "6",
+    "option_4": "8"
+  },
+  {
+    "question": "Let f ( x ) be a function which is differentiable any number of times and f 2 x 2 - 1 = 2 x 3 f ( x ) , ∀ x ∈ R . Then f ( 2010 ) ( 0 ) = ( Here, f ( n ) x = n th order derivative of f x )",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "– 1",
+    "option_2": "1",
+    "option_3": "0",
+    "option_4": "data is insufficient"
+  },
+  {
+    "question": "Let a line with the inclination angle of $60^{\\circ}$ be drawn through the focus $F$ of the parabola $y^2=8(x+2)$. If the two intersection points of line and parabola are $A$ and $B$ and the perpendicular bisector of the chord intersects the x-axis at point P. If the length of the segment PF is $\\ell$, then $\\frac{3}{2} \\ell$ is equal to----",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "4",
+    "option_2": "6",
+    "option_3": "3",
+    "option_4": "8"
+  },
+  {
+    "question": "Let $f(x)=\\left\\{\\begin{array}{cl}x^3+x^2-10 x & , \\quad-2 \\leq x < 0 \\\\ \\sin x & , \\quad 0 \\leq x < \\frac{\\pi}{2}, \\text { then } f(x) \\\\ 1+\\cos x & , \\quad \\frac{\\pi}{2} \\leq x < \\pi \\end{array}\\right.$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "has a local maxima at x = 0 and x = π 2",
+    "option_2": "has a local minima at x = π 2",
+    "option_3": "has a local minima at x = π 2 and a local maxima at x = 0",
+    "option_4": "has a local minima at x = 0 and a local maxima at x = π 2"
+  },
+  {
+    "question": "A rectangle $\\mathrm{PQRS}$ has sides $\\mathrm{PQ}=11$ and $\\mathrm{QR}=5$. A triangle $\\mathrm{ABC}$ has $\\mathrm{P}$ as orthocentre, $\\mathrm{Q}$ as circumcentre, $\\mathrm{R}$ as mid point of $\\mathrm{BC}$ and $\\mathrm{S}$ as the foot of altitude from $\\mathrm{A}$. Then length of $\\mathrm{BC}$ is $\\mathrm{k}$, where $\\mathrm{k} / 4$ is equal to",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "6",
+    "option_2": "5",
+    "option_3": "3",
+    "option_4": "7"
+  },
+  {
+    "question": "In a right angled triangle $A B C, B C=5, A B=4, A C=3$, Let $S$ be the circum circle of triangle $\\mathrm{ABC}$ and $S_1$ be the circle touching both sides $\\mathrm{AB}$ and $\\mathrm{AC}$ and circle $\\mathrm{S}$ internally. Let $S_2$ be the circle touching the sides $\\mathrm{AB}$ and $\\mathrm{AC}$ (extended) of $\\Delta^{l e} \\mathrm{ABC}$, and touching the circle $S$ externally if $r_1, r_2$ are radii of circles $S_1$ and $S_2$ respectively, then $\\sqrt{1+r_1 r_2}$ is--",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3",
+    "option_2": "6",
+    "option_3": "4",
+    "option_4": "5"
+  },
+  {
+    "question": "Let f : R → R , g : R → R be differentiable functions such that f o g x = x . If f x = 2 x + cos x + sin 2 x , then the value of ∑ n = 1 99 g 1 + 2 n - 1 π is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "1250 π",
+    "option_2": "99 2 π 2",
+    "option_3": "99 2 π",
+    "option_4": "2500 π"
+  },
+  {
+    "question": "Let $\\omega$ be a cube root of unity. If three fair dice are thrown and $\\mathbf{r}_1, \\mathbf{r}_2$ and $\\mathbf{r}_3$ are number obtained on the dice then probability the $\\omega^{\\mathrm{r}_1}+\\omega^{\\mathrm{r}_2}+\\omega^{\\mathrm{r}_3}=0$, is-",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\frac{1}{2}$",
+    "option_2": "$\\frac{1}{3}$",
+    "option_3": "$\\frac{2}{9}$",
+    "option_4": "$\\frac{1}{9}$"
+  },
+  {
+    "question": "Statement I: The point A 1 , 0 , 7 is the mirror image of the point B 1 , 6 , 3 in the line x 1 = y - 1 2 = z - 2 3 Statement II: The line x 1 = y - 1 2 = z - 2 3 bisects the line segment joining A 1 , 0 , 7 and B 1 , 6 , 3 .",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Statement I is true, statement II is true; statement II is not a correct explanation for statement I",
+    "option_2": "Statement I is true, statement II is false",
+    "option_3": "Statement I is false, statement II is true",
+    "option_4": "Statement I is true, statement II is true; statement II is a correct explanation for statement I"
+  },
+  {
+    "question": "If $\\mathrm{x}=\\alpha$ satisfies the equation $\\frac{\\sin ^{-1} \\mathrm{x}^2+\\cos ^{-1} \\mathrm{x}}{\\cos ^{-1} \\mathrm{x}^2+\\sin ^{-1} \\mathrm{x}}=-3$, then the value of $\\frac{\\sec ^{-1} \\alpha-\\tan ^{-1} \\alpha}{\\cot ^{-1} \\alpha-\\operatorname{cosec}^{-1} \\alpha}$ is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "1",
+    "option_2": "1.5",
+    "option_3": "2",
+    "option_4": "2.5"
+  },
+  {
+    "question": "In a quadrilateral $\\mathrm{ABCD}, \\overrightarrow{A C}$ is the bisector of $\\overrightarrow{A B}$ and $\\overrightarrow{A D}$, angle between $\\overrightarrow{A B}$ and $\\overrightarrow{A D}$ is $\\frac{2 \\pi}{3}, 15|\\overrightarrow{A C}|=3|\\overrightarrow{A B}|=5|\\overrightarrow{A D}|$. Then the angle between $\\overrightarrow{B A}$ and $\\overrightarrow{C D}$ is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\cos ^{-1} \\frac{\\sqrt{14}}{7 \\sqrt{2}}$",
+    "option_2": "$\\cos ^{-1} \\frac{\\sqrt{21}}{7 \\sqrt{3}}$",
+    "option_3": "$\\cos ^{-1} \\frac{2}{\\sqrt{7}}$",
+    "option_4": "$\\cos ^{-1} \\frac{2 \\sqrt{7}}{14}$"
+  },
+  {
+    "question": "Area bounded between the curves given by $|x|+y=7$ and $4 y=\\left|4-x^2\\right|$, is (in sq. units)",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "24",
+    "option_2": "36",
+    "option_3": "32",
+    "option_4": "28"
+  },
+  {
+    "question": "If α and β are the roots of the equation x 2 + α x + β = 0 such that α ≠ β , then the number of integral values of x satisfying x - β - α 1 is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "0",
+    "option_2": "1",
+    "option_3": "2",
+    "option_4": "more than 2"
+  },
+  {
+    "question": "If $T_m \\& T_n$ denotes the $m^{\\text {th }} ~\\&~ n^{\\text {th }}$ terms of an A.P. respectively, such that $T_m=\\frac{1}{n}, T_n=\\frac{1}{m}$, then which of the following is necessarily a root of the equation $(a-3 b) x^2+(2 b+5 a) x+(b-6 a)=0$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\mathrm{T}_{\\mathrm{mn}}$",
+    "option_2": "$\\mathrm{T}_{\\mathrm{m}+\\mathrm{n}}$",
+    "option_3": "$\\mathrm{T}_{\\mathrm{m}}+\\mathrm{T}_{\\mathrm{n}}$",
+    "option_4": "$\\mathrm{T}_{\\mathrm{m}} \\cdot \\mathrm{T}_{\\mathrm{n}}$"
+  },
+  {
+    "question": "A purse contains 10 ten rupee coins and 5 five rupee coins. Two coins are randomly drawn. If the expected value of 2 drawn coins is λ , then 9 λ 4 is equal to--",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "34.5",
+    "option_2": "37.5",
+    "option_3": "39.5",
+    "option_4": "33.5"
+  },
+  {
+    "question": "If $f(x)=\\cos x-\\int_0^x(x-t) f(t) d t$, then $f^{\\prime \\prime}(x)+f(x)$ is equal to",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$-\\cos x$",
+    "option_2": "$-\\sin x$",
+    "option_3": "$\\int_0^x(x-t) f(t) d t$",
+    "option_4": "0"
+  },
+  {
+    "question": "The value of $I=\\int_{-\\frac{\\pi}{2}}^{\\frac{\\pi}{2}} \\frac{x^2 \\cos x}{1+e^{-x}} \\mathrm{~d} x$ is equal to",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\frac{\\pi^2}{4}-2$",
+    "option_2": "$\\frac{\\pi^2}{4}+2$",
+    "option_3": "$\\pi^2-\\mathrm{e}^{\\frac{\\pi}{2}}$",
+    "option_4": "$\\pi^2+\\mathrm{e}^{\\frac{\\pi}{2}}$"
+  },
+  {
+    "question": "Let $a_1, a_2, a_3 \\ldots a_n(n \\in N)$ is a sequence such that $a_1=a_2=2$ and $\\frac{2 a_{n-1} a_n}{a_{n-1} a_{n+1}-a_n^2}=n^3-n$, $\\forall \\mathrm{n}=2,3,4, \\ldots$, find the value of $[\\mathrm{S}]$, where $\\mathrm{S}=\\sum_{\\mathrm{k}=2}^{2000} \\frac{\\mathrm{a}_{\\mathrm{k}+1}}{\\mathrm{a}_{\\mathrm{k}}}$ and ([-] denotes G.I.F.)",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3999",
+    "option_2": "2998",
+    "option_3": "3998",
+    "option_4": "2999"
+  },
+  {
+    "question": "The number of 6-digit numbers, such that the digits of each number are all from the set $\\{1,2,3,4,5\\}$;and any digit that appears in the number appears at least twice are equal to (Example : 225252 is an admissible number, while 222133 is not)",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "1505",
+    "option_2": "1510",
+    "option_3": "1405",
+    "option_4": "1410"
+  },
+  {
+    "question": "In a set of real numbers a relation $R$ is defined as $\\mathrm{x} \\mathrm{R} \\mathrm{y}$ such that $|\\mathrm{x}|+|\\mathrm{y}| \\leq \\frac{1}{2}$, then relation $R$ is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "reflexive and symmetric but not transitive",
+    "option_2": "symmetric but not transitive and reflexive",
+    "option_3": "transitive but not symmetric and reflexive",
+    "option_4": "none of reflexive, symmetric and transitive"
+  },
+  {
+    "question": "Find the total number of points of discontinuity and non-differentiability of function $f(x)=\\frac{1}{2}-x+\\frac{1}{2}[2 x]-\\frac{1}{2}[1-2 x]$ in $[0,1]$. ([x] is greatest integer function)",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Let A and B are 3 × 3 matrices with real number entries, where A is symmetric, B is skew-symmetric and A + B A - B = A - B A + B . If A B T = - 1 k A B , then the sum of all possible integral value of k in 2 , 10 is equal to (where A T represent transpose of matrix A )",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "If $\\sum_{k=0}^{100}\\left(\\frac{k}{k+1}\\right)\\left({ }^{100} \\mathrm{C}_{k}\\right)=\\frac{a \\cdot 2^{100}+b}{c}$, where $a, b, c \\in N$, then the least value of $\\left(\\frac{a+b+c}{3}\\right)$ is equal to",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "On the coordinate plane, ellipse $C_1: \\frac{x^2}{a_1^2}+\\frac{y^2}{b_1^2}=1\\left(a_1>b_1>0\\right)$ and hyperbola $C_2: \\frac{x^2}{a_2^2}-\\frac{y^2}{b_2^2}=1\\left(a_2, b_2 > 0\\right)$ has the same focus points $F_1, F_2$. Point $P$ is one of the intersection points of $C_1$ and $C_2$ and $P F_1 \\perp P F_2$. If $e_1$ is the eccentricity of $C_1$ and $e_2$ is the eccentricity of $C_2$. Then find the minimum value of $9 e_1^2+e_2^2$.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Let two non - collinear vectors $\\vec{a}$ and $\\vec{b}$ inclined at an angle $\\frac{2 \\pi}{3}$ be such that $|\\vec{a}|=3$ and $|\\overrightarrow{\\mathrm{b}}|=4$. A point $P$ moves so that any time $t$ the position vector $\\overrightarrow{\\mathrm{OP}}$ (where O is the origin) is given as $\\overrightarrow{O P}=\\left(e^t+e^{-t}\\right) \\vec{a}+\\left(e^t-e^{-t}\\right) \\vec{b}$. If the least distance of $P$ from origin is $\\sqrt{2} \\sqrt{\\sqrt{a}-b}$ where $a, b \\in N$ then find the value of $\\frac{(a+b)}{8}$.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Within a spherical charge distribution of charge density ρ r , N equipotential surfaces of potential V 0 , V 0 + ∆ V , V 0 + 2 ∆ V , … V 0 + N ∆ V ∆ V > 0 , are drawn and have increasing radii r 0 , r 1 , r 2 , … r N , respectively. If the difference in the radii of the surfaces is constant for all values of V 0 a n d ∆ V then :",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "ρ r = constant",
+    "option_2": "ρ ( r ) ∝ 1 r 2",
+    "option_3": "ρ ( r ) ∝ 1 r",
+    "option_4": "ρ ( r ) ∝ r"
+  },
+  {
+    "question": "Assertion: Our ears cannot distinguish two notes, one produced by a violin and other by a sitar, if they have exactly the same intensity and same frequency. Reason: When a musical instrument is played, it produces a fundamental note which is accompanied by number of overtones called harmonics.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Assertion is true, reason is true; reason is a correct explanation for assertion.",
+    "option_2": "Assertion is true, reason is true; reason is not a correct explanation for assertion.",
+    "option_3": "Assertion is true, reason is false.",
+    "option_4": "Assertion is false but, reason is true."
+  },
+  {
+    "question": "A capacitor is charged using an external battery with a resistance x in series. The dashed line shows the variation of ln l with respect to time. If the resistance is changed to 2 x , the new graph will be",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "P",
+    "option_2": "R",
+    "option_3": "S",
+    "option_4": "Q"
+  },
+  {
+    "question": "A thin prism of angle 5 ° made of glass of refractive index μ 1 = 1 . 5 is combined with another prism of glass of refractive index μ 2 = 1 . 75 . The combination of the prisms produces dispersion without deviation. The angle of the second prism should be ----",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "5 °",
+    "option_2": "7 °",
+    "option_3": "10 ° 3",
+    "option_4": "1.2 °"
+  },
+  {
+    "question": "An electron having charge e and mass m starts from the lower plate of two metallic plates separated by a distance d . If the potential difference between the plates is V , the time taken by the electron to reach the upper plate is given by",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "2 m d 2 e V",
+    "option_2": "m d 2 e V",
+    "option_3": "m d 2 2 e V",
+    "option_4": "2 m d 2 e V"
+  },
+  {
+    "question": "A stone of mass 2 kg is projected upward with KE of 98 J. The height at which the KE of the body becomes half its original value, is given by (Take g = 10 m s - 2 )",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "5 m",
+    "option_2": "2.5 m",
+    "option_3": "1.5 m",
+    "option_4": "0.5 m"
+  },
+  {
+    "question": "In radioactive reaction, ${ }_z^A X \\rightarrow{ }_{z+1} X_1^A \\longrightarrow{ }_{z+2} X_2^A \\longrightarrow{}_{z} X_3^{A-4} \\longrightarrow{ }_{z+1} X_4^{A-4}$ Radioactive radiation are emitted in the sequence:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "β - , β - , α , α",
+    "option_2": "β - , β - , β + , α",
+    "option_3": "β - , β - , β - , α",
+    "option_4": "β - , β - , α , β -"
+  },
+  {
+    "question": "A ray of light travelling in glass μ = 3 2 is incident on a horizontal glass air surface at the critical angle θ c . If thin layer of water μ = 4 3 is now poured on the glass air surface, the angle at which the ray emerges into air the water-air surface is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "60 °",
+    "option_2": "45 °",
+    "option_3": "90 °",
+    "option_4": "180 °"
+  },
+  {
+    "question": "The specific heats of an ideal gas at constant pressure and constant volume are $525 \\mathrm{~J} \\mathrm{~kg}^{\\circ} \\mathrm{C}^{-1}$ and $315 \\mathrm{~J} \\mathrm{~kg}^{\\circ} \\mathrm{C}^{-1}$ respectively. Its density at NTP is---",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$0.64 \\mathrm{~kg} \\mathrm{~m}^{-3}$",
+    "option_2": "$1.20 \\mathrm{~kg} \\mathrm{~m}^{-3}$",
+    "option_3": "$1.75 \\mathrm{~kg} \\mathrm{~m}^{-3}$",
+    "option_4": "$2.62 \\mathrm{~kg} \\mathrm{~m}^{-3}$"
+  },
+  {
+    "question": "A positively charged particle $q$ of mass $m$ is passed through a velocity selector. It moves horizontally righward without deviation along the line $y=\\frac{2 m v}{q B}$ with a speed $v$. The electric field is vertically downwards and magnetic field is into the plane of paper. Now, the electric field is. switched off at $t=0$. The angular momentum of the charged particle about origin $O$ at $t=\\frac{\\pi m}{q B}$ is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\frac{m E^2}{q B^3}$",
+    "option_2": "$\\frac{4 m^2 E^2}{q B^3}$",
+    "option_3": "Zero",
+    "option_4": "$\\frac{m E^3}{q B^2}$"
+  },
+  {
+    "question": "In the network shown in figure, each resistance is R . The equivalent resistance between A and C is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3 R 4",
+    "option_2": "5 R 6",
+    "option_3": "7 R 12",
+    "option_4": "4 R 3"
+  },
+  {
+    "question": "A large tank is filled with water (density $\\rho$ ), upto height $h$. Water is coming out from section (4). Fluid pressure at section (3) at the instant shown is : (Given : Area $A_2=A_4=2 A_3$ and $A_2, A_3, A_4$ are very small as compared to $A_1$; atmospheric pressure = $P_0$ ). Assume water to be non-viscous and incompressible.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$P_0+\\rho g h$",
+    "option_2": "$P_0-\\rho g h$",
+    "option_3": "$P_0-2 \\rho g h$",
+    "option_4": "$P_0-3 \\rho g h$"
+  },
+  {
+    "question": "An EM waves enters from medium-(1) to medium-(2). The electric fields are $\\overrightarrow{\\mathrm{E}}_1=\\mathrm{E}_{01} \\sin (\\mathrm{kx}-\\omega \\mathrm{t}) \\hat{\\mathrm{j}}$ in medium-(1) & $\\overrightarrow{\\mathrm{E}}_2=\\mathrm{E}_{02} \\sin (3 \\mathrm{kx}-\\omega \\mathrm{t}) \\hat{\\mathrm{j}}$ in medium-(2). If $\\frac{\\mu_{\\mathrm{r}_1}}{\\mu_{\\mathrm{r}_2}}=\\frac{1}{4}$ then find value of $\\frac{4 \\epsilon_{\\mathrm{r}_2}}{\\epsilon_{\\mathrm{r}_1}}$. $\\left(\\mu_{\\mathrm{r}} ~\\&~ \\epsilon_{\\mathrm{r}}\\right.$ are relative permeability & permittivity of medium)",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "7",
+    "option_2": "8",
+    "option_3": "6",
+    "option_4": "9"
+  },
+  {
+    "question": "A force F → = 3 x y − 5 z j ^ + 4 z k ^ is applied to a particle. The work done by the force when the particle moves from point 0 , 0 , 0 to point 2 , 4 , 0 as shown in the figure is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "280 5 J",
+    "option_2": "140 5 J",
+    "option_3": "232 5 J",
+    "option_4": "192 5 J"
+  },
+  {
+    "question": "A battery with internal resistance of $4 \\Omega$ is connected to a circuit consisting three resistances, $R, 2 R$ and $4 R$ (see following figure). If the power generated in the circuit is highest, then the magnitude of $R$ must be",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$4 \\Omega$",
+    "option_2": "$7 \\Omega$",
+    "option_3": "$10 \\Omega$",
+    "option_4": "$14 \\Omega$"
+  },
+  {
+    "question": "Statement (A): When the temperature increases the viscosity of gases increases and the viscosity of liquids decreases. Statement (B): Water does not wet an oily glass because cohesive force of oil is less than that of water. Statement (C) : A liquid will wet a surface of a solid if the angle of contact is greater than 90 ° .",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "A. B. and C are false",
+    "option_2": "A and B false, C is true",
+    "option_3": "B and C false, A is true",
+    "option_4": "A and C false, B is true"
+  },
+  {
+    "question": "A rod of length l has non-uniform linear mass density given by ρ x = a + b x l 2 , where a and b are constants and 0 ≤ x ≤ l The value of x for the centre of mass of the rod is at:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3 2 a + b 2 a + b L",
+    "option_2": "3 4 2 a + b 3 a + b L",
+    "option_3": "4 3 a + b 2 a + 3 b L",
+    "option_4": "3 2 2 a + b 3 a + b L"
+  },
+  {
+    "question": "For the given logic circuit; pick the correct option",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "For $\\mathrm{A}=1, \\mathrm{~B}=0, \\mathrm{C}=0$; Output $=1$",
+    "option_2": "For $\\mathrm{A}=0, \\mathrm{~B}=1, \\mathrm{C}=1$; Output $=1$",
+    "option_3": "For $\\mathrm{A}=1, \\mathrm{~B}=1, \\mathrm{C}=0$; Output $=0$",
+    "option_4": "For $\\mathrm{A}=0, \\mathrm{~B}=1, \\mathrm{C}=1$; Output $=0$"
+  },
+  {
+    "question": "Maxwells speed distribution curve for an ideal gas is shown in the figure. If the number of the molecules in the velocity range from $600 \\mathrm{~m} / \\mathrm{s}$ and $800 \\mathrm{~m} / \\mathrm{s}$ is $10^{\\mathrm{n}}$, find the value of $n$. Assume that the graph between the points $A$ and $B$ is linear.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3",
+    "option_2": "6",
+    "option_3": "5",
+    "option_4": "2"
+  },
+  {
+    "question": "The circumference of the second orbit of an atom or ion having single electron, is 4 × 10 - 9 m . The de Broglie wavelength of electron revolving in this orbit should be:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "2 × 1 0 - 9 m",
+    "option_2": "4 × 1 0 - 9 m",
+    "option_3": "8 × 1 0 - 9 m",
+    "option_4": "1 × 1 0 - 9 m"
+  },
+  {
+    "question": "YDSE is conducted using light of wavelength 6000 A ∘ to observe an interference pattern. When a film of some material 3 . 0 × 10 - 3 cm thick was placed over one of the slits, the fringe pattern shifted by a distance equal to 10 fringe widths. If the refractive index of matrial of the film is K, find 10K.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "For the equation $F \\propto A^{a} v^{b} d^{c}$, where $F$ is the force, $A$ is the area, $v$ is the velocity and $d$ is the density, the value of $3a + 2b + c$ is.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "The circular scale of a screw gauge has $50$ divisions and pitch of $0.5 \\mathrm{~mm}$. If main scale reading is $2$, then the diameter of sphere is $\\ldots \\ldots \\mathrm{micrometer}$.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "A uniform disc of radius $a$ and mass $m$ is rotating freely with an angular speed of $\\omega$ in a horizontal plane about a smooth fixed vertical axis passing through its centre. A particle, also of mass $m$ is suddenly attached to the rim of the disc and starts to rotate with it. The new angular speed of this system is $\\frac{\\omega}{K}$, Find $K$.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Three identical hollow sphere, each of mass 2 kg and radius 10 cm are placed as shown in diagram.Consider an axis XX ' which is touching to two shells and passing through diameter of third shell. Calculate Moment of inertia of the system consisting of these three spherical shells XX ' axis in g m 2 ?",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Statement I : Glucose gives a reddish-brown precipitate with Fehling's solution. Statement II : Reaction of glucose with Fehling's solution gives CuO and gluconic acid.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Statement I is true, Statement II is true, Statement II is a correct explanation for Statement I.",
+    "option_2": "Statement I is true, Statement II is true, Statement II is not a correct explanation for Statement I.",
+    "option_3": "Statement I is true, Statement II is false.",
+    "option_4": "Statement I is false, Statement II is true."
+  },
+  {
+    "question": "How many compounds give positive Tollens' test? 1. D-glucose 2. D-fructose 3. $\\mathrm{CH}_3 \\stackrel{\\huge \\mathrm{O} \\atop ||}{\\mathrm{C}} \\mathrm{H} $ 4. $\\mathrm{PhCH}_2 \\mathrm{OH}$ 5. $\\mathrm{CH}_3 \\mathrm{CH}_3$ 6. $\\mathrm{HCOOH}$ 7. $\\mathrm{CH}_3 \\mathrm{COOH}$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3",
+    "option_2": "4",
+    "option_3": "5",
+    "option_4": "6"
+  },
+  {
+    "question": "Identify the correct statements from the following : I. The ionic radius of $\\mathrm{Pr}^{3+}, \\mathrm{Dy}^{3+}$ and $\\mathrm{Sm}^{3+}$ follow the order, $\\mathrm{Sm}^{3+} > \\mathrm{Pr}^{3+} > \\mathrm{Dy}^{3+}$. II. $\\mathrm{Eu}^{2+}$ acts as strong reducing reagent. III. Pu exhibits +7 oxidation state.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "I, II only",
+    "option_2": "I, III only",
+    "option_3": "I, II, III",
+    "option_4": "II, III only"
+  },
+  {
+    "question": "Identify the major product from the following reaction sequence",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "The CORRECT decreasing order of stability of the following carbocations is: $\\mathrm{CH}_{3}-\\underset{\\text { I }}{\\stackrel{\\oplus}{\\mathrm{CH}}-\\mathrm{CH}_{3}} \\quad \\mathrm{CH}_{3}-\\underset{\\text { II }}{\\stackrel{\\oplus}{\\mathrm{CH}}-\\mathrm{O}-\\mathrm{CH}_{3}} \\quad \\mathrm{CH}_{3}-\\underset{\\text { III }}{\\stackrel{\\oplus}{\\mathrm{CH}}}-\\mathrm{COCH}_{3}$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "I $>\\mathrm{II}>\\mathrm{III}$",
+    "option_2": "III $>\\mathrm{II}>\\mathrm{I}$",
+    "option_3": "II $>\\mathrm{III}>\\mathrm{I}$",
+    "option_4": "II $>\\mathrm{I}>\\mathrm{III}$"
+  },
+  {
+    "question": "What are $X$ and $Y$ in the following reaction sequence?",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Which of the following statements are correct? 1. Electron density in xy plane in 3 d x 2 - y 2 orbital is zero. 2. Electron density in xy plane in 3 d z 2 orbital is zero. 3. 2 s orbital has only one spherical node in it. 4. For 2 p x orbital yz is the nodal plane.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "3 and 4",
+    "option_2": "All of these",
+    "option_3": "2",
+    "option_4": "1 and 3"
+  },
+  {
+    "question": "2 , 4 -dinitrophenol ( pKa = 4 ) acts as buffer and if pH of this buffer is adjusted to 5 , the ratio of concentration of dissociated and undissociated molecules of 2 , 4 -dinitrophenol is:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "9",
+    "option_2": "12",
+    "option_3": "10",
+    "option_4": "11"
+  },
+  {
+    "question": "$\\text { The correct order of boiling point is }$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "$\\mathrm{T}_{2} < \\mathrm{D}_{2} < \\mathrm{H}_{2}$",
+    "option_2": "n-pentane $ < $ neo-pentane",
+    "option_3": "$\\mathrm{Xe} < \\mathrm{Ar} < \\mathrm{He}$",
+    "option_4": "m-nitrophenol $>$ o-nitrophenol"
+  },
+  {
+    "question": "Oxygen is more electronegative than sulphur. Yet $\\mathrm{H}_2 \\mathrm{~S}$ is acidic while $\\mathrm{H}_2 \\mathrm{O}$ is neutral. This is because:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Water is a highly associated compound",
+    "option_2": "Molecular mass of $\\mathrm{H}_2 \\mathrm{~S}$ is more than that of $\\mathrm{H}_2 \\mathrm{O}$",
+    "option_3": "$\\mathrm{H}_2 \\mathrm{~S}$ is gaseous under ordinary conditions while $\\mathrm{H}_2 \\mathrm{O}$ is a liquid",
+    "option_4": "$\\mathrm{H}-\\mathrm{S}$ bond is weaker than $\\mathrm{H}-\\mathrm{O}$ bond"
+  },
+  {
+    "question": "For a chemical reaction A ⇒ product , the mechanism of the reaction postulated was as follows: A g ⇌ k 2 k 1 3 B g ; B g ⟶ RDS k 3 C g If the reaction occurred with individual rate constants k 1 , k 2 and k 3 , determine activation energy for the overall reaction if the activation energies associated with these rate constants are E a 1 = 180 kJ mol – 1 , E a 2 = 90 kJ mol – 1 and Ea 3 = 40 kJ mol – 1 .",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "310 kJ",
+    "option_2": "– 10 kJ",
+    "option_3": "130 kJ",
+    "option_4": "70 kJ"
+  },
+  {
+    "question": "Which of the following statement(s) is/are not true about the following decomposition reaction? 2 K C l O 3 → 2 K C l + 3 O 2 (i) Potassium is undergoing oxidation (ii) Chlorine is undergoing oxidation (iii) Oxygen is reduced (iv) None of the species are undergoing oxidation or reduction",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "(i) and (ii)",
+    "option_2": "(i) and (iv)",
+    "option_3": "(i) and (iii)",
+    "option_4": "All of these"
+  },
+  {
+    "question": "There are two given statements. Statement - I: The equivalent weight of redox reactions can be calculated by calculating change in oxidation numbers. In disproportionation reactions, the equivalent weight can be calculated by separating both redox reactions and adding their equivalent weights. Statement - II: The volume strength of H 2 O 2 is a method to describe its concentrations. Volume strength is 11.2 times of its molarity. A solution of H 2 O 2 is given. Its 100 mL is treated with 400 mL M 6 KMnO 4 in presence of H 2 SO 4 . Remaining solution is further capable to oxidise 4.5 g H 2 C 2 O 4 . In statement 2, H 2 C 2 O 4 is converted to CO 2 gas. The volume of this CO 2 gas at N.T.P. is same as",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Oxygen gas formed at NTP by heating of 285.70 gram KClO 3",
+    "option_2": "Chlorine gas at NTP by electrolysis of 11.7 gram NaCl (molten)",
+    "option_3": "Volume of 1 mole of CO 2 gas at N.T.P.",
+    "option_4": "Both (Oxygen gas formed at NTP by heating of 285.70 gram KClO 3 ) and (Volume of 1 mole of CO 2 gas at N.T.P.)"
+  },
+  {
+    "question": "In the borax bead test of Co 2 + , the blue colour of bead is due to the formation of:",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "B 2 O 3 .",
+    "option_2": "Co 3 B 2 .",
+    "option_3": "Co BO 2 2 .",
+    "option_4": "CoO ."
+  },
+  {
+    "question": "At room temperature how many following compounds can decompose $\\mathrm{NaHCO}_3$ to liberate $\\mathrm{CO}_2$.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "4",
+    "option_2": "6",
+    "option_3": "5",
+    "option_4": "3"
+  },
+  {
+    "question": "The weight in grams of a non-volatile solute (mol. wt. 60) to be dissolved in $90 \\mathrm{~g}$ of water to produce a relative lowering of vapour pressure of 0.02 is?",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "4",
+    "option_2": "8",
+    "option_3": "6",
+    "option_4": "10"
+  },
+  {
+    "question": "Assertion (A): CHCl 3 is stored in closed, dark-colored bottles completely filled, so that air is kept out. Reason (R): 1 ° amines on reaction with ethanolic KOH and CHCl 3 gives carbylamine.",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "Both A and R are correct and R is the correct explanation of A",
+    "option_2": "Both A and R are correct and R is not the correct explanation of A",
+    "option_3": "A is correct but R is incorrect",
+    "option_4": "Both A and R are incorrect"
+  },
+  {
+    "question": "$T_B$ and $T_A$ are melting point and freezing point of a substance $X$. Which of the following is correct variation of entropy by graph between entropy change $(\\Delta \\mathrm{S})$ and temperature is",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "Which of the following isoelectronic ions has lowest ionisation energy?",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "C l -",
+    "option_2": "C a 2 +",
+    "option_3": "K +",
+    "option_4": "S 2 -"
+  },
+  {
+    "question": "In acidic medium $\\mathrm{KMnO}_4$ is decolourise by :- (a) $\\mathrm{H}_2 \\mathrm{C}_2 \\mathrm{O}_4$ (b) $\\mathrm{HNO}_3$ (c) $\\mathrm{Na}_2 \\mathrm{~S}_2 \\mathrm{O}_3$ (d) $\\mathrm{HNO}_2$",
+    "type": "singleCorrect",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1,
+    "option_1": "a,b,c,d",
+    "option_2": "a & c only",
+    "option_3": "a & d only",
+    "option_4": "c & d only"
+  },
+  {
+    "question": "Using the data provided, calculate the multiple bond energy $\\left(\\mathrm{kJmol}^{-1}\\right)$ of $\\mathrm{C} \\equiv \\mathrm{C}$ bond in $\\mathrm{C}_{2} \\mathrm{H}_{2}$. That energy is (take the bond energy of a $\\mathrm{C}-\\mathrm{H}$ bond as $350 \\mathrm{~kJ} \\mathrm{~mol}^{-1}$) $2 \\mathrm{C}(\\mathrm{s})+\\mathrm{H}_{2}(\\mathrm{~g}) \\longrightarrow \\mathrm{C}_{2} \\mathrm{H}_{2}(\\mathrm{~g}) ; \\Delta \\mathrm{H}=225 \\mathrm{~kJ} \\mathrm{~mol}^{-1}$ $2 \\mathrm{C}(\\mathrm{s}) \\longrightarrow 2 \\mathrm{C}(\\mathrm{g}) ; \\Delta \\mathrm{H}_{\\mathrm{sub}}=1410 \\mathrm{~kJ}$ $\\mathrm{H}_{2}(\\mathrm{~g}) \\longrightarrow 2 \\mathrm{H}(\\mathrm{g}) ; \\Delta \\mathrm{H}=330 \\mathrm{~kJ} \\mathrm{~mol}^{-1}$",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "0.14 g r a m of N a H C O 3 tablet is added to neutralise 5 m l of 0.1 N H C l produced in stomach of a man. Then percentage purity of N a H C O 3 tablet is -",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "The product $(R)$ in the following synthetic scheme is Find molar mass of product R.",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "A crystalline hydrated salt on being heated loses 45.6% of its weight. Percentage composition of anhydrous salt is Al - 10.5 %, K - 15.1 %, S - 24.8 %, O - 49.6 %. In molecular formula of salt (hydrated), how many water molecules are present? (Given: Molar mass of hydrated salt $=948 \\mathrm{~g} / \\mathrm{mol}$)",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  },
+  {
+    "question": "The molar conductivity of a solution of a weak acid HX $(0.01 \\mathrm{M})$ is 10 times smaller than the molar conductivity of a solution of a weak acid $\\mathrm{HY}(0.10 \\mathrm{M})$. If $\\lambda_{\\mathrm{X}^{-}}^0 \\approx \\lambda_{\\mathrm{Y}^{-}}^0$, the difference in their $\\mathrm{pK}_{\\mathrm{a}}$ values, $\\mathrm{pK}_{\\mathrm{a}}(\\mathrm{HX})-\\mathrm{pK}_{\\mathrm{a}}(\\mathrm{HY})$, is (Consider degree of ionization of both acids to $ < < 1$)",
+    "type": "numerical",
+    "positive_marks": 4,
+    "negative_marks": 1,
+    "answer": 1
+  }
+];
+        const totalTime = 60 * 60; // Convert minutes to seconds
+        
+        // Initialize the test
+        window.onload = function() {
+            document.getElementById('total-questions').textContent = questions.length;
+            let totalMarks = questions.reduce((sum, q) => sum + parseFloat(q.positive_marks || 0), 0);
+            document.getElementById('total-marks').textContent = totalMarks;
+            generateQuestionsGrid();
+            
+            setTimeout(() => {
+                new bootstrap.Modal(document.getElementById('joinChannelModal')).show();
+            }, 2000);
+        };
+
+        function startTest() {
+            if (!testStarted) {
+                testStarted = true;
+                startTime = new Date();
+                endTime = new Date(startTime.getTime() + totalTime * 1000);
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('test-content').style.display = 'block';
+                document.getElementById('bottom-nav').style.display = 'flex';
+                document.getElementById('pre-test-actions').style.display = 'none';
+                document.getElementById('test-actions').style.display = 'flex';
+                showQuestion(0);
+                startTimer();
+            }
+        }
+
+        function showQuestion(index) {
+            try {
+                if (index < 0 || index >= questions.length) return;
+                
+                currentQuestion = index;
+                const question = questions[index];
+                
+                const questionHTML = 
+                    '<div class="question-header">' +
+                        '<div class="question-number">' +
+                            '<i class="fas fa-pencil-alt"></i>' +
+                            'Question ' + (index + 1) + ' of ' + questions.length +
+                        '</div>' +
+                        '<div class="question-status" id="question-status"></div>' +
+                    '</div>' +
+                    '<div class="question-box">' + question.question + '</div>' +
+                    '<div class="options-container">' +
+                        generateOptionsHtml(question, index) +
+                    '</div>';
+                
+                const container = document.querySelector('.question-card');
+                if (!container) {
+                    console.error('Question container not found');
+                    return;
+                }
+                
+                const currentQuestionEl = document.getElementById('current-question');
+                const totalQuestionsEl = document.getElementById('total-questions');
+                
+                if (currentQuestionEl) currentQuestionEl.textContent = index + 1;
+                if (totalQuestionsEl) totalQuestionsEl.textContent = questions.length;
+                
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(20px)';
+                
+                setTimeout(function() {
+                    container.innerHTML = questionHTML;
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
+                    
+                    renderMath(container);
+                    
+                    updateQuestionStatus();
+                    updateNavigationButtons();
+                    updateQuestionsGrid();
+                    updateMiniStats();
+                }, 300);
+                
+            } catch (error) {
+                console.error('Error in showQuestion:', error);
+            }
+        }
+
+        function generateOptionsHtml(question, qIndex) {
+            let options = [];
+            for (let i = 1; i <= 10; i++) {
+                let optionKey = `option_${i}`;
+                let optionImageKey = `option_image_${i}`;
+                if (question[optionKey] && question[optionKey].trim()) {
+                    options.push({
+                        text: question[optionKey],
+                        image: question[optionImageKey] || ''
+                    });
+                }
+            }
+            
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            return options.map((option, index) => `
+                <div class="option-card ${answers[qIndex] === index ? 'selected' : ''}" 
+                    onclick="selectAnswer(${qIndex}, ${index})"
+                    data-option="${letters[index]}">
+                    ${option.text}
+                    ${option.image ? `<img src="${option.image}" class="img-fluid mt-2">` : ''}
+                </div>
+            `).join('');
+        }
+
+        function selectAnswer(qIndex, optionIndex) {
+            if (submitted) return; // Don't allow changes after submission
+            
+            answers[qIndex] = optionIndex;
+            
+            // Update option styling
+            const options = document.querySelectorAll('.option-card');
+            options.forEach((option, idx) => {
+                if (idx === optionIndex) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            updateQuestionStatus();
+            updateQuestionsGrid();
+            updateMiniStats();
+        }
+
+        function updateMiniStats() {
+            try {
+                const total = questions.length;
+                const attempted = Object.keys(answers).length;
+                const marked = Object.keys(markedForReview).length;
+                const unattempted = total - attempted;
+                
+                const miniTotalEl = document.getElementById('mini-total');
+                const miniAttemptedEl = document.getElementById('mini-attempted');
+                const miniSkippedEl = document.getElementById('mini-skipped');
+                
+                if (miniTotalEl) miniTotalEl.textContent = `${currentQuestion + 1}/${total}`;
+                if (miniAttemptedEl) miniAttemptedEl.textContent = attempted;
+                if (miniSkippedEl) miniSkippedEl.textContent = unattempted;
+            } catch (error) {
+                console.error('Error in updateMiniStats:', error);
+            }
+        }
+
+        function updateQuestionStatus() {
+            try {
+                const statusElement = document.getElementById('question-status');
+                if (!statusElement) return;
+                
+                if (answers[currentQuestion] !== undefined) {
+                    statusElement.className = 'question-status bg-success text-white';
+                    statusElement.innerHTML = '<i class="fas fa-check me-2"></i>Attempted';
+                } else if (markedForReview[currentQuestion]) {
+                    statusElement.className = 'question-status bg-warning text-white';
+                    statusElement.innerHTML = '<i class="fas fa-bookmark me-2"></i>Marked for Review';
+                } else {
+                    statusElement.className = 'question-status bg-danger text-white';
+                    statusElement.innerHTML = '<i class="fas fa-times me-2"></i>Not Attempted';
+                }
+            } catch (error) {
+                console.error('Error in updateQuestionStatus:', error);
+            }
+        }
+
+        function updateNavigationButtons() {
+            try {
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                
+                if (prevBtn) prevBtn.disabled = currentQuestion === 0;
+                if (nextBtn) nextBtn.disabled = currentQuestion === questions.length - 1;
+            } catch (error) {
+                console.error('Error in updateNavigationButtons:', error);
+            }
+        }
+
+        function generateQuestionsGrid() {
+            try {
+                const grid = document.getElementById('questions-grid');
+                if (!grid) return;
+                
+                grid.innerHTML = questions.map((_, index) => `
+                    <button class="grid-btn ${getQuestionButtonClass(index)}" 
+                            onclick="showQuestion(${index})"
+                            type="button">
+                        ${index + 1}
+                    </button>
+                `).join('');
+            } catch (error) {
+                console.error('Error in generateQuestionsGrid:', error);
+            }
+        }
+
+        function getQuestionButtonClass(index) {
+            if (index === currentQuestion) return 'active';
+            if (answers[index] !== undefined) return 'answered';
+            if (markedForReview[index]) return 'marked';
+            return '';
+        }
+
+        function updateQuestionsGrid() {
+            try {
+                const grid = document.getElementById('questions-grid');
+                if (!grid) return;
+                
+                const buttons = grid.querySelectorAll('.grid-btn');
+                buttons.forEach((btn, index) => {
+                    btn.className = `grid-btn ${getQuestionButtonClass(index)}`;
+                });
+            } catch (error) {
+                console.error('Error in updateQuestionsGrid:', error);
+            }
+        }
+
+        function markForReview() {
+            if (submitted) return; // Don't allow changes after submission
+            
+            markedForReview[currentQuestion] = !markedForReview[currentQuestion];
+            updateQuestionStatus();
+            updateQuestionsGrid();
+        }
+
+        function nextQuestion() {
+            try {
+                if (currentQuestion < questions.length - 1) {
+                    showQuestion(currentQuestion + 1);
+                }
+            } catch (error) {
+                console.error('Error in nextQuestion:', error);
+            }
+        }
+
+        function prevQuestion() {
+            try {
+                if (currentQuestion > 0) {
+                    showQuestion(currentQuestion - 1);
+                }
+            } catch (error) {
+                console.error('Error in prevQuestion:', error);
+            }
+        }
+
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+            const timerInterval = setInterval(() => {
+                if (!testStarted || submitted) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                const now = new Date();
+                const timeLeft = Math.max(0, Math.floor((endTime - now) / 1000));
+                
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    submitTest();
+                    return;
+                }
+
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.innerHTML = `
+                    <i class="far fa-clock me-2"></i>
+                    ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}
+                `;
+            }, 1000);
+        }
+
+        function showQuestionsGrid() {
+            try {
+                const modal = document.getElementById('questionsModal');
+                if (!modal) return;
+                
+                // Ensure grid is updated before showing
+                generateQuestionsGrid();
+                new bootstrap.Modal(modal).show();
+            } catch (error) {
+                console.error('Error in showQuestionsGrid:', error);
+            }
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!testStarted || submitted) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    prevQuestion();
+                    break;
+                case 'ArrowRight':
+                    nextQuestion();
+                    break;
+                case '1': case '2': case '3': case '4':
+                    const optionIndex = parseInt(e.key) - 1;
+                    selectAnswer(currentQuestion, optionIndex);
+                    break;
+            }
+        });
+
+        function submitTest() {
+            if (submitted) return;
+            if (!confirm('Are you sure you want to submit the test? You cannot change your answers after submission.')) return;
+            
+            submitted = true;
+            testStarted = false;
+            
+            let correct = 0, incorrect = 0, totalMarks = 0;
+            let reviewHtml = '';
+
+            questions.forEach((q, i) => {
+                let yourAnswer = 'Not Attempted';
+                let status = 'skipped';
+                let yourLetter = '';
+                let correctLetter = String.fromCharCode(65 + q.answer - 1);
+
+                if (answers[i] !== undefined) {
+                    yourAnswer = q['option_' + (answers[i] + 1)] || 'Invalid';
+                    yourLetter = String.fromCharCode(65 + answers[i]);
+                    if (answers[i] === q.answer - 1) {
+                        correct++; 
+                        totalMarks += q.positive_marks; 
+                        status = 'correct';
+                    } else {
+                        incorrect++; 
+                        totalMarks -= q.negative_marks; 
+                        status = 'incorrect';
+                    }
+                }
+
+                let optionsHtml = '';
+                for (let j = 1; j <= 10; j++) {
+                    if (q['option_' + j]) {
+                        let letter = String.fromCharCode(64 + j);
+                        let isYour = (answers[i] === j-1);
+                        let isCorrect = (q.answer === j);
+                        let bg = isCorrect ? '#d4edda' : isYour ? '#f8d7da' : '#f8f9fa';
+                        let badge = isCorrect ? '<span class="badge bg-success ms-2">✓ Correct</span>' : 
+                                   isYour ? '<span class="badge bg-danger ms-2">✗ Your Answer</span>' : '';
+                        optionsHtml += '<div style="margin:8px 0;padding:12px;border-radius:8px;background:' + bg + ';border:1px solid ' + (isCorrect?'#c3e6cb':isYour?'#f5c6cb':'#e9ecef') + '">' +
+                            '<strong>' + letter + '.</strong> ' + q['option_' + j] + ' ' + badge +
+                        '</div>';
+                    }
+                }
+
+                let statusColor = status === 'correct' ? '#28a745' : status === 'incorrect' ? '#dc3545' : '#ffc107';
+                let statusText = status.charAt(0).toUpperCase() + status.slice(1);
+                
+                reviewHtml += '<div class="card p-3 mb-3" style="border-left:5px solid ' + statusColor + '">' +
+                    '<div class="d-flex justify-content-between align-items-center mb-3">' +
+                        '<strong style="font-size:1.1rem">Question ' + (i+1) + '</strong>' +
+                        '<span class="badge" style="background:' + statusColor + ';color:white;padding:8px 16px">' +
+                            statusText +
+                        '</span>' +
+                    '</div>' +
+                    '<div class="mb-3 p-3 bg-light rounded">' + q.question + '</div>' +
+                    '<div class="mb-2"><strong>Your Answer:</strong> <span style="color:' + (status==='correct'?'#28a745':'#dc3545') + ';font-weight:600">' + yourAnswer + ' ' + (yourLetter ? '(' + yourLetter + ')' : '') + '</span></div>' +
+                    '<div class="mb-3"><strong>Correct Answer:</strong> <span style="color:#28a745;font-weight:600">' + (q['option_' + q.answer] || 'N/A') + ' (' + correctLetter + ')</span></div>' +
+                    '<details class="bg-white p-3 rounded border">' +
+                        '<summary class="fw-bold text-primary" style="cursor:pointer;user-select:none">📋 Show All Options</summary>' +
+                        '<div class="mt-3">' + optionsHtml + '</div>' +
+                    '</details>' +
+                '</div>';
+            });
+
+            document.getElementById('test-content').innerHTML = 
+                '<div class="container">' +
+                    '<div class="score-animation">' +
+                        '<div class="mb-4">' +
+                            '<i class="fas fa-trophy fa-4x text-warning"></i>' +
+                        '</div>' +
+                        '<div class="score-value">' + totalMarks.toFixed(2) + '</div>' +
+                        '<div class="h4 mb-4 text-muted">Your Final Score</div>' +
+                        '<div class="stats-row">' +
+                            '<div class="stat-item">' +
+                                '<div class="stat-value text-success">' + correct + '</div>' +
+                                '<div class="stat-label">Correct</div>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<div class="stat-value text-danger">' + incorrect + '</div>' +
+                                '<div class="stat-label">Incorrect</div>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<div class="stat-value text-warning">' + (questions.length - correct - incorrect) + '</div>' +
+                                '<div class="stat-label">Skipped</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="mt-5">' +
+                            '<h4 class="mb-4 text-center">' +
+                                '<i class="fas fa-clipboard-list me-2"></i>' +
+                                'Detailed Review' +
+                            '</h4>' +
+                            reviewHtml +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            
+            document.getElementById('bottom-nav').style.display = 'none';
+            
+            setTimeout(function() { 
+                renderMath(document.getElementById('test-content')); 
+            }, 100);
+        }
+
+        function confirmSubmit() {
+            // Calculate stats
+            const total = questions.length;
+            const attempted = Object.keys(answers).length;
+            const marked = Object.keys(markedForReview).length;
+            const unattempted = total - attempted;
+
+            // Update stats in modal
+            document.getElementById('submit-attempted').textContent = attempted;
+            document.getElementById('submit-marked').textContent = marked;
+            document.getElementById('submit-unattempted').textContent = unattempted;
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('submitConfirmModal')).show();
+        }
+
+        // Add new function for final submission
+        function finalSubmit() {
+            // Hide modal
+            bootstrap.Modal.getInstance(document.getElementById('submitConfirmModal')).hide();
+            // Submit test
+            submitTest();
+        }
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const t = document.title;
+  const h1 = document.querySelector('h1');
+  if (h1) h1.textContent = t;
+  const h2 = document.querySelector('h2');
+  if (h2) h2.textContent = t;
+});
+</script>
+</body>
+</html>
