@@ -28,6 +28,7 @@ const StudyMaterialPage = lazy(() => import("./pages/StudyMaterialPage"));
 const StudyTrackerPage = lazy(() => import("./pages/StudyTrackerPage"));
 const PrepProWorldPage = lazy(() => import("./pages/PrepProWorldPage"));
 const MathangoTestsPage = lazy(() => import("./pages/MathangoTestsPage"));
+const VotsTestsPage = lazy(() => import("./pages/VotsTestsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
