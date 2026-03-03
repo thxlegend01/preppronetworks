@@ -53,7 +53,7 @@ const Index = () => {
         <AdminSection />
         <Footer />
         <SaurabhAI />
-        <AppDownloadFlash />
+        
       </div>
     </PageTransition>
   );

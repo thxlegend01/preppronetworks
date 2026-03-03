@@ -9,6 +9,8 @@ const comparisonData = [
   { feature: "Smooth Performance", app: true, web: false, icon: Zap },
   { feature: "Auto Updates", app: true, web: true, icon: Shield },
   { feature: "No Installation Needed", app: false, web: true, icon: Globe },
+  { feature: "Cross-Platform Access", app: false, web: true, icon: Globe },
+  { feature: "Always Latest Version", app: false, web: true, icon: Shield },
   { feature: "Home Screen Access", app: true, web: false, icon: Smartphone },
   { feature: "Native Experience", app: true, web: false, icon: Smartphone },
 ];
