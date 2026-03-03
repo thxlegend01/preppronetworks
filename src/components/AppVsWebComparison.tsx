@@ -83,16 +83,16 @@ const AppVsWebComparison = () => {
               </div>
               <div className="p-3 flex items-center justify-center bg-primary/5 border-x border-border/30">
                 {row.app ? (
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-primary" />
                 ) : (
-                  <X className="w-5 h-5 text-red-400" />
+                  <X className="w-5 h-5 text-destructive" />
                 )}
               </div>
               <div className="p-3 flex items-center justify-center">
                 {row.web ? (
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-primary" />
                 ) : (
-                  <X className="w-5 h-5 text-red-400" />
+                  <X className="w-5 h-5 text-destructive" />
                 )}
               </div>
             </motion.div>
