@@ -14,8 +14,10 @@ import AdminSection from "@/components/AdminSection";
 import SaurabhAI from "@/components/SaurabhAI";
 import ParallaxParticles from "@/components/ParallaxParticles";
 import MagneticCursor from "@/components/MagneticCursor";
-
 import Phone3DMockup from "@/components/Phone3DMockup";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
+import AppVsWebComparison from "@/components/AppVsWebComparison";
+import AppDownloadFlash from "@/components/AppDownloadFlash";
 import { useServiceWorker } from "@/hooks/useServiceWorker";
 import { useEffect } from "react";
 
@@ -38,17 +40,21 @@ const Index = () => {
         <Header />
         
         <Hero />
+        <AppDownloadBanner variant="top" />
         <MyFavorites />
         <RecentlyViewed />
         <FolderCards />
         <WhyPrepProHub />
         <WhoIsThisFor />
+        <AppVsWebComparison />
         <AboutDeveloper />
         <Phone3DMockup />
+        <AppDownloadBanner variant="bottom" />
         <CTA />
         <AdminSection />
         <Footer />
         <SaurabhAI />
+        <AppDownloadFlash />
       </div>
     </PageTransition>
   );
