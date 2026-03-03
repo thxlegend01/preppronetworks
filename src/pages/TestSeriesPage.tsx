@@ -60,6 +60,10 @@ const TestSeriesPage = () => {
       navigate("/mathango-tests");
       return;
     }
+    if (id === "vots-test") {
+      navigate("/vots-tests");
+      return;
+    }
     setSelectedApp({ url, title, id });
     setDisclaimerOpen(true);
   };

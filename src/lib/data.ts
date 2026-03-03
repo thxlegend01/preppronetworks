@@ -256,6 +256,19 @@ export const BATCHES: Batch[] = [
       { id: "cw-3", title: "Maths Chapters", lessons: 40, duration: "20 hrs" },
     ],
   },
+  {
+    id: "vots-test",
+    title: "VOTS-2 Test Series",
+    description: "Full Syllabus Mock Tests for JEE MAINS with detailed analysis and solutions.",
+    category: "Test Series",
+    status: "Available",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    externalUrl: "/vots-tests",
+    openInternal: true,
+    chapters: [
+      { id: "vots-1", title: "Full Syllabus Tests", lessons: 7, duration: "21 hrs" },
+    ],
+  },
 ];
 
 export const CATEGORIES = ["All", "Apps", "Test Series"] as const;
