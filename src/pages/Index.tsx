@@ -17,7 +17,6 @@ import MagneticCursor from "@/components/MagneticCursor";
 import Phone3DMockup from "@/components/Phone3DMockup";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 import AppVsWebComparison from "@/components/AppVsWebComparison";
-import AppDownloadFlash from "@/components/AppDownloadFlash";
 import { useServiceWorker } from "@/hooks/useServiceWorker";
 import { useEffect } from "react";
 
