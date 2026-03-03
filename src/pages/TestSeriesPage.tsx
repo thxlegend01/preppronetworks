@@ -17,12 +17,14 @@ import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import mathangoLogo from "@/assets/mathango-logo.png";
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
 import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
+import votsLogo from "@/assets/vots-logo.png";
 
 const logoMap: Record<string, string> = {
   "pw-test-series": pwLogoNew,
   "mathango-test": mathangoLogo,
   "pyq-cbt-test": revisionCourseLogo,
   "chapter-wise-test": revisionCourseLogo,
+  "vots-test": votsLogo,
 };
 
 const TestSeriesPage = () => {
