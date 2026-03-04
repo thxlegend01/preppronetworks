@@ -226,6 +226,14 @@ const AppsPage = () => {
           batchTitle={selectedApp?.title}
         />
         <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="CW / Vibrant Academy" />
+        <CwNoticeDialog
+          isOpen={cwNoticeOpen}
+          onClose={() => setCwNoticeOpen(false)}
+          onContinue={() => {
+            setCwNoticeOpen(false);
+            setDisclaimerOpen(true);
+          }}
+        />
       </div>
     </PageTransition>
   );
