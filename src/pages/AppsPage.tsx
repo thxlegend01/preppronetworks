@@ -27,6 +27,7 @@ import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
 import sarvamLogo from "@/assets/sarvam-logo.jpeg";
 import utkarshLogo from "@/assets/utkarsh-logo.jpeg";
 import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
+import careerwillLogo from "@/assets/careerwill-logo.png";
 
 const logoMap: Record<string, string> = {
   "pw-app": pwLogoNew,
