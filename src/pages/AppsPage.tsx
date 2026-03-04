@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import DisclaimerDialog from "@/components/DisclaimerDialog";
 import ComingSoonDialog from "@/components/ComingSoonDialog";
+import CwNoticeDialog from "@/components/CwNoticeDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
@@ -26,12 +27,13 @@ import revisionCourseLogo from "@/assets/revision-course-logo.jpg";
 import sarvamLogo from "@/assets/sarvam-logo.jpeg";
 import utkarshLogo from "@/assets/utkarsh-logo.jpeg";
 import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
+import careerwillLogo from "@/assets/careerwill-logo.png";
 
 const logoMap: Record<string, string> = {
   "pw-app": pwLogoNew,
   "next-toppers-app": nexttoppersLogo,
   "unacademy-app": unacademyLogo,
-  "vibrant-academy-app": "",
+  "vibrant-academy-app": careerwillLogo,
   "raw-app": rawLogo,
   "kgs-app": kgsLogo,
   "selection-way-app": selectionwayLogo,
@@ -51,6 +53,7 @@ const AppsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [cwNoticeOpen, setCwNoticeOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -74,7 +77,11 @@ const AppsPage = () => {
   const handleExplore = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     setSelectedApp({ url, title, id });
-    setDisclaimerOpen(true);
+    if (id === "vibrant-academy-app") {
+      setCwNoticeOpen(true);
+    } else {
+      setDisclaimerOpen(true);
+    }
   };
 
   const handleContinue = () => {
@@ -219,6 +226,14 @@ const AppsPage = () => {
           batchTitle={selectedApp?.title}
         />
         <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="CW / Vibrant Academy" />
+        <CwNoticeDialog
+          isOpen={cwNoticeOpen}
+          onClose={() => setCwNoticeOpen(false)}
+          onContinue={() => {
+            setCwNoticeOpen(false);
+            setDisclaimerOpen(true);
+          }}
+        />
       </div>
     </PageTransition>
   );
