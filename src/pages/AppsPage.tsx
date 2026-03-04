@@ -33,7 +33,7 @@ const logoMap: Record<string, string> = {
   "pw-app": pwLogoNew,
   "next-toppers-app": nexttoppersLogo,
   "unacademy-app": unacademyLogo,
-  "vibrant-academy-app": "",
+  "vibrant-academy-app": careerwillLogo,
   "raw-app": rawLogo,
   "kgs-app": kgsLogo,
   "selection-way-app": selectionwayLogo,
