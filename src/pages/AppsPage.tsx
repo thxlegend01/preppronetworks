@@ -77,7 +77,11 @@ const AppsPage = () => {
   const handleExplore = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     setSelectedApp({ url, title, id });
-    setDisclaimerOpen(true);
+    if (id === "vibrant-academy-app") {
+      setCwNoticeOpen(true);
+    } else {
+      setDisclaimerOpen(true);
+    }
   };
 
   const handleContinue = () => {
