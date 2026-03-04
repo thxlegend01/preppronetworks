@@ -53,6 +53,7 @@ const AppsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [cwNoticeOpen, setCwNoticeOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
