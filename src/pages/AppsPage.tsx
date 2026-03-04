@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import DisclaimerDialog from "@/components/DisclaimerDialog";
 import ComingSoonDialog from "@/components/ComingSoonDialog";
+import CwNoticeDialog from "@/components/CwNoticeDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
