@@ -84,7 +84,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://vipcw.vercel.app",
+    externalUrl: "https://oldcw.vercel.app/",
     openInternal: true,
     featured: true,
     chapters: [
