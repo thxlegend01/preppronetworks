@@ -68,7 +68,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://i.ibb.co/DLdPGLZ/Green-Modern-Badge-Gardening-Logo-Design.jpg",
-    externalUrl: "https://pikachux.netlify.app/",
+    externalUrl: "https://vipuy.vercel.app/",
     openInternal: true,
     featured: true,
     chapters: [
