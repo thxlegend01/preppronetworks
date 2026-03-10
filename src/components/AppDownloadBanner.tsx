@@ -229,6 +229,51 @@ const AppDownloadBanner = ({ variant = "top" }: AppDownloadBannerProps) => {
             )}
           </motion.div>
         </Tilt3D>
+
+        {/* Support Section */}
+        <motion.div
+          className="mt-6 glass-card rounded-2xl p-6 border border-accent/20 relative overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <div className="flex flex-col items-center text-center gap-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-destructive/10 border border-destructive/20 rounded-full">
+              <span className="text-sm font-bold text-destructive">📢 Support PrepPro Network</span>
+            </div>
+            
+            <div className="max-w-2xl space-y-2">
+              <h4 className="text-lg font-bold text-foreground">
+                Get Ultimate Update for JEE & NEET — Support PrepPro Network ❤️
+              </h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                The PrepPro Network Team is working day and night to provide <span className="font-semibold text-foreground">free JEE & NEET resources</span> so that students who cannot afford expensive courses can still study. We don't ask for money — we just ask for <span className="font-semibold text-foreground">one small click</span> to support our work. Your one click motivates us to keep helping thousands of students.
+              </p>
+              <p className="text-xs text-muted-foreground italic mt-2">
+                PrepPro Network – Students helping Students 🤝
+              </p>
+            </div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="hero"
+                size="lg"
+                onClick={() => window.open("https://gplinks.co/UKMTht", "_blank")}
+                className="px-8 relative overflow-hidden group"
+              >
+                <motion.span
+                  className="absolute inset-0"
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)" }}
+                />
+                ❤️ Support Us — Open Link
+              </Button>
+            </motion.div>
+            <p className="text-xs text-muted-foreground">Opens externally • For web users only</p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
