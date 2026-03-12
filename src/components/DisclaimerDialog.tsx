@@ -93,11 +93,6 @@ const DisclaimerDialog = ({
     if (showLoadingAnimation || openExternalAfterLoading) {
       setShowLoading(true);
     } else {
-      if (openInternal) {
-        navigate(`/viewer?url=${encodeURIComponent(externalUrl)}`);
-      } else {
-        window.open(externalUrl, "_blank");
-      }
       onClose();
     }
     onContinue();
