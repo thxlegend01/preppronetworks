@@ -10,9 +10,10 @@ import StatsWidget from "@/components/study/StatsWidget";
 import StudyRoomsWidget from "@/components/study/StudyRoomsWidget";
 import LeaderboardWidget from "@/components/study/LeaderboardWidget";
 import FriendsWidget from "@/components/study/FriendsWidget";
-import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft } from "lucide-react";
+import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft, LogIn, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const tabs = [
   { id: "timer", label: "Timer", icon: Timer },
@@ -29,6 +30,7 @@ const StudyTrackerPage = () => {
   const navigate = useNavigate();
   const { liveStats } = usePresence();
   const [activeTab, setActiveTab] = useState<TabId>("timer");
+  const [showLoginBanner, setShowLoginBanner] = useState(true);
 
   return (
     <PageTransition>
@@ -62,6 +64,31 @@ const StudyTrackerPage = () => {
               </span>
             </div>
           </motion.div>
+
+          {/* Login prompt for non-logged-in users */}
+          {!user && showLoginBanner && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 p-3 rounded-xl bg-primary/10 border border-primary/20 flex items-center gap-3"
+            >
+              <LogIn className="w-4 h-4 text-primary flex-shrink-0" />
+              <p className="text-xs text-foreground flex-1">
+                <span className="font-semibold">Sign in</span> to save progress, compete on leaderboards & join rooms
+              </p>
+              <Button
+                size="sm"
+                variant="hero"
+                className="text-xs px-3 py-1 h-7 flex-shrink-0"
+                onClick={() => navigate("/auth")}
+              >
+                Login
+              </Button>
+              <button onClick={() => setShowLoginBanner(false)} className="text-muted-foreground hover:text-foreground p-1">
+                <X className="w-3 h-3" />
+              </button>
+            </motion.div>
+          )}
 
           {/* Tab Content */}
           <AnimatePresence mode="wait">
