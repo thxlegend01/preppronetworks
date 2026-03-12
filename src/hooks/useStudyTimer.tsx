@@ -20,7 +20,7 @@ export const useStudyTimer = () => {
     weekMinutes: 0,
     sessionsCount: 0,
   });
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Fetch user stats
   const fetchStats = useCallback(async () => {
