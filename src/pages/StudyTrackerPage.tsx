@@ -10,9 +10,10 @@ import StatsWidget from "@/components/study/StatsWidget";
 import StudyRoomsWidget from "@/components/study/StudyRoomsWidget";
 import LeaderboardWidget from "@/components/study/LeaderboardWidget";
 import FriendsWidget from "@/components/study/FriendsWidget";
-import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft } from "lucide-react";
+import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft, LogIn, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const tabs = [
   { id: "timer", label: "Timer", icon: Timer },
