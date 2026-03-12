@@ -30,6 +30,7 @@ const StudyTrackerPage = () => {
   const navigate = useNavigate();
   const { liveStats } = usePresence();
   const [activeTab, setActiveTab] = useState<TabId>("timer");
+  const [showLoginBanner, setShowLoginBanner] = useState(true);
 
   return (
     <PageTransition>
