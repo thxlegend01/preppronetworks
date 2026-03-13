@@ -85,7 +85,7 @@ export const BATCHES: Batch[] = [
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
     externalUrl: "https://oldcw.vercel.app/",
-    openInternal: true,
+    openInternal: false,
     featured: true,
     chapters: [
       { id: "va-1", title: "JEE Advanced", lessons: 60, duration: "30 hrs" },
