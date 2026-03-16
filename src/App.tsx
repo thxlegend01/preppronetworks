@@ -87,6 +87,7 @@ const App = () => {
                         <Route path="/preppro-world" element={<PrepProWorldPage />} />
                         <Route path="/mathango-tests" element={<MathangoTestsPage />} />
                         <Route path="/vots-tests" element={<VotsTestsPage />} />
+                        <Route path="/etoos-hub" element={<EtoosHubPage />} />
                         <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                         <Route path="/test/:testId" element={<TestPage />} />
                         <Route path="/view/:appId" element={<ViewerPage />} />
