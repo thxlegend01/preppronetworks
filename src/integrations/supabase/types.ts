@@ -38,6 +38,33 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_tasks: {
+        Row: {
+          created_at: string
+          id: string
+          is_completed: boolean
+          task_date: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          task_date?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          task_date?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       friend_requests: {
         Row: {
           created_at: string
@@ -133,6 +160,50 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      room_messages: {
+        Row: {
+          avatar_url: string | null
+          content: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          media_url: string | null
+          message_type: string
+          room_id: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          content?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          media_url?: string | null
+          message_type?: string
+          room_id: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          content?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          media_url?: string | null
+          message_type?: string
+          room_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_messages_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "study_rooms"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       room_participants: {
         Row: {
