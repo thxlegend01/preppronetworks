@@ -10,7 +10,8 @@ import StatsWidget from "@/components/study/StatsWidget";
 import StudyRoomsWidget from "@/components/study/StudyRoomsWidget";
 import LeaderboardWidget from "@/components/study/LeaderboardWidget";
 import FriendsWidget from "@/components/study/FriendsWidget";
-import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft, LogIn, X } from "lucide-react";
+import DailyTasksWidget from "@/components/study/DailyTasksWidget";
+import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft, LogIn, X, ListChecks } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ const tabs = [
   { id: "timer", label: "Timer", icon: Timer },
   { id: "stats", label: "Stats", icon: BarChart3 },
   { id: "rooms", label: "Rooms", icon: Users },
+  { id: "tasks", label: "Tasks", icon: ListChecks },
   { id: "leaderboard", label: "Rank", icon: Trophy },
   { id: "friends", label: "Friends", icon: UserPlus },
 ] as const;
@@ -102,6 +104,7 @@ const StudyTrackerPage = () => {
               {activeTab === "timer" && <StudyTimerWidget />}
               {activeTab === "stats" && <StatsWidget />}
               {activeTab === "rooms" && <StudyRoomsWidget />}
+              {activeTab === "tasks" && <DailyTasksWidget />}
               {activeTab === "leaderboard" && <LeaderboardWidget />}
               {activeTab === "friends" && <FriendsWidget />}
             </motion.div>
@@ -118,7 +121,7 @@ const StudyTrackerPage = () => {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={cn(
-                      "flex flex-col items-center gap-0.5 py-1.5 px-3 rounded-xl transition-all",
+                      "flex flex-col items-center gap-0.5 py-1.5 px-2 rounded-xl transition-all",
                       activeTab === tab.id ? "text-primary" : "text-muted-foreground"
                     )}
                   >
@@ -128,7 +131,7 @@ const StudyTrackerPage = () => {
                     >
                       <tab.icon className={cn("w-5 h-5", activeTab === tab.id && "drop-shadow-[0_0_6px_hsl(var(--primary))]")} />
                     </motion.div>
-                    <span className="text-[9px] font-semibold">{tab.label}</span>
+                    <span className="text-[8px] font-semibold">{tab.label}</span>
                     {activeTab === tab.id && (
                       <motion.div layoutId="tab-indicator" className="w-1 h-1 rounded-full bg-primary mt-0.5" />
                     )}
@@ -138,8 +141,6 @@ const StudyTrackerPage = () => {
             </div>
           </div>
         </div>
-
-        
       </div>
     </PageTransition>
   );
