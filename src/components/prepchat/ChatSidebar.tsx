@@ -15,9 +15,9 @@ interface Props {
 }
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  JEE: <Sparkles className="w-4 h-4 text-orange-500" />,
-  NEET: <BookOpen className="w-4 h-4 text-green-500" />,
-  Boards: <GraduationCap className="w-4 h-4 text-blue-500" />,
+  JEE: <Sparkles className="w-4 h-4 text-accent" />,
+  NEET: <BookOpen className="w-4 h-4 text-primary" />,
+  Boards: <GraduationCap className="w-4 h-4 text-primary" />,
   Community: <MessageCircle className="w-4 h-4 text-primary" />,
   Custom: <Hash className="w-4 h-4 text-muted-foreground" />,
 };
