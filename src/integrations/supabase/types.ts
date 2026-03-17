@@ -113,6 +113,38 @@ export type Database = {
         }
         Relationships: []
       }
+      message_reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          message_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          message_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          message_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_reactions_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "room_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       motivational_quotes: {
         Row: {
           author: string | null
@@ -168,8 +200,11 @@ export type Database = {
           created_at: string
           display_name: string | null
           id: string
+          is_edited: boolean
+          is_pinned: boolean
           media_url: string | null
           message_type: string
+          reply_to_id: string | null
           room_id: string
           user_id: string
         }
@@ -179,8 +214,11 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+          is_edited?: boolean
+          is_pinned?: boolean
           media_url?: string | null
           message_type?: string
+          reply_to_id?: string | null
           room_id: string
           user_id: string
         }
@@ -190,12 +228,22 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+          is_edited?: boolean
+          is_pinned?: boolean
           media_url?: string | null
           message_type?: string
+          reply_to_id?: string | null
           room_id?: string
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "room_messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "room_messages"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "room_messages_room_id_fkey"
             columns: ["room_id"]
