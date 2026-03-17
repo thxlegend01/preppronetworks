@@ -30,6 +30,7 @@ const PrepProWorldPage = lazy(() => import("./pages/PrepProWorldPage"));
 const MathangoTestsPage = lazy(() => import("./pages/MathangoTestsPage"));
 const VotsTestsPage = lazy(() => import("./pages/VotsTestsPage"));
 const EtoosHubPage = lazy(() => import("./pages/EtoosHubPage"));
+const PrepChatPage = lazy(() => import("./pages/PrepChatPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
