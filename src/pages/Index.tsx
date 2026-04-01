@@ -12,29 +12,13 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
 import SaurabhAI from "@/components/SaurabhAI";
-import ParallaxParticles from "@/components/ParallaxParticles";
-import MagneticCursor from "@/components/MagneticCursor";
-import Phone3DMockup from "@/components/Phone3DMockup";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 import AppVsWebComparison from "@/components/AppVsWebComparison";
-import { useServiceWorker } from "@/hooks/useServiceWorker";
-import { useEffect } from "react";
 
 const Index = () => {
-  const { isRegistered } = useServiceWorker();
-  
-  useEffect(() => {
-    if (isRegistered) {
-      console.log('[App] Service worker ready for offline support');
-    }
-  }, [isRegistered]);
-
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background relative">
-        <ParallaxParticles />
-        <MagneticCursor />
-        
+      <div className="min-h-screen bg-background">
         <NewYearBanner />
         <Header />
         
@@ -47,13 +31,11 @@ const Index = () => {
         <WhoIsThisFor />
         <AppVsWebComparison />
         <AboutDeveloper />
-        <Phone3DMockup />
         <AppDownloadBanner variant="bottom" />
         <CTA />
         <AdminSection />
         <Footer />
         <SaurabhAI />
-        
       </div>
     </PageTransition>
   );
