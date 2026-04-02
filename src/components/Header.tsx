@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, LogOut, User, Home, Smartphone, BookOpen, ClipboardCheck, Timer, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,12 +16,12 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const navLinks = [
-  { href: "/", label: "Home", icon: Home, isRoute: true },
-  { href: "/apps", label: "Apps", icon: Smartphone, isRoute: true },
-  { href: "/test-series", label: "Tests", icon: ClipboardCheck, isRoute: true },
-  { href: "/study-material", label: "Material", icon: BookOpen, isRoute: true },
-  { href: "/study-tracker", label: "Tracker", icon: Timer, isRoute: true },
-  { href: "/prepchat", label: "Chat", icon: MessageCircle, isRoute: true },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/apps", label: "Apps", icon: Smartphone },
+  { href: "/test-series", label: "Tests", icon: ClipboardCheck },
+  { href: "/study-material", label: "Material", icon: BookOpen },
+  { href: "/study-tracker", label: "Tracker", icon: Timer },
+  { href: "/prepchat", label: "Chat", icon: MessageCircle },
 ];
 
 const Header = () => {
@@ -39,78 +40,91 @@ const Header = () => {
   return (
     <>
       {/* Desktop Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass-navbar hidden md:block">
-        <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 no-link-style">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">P</span>
-            </div>
-            <span className="text-base font-bold text-foreground">PrepPro</span>
-          </Link>
-
-          <nav className="flex items-center gap-0.5">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 no-link-style ${
-                    isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <NotificationBell />
-            <ThemeToggle />
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
-                    <Avatar className="w-7 h-7">
-                      <AvatarFallback className="bg-primary/15 text-primary text-xs font-semibold">
-                        {getInitials(user.email || "U")}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-52">
-                  <div className="px-2 py-1.5">
-                    <p className="text-xs font-medium text-foreground truncate">{user.email}</p>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/profile")} className="cursor-pointer text-sm">
-                    <User className="w-3.5 h-3.5 mr-2" />Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive focus:text-destructive text-sm">
-                    <LogOut className="w-3.5 h-3.5 mr-2" />Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Button
-                size="sm"
-                className="h-8 px-4 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90"
-                onClick={() => navigate("/auth")}
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 hidden md:block"
+      >
+        <div className="mx-4 mt-3">
+          <div className="glass-navbar rounded-2xl px-6 h-14 flex items-center justify-between shadow-sm">
+            <Link to="/" className="flex items-center gap-2.5 no-link-style">
+              <motion.div
+                whileHover={{ rotate: 5, scale: 1.05 }}
+                className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md shadow-primary/20"
               >
-                Sign In
-              </Button>
-            )}
+                <span className="text-primary-foreground font-black text-sm">P</span>
+              </motion.div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-foreground leading-tight">PrepPro Network</span>
+                <span className="text-[10px] text-muted-foreground leading-tight">India's Study Hub</span>
+              </div>
+            </Link>
+
+            <nav className="flex items-center gap-1 bg-muted/40 rounded-xl p-1">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={`relative px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 no-link-style ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <NotificationBell />
+              <ThemeToggle />
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+                      <Avatar className="w-8 h-8 border-2 border-primary/20">
+                        <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground text-xs font-bold">
+                          {getInitials(user.email || "U")}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-52 rounded-xl">
+                    <div className="px-3 py-2">
+                      <p className="text-xs font-medium text-foreground truncate">{user.email}</p>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate("/profile")} className="cursor-pointer text-sm rounded-lg">
+                      <User className="w-3.5 h-3.5 mr-2" />Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive focus:text-destructive text-sm rounded-lg">
+                      <LogOut className="w-3.5 h-3.5 mr-2" />Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button
+                  size="sm"
+                  className="h-9 px-5 text-xs font-bold rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 shadow-md shadow-primary/20"
+                  onClick={() => navigate("/auth")}
+                >
+                  Sign In
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Bottom Tab Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-t border-border/60 safe-area-bottom">
-        <div className="flex items-center justify-around px-2 py-1">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-t border-border/40 safe-area-bottom">
+        <div className="flex items-center justify-around px-1 py-1.5">
           {navLinks.slice(0, 5).map((link) => {
             const isActive = location.pathname === link.href;
             const Icon = link.icon;
@@ -118,109 +132,133 @@ const Header = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`flex flex-col items-center gap-0.5 py-1.5 px-3 rounded-xl transition-all duration-200 no-link-style ${
+                className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200 no-link-style ${
                   isActive ? "text-primary" : "text-muted-foreground"
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? "text-primary" : ""}`} strokeWidth={isActive ? 2.5 : 1.5} />
+                <div className={`p-1 rounded-lg ${isActive ? "bg-primary/10" : ""}`}>
+                  <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 1.5} />
+                </div>
                 <span className="text-[10px] font-medium">{link.label}</span>
               </Link>
             );
           })}
-          {/* More / Profile button */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="flex flex-col items-center gap-0.5 py-1.5 px-3 text-muted-foreground"
+            className="flex flex-col items-center gap-0.5 py-1 px-3 text-muted-foreground"
           >
-            <Menu className="w-5 h-5" strokeWidth={1.5} />
+            <div className="p-1">
+              <Menu className="w-5 h-5" strokeWidth={1.5} />
+            </div>
             <span className="text-[10px] font-medium">More</span>
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-[60] animate-fade-in">
-          <div className="absolute inset-0 bg-background/60 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
-          <div className="absolute bottom-0 left-0 right-0 bg-card rounded-t-3xl border-t border-border/60 p-6 pb-10 animate-page-in">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-foreground">Menu</h3>
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsMobileMenuOpen(false)}>
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-
-            <div className="space-y-1 mb-6">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive = location.pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all no-link-style ${
-                      isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted/50"
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" strokeWidth={1.5} />
-                    <span className="text-sm font-medium">{link.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-muted/30 mb-4">
-              <span className="text-sm text-muted-foreground">Theme</span>
-              <ThemeToggle />
-            </div>
-
-            {user ? (
-              <div className="space-y-2">
-                <div className="px-4 py-2 text-xs text-muted-foreground truncate">{user.email}</div>
-                <Button variant="ghost" className="w-full justify-start text-sm" onClick={() => { navigate("/profile"); setIsMobileMenuOpen(false); }}>
-                  <User className="w-4 h-4 mr-2" />Profile
-                </Button>
-                <Button variant="ghost" className="w-full justify-start text-sm text-destructive hover:text-destructive" onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}>
-                  <LogOut className="w-4 h-4 mr-2" />Sign Out
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 z-[60]">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-background/60 backdrop-blur-sm"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="absolute bottom-0 left-0 right-0 bg-card rounded-t-3xl border-t border-border/60 p-6 pb-10"
+            >
+              <div className="w-10 h-1 bg-muted-foreground/20 rounded-full mx-auto mb-5" />
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-bold text-foreground">Menu</h3>
+                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setIsMobileMenuOpen(false)}>
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
-            ) : (
-              <Button className="w-full bg-primary text-primary-foreground rounded-xl" onClick={() => { navigate("/auth"); setIsMobileMenuOpen(false); }}>
-                Sign In
-              </Button>
-            )}
-          </div>
-        </div>
-      )}
 
-      {/* Mobile top bar - minimal */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-50 glass-navbar">
+              <div className="space-y-1 mb-6">
+                {navLinks.map((link) => {
+                  const Icon = link.icon;
+                  const isActive = location.pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all no-link-style ${
+                        isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted/50"
+                      }`}
+                    >
+                      <Icon className="w-5 h-5" strokeWidth={1.5} />
+                      <span className="text-sm font-medium">{link.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-muted/30 mb-4">
+                <span className="text-sm text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
+
+              {user ? (
+                <div className="space-y-2">
+                  <div className="px-4 py-2 text-xs text-muted-foreground truncate">{user.email}</div>
+                  <Button variant="ghost" className="w-full justify-start text-sm rounded-xl" onClick={() => { navigate("/profile"); setIsMobileMenuOpen(false); }}>
+                    <User className="w-4 h-4 mr-2" />Profile
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start text-sm text-destructive hover:text-destructive rounded-xl" onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}>
+                    <LogOut className="w-4 h-4 mr-2" />Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Button className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl h-12 font-bold" onClick={() => { navigate("/auth"); setIsMobileMenuOpen(false); }}>
+                  Sign In
+                </Button>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile top bar */}
+      <motion.header
+        initial={{ y: -10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="md:hidden fixed top-0 left-0 right-0 z-50 glass-navbar"
+      >
         <div className="flex items-center justify-between px-4 h-12">
           <Link to="/" className="flex items-center gap-2 no-link-style">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xs">P</span>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm shadow-primary/20">
+              <span className="text-primary-foreground font-black text-xs">P</span>
             </div>
-            <span className="text-sm font-bold text-foreground">PrepPro</span>
+            <span className="text-sm font-bold text-foreground">PrepPro Network</span>
           </Link>
           <div className="flex items-center gap-1.5">
+            <ThemeToggle />
             <NotificationBell />
             {user ? (
-              <Button variant="ghost" size="icon" className="h-7 w-7 rounded-full" onClick={() => navigate("/profile")}>
-                <Avatar className="w-6 h-6">
-                  <AvatarFallback className="bg-primary/15 text-primary text-[10px] font-semibold">
+              <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => navigate("/profile")}>
+                <Avatar className="w-7 h-7 border-2 border-primary/20">
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground text-[10px] font-bold">
                     {getInitials(user.email || "U")}
                   </AvatarFallback>
                 </Avatar>
               </Button>
             ) : (
-              <Button size="sm" className="h-7 px-3 text-[10px] rounded-lg bg-primary text-primary-foreground" onClick={() => navigate("/auth")}>
+              <Button size="sm" className="h-8 px-3 text-[10px] font-bold rounded-lg bg-gradient-to-r from-primary to-accent text-primary-foreground" onClick={() => navigate("/auth")}>
                 Sign In
               </Button>
             )}
           </div>
         </div>
-      </header>
+      </motion.header>
     </>
   );
 };
