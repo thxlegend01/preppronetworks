@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, LogOut, User, Home, Smartphone, BookOpen, ClipboardCheck, Timer, MessageCircle } from "lucide-react";
+import { Menu, X, LogOut, User, Home, Smartphone, BookOpen, ClipboardCheck, Timer, MessageCircle, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
@@ -51,13 +52,13 @@ const Header = () => {
             <Link to="/" className="flex items-center gap-2.5 no-link-style">
               <motion.div
                 whileHover={{ rotate: 5, scale: 1.05 }}
-                className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md shadow-primary/20"
+                className="w-9 h-9 rounded-full overflow-hidden shadow-md border-2 border-primary/20"
               >
-                <span className="text-primary-foreground font-black text-sm">P</span>
+                <img src={prepproLogo} alt="PrepPro Network" className="w-full h-full object-cover" />
               </motion.div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-foreground leading-tight">PrepPro Network</span>
-                <span className="text-[10px] text-muted-foreground leading-tight">India's Study Hub</span>
+                <span className="text-[10px] text-muted-foreground leading-tight">Prep Like a Pro</span>
               </div>
             </Link>
 
@@ -122,7 +123,7 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* Mobile Bottom Tab Bar */}
+      {/* Mobile Bottom Tab Bar - PERMANENT */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-t border-border/40 safe-area-bottom">
         <div className="flex items-center justify-around px-1 py-1.5">
           {navLinks.slice(0, 5).map((link) => {
@@ -148,7 +149,7 @@ const Header = () => {
             className="flex flex-col items-center gap-0.5 py-1 px-3 text-muted-foreground"
           >
             <div className="p-1">
-              <Menu className="w-5 h-5" strokeWidth={1.5} />
+              <MoreHorizontal className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <span className="text-[10px] font-medium">More</span>
           </button>
@@ -235,8 +236,8 @@ const Header = () => {
       >
         <div className="flex items-center justify-between px-4 h-12">
           <Link to="/" className="flex items-center gap-2 no-link-style">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm shadow-primary/20">
-              <span className="text-primary-foreground font-black text-xs">P</span>
+            <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm border-2 border-primary/20">
+              <img src={prepproLogo} alt="PrepPro Network" className="w-full h-full object-cover" />
             </div>
             <span className="text-sm font-bold text-foreground">PrepPro Network</span>
           </Link>

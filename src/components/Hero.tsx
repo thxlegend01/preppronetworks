@@ -1,6 +1,7 @@
 import { ArrowDown, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const container = {
   hidden: { opacity: 0 },
@@ -17,7 +18,7 @@ const item = {
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-16 pb-12 overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center justify-center pt-16 pb-12 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.06] via-background to-background" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/[0.08] rounded-full blur-[120px]" />
@@ -29,31 +30,25 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* Badge */}
-          <motion.div variants={item} className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/8 border border-primary/15 rounded-full mb-8">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-semibold text-primary tracking-wide uppercase">India's Study Hub</span>
-          </motion.div>
-
-          {/* Logo placeholder - animated */}
+          {/* Logo */}
           <motion.div
             variants={item}
-            className="mx-auto mb-8 w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/20"
+            className="mx-auto mb-8"
           >
-            <motion.span
-              className="text-primary-foreground font-black text-3xl"
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            <motion.div
+              className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mx-auto shadow-xl shadow-primary/20 border-4 border-primary/20"
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              P
-            </motion.span>
+              <img src={prepproLogo} alt="PrepPro Network" className="w-full h-full object-cover" />
+            </motion.div>
           </motion.div>
 
           {/* Heading */}
-          <motion.h1 variants={item} className="text-4xl md:text-6xl lg:text-7xl font-black mb-4 leading-[1.05] tracking-tight">
-            <span className="text-foreground">All Study Portals</span>
+          <motion.h1 variants={item} className="text-4xl md:text-6xl lg:text-7xl font-black mb-3 leading-[1.05] tracking-tight">
+            <span className="text-foreground">Prep Like a Pro</span>
             <br />
-            <span className="text-gradient">One Network</span>
+            <span className="text-gradient">With PrepPro</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -76,7 +71,7 @@ const Hero = () => {
           {/* Quick Links pills */}
           <motion.div variants={item} className="mt-10 flex flex-wrap justify-center gap-2">
             {["Apps", "Tests", "Material", "Tracker", "Chat"].map((label) => (
-              <span key={label} className="px-4 py-1.5 text-xs font-medium rounded-full bg-card border border-border/60 text-muted-foreground">
+              <span key={label} className="px-4 py-1.5 text-xs font-medium rounded-full bg-card border border-border/60 text-muted-foreground hover:border-primary/30 hover:text-primary transition-all cursor-default">
                 {label}
               </span>
             ))}
