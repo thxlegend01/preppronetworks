@@ -33,10 +33,10 @@ const AboutDeveloper = () => {
                 <h3 className="text-xl font-bold text-foreground mb-1">Legend</h3>
                 <div className="flex flex-wrap gap-2 justify-center sm:justify-start mb-3">
                   <span className="px-2.5 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                    11th JEE Aspirant
+                    12th — JEE Aspirant
                   </span>
                   <span className="px-2.5 py-0.5 bg-accent/10 text-accent rounded-full text-xs font-medium">
-                    Age 16
+                    Age 17
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">

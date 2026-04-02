@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Smartphone, ArrowRight, Heart, Copy, Check, ArrowLeft, ChevronDown } from "lucide-react";
+import { Smartphone, ArrowRight, Heart, Copy, Check, ArrowLeft, ChevronDown, ExternalLink, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,13 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
 import nexttoppersLogo from "@/assets/nexttoppers-logo.png";
@@ -28,6 +35,7 @@ import sarvamLogo from "@/assets/sarvam-logo.jpeg";
 import utkarshLogo from "@/assets/utkarsh-logo.jpeg";
 import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
 import careerwillLogo from "@/assets/careerwill-logo.png";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const logoMap: Record<string, string> = {
   "pw-app": pwLogoNew,
@@ -58,6 +66,7 @@ const AppsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -105,6 +114,10 @@ const AppsPage = () => {
     } catch {
       toast({ variant: "destructive", title: "Failed to copy", description: "Please copy manually: " + appCode.code });
     }
+  };
+
+  const handlePortalClick = () => {
+    setPortalNoticeOpen(true);
   };
 
   const renderAppCard = (app: typeof allApps[0], index: number) => {
@@ -177,12 +190,44 @@ const AppsPage = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
               <Smartphone className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Premium Apps</span>
+              <span className="text-sm font-medium text-primary">PrepPro Study Apps</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
-              Premium <span className="text-gradient">Apps</span>
+              PrepPro <span className="text-gradient">Study Apps</span>
             </h1>
             <p className="text-lg text-muted-foreground">Access top educational platforms for free</p>
+          </motion.div>
+
+          {/* PrepPro Network Portal Card — Featured at Top */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-8"
+          >
+            <button
+              onClick={handlePortalClick}
+              className="w-full group text-left p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-card to-accent/10 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20 flex-shrink-0">
+                  <img src={prepproLogo} alt="PrepPro Network Portal" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-xl font-extrabold text-foreground group-hover:text-primary transition-colors">
+                      PrepPro Network Portal
+                    </h3>
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-primary to-accent text-white">
+                      🌐 Portal
+                    </span>
+                  </div>
+                  <p className="text-sm text-primary font-semibold mb-0.5">All Study Portals — One Place</p>
+                  <p className="text-xs text-muted-foreground">PW, Vibrant, Next Toppers & all portals in one place</p>
+                </div>
+                <ExternalLink className="w-5 h-5 text-primary opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+              </div>
+            </button>
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search apps..." />
@@ -234,6 +279,45 @@ const AppsPage = () => {
             setDisclaimerOpen(true);
           }}
         />
+
+        {/* Portal Better Experience Notice */}
+        <Dialog open={portalNoticeOpen} onOpenChange={setPortalNoticeOpen}>
+          <DialogContent className="sm:max-w-md glass-card border-primary/30">
+            <DialogHeader className="text-center">
+              <div className="mx-auto w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shadow-lg mb-4">
+                <img src={prepproLogo} alt="PrepPro" className="w-full h-full object-cover" />
+              </div>
+              <DialogTitle className="text-xl font-bold text-foreground">
+                Better Experience Tip 💡
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground text-sm leading-relaxed mt-3">
+                For the best experience, use the <strong className="text-primary">PrepPro Network App</strong>. 
+                It's faster, smoother, and optimized for studying on the go!
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col gap-3 mt-4">
+              <Button
+                variant="hero"
+                className="w-full font-bold"
+                onClick={() => {
+                  setPortalNoticeOpen(false);
+                  window.open("https://pwpreppro.lovable.app/", "_blank", "noopener,noreferrer");
+                }}
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                Open Portal
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full text-muted-foreground"
+                onClick={() => setPortalNoticeOpen(false)}
+              >
+                Maybe Later
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </PageTransition>
   );

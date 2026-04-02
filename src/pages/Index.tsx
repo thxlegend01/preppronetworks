@@ -13,7 +13,6 @@ import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
 import SaurabhAI from "@/components/SaurabhAI";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
-import AppVsWebComparison from "@/components/AppVsWebComparison";
 
 const Index = () => {
   return (
@@ -29,7 +28,6 @@ const Index = () => {
         <FolderCards />
         <WhyPrepProHub />
         <WhoIsThisFor />
-        <AppVsWebComparison />
         <AboutDeveloper />
         <AppDownloadBanner variant="bottom" />
         <CTA />
