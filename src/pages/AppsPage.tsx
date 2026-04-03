@@ -85,21 +85,11 @@ const AppsPage = () => {
 
   const handleExplore = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
-    setSelectedApp({ url, title, id });
-    if (id === "vibrant-academy-app") {
-      setCwNoticeOpen(true);
-    } else {
-      setDisclaimerOpen(true);
-    }
+    // All apps now redirect to PrepPro Portal
+    setPortalNoticeOpen(true);
   };
 
   const handleContinue = () => {
-    if (selectedApp) {
-      addToRecentlyViewed(selectedApp.id, selectedApp.title, "app");
-      navigate(`/view/${encodeURIComponent(selectedApp.title)}`, {
-        state: { url: selectedApp.url, title: selectedApp.title, appId: selectedApp.id }
-      });
-    }
     setDisclaimerOpen(false);
   };
 
