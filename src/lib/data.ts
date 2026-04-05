@@ -233,7 +233,7 @@ export const BATCHES: Batch[] = [
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "http://PwPrepPro.lovable.app",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=pw&target=https%3A%2F%2Fwww.sstudy.site%2F&title=PW+Test+Series",
     openInternal: false,
     chapters: [
       { id: "pwts-1", title: "JEE Tests", lessons: 50, duration: "25 hrs" },

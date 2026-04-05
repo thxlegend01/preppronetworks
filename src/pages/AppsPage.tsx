@@ -291,7 +291,7 @@ const AppsPage = () => {
                 className="w-full font-bold"
                 onClick={() => {
                   setPortalNoticeOpen(false);
-                  window.open("https://pwpreppro.lovable.app/", "_blank", "noopener,noreferrer");
+                  window.open("https://prepproportals.lovable.app/", "_blank", "noopener,noreferrer");
                 }}
               >
                 <Globe className="w-4 h-4 mr-2" />
