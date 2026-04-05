@@ -145,7 +145,7 @@ const AppsPage = () => {
 
           <div className="space-y-2">
             <Button variant="hero" onClick={() => handleExplore(app.id, app.externalUrl, app.title)} className="w-full">
-              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
+              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Open Portal"}
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
 
