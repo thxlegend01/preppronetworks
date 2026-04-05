@@ -85,8 +85,8 @@ const AppsPage = () => {
 
   const handleExplore = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
-    // All apps now redirect to PrepPro Portal
-    setPortalNoticeOpen(true);
+    addToRecentlyViewed(id, title, "app");
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleContinue = () => {
