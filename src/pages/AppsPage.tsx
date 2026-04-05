@@ -85,8 +85,8 @@ const AppsPage = () => {
 
   const handleExplore = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
-    // All apps now redirect to PrepPro Portal
-    setPortalNoticeOpen(true);
+    addToRecentlyViewed(id, title, "app");
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleContinue = () => {
@@ -145,7 +145,7 @@ const AppsPage = () => {
 
           <div className="space-y-2">
             <Button variant="hero" onClick={() => handleExplore(app.id, app.externalUrl, app.title)} className="w-full">
-              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Explore Now"}
+              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Open Portal"}
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
 
@@ -291,7 +291,7 @@ const AppsPage = () => {
                 className="w-full font-bold"
                 onClick={() => {
                   setPortalNoticeOpen(false);
-                  window.open("https://pwpreppro.lovable.app/", "_blank", "noopener,noreferrer");
+                  window.open("https://prepproportals.lovable.app/", "_blank", "noopener,noreferrer");
                 }}
               >
                 <Globe className="w-4 h-4 mr-2" />

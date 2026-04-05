@@ -29,6 +29,7 @@ export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> =
 
 export const BATCHES: Batch[] = [
   // ──── FEATURED APPS (shown by default) ────
+  // ──── FEATURED APPS (shown by default) ────
   {
     id: "pw-app",
     title: "Physics Wallah",
@@ -36,7 +37,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: pwLogoNew,
-    externalUrl: "http://PwPrepPro.lovable.app",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=pw&target=https%3A%2F%2Fpwthor.site%2Fstudy%2Fbatches&title=PW+Portal+1",
     openInternal: false,
     featured: true,
     chapters: [
@@ -52,8 +53,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
-    externalUrl: "https://nt.nextmate.site/getaccess",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=nexttoppers&target=https%3A%2F%2Fnexttoppers.thescholarverse.site%2F&title=Next+Toppers+Portal",
+    openInternal: false,
     featured: true,
     chapters: [
       { id: "nt-1", title: "Topper Strategies", lessons: 30, duration: "15 hrs" },
@@ -68,8 +69,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://i.ibb.co/DLdPGLZ/Green-Modern-Badge-Gardening-Logo-Design.jpg",
-    externalUrl: "https://vipuy.vercel.app/",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=unacademy&target=https%3A%2F%2Funacademy.thescholarverse.site%2F&title=Unacademy+Portal",
+    openInternal: false,
     featured: true,
     chapters: [
       { id: "ua-1", title: "JEE Courses", lessons: 80, duration: "40 hrs" },
@@ -84,7 +85,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://oldcw.vercel.app/",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=vibrant&target=https%3A%2F%2Fdeltastudy.site%2Fvibrant&title=Vibrant+Portal",
     openInternal: false,
     featured: true,
     chapters: [
@@ -94,14 +95,40 @@ export const BATCHES: Batch[] = [
   },
   // ──── MORE APPS (hidden behind "Get More Apps") ────
   {
+    id: "mission-jeet-app",
+    title: "Mission JEET",
+    description: "Mission JEET - Focused JEE preparation with expert guidance and strategies.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=missionjeet&target=https%3A%2F%2Fmissionjeet.thescholarverse.site%2F&title=Mission+JEET+Portal",
+    openInternal: false,
+    chapters: [
+      { id: "mj-1", title: "JEE Preparation", lessons: 70, duration: "35 hrs" },
+    ],
+  },
+  {
+    id: "study-iq-app",
+    title: "Study IQ",
+    description: "Study IQ resources for government exams, UPSC, SSC and more.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=studyiq&target=https%3A%2F%2Fspidyiq.vercel.app&title=Study+IQ+Portal",
+    openInternal: false,
+    chapters: [
+      { id: "siq-1", title: "Government Exams", lessons: 60, duration: "30 hrs" },
+    ],
+  },
+  {
     id: "raw-app",
-    title: "RAW App",
+    title: "RWA",
     description: "Premium content for defence exam preparation including NDA, CDS, and AFCAT.",
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    externalUrl: "https://spidyuniverserwa.vercel.app",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=rwa&target=https%3A%2F%2Fspidyuniverserwa.vercel.app&title=RWA+Portal",
+    openInternal: false,
     chapters: [
       { id: "raw-1", title: "NDA Preparation", lessons: 60, duration: "30 hrs" },
       { id: "raw-2", title: "CDS Preparation", lessons: 50, duration: "25 hrs" },
@@ -109,39 +136,39 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "kgs-app",
-    title: "KGS App",
+    title: "Khan Global Studies",
     description: "Khan Global Studies resources for UPSC, SSC and state-level exams.",
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-    externalUrl: "https://spidykgs.vercel.app",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=kgs&target=https%3A%2F%2Fspidykgs.vercel.app&title=Khan+Global+Studies+Portal",
+    openInternal: false,
     chapters: [
       { id: "kgs-1", title: "UPSC Prelims", lessons: 80, duration: "40 hrs" },
     ],
   },
   {
     id: "selection-way-app",
-    title: "Selection Way App",
+    title: "Selection Way",
     description: "Comprehensive study materials for various government job examinations.",
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://spidyway.vercel.app/",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=selectionway&target=https%3A%2F%2Fspidyway.vercel.app&title=Selection+Way+Portal",
+    openInternal: false,
     chapters: [
       { id: "sw-1", title: "Railway Exams", lessons: 50, duration: "25 hrs" },
     ],
   },
   {
     id: "cds-app",
-    title: "CDS App",
+    title: "CDS Journey",
     description: "Specialized preparation for Combined Defence Services examination.",
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1579187707643-35646d22b596?w=800&q=80",
-    externalUrl: "https://spidycds.vercel.app",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=cdsjourney&target=https%3A%2F%2Fspidycds.vercel.app&title=CDS+Journey+Portal",
+    openInternal: false,
     chapters: [
       { id: "cds-1", title: "English", lessons: 40, duration: "20 hrs" },
     ],
@@ -153,8 +180,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://i.ibb.co/B5QnJLg/IMG-20251201-212624-980-2.jpg",
-    externalUrl: "https://jeesimplified.graphy.com/courses/Revision-Course--FREE---69134e88b9d9ff53efb5281d-69134e88b9d9ff53efb5281d",
-    openInternal: true,
+    externalUrl: "coming-soon",
+    openInternal: false,
     chapters: [
       { id: "rc-1", title: "Physics Revision", lessons: 40, duration: "20 hrs" },
     ],
@@ -166,21 +193,21 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
-    externalUrl: "https://sarvamxneet.netlify.app/",
-    openInternal: true,
+    externalUrl: "coming-soon",
+    openInternal: false,
     chapters: [
       { id: "sn-1", title: "Biology", lessons: 80, duration: "40 hrs" },
     ],
   },
   {
     id: "utkarsh-app",
-    title: "UTKARSH",
+    title: "Utkarsh",
     description: "Utkarsh Classes - Premium coaching for competitive exams.",
     category: "Apps",
     status: "Live",
     image: "/src/assets/utkarsh-logo.jpeg",
-    externalUrl: "https://spidyutkarsh.vercel.app/",
-    openInternal: true,
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=utkarsh&target=https%3A%2F%2Fspidyutkarsh.vercel.app&title=Utkarsh+Portal",
+    openInternal: false,
     chapters: [
       { id: "ut-1", title: "Complete Courses", lessons: 100, duration: "50 hrs" },
     ],
@@ -192,8 +219,8 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "/src/assets/rj-vikramjeet-logo.png",
-    externalUrl: "https://rgvikramjeet.netlify.app/",
-    openInternal: true,
+    externalUrl: "coming-soon",
+    openInternal: false,
     chapters: [
       { id: "rj-1", title: "Complete Courses", lessons: 50, duration: "25 hrs" },
     ],
@@ -206,7 +233,7 @@ export const BATCHES: Batch[] = [
     category: "Test Series",
     status: "Available",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "http://PwPrepPro.lovable.app",
+    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=pw&target=https%3A%2F%2Fwww.sstudy.site%2F&title=PW+Test+Series",
     openInternal: false,
     chapters: [
       { id: "pwts-1", title: "JEE Tests", lessons: 50, duration: "25 hrs" },
