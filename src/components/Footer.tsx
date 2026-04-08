@@ -38,7 +38,7 @@ const Footer = () => {
             transition={{ delay: 0.1 }}
           >
             <a
-              href="https://pwpreppro.lovable.app/"
+              href="https://prepproportals.lovable.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 text-xs font-semibold text-primary hover:shadow-md hover:shadow-primary/10 transition-all duration-300"
