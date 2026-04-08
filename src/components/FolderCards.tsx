@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Globe } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -15,10 +15,9 @@ const sections = [
     logo: pwLogo,
     path: "/apps",
     count: "10+",
-    accentColor: "from-pink-400 to-rose-500",
-    borderColor: "border-pink-300 dark:border-pink-500/30",
-    bgTint: "bg-gradient-to-br from-pink-50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/10",
-    iconBg: "bg-gradient-to-br from-pink-400 to-rose-500",
+    gradient: "from-pink-500/20 to-rose-500/10",
+    iconBg: "bg-gradient-to-br from-pink-500 to-rose-500",
+    glowColor: "shadow-pink-500/20",
   },
   {
     id: "test-series",
@@ -28,10 +27,9 @@ const sections = [
     icon: BookOpen,
     path: "/test-series",
     count: "4",
-    accentColor: "from-violet-400 to-purple-500",
-    borderColor: "border-violet-300 dark:border-violet-500/30",
-    bgTint: "bg-gradient-to-br from-violet-50 to-purple-50/50 dark:from-violet-950/20 dark:to-purple-950/10",
-    iconBg: "bg-gradient-to-br from-violet-400 to-purple-500",
+    gradient: "from-violet-500/20 to-purple-500/10",
+    iconBg: "bg-gradient-to-br from-violet-500 to-purple-500",
+    glowColor: "shadow-violet-500/20",
   },
   {
     id: "study-material",
@@ -42,10 +40,9 @@ const sections = [
     logo: prepproLogo,
     path: "/study-material",
     count: "50+",
-    accentColor: "from-emerald-400 to-teal-500",
-    borderColor: "border-emerald-300 dark:border-emerald-500/30",
-    bgTint: "bg-gradient-to-br from-emerald-50 to-teal-50/50 dark:from-emerald-950/20 dark:to-teal-950/10",
-    iconBg: "bg-gradient-to-br from-emerald-400 to-teal-500",
+    gradient: "from-emerald-500/20 to-teal-500/10",
+    iconBg: "bg-gradient-to-br from-emerald-500 to-teal-500",
+    glowColor: "shadow-emerald-500/20",
   },
   {
     id: "study-tracker",
@@ -55,10 +52,9 @@ const sections = [
     icon: Timer,
     path: "/study-tracker",
     count: "🔥",
-    accentColor: "from-amber-400 to-orange-500",
-    borderColor: "border-amber-300 dark:border-amber-500/30",
-    bgTint: "bg-gradient-to-br from-amber-50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/10",
-    iconBg: "bg-gradient-to-br from-amber-400 to-orange-500",
+    gradient: "from-amber-500/20 to-orange-500/10",
+    iconBg: "bg-gradient-to-br from-amber-500 to-orange-500",
+    glowColor: "shadow-amber-500/20",
   },
   {
     id: "prepchat",
@@ -68,10 +64,9 @@ const sections = [
     icon: MessageCircle,
     path: "/prepchat",
     count: "💬",
-    accentColor: "from-sky-400 to-blue-500",
-    borderColor: "border-sky-300 dark:border-sky-500/30",
-    bgTint: "bg-gradient-to-br from-sky-50 to-blue-50/50 dark:from-sky-950/20 dark:to-blue-950/10",
-    iconBg: "bg-gradient-to-br from-sky-400 to-blue-500",
+    gradient: "from-sky-500/20 to-blue-500/10",
+    iconBg: "bg-gradient-to-br from-sky-500 to-blue-500",
+    glowColor: "shadow-sky-500/20",
   },
 ];
 
@@ -79,69 +74,71 @@ const FolderCards = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="apps" className="py-16 relative">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
+    <section id="apps" className="py-20 relative">
+      {/* Section glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/[0.04] rounded-full blur-[120px]" />
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-14"
         >
-          <h2 className="text-2xl md:text-4xl font-black mb-2">
+          <h2 className="text-3xl md:text-5xl font-black mb-3">
             Explore <span className="text-gradient">Resources</span>
           </h2>
-          <p className="text-sm text-muted-foreground">Everything for JEE, NEET & competitive exams</p>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto">Everything for JEE, NEET & competitive exams</p>
         </motion.div>
 
-        {/* Cards */}
         <div className="flex flex-col gap-5 max-w-2xl mx-auto">
           {sections.map((section, i) => (
             <motion.button
               key={section.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-              whileHover={{ scale: 1.01, y: -2 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: 1.02, y: -4 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate(section.path)}
-              className={`group text-left p-6 rounded-2xl border-2 transition-all duration-300 ${section.borderColor} ${section.bgTint} hover:shadow-lg`}
+              className={`group text-left p-6 rounded-2xl border border-border/40 bg-gradient-to-br ${section.gradient} backdrop-blur-sm hover:shadow-2xl ${section.glowColor} transition-all duration-500 relative overflow-hidden`}
             >
-              <div className="flex items-start justify-between mb-4">
-                {/* Logo or Icon */}
-                <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-md flex-shrink-0">
-                  {section.logo ? (
-                    <img src={section.logo} alt={section.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className={`w-full h-full ${section.iconBg} flex items-center justify-center`}>
-                      <section.icon className="w-7 h-7 text-white" />
-                    </div>
-                  )}
+              {/* Hover glow overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/[0.03] to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative z-10">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg flex-shrink-0">
+                    {section.logo ? (
+                      <img src={section.logo} alt={section.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className={`w-full h-full ${section.iconBg} flex items-center justify-center`}>
+                        <section.icon className="w-7 h-7 text-white" />
+                      </div>
+                    )}
+                  </div>
+                  <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${section.iconBg} text-white shadow-lg`}>
+                    {section.count}
+                  </span>
                 </div>
 
-                {/* Category icon */}
-                <div className={`w-12 h-12 rounded-2xl ${section.iconBg} flex items-center justify-center shadow-md opacity-80`}>
-                  <section.icon className="w-6 h-6 text-white" />
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 mb-1.5">
-                <h3 className="text-xl font-extrabold text-foreground group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-extrabold text-foreground group-hover:text-primary transition-colors duration-300 mb-1">
                   {section.title}
                 </h3>
-                <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r ${section.accentColor} text-white shadow-sm`}>
-                  {section.count}
-                </span>
-              </div>
+                <p className="text-sm font-semibold text-primary/80 mb-1">{section.subtitle}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{section.description}</p>
 
-              <p className="text-sm font-semibold text-primary mb-1">{section.subtitle}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{section.description}</p>
-
-              <div className="flex items-center gap-1.5 text-sm font-bold text-primary">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span>Explore Now</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="flex items-center gap-2 text-sm font-bold text-primary">
+                  <motion.span
+                    className="w-2 h-2 rounded-full bg-primary"
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                  <span>Explore Now</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+                </div>
               </div>
             </motion.button>
           ))}
