@@ -29,7 +29,6 @@ export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> =
 
 export const BATCHES: Batch[] = [
   // ──── FEATURED APPS (shown by default) ────
-  // ──── FEATURED APPS (shown by default) ────
   {
     id: "pw-app",
     title: "Physics Wallah",
@@ -37,7 +36,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: pwLogoNew,
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=pw&target=https%3A%2F%2Fpwthor.site%2Fstudy%2Fbatches&title=PW+Portal+1",
+    externalUrl: "https://prepproportals.lovable.app/portals/pw",
     openInternal: false,
     featured: true,
     chapters: [
@@ -53,13 +52,11 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=nexttoppers&target=https%3A%2F%2Fnexttoppers.thescholarverse.site%2F&title=Next+Toppers+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/nexttoppers",
     openInternal: false,
     featured: true,
     chapters: [
       { id: "nt-1", title: "Topper Strategies", lessons: 30, duration: "15 hrs" },
-      { id: "nt-2", title: "Time Management", lessons: 20, duration: "10 hrs" },
-      { id: "nt-3", title: "Mock Interviews", lessons: 15, duration: "8 hrs" },
     ],
   },
   {
@@ -69,13 +66,11 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://i.ibb.co/DLdPGLZ/Green-Modern-Badge-Gardening-Logo-Design.jpg",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=unacademy&target=https%3A%2F%2Funacademy.thescholarverse.site%2F&title=Unacademy+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/unacademy",
     openInternal: false,
     featured: true,
     chapters: [
       { id: "ua-1", title: "JEE Courses", lessons: 80, duration: "40 hrs" },
-      { id: "ua-2", title: "NEET Courses", lessons: 70, duration: "35 hrs" },
-      { id: "ua-3", title: "UPSC Courses", lessons: 90, duration: "45 hrs" },
     ],
   },
   {
@@ -85,15 +80,14 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=vibrant&target=https%3A%2F%2Fdeltastudy.site%2Fvibrant&title=Vibrant+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/vibrant",
     openInternal: false,
     featured: true,
     chapters: [
       { id: "va-1", title: "JEE Advanced", lessons: 60, duration: "30 hrs" },
-      { id: "va-2", title: "JEE Main", lessons: 50, duration: "25 hrs" },
     ],
   },
-  // ──── MORE APPS (hidden behind "Get More Apps") ────
+  // ──── MORE APPS ────
   {
     id: "mission-jeet-app",
     title: "Mission JEET",
@@ -101,7 +95,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=iframe&source=missionjeet&target=https%3A%2F%2Fmissionjeet.thescholarverse.site%2F&title=Mission+JEET+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/missionjeet",
     openInternal: false,
     chapters: [
       { id: "mj-1", title: "JEE Preparation", lessons: 70, duration: "35 hrs" },
@@ -114,7 +108,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=studyiq&target=https%3A%2F%2Fspidyiq.vercel.app&title=Study+IQ+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/studyiq",
     openInternal: false,
     chapters: [
       { id: "siq-1", title: "Government Exams", lessons: 60, duration: "30 hrs" },
@@ -127,11 +121,10 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=rwa&target=https%3A%2F%2Fspidyuniverserwa.vercel.app&title=RWA+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/rwa",
     openInternal: false,
     chapters: [
       { id: "raw-1", title: "NDA Preparation", lessons: 60, duration: "30 hrs" },
-      { id: "raw-2", title: "CDS Preparation", lessons: 50, duration: "25 hrs" },
     ],
   },
   {
@@ -141,7 +134,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=kgs&target=https%3A%2F%2Fspidykgs.vercel.app&title=Khan+Global+Studies+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/kgs",
     openInternal: false,
     chapters: [
       { id: "kgs-1", title: "UPSC Prelims", lessons: 80, duration: "40 hrs" },
@@ -154,7 +147,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=selectionway&target=https%3A%2F%2Fspidyway.vercel.app&title=Selection+Way+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/selectionway",
     openInternal: false,
     chapters: [
       { id: "sw-1", title: "Railway Exams", lessons: 50, duration: "25 hrs" },
@@ -167,10 +160,36 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: "https://images.unsplash.com/photo-1579187707643-35646d22b596?w=800&q=80",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=cdsjourney&target=https%3A%2F%2Fspidycds.vercel.app&title=CDS+Journey+Portal",
+    externalUrl: "https://prepproportals.lovable.app/portals/cdsjourney",
     openInternal: false,
     chapters: [
       { id: "cds-1", title: "English", lessons: 40, duration: "20 hrs" },
+    ],
+  },
+  {
+    id: "utkarsh-app",
+    title: "Utkarsh",
+    description: "Utkarsh Classes - Premium coaching for competitive exams.",
+    category: "Apps",
+    status: "Live",
+    image: "/src/assets/utkarsh-logo.jpeg",
+    externalUrl: "https://prepproportals.lovable.app/portals/utkarsh",
+    openInternal: false,
+    chapters: [
+      { id: "ut-1", title: "Complete Courses", lessons: 100, duration: "50 hrs" },
+    ],
+  },
+  {
+    id: "master-sahab-app",
+    title: "Master Sahab",
+    description: "Master Sahab - Quality education content for competitive exam preparation.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    externalUrl: "https://prepproportals.lovable.app/portals/mastersahab",
+    openInternal: false,
+    chapters: [
+      { id: "ms-1", title: "Complete Courses", lessons: 60, duration: "30 hrs" },
     ],
   },
   {
@@ -197,19 +216,6 @@ export const BATCHES: Batch[] = [
     openInternal: false,
     chapters: [
       { id: "sn-1", title: "Biology", lessons: 80, duration: "40 hrs" },
-    ],
-  },
-  {
-    id: "utkarsh-app",
-    title: "Utkarsh",
-    description: "Utkarsh Classes - Premium coaching for competitive exams.",
-    category: "Apps",
-    status: "Live",
-    image: "/src/assets/utkarsh-logo.jpeg",
-    externalUrl: "https://prepproportals.lovable.app/portal-access?mode=external&source=utkarsh&target=https%3A%2F%2Fspidyutkarsh.vercel.app&title=Utkarsh+Portal",
-    openInternal: false,
-    chapters: [
-      { id: "ut-1", title: "Complete Courses", lessons: 100, duration: "50 hrs" },
     ],
   },
   {
@@ -264,8 +270,6 @@ export const BATCHES: Batch[] = [
     openInternal: true,
     chapters: [
       { id: "pyq-1", title: "JEE Main PYQs", lessons: 50, duration: "25 hrs" },
-      { id: "pyq-2", title: "JEE Advanced PYQs", lessons: 40, duration: "20 hrs" },
-      { id: "pyq-3", title: "NEET PYQs", lessons: 60, duration: "30 hrs" },
     ],
   },
   {
@@ -279,8 +283,6 @@ export const BATCHES: Batch[] = [
     openInternal: true,
     chapters: [
       { id: "cw-1", title: "Physics Chapters", lessons: 40, duration: "20 hrs" },
-      { id: "cw-2", title: "Chemistry Chapters", lessons: 40, duration: "20 hrs" },
-      { id: "cw-3", title: "Maths Chapters", lessons: 40, duration: "20 hrs" },
     ],
   },
   {
