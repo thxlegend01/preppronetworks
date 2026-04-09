@@ -117,7 +117,7 @@ const Hero = () => {
               onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
             >
               <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Explore Portals
+              Explore PrepPro Network
             </Button>
           </motion.div>
 
