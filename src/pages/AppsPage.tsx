@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Smartphone, ArrowRight, Heart, Copy, Check, ArrowLeft, ChevronDown, ExternalLink, Globe } from "lucide-react";
+import { Smartphone, ArrowRight, Heart, Copy, Check, ArrowLeft, ChevronDown, ExternalLink, Globe, MessageCircleMore, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -52,6 +52,8 @@ const logoMap: Record<string, string> = {
   "rj-vikramjeet-app": rjVikramjeetLogo,
 };
 
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
+
 const AppsPage = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -83,7 +85,7 @@ const AppsPage = () => {
   const moreApps = allApps.filter(a => !a.featured);
   const visibleApps = searchQuery.trim() ? allApps : showAll ? allApps : featuredApps;
 
-  const handleExplore = (id: string, url: string, title: string) => {
+  const handleStudyNow = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
     window.open(url, "_blank", "noopener,noreferrer");
@@ -112,6 +114,7 @@ const AppsPage = () => {
 
   const renderAppCard = (app: typeof allApps[0], index: number) => {
     const appCode = APP_ACCESS_CODES[app.id];
+    const isComingSoon = app.externalUrl === "coming-soon";
     return (
       <motion.div
         key={app.id}
@@ -144,10 +147,27 @@ const AppsPage = () => {
           <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{app.description}</p>
 
           <div className="space-y-2">
-            <Button variant="hero" onClick={() => handleExplore(app.id, app.externalUrl, app.title)} className="w-full">
-              {app.externalUrl === "coming-soon" ? "Coming Soon" : "Explore PrepPro Network"}
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+            {isComingSoon ? (
+              <Button variant="outline" className="w-full border-muted-foreground/30 text-muted-foreground cursor-not-allowed" disabled>
+                Coming Soon
+              </Button>
+            ) : (
+              <>
+                <Button variant="hero" onClick={() => handleStudyNow(app.id, app.externalUrl, app.title)} className="w-full">
+                  <PlayCircle className="mr-2 w-4 h-4" />
+                  Study Now
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50"
+                  onClick={() => window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer")}
+                >
+                  <MessageCircleMore className="mr-2 w-4 h-4" />
+                  WhatsApp Channel
+                </Button>
+              </>
+            )}
 
             {appCode && (
               <Button
@@ -188,7 +208,7 @@ const AppsPage = () => {
             <p className="text-lg text-muted-foreground">Access top educational platforms for free</p>
           </motion.div>
 
-          {/* PrepPro Network Portal Card — Featured at Top */}
+          {/* PrepPro Network Portal Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -260,7 +280,7 @@ const AppsPage = () => {
           externalUrl={selectedApp?.url || ""}
           batchTitle={selectedApp?.title}
         />
-        <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="CW / Vibrant Academy" />
+        <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title="Coming Soon" />
         <CwNoticeDialog
           isOpen={cwNoticeOpen}
           onClose={() => setCwNoticeOpen(false)}
@@ -278,11 +298,10 @@ const AppsPage = () => {
                 <img src={prepproLogo} alt="PrepPro" className="w-full h-full object-cover" />
               </div>
               <DialogTitle className="text-xl font-bold text-foreground">
-                Better Experience Tip 💡
+                Explore PrepPro Network 🌐
               </DialogTitle>
               <DialogDescription className="text-muted-foreground text-sm leading-relaxed mt-3">
-                For the best experience, use the <strong className="text-primary">PrepPro Network App</strong>. 
-                It's faster, smoother, and optimized for studying on the go!
+                Access all study portals in one place through the <strong className="text-primary">PrepPro Network Portal</strong>.
               </DialogDescription>
             </DialogHeader>
             <div className="flex flex-col gap-3 mt-4">
@@ -295,7 +314,7 @@ const AppsPage = () => {
                 }}
               >
                 <Globe className="w-4 h-4 mr-2" />
-                Open Portal
+                Explore PrepPro Network
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
               <Button

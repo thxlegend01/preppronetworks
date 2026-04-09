@@ -43,7 +43,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/10 border border-primary/20 text-xs font-semibold text-primary hover:shadow-lg hover:shadow-primary/10 hover:bg-primary/15 transition-all duration-300"
           >
-            PrepPro Network Portal
+            Explore PrepPro Network
             <ExternalLink className="w-3 h-3" />
           </motion.a>
         </div>
