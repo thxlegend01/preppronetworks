@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          admin_user_id: string
+          created_at: string
+          id: string
+          is_active: boolean
+          link: string | null
+          message: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          admin_user_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          link?: string | null
+          message: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          admin_user_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          link?: string | null
+          message?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blocked_users: {
         Row: {
           blocked_at: string
@@ -663,7 +696,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_announcement_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       friend_request_status: "pending" | "accepted" | "rejected"
