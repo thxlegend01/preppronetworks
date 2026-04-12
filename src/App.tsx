@@ -11,6 +11,8 @@ import { BlockCheckProvider } from "@/hooks/useBlockCheck";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SplashScreen from "@/components/SplashScreen";
+import BottomNav from "@/components/BottomNav";
+import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
 // Lazy load pages for code splitting
@@ -75,27 +77,30 @@ const App = () => {
                   <Sonner />
                   <BrowserRouter>
                     <Suspense fallback={<PageLoader />}>
-                      <Routes>
-                        <Route path="/" element={<Index />} />
-                        <Route path="/auth" element={<AuthPage />} />
-                        <Route path="/reset-password" element={<ResetPasswordPage />} />
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/apps" element={<AppsPage />} />
-                        <Route path="/test-series" element={<TestSeriesPage />} />
-                        <Route path="/study-material" element={<StudyMaterialPage />} />
-                        <Route path="/batches" element={<BatchesPage />} />
-                        <Route path="/study-tracker" element={<StudyTrackerPage />} />
-                        <Route path="/preppro-world" element={<PrepProWorldPage />} />
-                        <Route path="/mathango-tests" element={<MathangoTestsPage />} />
-                        <Route path="/vots-tests" element={<VotsTestsPage />} />
-                        <Route path="/etoos-hub" element={<EtoosHubPage />} />
-                        <Route path="/prepchat" element={<PrepChatPage />} />
-                        <Route path="/batches/:batchId" element={<BatchDetailPage />} />
-                        <Route path="/test/:testId" element={<TestPage />} />
-                        <Route path="/view/:appId" element={<ViewerPage />} />
-                        <Route path="*" element={<NotFound />} />
-                      </Routes>
+                      <AnimatePresence mode="wait">
+                        <Routes>
+                          <Route path="/" element={<Index />} />
+                          <Route path="/auth" element={<AuthPage />} />
+                          <Route path="/reset-password" element={<ResetPasswordPage />} />
+                          <Route path="/profile" element={<ProfilePage />} />
+                          <Route path="/apps" element={<AppsPage />} />
+                          <Route path="/test-series" element={<TestSeriesPage />} />
+                          <Route path="/study-material" element={<StudyMaterialPage />} />
+                          <Route path="/batches" element={<BatchesPage />} />
+                          <Route path="/study-tracker" element={<StudyTrackerPage />} />
+                          <Route path="/preppro-world" element={<PrepProWorldPage />} />
+                          <Route path="/mathango-tests" element={<MathangoTestsPage />} />
+                          <Route path="/vots-tests" element={<VotsTestsPage />} />
+                          <Route path="/etoos-hub" element={<EtoosHubPage />} />
+                          <Route path="/prepchat" element={<PrepChatPage />} />
+                          <Route path="/batches/:batchId" element={<BatchDetailPage />} />
+                          <Route path="/test/:testId" element={<TestPage />} />
+                          <Route path="/view/:appId" element={<ViewerPage />} />
+                          <Route path="*" element={<NotFound />} />
+                        </Routes>
+                      </AnimatePresence>
                     </Suspense>
+                    <BottomNav />
                   </BrowserRouter>
                 </TooltipProvider>
               </UsernameCheckProvider>
