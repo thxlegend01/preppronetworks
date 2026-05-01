@@ -36,12 +36,14 @@ import utkarshLogo from "@/assets/utkarsh-logo.jpeg";
 import rjVikramjeetLogo from "@/assets/rj-vikramjeet-logo.png";
 import careerwillLogo from "@/assets/careerwill-logo.png";
 import prepproLogo from "@/assets/preppro-logo.jpg";
+import vibrantLogo from "@/assets/vibrant-logo.png";
+import iitschoolLogo from "@/assets/iitschool-logo.webp";
 
 const logoMap: Record<string, string> = {
   "pw-app": pwLogoNew,
   "next-toppers-app": nexttoppersLogo,
   "unacademy-app": unacademyLogo,
-  "vibrant-academy-app": careerwillLogo,
+  "vibrant-academy-app": vibrantLogo,
   "raw-app": rawLogo,
   "kgs-app": kgsLogo,
   "selection-way-app": selectionwayLogo,
@@ -50,6 +52,7 @@ const logoMap: Record<string, string> = {
   "sarvam-neet-app": sarvamLogo,
   "utkarsh-app": utkarshLogo,
   "rj-vikramjeet-app": rjVikramjeetLogo,
+  "iit-school-app": iitschoolLogo,
 };
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";

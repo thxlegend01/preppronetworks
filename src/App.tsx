@@ -11,7 +11,6 @@ import { BlockCheckProvider } from "@/hooks/useBlockCheck";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SplashScreen from "@/components/SplashScreen";
-import BottomNav from "@/components/BottomNav";
 import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
@@ -100,7 +99,6 @@ const App = () => {
                         </Routes>
                       </AnimatePresence>
                     </Suspense>
-                    <BottomNav />
                   </BrowserRouter>
                 </TooltipProvider>
               </UsernameCheckProvider>
