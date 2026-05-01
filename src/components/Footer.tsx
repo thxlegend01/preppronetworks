@@ -3,7 +3,7 @@ import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const Footer = () => {
   return (
-    <footer className="relative border-t border-border/20 bg-card/30 pb-24 md:pb-8 overflow-hidden">
+    <footer className="relative border-t border-border/20 bg-card/30 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
       <div className="container mx-auto px-4 py-8">
