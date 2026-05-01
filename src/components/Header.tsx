@@ -224,6 +224,9 @@ const Header = () => {
                 Sign In
               </Button>
             )}
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
+              <Menu className="w-5 h-5" />
+            </Button>
           </div>
         </div>
       </motion.header>
