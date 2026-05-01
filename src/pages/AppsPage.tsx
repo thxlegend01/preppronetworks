@@ -138,7 +138,15 @@ const AppsPage = () => {
 
           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all">
             {logoMap[app.id] ? (
-              <img src={logoMap[app.id]} alt={app.title} className="w-full h-full object-cover" />
+              <img
+                src={logoMap[app.id]}
+                alt={app.title}
+                width={96}
+                height={96}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover"
+              />
             ) : (
               <Smartphone className="w-10 h-10 text-primary" />
             )}
@@ -224,7 +232,15 @@ const AppsPage = () => {
             >
               <div className="flex items-center gap-5">
                 <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20 flex-shrink-0">
-                  <img src={prepproLogo} alt="PrepPro Network Portal" className="w-full h-full object-cover" />
+                  <img
+                    src={prepproLogo}
+                    alt="PrepPro Network Portal"
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
