@@ -231,6 +231,19 @@ export const BATCHES: Batch[] = [
       { id: "rj-1", title: "Complete Courses", lessons: 50, duration: "25 hrs" },
     ],
   },
+  {
+    id: "iit-school-app",
+    title: "IIT School",
+    description: "IIT School - Quality JEE coaching content and structured learning resources.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    externalUrl: "https://prepproportals.lovable.app/portals/iitschool",
+    openInternal: false,
+    chapters: [
+      { id: "iits-1", title: "JEE Foundation", lessons: 60, duration: "30 hrs" },
+    ],
+  },
   // ──── TEST SERIES ────
   {
     id: "pw-test-series",
