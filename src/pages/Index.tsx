@@ -10,7 +10,6 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import AdminSection from "@/components/AdminSection";
-import SaurabhAI from "@/components/SaurabhAI";
 
 const Index = () => {
   return (
@@ -27,7 +26,6 @@ const Index = () => {
         <CTA />
         <AdminSection />
         <Footer />
-        <SaurabhAI />
       </div>
     </PageTransition>
   );

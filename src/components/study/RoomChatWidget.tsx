@@ -117,35 +117,9 @@ const RoomChatWidget = ({ roomId, roomName }: RoomChatWidgetProps) => {
 
   const handleSend = async () => {
     if (!input.trim()) return;
-    if (input.startsWith("/ai ")) {
-      const query = input.slice(4);
-      setInput("");
-      await sendMessage(`🤖 AI Query: ${query}`, "ai_query");
-      setIsAiLoading(true);
-      try {
-        const { data, error } = await supabase.functions.invoke("chat-ai", {
-          body: { message: query },
-        });
-        if (error) throw error;
-        await sendMessage(data.reply || "Sorry, I couldn't process that.", "ai_response");
-      } catch {
-        await sendMessage("⚠️ AI is currently unavailable. Try again later.", "system");
-      }
-      setIsAiLoading(false);
-      return;
-    }
     const msg = input;
     setInput("");
     await sendMessage(msg);
-  };
-
-  const handleAiButton = async () => {
-    if (!input.trim()) {
-      toast("Type your doubt first, then press AI button");
-      return;
-    }
-    setInput("/ai " + input);
-    setTimeout(() => handleSend(), 50);
   };
 
   const handleSticker = async (sticker: string) => {
@@ -338,18 +312,9 @@ const RoomChatWidget = ({ roomId, roomName }: RoomChatWidgetProps) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-          placeholder="Message or /ai question"
+          placeholder="Type a message"
           className="h-8 text-xs flex-1 min-w-0"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 flex-shrink-0 text-primary"
-          onClick={handleAiButton}
-          title="Ask AI"
-        >
-          <Sparkles className="w-4 h-4" />
-        </Button>
         <Button
           size="icon"
           className="h-8 w-8 flex-shrink-0"
