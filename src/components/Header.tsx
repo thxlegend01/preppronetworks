@@ -123,39 +123,6 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* Mobile Bottom Tab Bar - PERMANENT */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-t border-border/40 safe-area-bottom">
-        <div className="flex items-center justify-around px-1 py-1.5">
-          {navLinks.slice(0, 5).map((link) => {
-            const isActive = location.pathname === link.href;
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                to={link.href}
-                className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200 no-link-style ${
-                  isActive ? "text-primary" : "text-muted-foreground"
-                }`}
-              >
-                <div className={`p-1 rounded-lg ${isActive ? "bg-primary/10" : ""}`}>
-                  <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 1.5} />
-                </div>
-                <span className="text-[10px] font-medium">{link.label}</span>
-              </Link>
-            );
-          })}
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="flex flex-col items-center gap-0.5 py-1 px-3 text-muted-foreground"
-          >
-            <div className="p-1">
-              <MoreHorizontal className="w-5 h-5" strokeWidth={1.5} />
-            </div>
-            <span className="text-[10px] font-medium">More</span>
-          </button>
-        </div>
-      </nav>
-
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
