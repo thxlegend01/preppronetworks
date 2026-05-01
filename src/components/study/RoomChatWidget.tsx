@@ -312,18 +312,9 @@ const RoomChatWidget = ({ roomId, roomName }: RoomChatWidgetProps) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-          placeholder="Message or /ai question"
+          placeholder="Type a message"
           className="h-8 text-xs flex-1 min-w-0"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 flex-shrink-0 text-primary"
-          onClick={handleAiButton}
-          title="Ask AI"
-        >
-          <Sparkles className="w-4 h-4" />
-        </Button>
         <Button
           size="icon"
           className="h-8 w-8 flex-shrink-0"
