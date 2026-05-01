@@ -75,7 +75,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "vibrant-academy-app",
-    title: "CW / Vibrant Academy",
+    title: "Vibrant Academy",
     description: "Vibrant Academy premium content for JEE & competitive exam preparation.",
     category: "Apps",
     status: "Live",
