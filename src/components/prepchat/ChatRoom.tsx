@@ -120,43 +120,6 @@ const ChatRoom = ({ room, userId, onBack, isMobile }: Props) => {
     const text = input.trim();
     if (!text && !editingMsg) return;
 
-    // AI command
-    if (text.startsWith("/ai ")) {
-      const question = text.slice(4).trim();
-      if (!question) return;
-      setInput("");
-      setAiLoading(true);
-
-      // Send user message
-      await supabase.from("room_messages").insert({
-        room_id: room.id,
-        user_id: userId,
-        content: text,
-        message_type: "text",
-        display_name: profile.display_name,
-        avatar_url: profile.avatar_url,
-      } as any);
-
-      try {
-        const { data, error } = await supabase.functions.invoke("chat-ai", {
-          body: { message: question },
-        });
-        if (error) throw error;
-        await supabase.from("room_messages").insert({
-          room_id: room.id,
-          user_id: userId,
-          content: `🤖 **AI Assistant:**\n\n${data.reply}`,
-          message_type: "ai",
-          display_name: "PrepPro AI",
-          avatar_url: null,
-        } as any);
-      } catch {
-        toast.error("AI is busy, try again later");
-      }
-      setAiLoading(false);
-      return;
-    }
-
     // Edit mode
     if (editingMsg) {
       await supabase
