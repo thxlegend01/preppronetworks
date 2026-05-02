@@ -80,8 +80,8 @@ const FolderCards = () => {
             <Zap className="w-3 h-3 text-primary" />
             <span className="text-xs font-medium text-primary">Quick Access</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
-            Explore <span className="text-gradient">Resources</span>
+          <h2 className="text-4xl md:text-5xl font-black tracking-[-0.03em] mb-3 leading-[1]">
+            Explore <span className="text-gradient">PrepPro Network</span>
           </h2>
           <p className="text-sm text-muted-foreground">Everything for JEE, NEET & competitive exams</p>
         </div>
