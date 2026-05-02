@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Megaphone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import pwLogo from "@/assets/pw-logo-new.jpg";
@@ -66,6 +66,18 @@ const sections = [
     accent: "from-sky-500 to-blue-600",
     bg: "bg-sky-500/8 border-sky-500/15 hover:border-sky-500/30",
     glow: "group-hover:shadow-sky-500/10",
+  },
+  {
+    id: "announcements",
+    title: "Announcements",
+    subtitle: "Latest News & Updates",
+    description: "Official PrepPro updates & alerts",
+    icon: Megaphone,
+    path: "/announcements",
+    count: "📢",
+    accent: "from-amber-500 to-orange-600",
+    bg: "bg-amber-500/8 border-amber-500/15 hover:border-amber-500/30",
+    glow: "group-hover:shadow-amber-500/10",
   },
 ];
 

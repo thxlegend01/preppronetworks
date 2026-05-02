@@ -32,6 +32,7 @@ const MathangoTestsPage = lazy(() => import("./pages/MathangoTestsPage"));
 const VotsTestsPage = lazy(() => import("./pages/VotsTestsPage"));
 const EtoosHubPage = lazy(() => import("./pages/EtoosHubPage"));
 const PrepChatPage = lazy(() => import("./pages/PrepChatPage"));
+const AnnouncementsPage = lazy(() => import("./pages/AnnouncementsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -92,6 +93,7 @@ const App = () => {
                           <Route path="/vots-tests" element={<VotsTestsPage />} />
                           <Route path="/etoos-hub" element={<EtoosHubPage />} />
                           <Route path="/prepchat" element={<PrepChatPage />} />
+                          <Route path="/announcements" element={<AnnouncementsPage />} />
                           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                           <Route path="/test/:testId" element={<TestPage />} />
                           <Route path="/view/:appId" element={<ViewerPage />} />
