@@ -33,6 +33,8 @@ const VotsTestsPage = lazy(() => import("./pages/VotsTestsPage"));
 const EtoosHubPage = lazy(() => import("./pages/EtoosHubPage"));
 const PrepChatPage = lazy(() => import("./pages/PrepChatPage"));
 const AnnouncementsPage = lazy(() => import("./pages/AnnouncementsPage"));
+const StudyToolsPage = lazy(() => import("./pages/StudyToolsPage"));
+const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -94,6 +96,8 @@ const App = () => {
                           <Route path="/etoos-hub" element={<EtoosHubPage />} />
                           <Route path="/prepchat" element={<PrepChatPage />} />
                           <Route path="/announcements" element={<AnnouncementsPage />} />
+                          <Route path="/study-tools" element={<StudyToolsPage />} />
+                          <Route path="/entertainment" element={<EntertainmentPage />} />
                           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                           <Route path="/test/:testId" element={<TestPage />} />
                           <Route path="/view/:appId" element={<ViewerPage />} />

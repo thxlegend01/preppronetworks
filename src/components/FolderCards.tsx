@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Megaphone } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Megaphone, Sparkles, Tv } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import pwLogo from "@/assets/pw-logo-new.jpg";
@@ -78,6 +78,30 @@ const sections = [
     accent: "from-amber-500 to-orange-600",
     bg: "bg-amber-500/8 border-amber-500/15 hover:border-amber-500/30",
     glow: "group-hover:shadow-amber-500/10",
+  },
+  {
+    id: "study-tools",
+    title: "PrepPro Study Tools",
+    subtitle: "Pro Academic Toolkit",
+    description: "Roadmap, AI Doubt Solver, Test Forge, Flashcards & more",
+    icon: Sparkles,
+    path: "/study-tools",
+    count: "✨",
+    accent: "from-fuchsia-500 to-purple-600",
+    bg: "bg-fuchsia-500/8 border-fuchsia-500/15 hover:border-fuchsia-500/30",
+    glow: "group-hover:shadow-fuchsia-500/10",
+  },
+  {
+    id: "entertainment",
+    title: "PrepPro Entertainment",
+    subtitle: "Refresh Your Mind",
+    description: "Live IPL scores & quick break apps",
+    icon: Tv,
+    path: "/entertainment",
+    count: "🎬",
+    accent: "from-pink-500 to-orange-500",
+    bg: "bg-pink-500/8 border-pink-500/15 hover:border-pink-500/30",
+    glow: "group-hover:shadow-pink-500/10",
   },
 ];
 
