@@ -1,6 +1,6 @@
 import pw from "@/assets/pw-logo-new.jpg";
 import unacademy from "@/assets/unacademy-logo.jpg";
-import nexttoppers from "@/assets/nexttoppers-logo.jpg";
+import nexttoppers from "@/assets/nexttoppers-logo.png";
 import vibrant from "@/assets/vibrant-logo.png";
 import careerwill from "@/assets/careerwill-logo.png";
 import kgs from "@/assets/kgs-logo.png";
