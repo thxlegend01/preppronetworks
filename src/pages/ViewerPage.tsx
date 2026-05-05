@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BATCHES } from "@/lib/data";
 
 // Apps that should open internally via iframe
-const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series"];
+const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "ipl"];
 
 // Motivational quotes for loading screen
 const MOTIVATIONAL_QUOTES = [

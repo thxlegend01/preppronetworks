@@ -1,4 +1,4 @@
-import { ArrowLeft, Tv } from "lucide-react";
+import { ArrowLeft, Tv, Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "@/components/PageTransition";
 
@@ -39,37 +39,25 @@ const EntertainmentPage = () => {
             </p>
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid gap-6 sm:grid-cols-2">
             {apps.map((app) => (
-              <div
+              <button
                 key={app.id}
-                className="rounded-2xl border border-border bg-card overflow-hidden shadow-lg"
+                onClick={() =>
+                  navigate("/viewer", {
+                    state: { url: app.url, title: app.title, appId: app.id },
+                  })
+                }
+                className="text-left rounded-2xl border border-border bg-card overflow-hidden shadow-lg hover:scale-[1.02] transition-transform"
               >
-                <div className={`p-4 bg-gradient-to-r ${app.accent} text-white`}>
-                  <h2 className="text-xl font-bold">{app.title}</h2>
-                  <p className="text-xs opacity-90">{app.subtitle}</p>
+                <div className={`p-6 bg-gradient-to-r ${app.accent} text-white relative`}>
+                  <h2 className="text-2xl font-black">{app.title}</h2>
+                  <p className="text-sm opacity-90 mt-1">{app.subtitle}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-xs font-semibold">
+                    <Play className="w-3 h-3 fill-current" /> Open Now
+                  </div>
                 </div>
-                <div className="relative w-full" style={{ height: "75vh" }}>
-                  <iframe
-                    src={app.url}
-                    title={app.title}
-                    className="absolute inset-0 w-full h-full border-0"
-                    allow="autoplay; fullscreen"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-3 text-center text-xs text-muted-foreground">
-                  Not loading?{" "}
-                  <a
-                    href={app.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary font-semibold hover:underline"
-                  >
-                    Open in new tab →
-                  </a>
-                </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
