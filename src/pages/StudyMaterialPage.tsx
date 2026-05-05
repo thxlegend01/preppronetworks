@@ -40,7 +40,7 @@ const categorizeSubject = (subject: string): string => {
   return "Others";
 };
 
-const studyMaterials: StudyItem[] = [
+export const studyMaterials: StudyItem[] = [
   { id: "11th-chemistry", title: "11th Chemistry", subject: "Chemistry", class: "11th", url: "https://drive.google.com/drive/folders/17inN1lWmkK4OpGCkNvX9B8RmGIVzffSt", icon: "🧪", category: "Notes" },
   { id: "12th-chemistry", title: "12th Chemistry", subject: "Chemistry", class: "12th", url: "https://drive.google.com/drive/folders/1Nv_QLirhCOtuQGM7NDlP_gbjMGiC1knf", icon: "🧬", category: "Notes" },
   { id: "11th-physics", title: "11th Physics", subject: "Physics", class: "11th", url: "https://drive.google.com/drive/folders/16zR6XGtRGDJtB8935UfYDWsijjpcgdPQ", icon: "⚛️", category: "Notes" },
