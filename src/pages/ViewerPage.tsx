@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { ArrowLeft, Loader2, Sparkles, Rocket, Star, BookOpen, Brain, Target, Zap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BATCHES } from "@/lib/data";
+import PdfViewer from "@/components/PdfViewer";
 
 // Apps that should open internally via iframe
 const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "ipl"];
@@ -45,8 +46,10 @@ const ViewerPage = () => {
   const appId = location.state?.appId || "";
   const openExternal = location.state?.openExternal || false;
   const forceInternal = location.state?.forceInternal || false;
+  const pdfUrl: string | undefined = location.state?.pdfUrl;
+  const pdfDownloadUrl: string | undefined = location.state?.pdfDownloadUrl;
   
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!pdfUrl);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
 
@@ -91,7 +94,7 @@ const ViewerPage = () => {
     setTimeout(() => setIsLoading(false), 500);
   };
 
-  if (!url) {
+  if (!url && !pdfUrl) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center animate-fade-in">
@@ -205,15 +208,24 @@ const ViewerPage = () => {
         
         {/* Iframe */}
         <div className="flex-1 relative">
-          <iframe
-            src={url}
-            className={`w-full h-full border-0 transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowFullScreen
-            onLoad={handleIframeLoad}
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          {pdfUrl ? (
+            <PdfViewer
+              fileUrl={pdfUrl}
+              title={title}
+              downloadUrl={pdfDownloadUrl}
+              fallbackIframeUrl={url}
+            />
+          ) : (
+            <iframe
+              src={url}
+              className={`w-full h-full border-0 transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
+              onLoad={handleIframeLoad}
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          )}
         </div>
       </div>
     );

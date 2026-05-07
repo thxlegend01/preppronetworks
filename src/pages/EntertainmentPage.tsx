@@ -1,4 +1,4 @@
-import { ArrowLeft, Tv, Play } from "lucide-react";
+import { ArrowLeft, Tv, Play, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "@/components/PageTransition";
 
@@ -9,6 +9,15 @@ const apps = [
     subtitle: "Cricket scores, schedule & highlights",
     url: "https://sternitersmedia.qzz.io/sportshub/",
     accent: "from-fuchsia-500 to-orange-500",
+    icon: Tv,
+  },
+  {
+    id: "cricbuzz",
+    title: "Cricbuzz Live Scores",
+    subtitle: "Live ball-by-ball scores, news & schedule",
+    url: "https://m.cricbuzz.com/",
+    accent: "from-emerald-500 to-lime-500",
+    icon: Trophy,
   },
 ];
 
