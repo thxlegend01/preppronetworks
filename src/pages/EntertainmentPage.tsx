@@ -7,7 +7,7 @@ const apps = [
     id: "ipl",
     title: "IPL Live",
     subtitle: "Cricket scores, schedule & highlights",
-    url: "https://testingsportsweb.vercel.app",
+    url: "https://sternitersmedia.qzz.io/sportshub/",
     accent: "from-fuchsia-500 to-orange-500",
   },
 ];
