@@ -94,7 +94,7 @@ const ViewerPage = () => {
     setTimeout(() => setIsLoading(false), 500);
   };
 
-  if (!url) {
+  if (!url && !pdfUrl) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center animate-fade-in">
