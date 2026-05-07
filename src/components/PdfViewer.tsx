@@ -12,9 +12,10 @@ interface PdfViewerProps {
   fileUrl: string;
   title?: string;
   downloadUrl?: string;
+  fallbackIframeUrl?: string;
 }
 
-const PdfViewer = ({ fileUrl, downloadUrl }: PdfViewerProps) => {
+const PdfViewer = ({ fileUrl, downloadUrl, fallbackIframeUrl }: PdfViewerProps) => {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -85,12 +86,22 @@ const PdfViewer = ({ fileUrl, downloadUrl }: PdfViewerProps) => {
       {/* Document */}
       <div className="flex-1 overflow-auto flex justify-center p-4 bg-secondary/20">
         {error ? (
-          <div className="text-center py-12">
-            <p className="text-destructive font-semibold mb-2">Could not load PDF</p>
-            <p className="text-xs text-muted-foreground max-w-sm">
-              {error}. Try opening from the original source.
-            </p>
-          </div>
+          fallbackIframeUrl ? (
+            <iframe
+              src={fallbackIframeUrl}
+              title="PDF preview"
+              className="w-full h-full border-0 rounded-md bg-white"
+              allow="autoplay"
+              allowFullScreen
+            />
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-destructive font-semibold mb-2">Could not load PDF</p>
+              <p className="text-xs text-muted-foreground max-w-sm">
+                {error}. Try opening from the original source.
+              </p>
+            </div>
+          )
         ) : (
           <Document
             file={fileUrl}

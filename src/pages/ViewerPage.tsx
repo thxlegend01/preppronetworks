@@ -209,7 +209,12 @@ const ViewerPage = () => {
         {/* Iframe */}
         <div className="flex-1 relative">
           {pdfUrl ? (
-            <PdfViewer fileUrl={pdfUrl} title={title} downloadUrl={pdfDownloadUrl} />
+            <PdfViewer
+              fileUrl={pdfUrl}
+              title={title}
+              downloadUrl={pdfDownloadUrl}
+              fallbackIframeUrl={url}
+            />
           ) : (
             <iframe
               src={url}
