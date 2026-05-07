@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FileText, BookOpen, Heart, ArrowLeft, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
@@ -149,6 +149,7 @@ export const studyMaterials: StudyItem[] = [
 
 const StudyMaterialPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
@@ -160,8 +161,36 @@ const StudyMaterialPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Read ?q= from URL for global-search hand-off, and scroll to anchor
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q");
+    if (q) setSearchQuery(q);
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.getElementById(location.hash.slice(1));
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("ring-2", "ring-primary", "rounded-2xl");
+          setTimeout(() => el.classList.remove("ring-2", "ring-primary", "rounded-2xl"), 2500);
+        }
+      }, 600);
+    }
+  }, [location.search, location.hash]);
+
   const handleOpenMaterial = (material: StudyItem) => {
-    window.open(material.url, "_blank");
+    // Convert Google Drive view links into preview-iframe form
+    let embedUrl = material.url;
+    const fileMatch = material.url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    const folderMatch = material.url.match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/);
+    if (fileMatch) {
+      embedUrl = `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+    } else if (folderMatch) {
+      embedUrl = `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#list`;
+    }
+    navigate("/viewer", {
+      state: { url: embedUrl, title: material.title, appId: material.id, forceInternal: true },
+    });
   };
 
   const filteredMaterials = studyMaterials.filter(m => {
@@ -252,6 +281,7 @@ const StudyMaterialPage = () => {
                 {filteredMaterials.map((material, index) => (
                   <motion.div
                     key={material.id}
+                    id={material.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(index * 0.03, 0.5) }}

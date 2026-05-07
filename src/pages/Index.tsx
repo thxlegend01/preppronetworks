@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import FolderCards from "@/components/FolderCards";
 import GlobalSearch from "@/components/GlobalSearch";
+import EntertainmentPromo from "@/components/EntertainmentPromo";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import WhyPrepProHub from "@/components/WhyPrepProHub";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
@@ -21,6 +22,7 @@ const Index = () => {
         <RecentlyViewed />
         <GlobalSearch />
         <FolderCards />
+        <EntertainmentPromo />
         <PartnerMarquee />
         <WhyPrepProHub />
         <WhoIsThisFor />

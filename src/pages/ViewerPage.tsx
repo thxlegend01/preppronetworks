@@ -44,6 +44,7 @@ const ViewerPage = () => {
   const title = location.state?.title || "App Viewer";
   const appId = location.state?.appId || "";
   const openExternal = location.state?.openExternal || false;
+  const forceInternal = location.state?.forceInternal || false;
   
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -53,7 +54,7 @@ const ViewerPage = () => {
   const tip = useMemo(() => LOADING_TIPS[Math.floor(Math.random() * LOADING_TIPS.length)], []);
 
   const batchData = BATCHES.find(b => b.id === appId);
-  const isInternalApp = INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
+  const isInternalApp = forceInternal || INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
   const shouldOpenExternal = openExternal || (!isInternalApp);
 
   // Simulate loading progress

@@ -37,7 +37,10 @@ const GlobalSearch = () => {
           subtitle: b.description,
           type: isApp ? "App" : "Test Series",
           icon: isApp ? Smartphone : BookOpen,
-          onClick: () => navigate(isApp ? "/apps" : "/test-series"),
+          onClick: () =>
+            navigate(
+              `${isApp ? "/apps" : "/test-series"}?q=${encodeURIComponent(query.trim())}#${b.id}`,
+            ),
         });
       }
     });
@@ -54,7 +57,10 @@ const GlobalSearch = () => {
           subtitle: `${m.subject} • ${m.class}`,
           type: "Material",
           icon: FileText,
-          onClick: () => window.open(m.url, "_blank"),
+          onClick: () =>
+            navigate(
+              `/study-material?q=${encodeURIComponent(query.trim())}#${m.id}`,
+            ),
         });
       }
     });
