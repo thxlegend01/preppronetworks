@@ -49,7 +49,7 @@ const ViewerPage = () => {
   const pdfUrl: string | undefined = location.state?.pdfUrl;
   const pdfDownloadUrl: string | undefined = location.state?.pdfDownloadUrl;
   
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!pdfUrl);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
 
