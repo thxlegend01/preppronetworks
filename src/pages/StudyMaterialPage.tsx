@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FileText, BookOpen, Heart, ArrowLeft, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
@@ -149,6 +149,7 @@ export const studyMaterials: StudyItem[] = [
 
 const StudyMaterialPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
@@ -159,6 +160,23 @@ const StudyMaterialPage = () => {
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Read ?q= from URL for global-search hand-off, and scroll to anchor
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q");
+    if (q) setSearchQuery(q);
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.getElementById(location.hash.slice(1));
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("ring-2", "ring-primary", "rounded-2xl");
+          setTimeout(() => el.classList.remove("ring-2", "ring-primary", "rounded-2xl"), 2500);
+        }
+      }, 600);
+    }
+  }, [location.search, location.hash]);
 
   const handleOpenMaterial = (material: StudyItem) => {
     window.open(material.url, "_blank");
