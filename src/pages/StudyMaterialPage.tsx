@@ -179,7 +179,18 @@ const StudyMaterialPage = () => {
   }, [location.search, location.hash]);
 
   const handleOpenMaterial = (material: StudyItem) => {
-    window.open(material.url, "_blank");
+    // Convert Google Drive view links into preview-iframe form
+    let embedUrl = material.url;
+    const fileMatch = material.url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    const folderMatch = material.url.match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/);
+    if (fileMatch) {
+      embedUrl = `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+    } else if (folderMatch) {
+      embedUrl = `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#list`;
+    }
+    navigate("/viewer", {
+      state: { url: embedUrl, title: material.title, appId: material.id, forceInternal: true },
+    });
   };
 
   const filteredMaterials = studyMaterials.filter(m => {
