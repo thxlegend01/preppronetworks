@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import { ArrowLeft, Loader2, Sparkles, Rocket, Star, BookOpen, Brain, Target, Zap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,13 +41,21 @@ const FloatingIcon = ({ icon: Icon, delay, duration, left, size }: {
 const ViewerPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const url = location.state?.url || "";
-  const title = location.state?.title || "App Viewer";
-  const appId = location.state?.appId || "";
-  const openExternal = location.state?.openExternal || false;
-  const forceInternal = location.state?.forceInternal || false;
-  const pdfUrl: string | undefined = location.state?.pdfUrl;
-  const pdfDownloadUrl: string | undefined = location.state?.pdfDownloadUrl;
+  const params = useParams();
+  const query = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const routeAppId = params.appId ? decodeURIComponent(params.appId) : "";
+  const queryUrl = query.get("url") || "";
+  const queryTitle = query.get("title") || "";
+  const queryFileId = query.get("fileId") || "";
+  const appId = location.state?.appId || routeAppId;
+  const batchData = BATCHES.find(b => b.id === appId || b.title === routeAppId);
+  const url = location.state?.url || queryUrl || batchData?.externalUrl || "";
+  const title = location.state?.title || queryTitle || batchData?.title || routeAppId || "App Viewer";
+  const openExternal = location.state?.openExternal || query.get("external") === "1";
+  const forceInternal = location.state?.forceInternal || query.get("internal") === "1";
+  const pdfUrl: string | undefined = location.state?.pdfUrl || (queryFileId ? `https://drive.google.com/uc?export=download&id=${queryFileId}` : undefined);
+  const pdfDownloadUrl: string | undefined = location.state?.pdfDownloadUrl || pdfUrl;
+  const fallbackPdfUrl = location.state?.url || (queryFileId ? `https://drive.google.com/file/d/${queryFileId}/preview` : url);
   
   const [isLoading, setIsLoading] = useState(!pdfUrl);
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -56,7 +64,6 @@ const ViewerPage = () => {
   const quote = useMemo(() => MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)], []);
   const tip = useMemo(() => LOADING_TIPS[Math.floor(Math.random() * LOADING_TIPS.length)], []);
 
-  const batchData = BATCHES.find(b => b.id === appId);
   const isInternalApp = forceInternal || INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
   const shouldOpenExternal = openExternal || (!isInternalApp);
 
