@@ -100,6 +100,7 @@ const App = () => {
                           <Route path="/entertainment" element={<EntertainmentPage />} />
                           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                           <Route path="/test/:testId" element={<TestPage />} />
+                          <Route path="/viewer" element={<ViewerPage />} />
                           <Route path="/view/:appId" element={<ViewerPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
