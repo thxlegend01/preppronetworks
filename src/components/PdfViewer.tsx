@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Loader2, RotateCw, Download } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Loader2, RotateCw, Download, Maximize2, Minimize2, Share2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Use cdn worker matching installed pdfjs version
@@ -22,18 +22,30 @@ const PdfViewer = ({ fileUrl, downloadUrl, fallbackIframeUrl }: PdfViewerProps) 
   const [rotation, setRotation] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>(800);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   useEffect(() => {
-    const update = () => setContainerWidth(Math.min(window.innerWidth - 32, 900));
+    const update = () => setContainerWidth(Math.min(window.innerWidth - 32, isFullscreen ? 1180 : 900));
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
-  }, []);
+  }, [isFullscreen]);
 
   return (
-    <div className="flex flex-col h-full bg-background">
+    <div className={`flex flex-col bg-background ${isFullscreen ? "fixed inset-0 z-50 h-screen" : "h-full"}`}>
       {/* Toolbar */}
-      <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-border/40 bg-card/60 backdrop-blur sticky top-0 z-10">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-border/40 bg-card/80 backdrop-blur sticky top-0 z-10">
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
@@ -68,6 +80,12 @@ const PdfViewer = ({ fileUrl, downloadUrl, fallbackIframeUrl }: PdfViewerProps) 
           </Button>
           <Button variant="ghost" size="icon" onClick={() => setRotation((r) => (r + 90) % 360)}>
             <RotateCw className="w-4 h-4" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handleShare} title="Copy shareable PDF link">
+            {copied ? <Check className="w-4 h-4 text-success" /> : <Share2 className="w-4 h-4" />}
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => setIsFullscreen((v) => !v)} title="Fullscreen PDF">
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </Button>
           {downloadUrl && (
             <a
