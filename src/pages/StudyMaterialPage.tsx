@@ -181,13 +181,13 @@ const StudyMaterialPage = () => {
   const handleOpenMaterial = (material: StudyItem) => {
     const fileMatch = material.url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
     const folderMatch = material.url.match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/);
-    const isPdfTitle = /\.pdf$/i.test(material.title);
 
-    if (fileMatch && (isPdfTitle || true)) {
+    if (fileMatch) {
       // Render Drive PDF natively in our PdfViewer with pagination + zoom
       const fileId = fileMatch[1];
       const pdfUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-      navigate("/viewer", {
+      const sharePath = `/view/${encodeURIComponent(material.id)}?type=pdf&fileId=${encodeURIComponent(fileId)}&title=${encodeURIComponent(material.title)}&internal=1`;
+      navigate(sharePath, {
         state: {
           title: material.title,
           appId: material.id,
@@ -204,7 +204,7 @@ const StudyMaterialPage = () => {
     if (folderMatch) {
       embedUrl = `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#list`;
     }
-    navigate("/viewer", {
+    navigate(`/view/${encodeURIComponent(material.id)}?url=${encodeURIComponent(embedUrl)}&title=${encodeURIComponent(material.title)}&internal=1`, {
       state: { url: embedUrl, title: material.title, appId: material.id, forceInternal: true },
     });
   };
