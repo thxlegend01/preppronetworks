@@ -53,8 +53,8 @@ const EntertainmentPage = () => {
               <button
                 key={app.id}
                 onClick={() =>
-                  navigate("/viewer", {
-                    state: { url: app.url, title: app.title, appId: app.id },
+                  navigate(`/view/${app.id}?url=${encodeURIComponent(app.url)}&title=${encodeURIComponent(app.title)}&internal=1`, {
+                    state: { url: app.url, title: app.title, appId: app.id, forceInternal: true },
                   })
                 }
                 className="text-left rounded-2xl border border-border bg-card overflow-hidden shadow-lg hover:scale-[1.02] transition-transform"
