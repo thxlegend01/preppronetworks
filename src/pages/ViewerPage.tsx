@@ -220,7 +220,7 @@ const ViewerPage = () => {
               fileUrl={pdfUrl}
               title={title}
               downloadUrl={pdfDownloadUrl}
-              fallbackIframeUrl={url}
+              fallbackIframeUrl={fallbackPdfUrl}
             />
           ) : (
             <iframe
