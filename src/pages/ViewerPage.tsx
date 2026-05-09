@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { ArrowLeft, Loader2, Sparkles, Rocket, Star, BookOpen, Brain, Target, Zap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BATCHES } from "@/lib/data";
+import { studyMaterials } from "@/pages/StudyMaterialPage";
 import PdfViewer from "@/components/PdfViewer";
 
 // Apps that should open internally via iframe
@@ -49,13 +50,22 @@ const ViewerPage = () => {
   const queryFileId = query.get("fileId") || "";
   const appId = location.state?.appId || routeAppId;
   const batchData = BATCHES.find(b => b.id === appId || b.title === routeAppId);
-  const url = location.state?.url || queryUrl || batchData?.externalUrl || "";
-  const title = location.state?.title || queryTitle || batchData?.title || routeAppId || "App Viewer";
+  const materialData = studyMaterials.find(m => m.id === appId || m.title === routeAppId);
+  const materialFileId = materialData?.url.match(/drive\.google\.com\/file\/d\/([^/]+)/)?.[1] || "";
+  const materialFolderId = materialData?.url.match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/)?.[1] || new URLSearchParams(materialData?.url.split("?")[1] || "").get("id") || "";
+  const materialEmbedUrl = materialFileId
+    ? `https://drive.google.com/file/d/${materialFileId}/preview`
+    : materialFolderId
+      ? `https://drive.google.com/embeddedfolderview?id=${materialFolderId}#list`
+      : materialData?.url || "";
+  const url = location.state?.url || queryUrl || materialEmbedUrl || batchData?.externalUrl || "";
+  const title = location.state?.title || queryTitle || materialData?.title || batchData?.title || routeAppId || "App Viewer";
   const openExternal = location.state?.openExternal || query.get("external") === "1";
   const forceInternal = location.state?.forceInternal || query.get("internal") === "1";
-  const pdfUrl: string | undefined = location.state?.pdfUrl || (queryFileId ? `https://drive.google.com/uc?export=download&id=${queryFileId}` : undefined);
+  const effectiveFileId = queryFileId || materialFileId;
+  const pdfUrl: string | undefined = location.state?.pdfUrl || (effectiveFileId ? `https://drive.google.com/uc?export=download&id=${effectiveFileId}` : undefined);
   const pdfDownloadUrl: string | undefined = location.state?.pdfDownloadUrl || pdfUrl;
-  const fallbackPdfUrl = location.state?.url || (queryFileId ? `https://drive.google.com/file/d/${queryFileId}/preview` : url);
+  const fallbackPdfUrl = location.state?.url || (effectiveFileId ? `https://drive.google.com/file/d/${effectiveFileId}/preview` : url);
   
   const [isLoading, setIsLoading] = useState(!pdfUrl);
   const [loadingProgress, setLoadingProgress] = useState(0);
