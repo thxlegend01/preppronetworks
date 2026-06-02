@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { BookOpen, ArrowRight, Heart, ArrowLeft, AlertCircle } from "lucide-react";
+import { BookOpen, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { BATCHES } from "@/lib/data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
@@ -13,6 +13,8 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
+import ResourceListRow from "@/components/ResourceListRow";
+import AppLaunchAnimation from "@/components/AppLaunchAnimation";
 
 import mathangoLogo from "@/assets/mathango-logo.png";
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
@@ -27,6 +29,8 @@ const logoMap: Record<string, string> = {
   "vots-test": votsLogo,
 };
 
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
+
 const TestSeriesPage = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -38,6 +42,7 @@ const TestSeriesPage = () => {
   const [comingSoonTitle, setComingSoonTitle] = useState("");
   const [selectedApp, setSelectedApp] = useState<{ url: string; title: string; id: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [launching, setLaunching] = useState<{ title: string; logo?: string; action: () => void } | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -56,16 +61,22 @@ const TestSeriesPage = () => {
       setComingSoonOpen(true);
       return;
     }
-    if (id === "mathango-test") {
-      navigate("/mathango-tests");
-      return;
+    const action = () => {
+      addToRecentlyViewed(id, title, "material");
+      if (id === "mathango-test") { navigate("/mathango-tests"); return; }
+      if (id === "vots-test") { navigate("/vots-tests"); return; }
+      setSelectedApp({ url, title, id });
+      setDisclaimerOpen(true);
+    };
+    setLaunching({ title, logo: logoMap[id], action });
+  };
+
+  const finishLaunch = () => {
+    if (launching) {
+      const run = launching.action;
+      setLaunching(null);
+      run();
     }
-    if (id === "vots-test") {
-      navigate("/vots-tests");
-      return;
-    }
-    setSelectedApp({ url, title, id });
-    setDisclaimerOpen(true);
   };
 
   const handleContinue = () => {
@@ -87,15 +98,19 @@ const TestSeriesPage = () => {
             <ArrowLeft className="w-4 h-4" />Back to Home
           </Button>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-              <BookOpen className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Test Series / PYQs</span>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <BookOpen className="w-3.5 h-3.5 text-primary" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-primary">Test Series · PYQs</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
-              Test Series & <span className="text-gradient">PYQs</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] uppercase">
+              The Only <br />
+              <span className="text-gradient">Tests</span> <br className="sm:hidden" />
+              You Need.
             </h1>
-            <p className="text-lg text-muted-foreground">Practice with the best test series & previous year questions</p>
+            <p className="text-base text-muted-foreground mt-4 max-w-xl">
+              Real-exam CBT practice, PYQs &amp; mocks — curated by PrepPro Network.
+            </p>
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search test series..." />
@@ -103,50 +118,23 @@ const TestSeriesPage = () => {
           {isLoading ? (
             <GridSkeleton count={4} type="card" />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-              {testSeries.map((test, index) => (
-                <motion.div
-                  key={test.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                >
-                  <div className="glass-card shine-effect rounded-2xl p-8 text-center group relative h-full">
-                    <button
-                      onClick={() => toggleFavorite(test.id)}
-                      className={`absolute top-4 right-4 p-2 rounded-full transition-all z-10 ${
-                        isFavorite(test.id) ? 'bg-destructive/20 text-destructive' : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
-                      }`}
-                    >
-                      <Heart className={`w-5 h-5 ${isFavorite(test.id) ? 'fill-current' : ''}`} />
-                    </button>
-
-                    <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all">
-                      {logoMap[test.id] ? (
-                        <img src={logoMap[test.id]} alt={test.title} className="w-full h-full object-cover" />
-                      ) : (
-                        <BookOpen className="w-10 h-10 text-primary" />
-                      )}
-                    </div>
-
-                    <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{test.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{test.description}</p>
-
-                    {test.externalUrl === "coming-soon" && (
-                      <div className="flex items-center gap-2 justify-center mb-4 px-3 py-2 bg-warning/10 border border-warning/20 rounded-lg">
-                        <AlertCircle className="w-4 h-4 text-warning" />
-                        <span className="text-xs text-warning font-medium">Tests will be added manually soon</span>
-                      </div>
-                    )}
-
-                    <Button variant="hero" onClick={() => handleExplore(test.id, test.externalUrl, test.title)} className="w-full">
-                      {test.externalUrl === "coming-soon" ? "Coming Soon" : "Start Practice"}
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="mt-8 border-b border-border/50">
+              <AnimatePresence>
+                {testSeries.map((test, index) => (
+                  <ResourceListRow
+                    key={test.id}
+                    index={index}
+                    title={test.title}
+                    subtitle={test.description}
+                    logo={logoMap[test.id]}
+                    isFavorite={isFavorite(test.id)}
+                    isComingSoon={test.externalUrl === "coming-soon"}
+                    whatsappUrl={WHATSAPP_LINK}
+                    onToggleFavorite={() => toggleFavorite(test.id)}
+                    onOpen={() => handleExplore(test.id, test.externalUrl, test.title)}
+                  />
+                ))}
+              </AnimatePresence>
             </div>
           )}
 
@@ -165,6 +153,13 @@ const TestSeriesPage = () => {
           batchTitle={selectedApp?.title}
         />
         <ComingSoonDialog isOpen={comingSoonOpen} onClose={() => setComingSoonOpen(false)} title={comingSoonTitle || "Mathango"} />
+
+        <AppLaunchAnimation
+          open={!!launching}
+          title={launching?.title || ""}
+          logo={launching?.logo}
+          onComplete={finishLaunch}
+        />
       </div>
     </PageTransition>
   );
