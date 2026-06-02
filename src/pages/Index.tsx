@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import FolderCards from "@/components/FolderCards";
 import GlobalSearch from "@/components/GlobalSearch";
-import EntertainmentPromo from "@/components/EntertainmentPromo";
+import PrepJeePromo from "@/components/PrepJeePromo";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import WhyPrepProHub from "@/components/WhyPrepProHub";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
@@ -20,9 +20,9 @@ const Index = () => {
         <Header />
         <Hero />
         <RecentlyViewed />
+        <PrepJeePromo />
         <GlobalSearch />
         <FolderCards />
-        <EntertainmentPromo />
         <PartnerMarquee />
         <WhyPrepProHub />
         <WhoIsThisFor />
