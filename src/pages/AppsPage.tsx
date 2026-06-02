@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Smartphone, ArrowRight, Heart, Copy, Check, ArrowLeft, ChevronDown, ExternalLink, Globe, MessageCircleMore, PlayCircle } from "lucide-react";
+import { Smartphone, ArrowLeft, ChevronDown, ExternalLink, Globe, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,8 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
+import ResourceListRow from "@/components/ResourceListRow";
+import AppLaunchAnimation from "@/components/AppLaunchAnimation";
 import {
   Dialog,
   DialogContent,
@@ -72,6 +74,7 @@ const AppsPage = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
+  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string } | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -91,7 +94,14 @@ const AppsPage = () => {
   const handleStudyNow = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
-    window.open(url, "_blank", "noopener,noreferrer");
+    setLaunching({ title, logo: logoMap[id], url });
+  };
+
+  const finishLaunch = () => {
+    if (launching) {
+      window.open(launching.url, "_blank", "noopener,noreferrer");
+      setLaunching(null);
+    }
   };
 
   const handleContinue = () => {
@@ -115,87 +125,39 @@ const AppsPage = () => {
     setPortalNoticeOpen(true);
   };
 
-  const renderAppCard = (app: typeof allApps[0], index: number) => {
+  const renderAppRow = (app: typeof allApps[0], index: number) => {
     const appCode = APP_ACCESS_CODES[app.id];
     const isComingSoon = app.externalUrl === "coming-soon";
     return (
-      <motion.div
-        key={app.id}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.08 }}
-        whileHover={{ y: -6, scale: 1.02 }}
-      >
-        <div className="glass-card shine-effect rounded-2xl p-8 text-center group relative h-full">
-          <button
-            onClick={() => toggleFavorite(app.id)}
-            className={`absolute top-4 right-4 p-2 rounded-full transition-all z-10 ${
-              isFavorite(app.id) ? 'bg-destructive/20 text-destructive' : 'bg-secondary/50 text-muted-foreground hover:text-destructive hover:bg-destructive/10'
-            }`}
-          >
-            <Heart className={`w-5 h-5 ${isFavorite(app.id) ? 'fill-current' : ''}`} />
-          </button>
-
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20 flex items-center justify-center mb-6 mx-auto bg-background shadow-lg group-hover:border-primary/50 transition-all">
-            {logoMap[app.id] ? (
-              <img
-                src={logoMap[app.id]}
-                alt={app.title}
-                width={96}
-                height={96}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Smartphone className="w-10 h-10 text-primary" />
-            )}
+      <div key={app.id}>
+        <ResourceListRow
+          index={index}
+          title={app.title}
+          subtitle={app.description}
+          logo={logoMap[app.id]}
+          isFavorite={isFavorite(app.id)}
+          isComingSoon={isComingSoon}
+          whatsappUrl={WHATSAPP_LINK}
+          onToggleFavorite={() => toggleFavorite(app.id)}
+          onOpen={() => handleStudyNow(app.id, app.externalUrl, app.title)}
+        />
+        {appCode && (
+          <div className="pl-16 md:pl-32 pb-4">
+            <Button
+              size="sm"
+              variant="secondary"
+              className="bg-accent/20 text-accent hover:bg-accent/30 border border-accent/30"
+              onClick={() => handleCopyCode(app.id)}
+            >
+              {copiedId === app.id ? (
+                <><Check className="mr-2 w-3.5 h-3.5" />Copied!</>
+              ) : (
+                <><Copy className="mr-2 w-3.5 h-3.5" />Access Code: {appCode.code}</>
+              )}
+            </Button>
           </div>
-
-          <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-            {app.title}
-          </h3>
-          <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{app.description}</p>
-
-          <div className="space-y-2">
-            {isComingSoon ? (
-              <Button variant="outline" className="w-full border-muted-foreground/30 text-muted-foreground cursor-not-allowed" disabled>
-                Coming Soon
-              </Button>
-            ) : (
-              <>
-                <Button variant="hero" onClick={() => handleStudyNow(app.id, app.externalUrl, app.title)} className="w-full">
-                  <PlayCircle className="mr-2 w-4 h-4" />
-                  Study Now
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50"
-                  onClick={() => window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer")}
-                >
-                  <MessageCircleMore className="mr-2 w-4 h-4" />
-                  WhatsApp Channel
-                </Button>
-              </>
-            )}
-
-            {appCode && (
-              <Button
-                variant="secondary"
-                className="w-full bg-accent/20 text-accent hover:bg-accent/30 border border-accent/30"
-                onClick={() => handleCopyCode(app.id)}
-              >
-                {copiedId === app.id ? (
-                  <><Check className="mr-2 w-4 h-4" />Copied!</>
-                ) : (
-                  <><Copy className="mr-2 w-4 h-4" />Code: {appCode.code}</>
-                )}
-              </Button>
-            )}
-          </div>
-        </div>
-      </motion.div>
+        )}
+      </div>
     );
   };
 
@@ -208,15 +170,19 @@ const AppsPage = () => {
             <ArrowLeft className="w-4 h-4" />Back to Home
           </Button>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-              <Smartphone className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">PrepPro Study Apps</span>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Smartphone className="w-3.5 h-3.5 text-primary" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-primary">PrepPro Study Apps</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
-              PrepPro <span className="text-gradient">Study Apps</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] uppercase">
+              The Only <br />
+              <span className="text-gradient">Apps</span> <br className="sm:hidden" />
+              You Need.
             </h1>
-            <p className="text-lg text-muted-foreground">Access top educational platforms for free</p>
+            <p className="text-base text-muted-foreground mt-4 max-w-xl">
+              Hand-picked premium coaching platforms — tap to launch, free forever.
+            </p>
           </motion.div>
 
           {/* PrepPro Network Portal Card */}
@@ -265,8 +231,10 @@ const AppsPage = () => {
             <GridSkeleton count={4} type="card" />
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-                {visibleApps.map((app, index) => renderAppCard(app, index))}
+              <div className="mt-8 border-b border-border/50">
+                <AnimatePresence>
+                  {visibleApps.map((app, index) => renderAppRow(app, index))}
+                </AnimatePresence>
               </div>
 
               {!searchQuery.trim() && !showAll && moreApps.length > 0 && (
@@ -307,6 +275,13 @@ const AppsPage = () => {
             setCwNoticeOpen(false);
             setDisclaimerOpen(true);
           }}
+        />
+
+        <AppLaunchAnimation
+          open={!!launching}
+          title={launching?.title || ""}
+          logo={launching?.logo}
+          onComplete={finishLaunch}
         />
 
         {/* Portal Better Experience Notice */}
