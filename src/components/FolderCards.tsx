@@ -1,7 +1,7 @@
 import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Megaphone, Sparkles, Tv } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-import pwLogo from "@/assets/pw-logo-new.jpg";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const sections = [
@@ -11,12 +11,12 @@ const sections = [
     subtitle: "Premium Coaching — Free Access",
     description: "PW, Unacademy, Next Toppers & 10+ platforms",
     icon: Smartphone,
-    logo: pwLogo,
     path: "/apps",
     count: "10+",
     accent: "from-rose-500 to-pink-600",
-    bg: "bg-rose-500/8 border-rose-500/15 hover:border-rose-500/30",
-    glow: "group-hover:shadow-rose-500/10",
+    ring: "ring-rose-500/40",
+    glow: "group-hover:shadow-rose-500/25",
+    tint: "from-rose-500/15 via-transparent to-transparent",
   },
   {
     id: "test-series",
@@ -27,8 +27,9 @@ const sections = [
     path: "/test-series",
     count: "4",
     accent: "from-violet-500 to-purple-600",
-    bg: "bg-violet-500/8 border-violet-500/15 hover:border-violet-500/30",
-    glow: "group-hover:shadow-violet-500/10",
+    ring: "ring-violet-500/40",
+    glow: "group-hover:shadow-violet-500/25",
+    tint: "from-violet-500/15 via-transparent to-transparent",
   },
   {
     id: "study-material",
@@ -36,12 +37,12 @@ const sections = [
     subtitle: "Notes, Books & Resources",
     description: "Allen, FIITJEE, Resonance + Cengage, Arihant",
     icon: FileText,
-    logo: prepproLogo,
     path: "/study-material",
     count: "50+",
     accent: "from-emerald-500 to-teal-600",
-    bg: "bg-emerald-500/8 border-emerald-500/15 hover:border-emerald-500/30",
-    glow: "group-hover:shadow-emerald-500/10",
+    ring: "ring-emerald-500/40",
+    glow: "group-hover:shadow-emerald-500/25",
+    tint: "from-emerald-500/15 via-transparent to-transparent",
   },
   {
     id: "study-tracker",
@@ -52,8 +53,9 @@ const sections = [
     path: "/study-tracker",
     count: "🔥",
     accent: "from-amber-500 to-orange-600",
-    bg: "bg-amber-500/8 border-amber-500/15 hover:border-amber-500/30",
-    glow: "group-hover:shadow-amber-500/10",
+    ring: "ring-amber-500/40",
+    glow: "group-hover:shadow-amber-500/25",
+    tint: "from-amber-500/15 via-transparent to-transparent",
   },
   {
     id: "prepchat",
@@ -64,8 +66,9 @@ const sections = [
     path: "/prepchat",
     count: "💬",
     accent: "from-sky-500 to-blue-600",
-    bg: "bg-sky-500/8 border-sky-500/15 hover:border-sky-500/30",
-    glow: "group-hover:shadow-sky-500/10",
+    ring: "ring-sky-500/40",
+    glow: "group-hover:shadow-sky-500/25",
+    tint: "from-sky-500/15 via-transparent to-transparent",
   },
   {
     id: "announcements",
@@ -75,9 +78,10 @@ const sections = [
     icon: Megaphone,
     path: "/announcements",
     count: "📢",
-    accent: "from-amber-500 to-orange-600",
-    bg: "bg-amber-500/8 border-amber-500/15 hover:border-amber-500/30",
-    glow: "group-hover:shadow-amber-500/10",
+    accent: "from-yellow-500 to-amber-600",
+    ring: "ring-yellow-500/40",
+    glow: "group-hover:shadow-yellow-500/25",
+    tint: "from-yellow-500/15 via-transparent to-transparent",
   },
   {
     id: "study-tools",
@@ -88,8 +92,9 @@ const sections = [
     path: "/study-tools",
     count: "✨",
     accent: "from-fuchsia-500 to-purple-600",
-    bg: "bg-fuchsia-500/8 border-fuchsia-500/15 hover:border-fuchsia-500/30",
-    glow: "group-hover:shadow-fuchsia-500/10",
+    ring: "ring-fuchsia-500/40",
+    glow: "group-hover:shadow-fuchsia-500/25",
+    tint: "from-fuchsia-500/15 via-transparent to-transparent",
   },
   {
     id: "entertainment",
@@ -100,8 +105,9 @@ const sections = [
     path: "/entertainment",
     count: "🎬",
     accent: "from-pink-500 to-orange-500",
-    bg: "bg-pink-500/8 border-pink-500/15 hover:border-pink-500/30",
-    glow: "group-hover:shadow-pink-500/10",
+    ring: "ring-pink-500/40",
+    glow: "group-hover:shadow-pink-500/25",
+    tint: "from-pink-500/15 via-transparent to-transparent",
   },
 ];
 
@@ -122,35 +128,62 @@ const FolderCards = () => {
           <p className="text-sm text-muted-foreground">Everything for JEE, NEET & competitive exams</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-6xl mx-auto">
           {sections.map((section, i) => (
-            <button
+            <motion.button
               key={section.id}
               onClick={() => navigate(section.path)}
-              style={{ animationDelay: `${i * 60}ms` }}
-              className={`group text-center p-6 rounded-2xl border ${section.bg} hover:-translate-y-1 hover:shadow-xl ${section.glow} transition-all duration-300 animate-fade-in flex flex-col items-center`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              whileTap={{ scale: 0.97 }}
+              className={`group relative text-left p-4 sm:p-5 rounded-3xl border border-border/60 bg-card/60 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-transparent hover:shadow-2xl ${section.glow}`}
             >
-              <div className="w-20 h-20 rounded-full overflow-hidden bg-card border-2 border-border shadow-md mb-4 flex items-center justify-center">
-                {section.logo ? (
-                  <img src={section.logo} alt={section.title} className="w-full h-full object-cover" loading="lazy" />
-                ) : (
-                  <div className={`w-full h-full bg-gradient-to-br ${section.accent} flex items-center justify-center`}>
-                    <section.icon className="w-8 h-8 text-white" />
+              {/* Inner tint wash */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${section.tint} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+
+              {/* Number badge */}
+              <span className="absolute top-3 right-3 text-[10px] font-mono font-bold text-muted-foreground/40 tracking-widest">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              {/* Logo with gradient halo */}
+              <div className="relative mb-4 inline-flex">
+                <div className={`absolute -inset-2 bg-gradient-to-br ${section.accent} opacity-30 blur-2xl rounded-full group-hover:opacity-60 transition-opacity duration-500`} />
+                <div className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden ring-2 ${section.ring} shadow-lg`}>
+                  <img
+                    src={prepproLogo}
+                    alt="PrepPro Network"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {/* Section icon corner badge */}
+                  <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-xl bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-md ring-2 ring-background`}>
+                    <section.icon className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
                   </div>
-                )}
+                </div>
               </div>
 
-              <h3 className="text-lg font-extrabold text-foreground tracking-tight mb-1 group-hover:text-primary transition-colors">
+              {/* Title + subtitle */}
+              <h3 className="relative text-base sm:text-lg font-black tracking-tight text-foreground mb-1 leading-tight group-hover:text-primary transition-colors">
                 {section.title}
               </h3>
-              <p className="text-xs text-muted-foreground mb-1">{section.subtitle}</p>
-              <p className="text-xs text-muted-foreground/80 mb-5 line-clamp-2">{section.description}</p>
+              <p className="relative text-[11px] sm:text-xs text-muted-foreground/90 mb-3 line-clamp-2 leading-snug">
+                {section.subtitle}
+              </p>
 
-              <div className={`mt-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${section.accent} text-white text-sm font-bold shadow-md group-hover:shadow-lg transition-all`}>
-                Explore Now
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              {/* Footer row */}
+              <div className="relative flex items-center justify-between pt-2 border-t border-border/40">
+                <span className={`text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r ${section.accent} bg-clip-text text-transparent`}>
+                  Explore
+                </span>
+                <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300`}>
+                  <ArrowRight className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                </div>
               </div>
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>

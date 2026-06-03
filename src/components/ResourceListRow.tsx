@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Heart, MessageCircleMore, ImageIcon } from "lucide-react";
+import { ArrowRight, Heart, MessageCircleMore } from "lucide-react";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 interface ResourceListRowProps {
   index: number;
@@ -53,13 +54,14 @@ const ResourceListRow = ({
           className="shrink-0 w-14 h-14 md:w-20 md:h-20 rounded-full overflow-hidden bg-card border-2 border-border shadow-md transition-transform duration-300 group-hover:scale-105 group-hover:border-primary/40 disabled:opacity-60"
           aria-label={`Open ${title}`}
         >
-          {logo ? (
-            <img src={logo} alt={title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-muted">
-              <ImageIcon className="w-6 h-6 text-muted-foreground" />
-            </div>
-          )}
+          <img
+            src={logo || prepproLogo}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = prepproLogo; }}
+          />
         </button>
 
         {/* Title */}
