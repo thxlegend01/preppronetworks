@@ -38,7 +38,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       </div>
       <div className="splash-wordmark">
         <span className="splash-dot" />
-        PrepPro
+        PrepPro Network
       </div>
       <style>{`
         .splash-root {
