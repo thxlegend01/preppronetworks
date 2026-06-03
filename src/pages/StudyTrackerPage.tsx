@@ -12,6 +12,7 @@ import LeaderboardWidget from "@/components/study/LeaderboardWidget";
 import FriendsWidget from "@/components/study/FriendsWidget";
 import DailyTasksWidget from "@/components/study/DailyTasksWidget";
 import { Timer, BarChart3, Users, Trophy, UserPlus, Circle, ArrowLeft, LogIn, X, ListChecks } from "lucide-react";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -44,26 +45,32 @@ const StudyTrackerPage = () => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-between mb-6"
+            className="mb-6"
           >
-            <div className="flex items-center gap-3">
-              <button onClick={() => navigate("/")} className="p-2 rounded-full hover:bg-secondary transition-colors">
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-              <div>
-                <h1 className="text-xl font-black">Study Tracker</h1>
-                <p className="text-[10px] text-muted-foreground">YPT Style · PrepPro Network</p>
+            <button onClick={() => navigate("/")} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors mb-4">
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
+            </button>
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-amber-500/10 via-card to-orange-500/10 border border-amber-500/20">
+              <div className="relative shrink-0">
+                <div className="absolute -inset-1 bg-gradient-to-br from-amber-500 to-orange-600 opacity-40 blur-md rounded-2xl" />
+                <div className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-amber-500/40 shadow-lg">
+                  <img src={prepproLogo} alt="" className="w-full h-full object-cover" />
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 text-[10px]">
-              <span className="flex items-center gap-1">
-                <Circle className="w-2 h-2 fill-green-500 text-green-500" />
-                {liveStats.online} online
-              </span>
-              <span className="flex items-center gap-1">
-                <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
-                {liveStats.studying} studying
-              </span>
+              <div className="flex-1 min-w-0">
+                <h1 className="text-2xl font-black tracking-tight leading-none">Study Tracker</h1>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">YPT Style · PrepPro Network</p>
+              </div>
+              <div className="flex flex-col items-end gap-1 text-[10px] shrink-0">
+                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/15 text-green-500 font-semibold">
+                  <Circle className="w-1.5 h-1.5 fill-current" />
+                  {liveStats.online} online
+                </span>
+                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-500 font-semibold">
+                  <Circle className="w-1.5 h-1.5 fill-current" />
+                  {liveStats.studying} studying
+                </span>
+              </div>
             </div>
           </motion.div>
 

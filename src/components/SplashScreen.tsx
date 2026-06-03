@@ -6,8 +6,9 @@ interface SplashScreenProps {
 }
 
 /**
- * Lean 1.3s splash: logo zooms in, soft halo bloom, sweep highlight, fade out.
- * No bouncy/playful motion — clean and brand-forward.
+ * Cinematic 2.2s splash: logo zooms in with halo bloom, ring trace, sweep,
+ * progress bar, wordmark + tagline. Logo is statically imported so it is
+ * available offline / on slow networks — no spinner fallback shown.
  */
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [done, setDone] = useState(false);
@@ -16,7 +17,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     const t = setTimeout(() => {
       setDone(true);
       onComplete();
-    }, 1350);
+    }, 2200);
     return () => clearTimeout(t);
   }, [onComplete]);
 
@@ -25,14 +26,17 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center splash-root" aria-hidden="true">
       <div className="splash-halo" />
+      <svg className="splash-ring" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeOpacity="0.85" strokeLinecap="round" />
+      </svg>
       <div className="splash-wrap">
         <img
           src={prepproLogo}
           alt=""
-          width={96}
-          height={96}
+          width={104}
+          height={104}
           className="splash-logo"
-          style={{ width: 96, height: 96 }}
+          style={{ width: 104, height: 104 }}
         />
         <div className="splash-shine" />
       </div>
@@ -40,63 +44,119 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         <span className="splash-dot" />
         PrepPro Network
       </div>
+      <div className="splash-tagline">Prep like a Pro</div>
+      <div className="splash-progress"><span /></div>
       <style>{`
         .splash-root {
           background: radial-gradient(circle at 50% 50%, hsl(var(--background)) 0%, hsl(var(--background)) 60%, hsl(var(--background) / 0.96) 100%);
-          animation: splashFade 0.3s ease-in 1.05s forwards;
+          animation: splashFade 0.4s ease-in 1.8s forwards;
           will-change: opacity;
           flex-direction: column;
-          gap: 18px;
+          gap: 16px;
         }
         .splash-halo {
           position: absolute;
-          width: 240px; height: 240px;
+          width: 280px; height: 280px;
           border-radius: 9999px;
-          background: radial-gradient(circle, hsl(var(--primary) / 0.35), transparent 70%);
-          filter: blur(28px);
+          background: radial-gradient(circle, hsl(var(--primary) / 0.45), transparent 70%);
+          filter: blur(36px);
           opacity: 0;
-          animation: haloIn 1.1s ease-out forwards;
+          animation: haloIn 1.4s ease-out forwards, haloPulse 1.6s ease-in-out 0.6s infinite;
+        }
+        .splash-ring {
+          position: absolute;
+          width: 180px; height: 180px;
+          transform: rotate(-90deg);
+          opacity: 0;
+          animation: ringIn 0.35s ease-out 0.15s forwards;
+        }
+        .splash-ring circle {
+          stroke-dasharray: 352;
+          stroke-dashoffset: 352;
+          animation: ringTrace 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+          filter: drop-shadow(0 0 6px hsl(var(--primary) / 0.6));
         }
         .splash-wrap {
           position: relative;
-          width: 96px; height: 96px;
-          border-radius: 22px;
+          width: 104px; height: 104px;
+          border-radius: 26px;
           overflow: hidden;
-          box-shadow: 0 18px 48px -12px hsl(var(--primary) / 0.55), 0 0 0 1px hsl(var(--primary) / 0.25);
+          box-shadow: 0 22px 60px -12px hsl(var(--primary) / 0.6), 0 0 0 1px hsl(var(--primary) / 0.3);
           opacity: 0;
-          transform: scale(0.86);
-          animation: logoIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          transform: scale(0.7);
+          animation: logoIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, logoFloat 2.4s ease-in-out 0.8s infinite;
         }
         .splash-logo { width: 100%; height: 100%; object-fit: cover; display: block; }
         .splash-shine {
           position: absolute; inset: 0;
           background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
           transform: translateX(-120%);
-          animation: shineSweep 0.7s ease-out 0.35s forwards;
+          animation: shineSweep 0.9s ease-out 0.5s forwards, shineSweep 0.9s ease-out 1.4s forwards;
         }
         .splash-wordmark {
           display: inline-flex; align-items: center; gap: 8px;
           font-family: ui-sans-serif, system-ui, sans-serif;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          font-size: 1.1rem;
+          font-weight: 900;
+          letter-spacing: -0.025em;
+          font-size: 1.25rem;
           color: hsl(var(--foreground));
           opacity: 0;
-          animation: wordIn 0.45s ease-out 0.45s forwards;
+          animation: wordIn 0.5s ease-out 0.7s forwards;
+          margin-top: 8px;
+        }
+        .splash-tagline {
+          font-family: ui-sans-serif, system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 0.72rem;
+          letter-spacing: 0.32em;
+          text-transform: uppercase;
+          color: hsl(var(--muted-foreground));
+          opacity: 0;
+          animation: wordIn 0.5s ease-out 0.95s forwards;
+        }
+        .splash-progress {
+          width: 120px; height: 2px;
+          background: hsl(var(--muted) / 0.4);
+          border-radius: 9999px;
+          overflow: hidden;
+          opacity: 0;
+          animation: wordIn 0.3s ease-out 1.1s forwards;
+          margin-top: 6px;
+        }
+        .splash-progress span {
+          display: block; height: 100%; width: 0%;
+          background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent, var(--primary))));
+          border-radius: inherit;
+          animation: barFill 1s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
         }
         .splash-dot {
-          width: 6px; height: 6px; border-radius: 9999px;
+          width: 7px; height: 7px; border-radius: 9999px;
           background: hsl(var(--primary));
-          box-shadow: 0 0 12px hsl(var(--primary));
+          box-shadow: 0 0 14px hsl(var(--primary));
+          animation: dotPulse 1.2s ease-in-out infinite;
         }
         @keyframes logoIn {
-          0% { opacity: 0; transform: scale(0.86); }
-          100% { opacity: 1; transform: scale(1); }
+          0% { opacity: 0; transform: scale(0.7) rotate(-6deg); }
+          100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        @keyframes logoFloat {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-4px) scale(1.02); }
         }
         @keyframes haloIn {
           0% { opacity: 0; transform: scale(0.6); }
-          60% { opacity: 0.9; transform: scale(1); }
-          100% { opacity: 0.4; transform: scale(1.1); }
+          100% { opacity: 0.5; transform: scale(1.05); }
+        }
+        @keyframes haloPulse {
+          0%, 100% { opacity: 0.35; }
+          50% { opacity: 0.65; }
+        }
+        @keyframes ringIn { to { opacity: 1; } }
+        @keyframes ringTrace { to { stroke-dashoffset: 0; } }
+        @keyframes barFill { to { width: 100%; } }
+        @keyframes dotPulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.4); opacity: 0.7; }
         }
         @keyframes shineSweep {
           to { transform: translateX(120%); }

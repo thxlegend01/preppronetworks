@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, LogIn, MessageSquare } from "lucide-react";
 import ChatSidebar from "@/components/prepchat/ChatSidebar";
 import ChatRoom from "@/components/prepchat/ChatRoom";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const DEFAULT_ROOMS = [
   { name: "JEE — Physics", description: "Physics doubts & discussion", category: "JEE" },
@@ -115,12 +116,19 @@ const PrepChatPage = () => {
   return (
     <div className="h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="h-14 border-b border-border bg-card flex items-center px-4 shrink-0">
-        <MessageSquare className="w-5 h-5 text-primary mr-2" />
-        <h1 className="font-bold text-foreground">PrepChat</h1>
-        <span className="text-xs text-muted-foreground ml-2">by PrepPro Network</span>
+      <div className="h-16 border-b border-border bg-gradient-to-r from-sky-500/10 via-card to-blue-500/10 flex items-center px-4 shrink-0">
+        <div className="relative shrink-0 mr-3">
+          <div className="absolute -inset-1 bg-gradient-to-br from-sky-500 to-blue-600 opacity-40 blur-md rounded-xl" />
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden ring-2 ring-sky-500/40 shadow-md">
+            <img src={prepproLogo} alt="" className="w-full h-full object-cover" />
+          </div>
+        </div>
+        <div className="min-w-0">
+          <h1 className="font-black text-foreground text-lg leading-none tracking-tight">PrepChat</h1>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">by PrepPro Network</p>
+        </div>
         <div className="ml-auto">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="font-semibold">
             Home
           </Button>
         </div>
