@@ -17,6 +17,7 @@ import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
+import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
 import {
   Dialog,
   DialogContent,
@@ -226,6 +227,10 @@ const AppsPage = () => {
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search apps..." />
+
+          <div className="mt-6">
+            <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Study Apps Updates" />
+          </div>
 
           {isLoading ? (
             <GridSkeleton count={4} type="card" />

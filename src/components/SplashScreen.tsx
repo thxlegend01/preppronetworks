@@ -27,7 +27,8 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     <div className="fixed inset-0 z-[9999] flex items-center justify-center splash-root" aria-hidden="true">
       <div className="splash-halo" />
       <svg className="splash-ring" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeOpacity="0.85" strokeLinecap="round" />
+        <circle cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary) / 0.25)" strokeWidth="1.5" />
+        <circle className="splash-ring-arc" cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" />
       </svg>
       <div className="splash-wrap">
         <img
@@ -66,15 +67,14 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         .splash-ring {
           position: absolute;
           width: 180px; height: 180px;
-          transform: rotate(-90deg);
           opacity: 0;
-          animation: ringIn 0.35s ease-out 0.15s forwards;
+          animation: ringIn 0.35s ease-out 0.15s forwards, ringSpin 2.4s linear 0.5s infinite;
         }
-        .splash-ring circle {
-          stroke-dasharray: 352;
-          stroke-dashoffset: 352;
-          animation: ringTrace 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+        .splash-ring-arc {
+          stroke-dasharray: 88 264;
+          stroke-dashoffset: 0;
           filter: drop-shadow(0 0 6px hsl(var(--primary) / 0.6));
+          transform-origin: 60px 60px;
         }
         .splash-wrap {
           position: relative;
@@ -152,7 +152,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
           50% { opacity: 0.65; }
         }
         @keyframes ringIn { to { opacity: 1; } }
-        @keyframes ringTrace { to { stroke-dashoffset: 0; } }
+        @keyframes ringSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes barFill { to { width: 100%; } }
         @keyframes dotPulse {
           0%, 100% { transform: scale(1); opacity: 1; }
