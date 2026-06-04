@@ -15,6 +15,7 @@ import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
+import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
 
 import mathangoLogo from "@/assets/mathango-logo.png";
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
@@ -114,6 +115,10 @@ const TestSeriesPage = () => {
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search test series..." />
+
+          <div className="mt-6">
+            <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Test Series & PYQs" />
+          </div>
 
           {isLoading ? (
             <GridSkeleton count={4} type="card" />
