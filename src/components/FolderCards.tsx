@@ -14,11 +14,12 @@ const sections = [
     description: "PW, Unacademy, Next Toppers & 10+ platforms",
     icon: Smartphone,
     path: "/apps",
-    count: "10+",
+    emoji: "📱",
     accent: "from-rose-500 to-pink-600",
-    ring: "ring-rose-500/40",
-    glow: "group-hover:shadow-rose-500/25",
-    tint: "from-rose-500/15 via-transparent to-transparent",
+    wash: "from-rose-50 via-pink-50/60 to-orange-50/40 dark:from-rose-950/40 dark:via-pink-950/30 dark:to-orange-950/20",
+    bar: "from-rose-400 via-pink-500 to-orange-500",
+    subColor: "text-rose-500 dark:text-rose-400",
+    ctaWash: "from-rose-100 to-pink-100 dark:from-rose-950/60 dark:to-pink-950/40",
   },
   {
     id: "test-series",
@@ -27,11 +28,12 @@ const sections = [
     description: "PW Test Series, PYQs & Chapter Tests",
     icon: BookOpen,
     path: "/test-series",
-    count: "4",
+    emoji: "📝",
     accent: "from-violet-500 to-purple-600",
-    ring: "ring-violet-500/40",
-    glow: "group-hover:shadow-violet-500/25",
-    tint: "from-violet-500/15 via-transparent to-transparent",
+    wash: "from-violet-50 via-purple-50/60 to-fuchsia-50/40 dark:from-violet-950/40 dark:via-purple-950/30 dark:to-fuchsia-950/20",
+    bar: "from-violet-400 via-purple-500 to-fuchsia-500",
+    subColor: "text-violet-500 dark:text-violet-400",
+    ctaWash: "from-violet-100 to-purple-100 dark:from-violet-950/60 dark:to-purple-950/40",
   },
   {
     id: "study-material",
@@ -40,24 +42,26 @@ const sections = [
     description: "Allen, FIITJEE, Resonance + Cengage, Arihant",
     icon: FileText,
     path: "/study-material",
-    count: "50+",
+    emoji: "📚",
     accent: "from-emerald-500 to-teal-600",
-    ring: "ring-emerald-500/40",
-    glow: "group-hover:shadow-emerald-500/25",
-    tint: "from-emerald-500/15 via-transparent to-transparent",
+    wash: "from-emerald-50 via-teal-50/60 to-cyan-50/40 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-950/20",
+    bar: "from-emerald-400 via-teal-500 to-cyan-500",
+    subColor: "text-emerald-500 dark:text-emerald-400",
+    ctaWash: "from-emerald-100 to-teal-100 dark:from-emerald-950/60 dark:to-teal-950/40",
   },
   {
     id: "study-tracker",
     title: "Study Tracker",
-    subtitle: "Track & Boost Performance",
-    description: "Timer, Analytics, Rooms & Leaderboard",
+    subtitle: "YPT Style — Track, Compete & Grow",
+    description: "Timer, Analytics, Study Rooms, Leaderboard & Friends",
     icon: Timer,
     path: "/study-tracker",
-    count: "🔥",
+    emoji: "🔥",
     accent: "from-amber-500 to-orange-600",
-    ring: "ring-amber-500/40",
-    glow: "group-hover:shadow-amber-500/25",
-    tint: "from-amber-500/15 via-transparent to-transparent",
+    wash: "from-amber-50 via-orange-50/60 to-rose-50/40 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-rose-950/20",
+    bar: "from-amber-400 via-orange-500 to-rose-500",
+    subColor: "text-rose-500 dark:text-rose-400",
+    ctaWash: "from-amber-100 to-orange-100 dark:from-amber-950/60 dark:to-orange-950/40",
   },
   {
     id: "prepchat",
@@ -66,11 +70,12 @@ const sections = [
     description: "Chat rooms, AI doubts, study groups",
     icon: MessageCircle,
     path: "/prepchat",
-    count: "💬",
+    emoji: "💬",
     accent: "from-sky-500 to-blue-600",
-    ring: "ring-sky-500/40",
-    glow: "group-hover:shadow-sky-500/25",
-    tint: "from-sky-500/15 via-transparent to-transparent",
+    wash: "from-sky-50 via-blue-50/60 to-indigo-50/40 dark:from-sky-950/40 dark:via-blue-950/30 dark:to-indigo-950/20",
+    bar: "from-sky-400 via-blue-500 to-indigo-500",
+    subColor: "text-sky-500 dark:text-sky-400",
+    ctaWash: "from-sky-100 to-blue-100 dark:from-sky-950/60 dark:to-blue-950/40",
   },
   {
     id: "announcements",
@@ -79,11 +84,12 @@ const sections = [
     description: "Official PrepPro updates & alerts",
     icon: Megaphone,
     path: "/announcements",
-    count: "📢",
+    emoji: "📢",
     accent: "from-yellow-500 to-amber-600",
-    ring: "ring-yellow-500/40",
-    glow: "group-hover:shadow-yellow-500/25",
-    tint: "from-yellow-500/15 via-transparent to-transparent",
+    wash: "from-yellow-50 via-amber-50/60 to-orange-50/40 dark:from-yellow-950/40 dark:via-amber-950/30 dark:to-orange-950/20",
+    bar: "from-yellow-400 via-amber-500 to-orange-500",
+    subColor: "text-amber-500 dark:text-amber-400",
+    ctaWash: "from-yellow-100 to-amber-100 dark:from-yellow-950/60 dark:to-amber-950/40",
   },
   {
     id: "study-tools",
@@ -92,11 +98,12 @@ const sections = [
     description: "Roadmap, AI Doubt Solver, Test Forge, Flashcards & more",
     icon: Sparkles,
     path: "/study-tools",
-    count: "✨",
+    emoji: "✨",
     accent: "from-fuchsia-500 to-purple-600",
-    ring: "ring-fuchsia-500/40",
-    glow: "group-hover:shadow-fuchsia-500/25",
-    tint: "from-fuchsia-500/15 via-transparent to-transparent",
+    wash: "from-fuchsia-50 via-purple-50/60 to-pink-50/40 dark:from-fuchsia-950/40 dark:via-purple-950/30 dark:to-pink-950/20",
+    bar: "from-fuchsia-400 via-purple-500 to-pink-500",
+    subColor: "text-fuchsia-500 dark:text-fuchsia-400",
+    ctaWash: "from-fuchsia-100 to-purple-100 dark:from-fuchsia-950/60 dark:to-purple-950/40",
   },
   {
     id: "entertainment",
@@ -105,11 +112,12 @@ const sections = [
     description: "Live IPL scores & quick break apps",
     icon: Tv,
     path: "/entertainment",
-    count: "🎬",
+    emoji: "🎬",
     accent: "from-pink-500 to-orange-500",
-    ring: "ring-pink-500/40",
-    glow: "group-hover:shadow-pink-500/25",
-    tint: "from-pink-500/15 via-transparent to-transparent",
+    wash: "from-pink-50 via-rose-50/60 to-orange-50/40 dark:from-pink-950/40 dark:via-rose-950/30 dark:to-orange-950/20",
+    bar: "from-pink-400 via-rose-500 to-orange-500",
+    subColor: "text-pink-500 dark:text-pink-400",
+    ctaWash: "from-pink-100 to-orange-100 dark:from-pink-950/60 dark:to-orange-950/40",
   },
 ];
 
@@ -130,9 +138,9 @@ const FolderCards = () => {
           <p className="text-sm text-muted-foreground">Everything for JEE, NEET & competitive exams</p>
         </div>
 
-        <div className="max-w-3xl mx-auto flex flex-col gap-5">
+        <div className="max-w-2xl mx-auto flex flex-col gap-6">
           {sections.map((section, i) => (
-            <div key={section.id} className="flex flex-col gap-3">
+            <div key={section.id} className="flex flex-col">
               <motion.button
                 onClick={() => navigate(section.path)}
                 initial={{ opacity: 0, y: 20 }}
@@ -140,53 +148,65 @@ const FolderCards = () => {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative w-full text-left p-5 sm:p-6 rounded-3xl border border-border/60 bg-card/70 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-2xl ${section.glow}`}
+                className={`group relative w-full text-left rounded-3xl border border-border/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-br ${section.wash}`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${section.tint} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-                <span className="absolute top-4 right-4 text-[10px] font-mono font-bold text-muted-foreground/40 tracking-widest">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                {/* Top color bar */}
+                <div className={`h-1.5 w-full bg-gradient-to-r ${section.bar}`} />
 
-                <div className="relative flex items-center gap-4 sm:gap-5">
-                  {/* Logo with halo + icon badge */}
-                  <div className="relative shrink-0">
-                    <div className={`absolute -inset-2 bg-gradient-to-br ${section.accent} opacity-40 blur-2xl rounded-full group-hover:opacity-70 transition-opacity duration-500`} />
-                    <div className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-2 ${section.ring} shadow-lg`}>
-                      <img
-                        src={prepproLogo}
-                        alt="PrepPro Network"
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className={`absolute -bottom-1 -right-1 w-8 h-8 rounded-xl bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-md ring-2 ring-background`}>
-                        <section.icon className="w-4 h-4 text-white" strokeWidth={2.5} />
+                <div className="relative p-5 sm:p-6">
+                  {/* Header row: logo (left) + icon badge (right) */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="relative">
+                      <div className={`absolute -inset-2 bg-gradient-to-br ${section.accent} opacity-25 blur-2xl rounded-full`} />
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white ring-2 ring-white/80 shadow-lg p-1.5">
+                        <img
+                          src={prepproLogo}
+                          alt="PrepPro Network"
+                          className="w-full h-full object-cover rounded-xl"
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </div>
+                    </div>
+
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-lg ring-1 ring-white/40`}>
+                      <section.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2.4} />
                     </div>
                   </div>
 
-                  {/* Text */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg sm:text-2xl font-black tracking-tight text-foreground mb-1 leading-tight group-hover:text-primary transition-colors">
+                  {/* Title with emoji badge */}
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground leading-tight">
                       {section.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground/90 leading-snug line-clamp-2">
-                      {section.subtitle}
-                    </p>
-                    <p className="hidden sm:block text-xs text-muted-foreground/70 mt-1 line-clamp-1">
-                      {section.description}
-                    </p>
+                    <span className={`inline-flex items-center justify-center min-w-7 h-6 px-1.5 rounded-full bg-gradient-to-br ${section.accent} text-sm shadow-sm`}>
+                      {section.emoji}
+                    </span>
                   </div>
 
-                  {/* Arrow */}
-                  <div className={`shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:translate-x-1 transition-transform duration-300`}>
-                    <ArrowRight className="w-5 h-5 text-white" strokeWidth={2.5} />
+                  {/* Colored subtitle */}
+                  <p className={`text-sm sm:text-base font-bold ${section.subColor} mb-2 leading-snug`}>
+                    {section.subtitle}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground/90 leading-snug mb-5 line-clamp-2">
+                    {section.description}
+                  </p>
+
+                  {/* CTA pill */}
+                  <div className={`flex items-center justify-between gap-3 px-4 py-3 rounded-full bg-gradient-to-r ${section.ctaWash} group-hover:shadow-md transition-shadow`}>
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full bg-gradient-to-br ${section.accent}`} />
+                      <span className={`text-sm font-bold ${section.subColor}`}>Explore Now</span>
+                    </div>
+                    <ArrowRight className={`w-5 h-5 ${section.subColor} group-hover:translate-x-1 transition-transform`} strokeWidth={2.5} />
                   </div>
                 </div>
               </motion.button>
 
-              {/* WhatsApp link between every section */}
-              <WhatsAppChannelBanner url={WHATSAPP_LINK} label={section.title} />
+              {/* Subtle WhatsApp strip directly below each card (~75% visibility) */}
+              <WhatsAppChannelBanner url={WHATSAPP_LINK} label={section.title} compact />
             </div>
           ))}
         </div>
