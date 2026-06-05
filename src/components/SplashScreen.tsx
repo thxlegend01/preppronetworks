@@ -26,10 +26,6 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center splash-root" aria-hidden="true">
       <div className="splash-halo" />
-      <svg className="splash-ring" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary) / 0.25)" strokeWidth="1.5" />
-        <circle className="splash-ring-arc" cx="60" cy="60" r="56" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" />
-      </svg>
       <div className="splash-wrap">
         <img
           src={prepproLogo}
