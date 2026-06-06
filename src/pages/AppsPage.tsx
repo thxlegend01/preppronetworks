@@ -13,6 +13,7 @@ import ComingSoonDialog from "@/components/ComingSoonDialog";
 import CwNoticeDialog from "@/components/CwNoticeDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
@@ -164,6 +165,7 @@ const AppsPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Free Study Apps for JEE, NEET, NDA & CDS | PrepPro Network"} description={"Access 100+ premium study apps including PW, Allen, Unacademy, Vedantu and more — all free for JEE, NEET, NDA, CDS aspirants."} path="/apps" keywords={"study apps, JEE app, NEET app, free coaching app, PW app, Allen app"} />
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 pt-24 pb-16">

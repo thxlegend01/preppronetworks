@@ -1,4 +1,5 @@
 import { ArrowLeft, BookOpen, AlertTriangle } from "lucide-react";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 

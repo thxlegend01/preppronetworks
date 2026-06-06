@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 
 import BatchCard from "@/components/BatchCard";
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import MotionWrapper from "@/components/MotionWrapper";
 import { BATCHES, CATEGORIES, type Category } from "@/lib/data";
@@ -31,6 +32,7 @@ const BatchesPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Free Premium Batches for JEE, NEET & CDS | PrepPro Network"} description={"Access free premium batches from PW, Allen, Unacademy, Vedantu and top educators for JEE, NEET, NDA & CDS preparation."} path="/batches" keywords={"free batches, JEE batches, NEET batches, PW batch, Allen batch"} />
     <div className="min-h-screen bg-background">
       <Header />
 
