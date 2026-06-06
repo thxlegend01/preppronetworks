@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 
@@ -40,6 +41,7 @@ const PrepProWorldPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"PrepPro World — Telegram Channels for JEE/NEET Aspirants | PrepPro Network"} description={"Explore PrepPro World — curated Telegram channels, communities and resource hubs for JEE, NEET, NDA & CDS aspirants."} path="/preppro-world" keywords={"telegram channels, JEE telegram, NEET resources"} />
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 pt-24 pb-16">

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 
 const tests = [
@@ -32,6 +33,7 @@ const MathangoTestsPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Mathongo QFT Tests — Free JEE Mock Tests | PrepPro Network"} description={"Attempt all 12 Mathongo Quality Foundation Tests (QFT) free on PrepPro Network for JEE Mains preparation."} path="/mathango-tests" keywords={"mathongo qft, mathongo tests, JEE mock test, quality foundation test"} />
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 pt-24 pb-16">

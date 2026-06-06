@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { usePresence } from "@/hooks/usePresence";
 import Header from "@/components/Header";
 
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import StudyTimerWidget from "@/components/study/StudyTimerWidget";
 import StatsWidget from "@/components/study/StatsWidget";
@@ -37,6 +38,7 @@ const StudyTrackerPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Free Study Tracker & Timer for JEE/NEET Aspirants | PrepPro Network"} description={"Track study hours, compete on leaderboards, join virtual study rooms and stay consistent with PrepPro Network's YPT-style study tracker."} path="/study-tracker" keywords={"study tracker, study timer, YPT, JEE study planner, leaderboard"} />
       <div className="min-h-screen bg-background">
         <Header />
         

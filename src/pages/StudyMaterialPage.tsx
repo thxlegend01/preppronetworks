@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 
@@ -222,6 +223,7 @@ const StudyMaterialPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Free Study Material for JEE, NEET & Competitive Exams | PrepPro Network"} description={"Download free JEE, NEET, NDA & CDS study material — PYQs, notes, formula sheets, books and revision modules curated by PrepPro Network."} path="/study-material" keywords={"JEE study material, NEET notes, free PDFs, PYQ, formula sheet"} />
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 pt-24 pb-16">

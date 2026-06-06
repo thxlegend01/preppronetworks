@@ -11,6 +11,7 @@ import DisclaimerDialog from "@/components/DisclaimerDialog";
 import ComingSoonDialog from "@/components/ComingSoonDialog";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
+import SEO from "@/components/SEO";
 import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
@@ -92,6 +93,7 @@ const TestSeriesPage = () => {
 
   return (
     <PageTransition>
+      <SEO title={"Free Test Series for JEE & NEET — Mathongo, VOTS, Etoos | PrepPro Network"} description={"Practice JEE & NEET with free Mathongo QFT tests, VOTS-2 full syllabus tests, Etoos India test series and more on PrepPro Network."} path="/test-series" keywords={"JEE test series, NEET test series, mathongo tests, VOTS test, free mock tests"} />
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 pt-24 pb-16">
