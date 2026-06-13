@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import NotificationManager from "./NotificationManager";
 
-const ADMIN_PASSWORD = "Legend Owner";
+const ADMIN_PASSWORD = "saurabhsaroj2010@gmail.com";
 
 interface UserProfile {
   id: string;
