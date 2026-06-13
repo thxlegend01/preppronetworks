@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { ArrowLeft, Send, Image as ImageIcon, MessageSquare, Trash2, Ban, X, Loader2, Plus, LogIn } from "lucide-react";
+import { ArrowLeft, Send, MessageSquare, Trash2, Ban, X, Loader2, Plus, LogIn, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
