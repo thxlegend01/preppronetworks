@@ -35,6 +35,8 @@ const PrepChatPage = lazy(() => import("./pages/PrepChatPage"));
 const AnnouncementsPage = lazy(() => import("./pages/AnnouncementsPage"));
 const StudyToolsPage = lazy(() => import("./pages/StudyToolsPage"));
 const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
+const CommunityPage = lazy(() => import("./pages/CommunityPage"));
+const OwnerChatPage = lazy(() => import("./pages/OwnerChatPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -98,6 +100,8 @@ const App = () => {
                           <Route path="/announcements" element={<AnnouncementsPage />} />
                           <Route path="/study-tools" element={<StudyToolsPage />} />
                           <Route path="/entertainment" element={<EntertainmentPage />} />
+                          <Route path="/community" element={<CommunityPage />} />
+                          <Route path="/owner-chat" element={<OwnerChatPage />} />
                           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                           <Route path="/test/:testId" element={<TestPage />} />
                           <Route path="/viewer" element={<ViewerPage />} />

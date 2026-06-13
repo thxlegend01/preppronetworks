@@ -1,4 +1,4 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Megaphone, Sparkles, Tv } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-logo.jpg";
@@ -78,20 +78,6 @@ const sections = [
     ctaWash: "from-sky-100 to-blue-100 dark:from-sky-950/60 dark:to-blue-950/40",
   },
   {
-    id: "announcements",
-    title: "Announcements",
-    subtitle: "Latest News & Updates",
-    description: "Official PrepPro updates & alerts",
-    icon: Megaphone,
-    path: "/announcements",
-    emoji: "📢",
-    accent: "from-yellow-500 to-amber-600",
-    wash: "from-yellow-50 via-amber-50/60 to-orange-50/40 dark:from-yellow-950/40 dark:via-amber-950/30 dark:to-orange-950/20",
-    bar: "from-yellow-400 via-amber-500 to-orange-500",
-    subColor: "text-amber-500 dark:text-amber-400",
-    ctaWash: "from-yellow-100 to-amber-100 dark:from-yellow-950/60 dark:to-amber-950/40",
-  },
-  {
     id: "study-tools",
     title: "PrepPro Study Tools",
     subtitle: "Pro Academic Toolkit",
@@ -104,20 +90,6 @@ const sections = [
     bar: "from-fuchsia-400 via-purple-500 to-pink-500",
     subColor: "text-fuchsia-500 dark:text-fuchsia-400",
     ctaWash: "from-fuchsia-100 to-purple-100 dark:from-fuchsia-950/60 dark:to-purple-950/40",
-  },
-  {
-    id: "entertainment",
-    title: "PrepPro Entertainment",
-    subtitle: "Refresh Your Mind",
-    description: "Live IPL scores & quick break apps",
-    icon: Tv,
-    path: "/entertainment",
-    emoji: "🎬",
-    accent: "from-pink-500 to-orange-500",
-    wash: "from-pink-50 via-rose-50/60 to-orange-50/40 dark:from-pink-950/40 dark:via-rose-950/30 dark:to-orange-950/20",
-    bar: "from-pink-400 via-rose-500 to-orange-500",
-    subColor: "text-pink-500 dark:text-pink-400",
-    ctaWash: "from-pink-100 to-orange-100 dark:from-pink-950/60 dark:to-orange-950/40",
   },
 ];
 
