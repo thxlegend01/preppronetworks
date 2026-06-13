@@ -71,6 +71,121 @@ export type Database = {
         }
         Relationships: []
       }
+      community_banned_users: {
+        Row: {
+          banned_at: string
+          banned_by: string | null
+          reason: string | null
+          user_id: string
+        }
+        Insert: {
+          banned_at?: string
+          banned_by?: string | null
+          reason?: string | null
+          user_id: string
+        }
+        Update: {
+          banned_at?: string
+          banned_by?: string | null
+          reason?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      community_comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_posts: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          is_edited: boolean
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_edited?: boolean
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_edited?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      community_reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_reactions_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daily_tasks: {
         Row: {
           created_at: string
@@ -193,6 +308,36 @@ export type Database = {
           author?: string | null
           id?: string
           quote?: string
+        }
+        Relationships: []
+      }
+      owner_messages: {
+        Row: {
+          content: string
+          created_at: string
+          from_owner: boolean
+          id: string
+          is_read: boolean
+          sender_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          from_owner?: boolean
+          id?: string
+          is_read?: boolean
+          sender_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          from_owner?: boolean
+          id?: string
+          is_read?: boolean
+          sender_id?: string
+          user_id?: string
         }
         Relationships: []
       }
