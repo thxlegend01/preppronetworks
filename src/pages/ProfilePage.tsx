@@ -242,7 +242,7 @@ const ProfilePage = () => {
                   disabled
                   className="bg-muted/50"
                 />
-                <p className="text-xs text-muted-foreground">Email cannot be changed</p>
+                <p className="text-xs text-muted-foreground">To change your email, scroll down to "Change Email".</p>
               </div>
 
               <div className="space-y-2">
