@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { ArrowLeft, Send, Loader2, LogIn, Shield, Search, Trash2 } from "lucide-react";
+import { ArrowLeft, Send, Loader2, LogIn, Shield, Search, Trash2, Paperclip, Image as ImageIcon, Video, File as FileIcon, X, Pencil, Check, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,6 +26,10 @@ interface Msg {
   content: string;
   from_owner: boolean;
   created_at: string;
+  media_url?: string | null;
+  media_type?: string | null;
+  media_name?: string | null;
+  is_edited?: boolean | null;
 }
 interface Profile { user_id: string; display_name: string | null; username: string | null; avatar_url: string | null; }
 
@@ -42,6 +46,11 @@ const OwnerChatPage = () => {
   const [sending, setSending] = useState(false);
   const [activeThread, setActiveThread] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const fetchData = useCallback(async () => {
@@ -97,24 +106,58 @@ const OwnerChatPage = () => {
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [activeMsgs.length]);
 
   const send = async () => {
-    if (!user || !draft.trim()) return;
+    if (!user) return;
+    if (!draft.trim() && !pendingFile) return;
     const targetUserId = isAdmin ? activeThread : user.id;
     if (!targetUserId) return;
     setSending(true);
+    let media_url: string | null = null;
+    let media_type: string | null = null;
+    let media_name: string | null = null;
+    if (pendingFile) {
+      setUploading(true);
+      const ext = pendingFile.name.split(".").pop() || "bin";
+      const path = `owner-chat/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("chat-media").upload(path, pendingFile, { contentType: pendingFile.type, upsert: false });
+      setUploading(false);
+      if (upErr) { setSending(false); toast({ variant: "destructive", title: "Upload failed", description: upErr.message }); return; }
+      const { data } = supabase.storage.from("chat-media").getPublicUrl(path);
+      media_url = data.publicUrl;
+      media_type = pendingFile.type || "application/octet-stream";
+      media_name = pendingFile.name;
+    }
     const { error } = await supabase.from("owner_messages").insert({
       user_id: targetUserId,
       sender_id: user.id,
       content: draft.trim(),
       from_owner: isAdmin,
-    });
+      media_url, media_type, media_name,
+    } as any);
     setSending(false);
     if (error) { toast({ variant: "destructive", title: "Failed", description: error.message }); return; }
-    setDraft("");
+    setDraft(""); setPendingFile(null);
+    if (fileRef.current) fileRef.current.value = "";
   };
 
   const deleteMsg = async (id: string) => {
-    if (!isAdmin) return;
-    await supabase.from("owner_messages").delete().eq("id", id);
+    if (!confirm("Delete this message?")) return;
+    const { error } = await supabase.from("owner_messages").delete().eq("id", id);
+    if (error) toast({ variant: "destructive", title: "Failed", description: error.message });
+  };
+
+  const startEdit = (m: Msg) => { setEditingId(m.id); setEditText(m.content || ""); };
+  const cancelEdit = () => { setEditingId(null); setEditText(""); };
+  const saveEdit = async (id: string) => {
+    const { error } = await supabase.from("owner_messages").update({ content: editText.trim(), is_edited: true } as any).eq("id", id);
+    if (error) { toast({ variant: "destructive", title: "Failed", description: error.message }); return; }
+    cancelEdit();
+  };
+
+  const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    if (f.size > 25 * 1024 * 1024) { toast({ variant: "destructive", title: "File too large", description: "Max 25 MB" }); return; }
+    setPendingFile(f);
   };
 
   if (authLoading || loading) {
