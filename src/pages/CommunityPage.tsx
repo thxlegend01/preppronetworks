@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { ArrowLeft, Send, MessageSquare, Trash2, Ban, X, Loader2, Plus, LogIn, Megaphone } from "lucide-react";
+import { ArrowLeft, Send, MessageSquare, Trash2, Ban, X, Loader2, Plus, LogIn, Megaphone, Pencil, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -52,6 +52,10 @@ const CommunityPage = () => {
   const [posting, setPosting] = useState(false);
   const [openComments, setOpenComments] = useState<Record<string, boolean>>({});
   const [commentDraft, setCommentDraft] = useState<Record<string, string>>({});
+  const [editingPostId, setEditingPostId] = useState<string | null>(null);
+  const [editDraft, setEditDraft] = useState("");
+  const [editImage, setEditImage] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
 
   const fetchAll = useCallback(async () => {
     const [{ data: p }, { data: r }, { data: c }, { data: b }] = await Promise.all([
@@ -109,6 +113,26 @@ const CommunityPage = () => {
     if (!confirm("Delete this post?")) return;
     const { error } = await supabase.from("community_posts").delete().eq("id", id);
     if (error) toast({ variant: "destructive", title: "Failed", description: error.message });
+  };
+
+  const startEdit = (p: Post) => {
+    setEditingPostId(p.id);
+    setEditDraft(p.content);
+    setEditImage(p.image_url || "");
+  };
+  const cancelEdit = () => { setEditingPostId(null); setEditDraft(""); setEditImage(""); };
+  const saveEdit = async (id: string) => {
+    if (!editDraft.trim()) return;
+    setSavingEdit(true);
+    const { error } = await supabase.from("community_posts").update({
+      content: editDraft.trim(),
+      image_url: editImage.trim() || null,
+      is_edited: true,
+    }).eq("id", id);
+    setSavingEdit(false);
+    if (error) { toast({ variant: "destructive", title: "Failed", description: error.message }); return; }
+    cancelEdit();
+    toast({ title: "Post updated" });
   };
 
   const toggleReaction = async (postId: string, emoji: string) => {
