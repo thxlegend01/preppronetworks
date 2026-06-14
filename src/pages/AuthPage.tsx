@@ -14,6 +14,7 @@ import PageTransition from "@/components/PageTransition";
 import prepproLogo from "@/assets/preppro-network-logo.jpg";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 import { motion, AnimatePresence } from "framer-motion";
 
 const loginSchema = z.object({
@@ -54,6 +55,27 @@ const AuthPage = () => {
   const { toast } = useToast();
   const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) {
+        toast({ variant: "destructive", title: "Google sign-in failed", description: (result.error as Error).message || "Please try again." });
+        setGoogleLoading(false);
+        return;
+      }
+      if (result.redirected) return; // browser redirecting
+      toast({ title: "Welcome! 🎉" });
+      navigate("/");
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Google sign-in failed", description: e?.message || "Please try again." });
+      setGoogleLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (user) {
