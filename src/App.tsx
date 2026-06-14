@@ -86,26 +86,26 @@ const App = () => {
                           <Route path="/" element={<Index />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/reset-password" element={<ResetPasswordPage />} />
-                          <Route path="/profile" element={<ProfilePage />} />
-                          <Route path="/apps" element={<AppsPage />} />
-                          <Route path="/test-series" element={<TestSeriesPage />} />
-                          <Route path="/study-material" element={<StudyMaterialPage />} />
-                          <Route path="/batches" element={<BatchesPage />} />
-                          <Route path="/study-tracker" element={<StudyTrackerPage />} />
-                          <Route path="/preppro-world" element={<PrepProWorldPage />} />
-                          <Route path="/mathango-tests" element={<MathangoTestsPage />} />
-                          <Route path="/vots-tests" element={<VotsTestsPage />} />
-                          <Route path="/etoos-hub" element={<EtoosHubPage />} />
-                          <Route path="/prepchat" element={<PrepChatPage />} />
-                          <Route path="/announcements" element={<AnnouncementsPage />} />
-                          <Route path="/study-tools" element={<StudyToolsPage />} />
-                          <Route path="/entertainment" element={<EntertainmentPage />} />
-                          <Route path="/community" element={<CommunityPage />} />
-                          <Route path="/owner-chat" element={<OwnerChatPage />} />
-                          <Route path="/batches/:batchId" element={<BatchDetailPage />} />
-                          <Route path="/test/:testId" element={<TestPage />} />
-                          <Route path="/viewer" element={<ViewerPage />} />
-                          <Route path="/view/:appId" element={<ViewerPage />} />
+                          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                          <Route path="/apps" element={<ProtectedRoute><AppsPage /></ProtectedRoute>} />
+                          <Route path="/test-series" element={<ProtectedRoute><TestSeriesPage /></ProtectedRoute>} />
+                          <Route path="/study-material" element={<ProtectedRoute><StudyMaterialPage /></ProtectedRoute>} />
+                          <Route path="/batches" element={<ProtectedRoute><BatchesPage /></ProtectedRoute>} />
+                          <Route path="/study-tracker" element={<ProtectedRoute><StudyTrackerPage /></ProtectedRoute>} />
+                          <Route path="/preppro-world" element={<ProtectedRoute><PrepProWorldPage /></ProtectedRoute>} />
+                          <Route path="/mathango-tests" element={<ProtectedRoute><MathangoTestsPage /></ProtectedRoute>} />
+                          <Route path="/vots-tests" element={<ProtectedRoute><VotsTestsPage /></ProtectedRoute>} />
+                          <Route path="/etoos-hub" element={<ProtectedRoute><EtoosHubPage /></ProtectedRoute>} />
+                          <Route path="/prepchat" element={<ProtectedRoute><PrepChatPage /></ProtectedRoute>} />
+                          <Route path="/announcements" element={<ProtectedRoute><AnnouncementsPage /></ProtectedRoute>} />
+                          <Route path="/study-tools" element={<ProtectedRoute><StudyToolsPage /></ProtectedRoute>} />
+                          <Route path="/entertainment" element={<ProtectedRoute><EntertainmentPage /></ProtectedRoute>} />
+                          <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+                          <Route path="/owner-chat" element={<ProtectedRoute><OwnerChatPage /></ProtectedRoute>} />
+                          <Route path="/batches/:batchId" element={<ProtectedRoute><BatchDetailPage /></ProtectedRoute>} />
+                          <Route path="/test/:testId" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
+                          <Route path="/viewer" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
+                          <Route path="/view/:appId" element={<ProtectedRoute><ViewerPage /></ProtectedRoute>} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                       </AnimatePresence>

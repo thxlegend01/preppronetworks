@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowLeft, Camera, Loader2, Upload, X } from "lucide-react";
+import { ArrowLeft, Camera, Loader2, Upload, X, Lock, Mail } from "lucide-react";
 import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -27,6 +27,46 @@ const ProfilePage = () => {
   const [uploading, setUploading] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+
+  // Change password
+  const [currentPwd, setCurrentPwd] = useState("");
+  const [newPwd, setNewPwd] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
+  const [pwdLoading, setPwdLoading] = useState(false);
+
+  // Change email
+  const [newEmail, setNewEmail] = useState("");
+  const [emailPwd, setEmailPwd] = useState("");
+  const [emailLoading, setEmailLoading] = useState(false);
+
+  const handleChangePassword = async () => {
+    if (!user?.email) return;
+    if (newPwd.length < 6) return toast.error("New password must be at least 6 characters");
+    if (newPwd !== confirmPwd) return toast.error("Passwords don't match");
+    setPwdLoading(true);
+    // Re-authenticate with current password to verify
+    const { error: signErr } = await supabase.auth.signInWithPassword({ email: user.email, password: currentPwd });
+    if (signErr) { setPwdLoading(false); return toast.error("Current password is incorrect"); }
+    const { error } = await supabase.auth.updateUser({ password: newPwd });
+    setPwdLoading(false);
+    if (error) return toast.error(error.message);
+    setCurrentPwd(""); setNewPwd(""); setConfirmPwd("");
+    toast.success("Password updated successfully");
+  };
+
+  const handleChangeEmail = async () => {
+    if (!user?.email) return;
+    if (!newEmail.includes("@")) return toast.error("Enter a valid email");
+    if (newEmail.toLowerCase() === user.email.toLowerCase()) return toast.error("That's already your email");
+    setEmailLoading(true);
+    const { error: signErr } = await supabase.auth.signInWithPassword({ email: user.email, password: emailPwd });
+    if (signErr) { setEmailLoading(false); return toast.error("Current password is incorrect"); }
+    const { error } = await supabase.auth.updateUser({ email: newEmail.trim() });
+    setEmailLoading(false);
+    if (error) return toast.error(error.message);
+    setNewEmail(""); setEmailPwd("");
+    toast.success("Check your inbox to confirm the new email");
+  };
 
   useEffect(() => {
     if (user) {
@@ -202,7 +242,7 @@ const ProfilePage = () => {
                   disabled
                   className="bg-muted/50"
                 />
-                <p className="text-xs text-muted-foreground">Email cannot be changed</p>
+                <p className="text-xs text-muted-foreground">To change your email, scroll down to "Change Email".</p>
               </div>
 
               <div className="space-y-2">
@@ -263,6 +303,39 @@ const ProfilePage = () => {
                 ) : (
                   "Save Changes"
                 )}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Change Password */}
+          <Card className="mt-6 border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2"><Lock className="w-4 h-4" /> Change Password</CardTitle>
+              <CardDescription>Enter your current password to set a new one.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="space-y-2"><Label>Current password</Label><Input type="password" value={currentPwd} onChange={e => setCurrentPwd(e.target.value)} /></div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-2"><Label>New password</Label><Input type="password" value={newPwd} onChange={e => setNewPwd(e.target.value)} /></div>
+                <div className="space-y-2"><Label>Confirm new password</Label><Input type="password" value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)} /></div>
+              </div>
+              <Button onClick={handleChangePassword} disabled={pwdLoading || !currentPwd || !newPwd} className="w-full">
+                {pwdLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Updating…</> : "Update Password"}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Change Email */}
+          <Card className="mt-6 border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2"><Mail className="w-4 h-4" /> Change Email</CardTitle>
+              <CardDescription>We'll send a confirmation link to the new email.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="space-y-2"><Label>New email address</Label><Input type="email" value={newEmail} onChange={e => setNewEmail(e.target.value)} placeholder="new@example.com" /></div>
+              <div className="space-y-2"><Label>Current password</Label><Input type="password" value={emailPwd} onChange={e => setEmailPwd(e.target.value)} /></div>
+              <Button onClick={handleChangeEmail} disabled={emailLoading || !newEmail || !emailPwd} className="w-full">
+                {emailLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending…</> : "Update Email"}
               </Button>
             </CardContent>
           </Card>

@@ -317,8 +317,13 @@ export type Database = {
           created_at: string
           from_owner: boolean
           id: string
+          is_edited: boolean
           is_read: boolean
+          media_name: string | null
+          media_type: string | null
+          media_url: string | null
           sender_id: string
+          updated_at: string
           user_id: string
         }
         Insert: {
@@ -326,8 +331,13 @@ export type Database = {
           created_at?: string
           from_owner?: boolean
           id?: string
+          is_edited?: boolean
           is_read?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
           sender_id: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -335,8 +345,13 @@ export type Database = {
           created_at?: string
           from_owner?: boolean
           id?: string
+          is_edited?: boolean
           is_read?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
           sender_id?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
