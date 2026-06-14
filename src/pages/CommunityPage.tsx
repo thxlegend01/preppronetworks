@@ -282,17 +282,37 @@ const CommunityPage = () => {
                     <p className="text-[11px] text-muted-foreground">{new Date(post.created_at).toLocaleString()}{post.is_edited && " · edited"}</p>
                   </div>
                   {isAdmin && (
-                    <Button size="icon" variant="ghost" onClick={() => deletePost(post.id)} className="h-8 w-8 text-destructive hover:bg-destructive/10 rounded-full">
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <Button size="icon" variant="ghost" onClick={() => startEdit(post)} className="h-8 w-8 text-foreground hover:bg-muted rounded-full" aria-label="Edit post">
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                      <Button size="icon" variant="ghost" onClick={() => deletePost(post.id)} className="h-8 w-8 text-destructive hover:bg-destructive/10 rounded-full" aria-label="Delete post">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   )}
                 </div>
 
                 {/* content */}
                 <div className="px-4 pb-3">
-                  <p className="text-[15px] text-foreground whitespace-pre-wrap leading-relaxed">{post.content}</p>
-                  {post.image_url && (
-                    <img src={post.image_url} alt="" className="mt-3 rounded-xl max-h-96 w-full object-cover border border-border/40" loading="lazy" />
+                  {editingPostId === post.id ? (
+                    <div className="space-y-2">
+                      <Textarea value={editDraft} onChange={e => setEditDraft(e.target.value)} className="min-h-24 rounded-2xl" />
+                      <Input value={editImage} onChange={e => setEditImage(e.target.value)} placeholder="Image URL (optional)" className="rounded-xl text-sm" />
+                      <div className="flex gap-2 justify-end">
+                        <Button variant="ghost" onClick={cancelEdit} className="rounded-full">Cancel</Button>
+                        <Button onClick={() => saveEdit(post.id)} disabled={savingEdit || !editDraft.trim()} className="rounded-full gap-1.5">
+                          {savingEdit ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />} Save
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-[15px] text-foreground whitespace-pre-wrap leading-relaxed">{post.content}</p>
+                      {post.image_url && (
+                        <img src={post.image_url} alt="" className="mt-3 rounded-xl max-h-96 w-full object-cover border border-border/40" loading="lazy" />
+                      )}
+                    </>
                   )}
                 </div>
 
