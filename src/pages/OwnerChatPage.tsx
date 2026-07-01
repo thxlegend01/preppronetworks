@@ -39,6 +39,16 @@ const OwnerChatPage = () => {
   const { toast } = useToast();
   const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email);
 
+  // Admin password gate
+  const [adminUnlocked, setAdminUnlocked] = useState(false);
+  const [adminPwd, setAdminPwd] = useState("");
+  const [pwdError, setPwdError] = useState("");
+
+  // Mark owner chat as seen on open (for non-admin users)
+  useEffect(() => {
+    localStorage.setItem("owner_chat_seen_ts", String(Date.now()));
+  }, []);
+
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [profiles, setProfiles] = useState<Record<string, Profile>>({});
   const [loading, setLoading] = useState(true);
@@ -162,6 +172,36 @@ const OwnerChatPage = () => {
 
   if (authLoading || loading) {
     return <div className="h-screen flex items-center justify-center bg-background"><Loader2 className="w-8 h-8 text-primary animate-spin" /></div>;
+  }
+
+  // Admin password gate for owner inbox
+  if (isAdmin && !adminUnlocked) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (adminPwd.trim() === "Saurabh") { setAdminUnlocked(true); setPwdError(""); }
+            else setPwdError("Incorrect password");
+          }}
+          className="w-full max-w-sm p-6 rounded-3xl bg-card border border-border shadow-xl space-y-4"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 grid place-items-center mx-auto">
+            <Shield className="w-7 h-7 text-white" />
+          </div>
+          <div className="text-center">
+            <h2 className="font-black text-xl">Admin Access</h2>
+            <p className="text-xs text-muted-foreground mt-1">Enter the admin password to open the Owner Inbox.</p>
+          </div>
+          <Input type="password" value={adminPwd} onChange={(e) => setAdminPwd(e.target.value)} placeholder="Password" autoFocus className="rounded-xl" />
+          {pwdError && <p className="text-xs text-destructive text-center">{pwdError}</p>}
+          <div className="flex gap-2">
+            <Button type="button" variant="ghost" onClick={() => navigate("/")} className="flex-1 rounded-full">Cancel</Button>
+            <Button type="submit" className="flex-1 rounded-full">Unlock</Button>
+          </div>
+        </form>
+      </div>
+    );
   }
 
   if (!user) {

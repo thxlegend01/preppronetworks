@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookOpen, ArrowLeft } from "lucide-react";
+import { BookOpen, ArrowLeft, Sparkles, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -117,6 +117,50 @@ const TestSeriesPage = () => {
           </motion.div>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search test series..." />
+
+          {/* PrepJee big promo banner — above test cards */}
+          <motion.a
+            href="https://prepjee.lovable.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileTap={{ scale: 0.985 }}
+            className="relative block mt-6 overflow-hidden rounded-3xl ring-1 ring-amber-300/40 shadow-[0_20px_60px_-15px_rgba(234,88,12,0.5)]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#7c2d12] via-[#c2410c] to-[#f59e0b]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.3),transparent_55%)]" />
+            <motion.div
+              aria-hidden
+              className="absolute -inset-y-2 -left-1/3 w-1/3 skew-x-12 bg-white/20 blur-md"
+              initial={{ x: "-20%" }}
+              animate={{ x: "420%" }}
+              transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="relative p-5 sm:p-6 flex items-center gap-4 text-white">
+              <div className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/15 ring-1 ring-white/40 backdrop-blur flex items-center justify-center">
+                <Sparkles className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.4} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 backdrop-blur text-[10px] font-black tracking-[0.12em] uppercase ring-1 ring-white/30 mb-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  NEW PLATFORM • FREE
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight drop-shadow-sm">
+                  PrepJee
+                </h3>
+                <p className="text-xs sm:text-sm text-white/90 leading-snug mt-0.5">
+                  Free PYQs, Mathango &amp; other test series — <span className="font-bold underline underline-offset-2">prepjee.lovable.app</span>
+                </p>
+              </div>
+              <div className="shrink-0 hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full bg-white text-orange-700 text-xs font-black shadow-md">
+                Open <ExternalLink className="w-3.5 h-3.5" />
+              </div>
+              <div className="sm:hidden shrink-0 w-9 h-9 rounded-full bg-white flex items-center justify-center text-orange-700 shadow">
+                <ExternalLink className="w-4 h-4" strokeWidth={2.6} />
+              </div>
+            </div>
+          </motion.a>
 
           <div className="mt-6">
             <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Test Series & PYQs" />
