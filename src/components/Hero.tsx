@@ -53,7 +53,7 @@ const Hero = () => {
             >
               <Button
                 size="lg"
-                className="shimmer-btn h-13 px-8 text-sm font-bold rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-[0_14px_40px_-10px_hsl(351_100%_72%/0.55)] hover:shadow-[0_20px_50px_-10px_hsl(351_100%_72%/0.7)] hover:-translate-y-0.5 transition-all duration-500 group"
+                className="shimmer-btn h-14 px-8 text-sm font-bold rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-[0_14px_40px_-10px_hsl(351_100%_72%/0.55)] hover:shadow-[0_20px_50px_-10px_hsl(351_100%_72%/0.7)] hover:-translate-y-0.5 transition-all duration-500 group"
                 onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Get Started
@@ -62,7 +62,7 @@ const Hero = () => {
               <Button
                 variant="ghost"
                 size="lg"
-                className="h-13 px-6 text-sm font-semibold rounded-full text-foreground/80 hover:bg-white/60 hover:backdrop-blur"
+                className="h-14 px-6 text-sm font-semibold rounded-full text-foreground/80 hover:bg-white/60 hover:backdrop-blur"
                 onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Explore Resources
