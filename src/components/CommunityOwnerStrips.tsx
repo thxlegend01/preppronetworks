@@ -26,13 +26,17 @@ const CommunityOwnerStrips = () => {
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
-      // Community unread (all visitors)
-      const commSeen = Number(localStorage.getItem("community_seen_ts") || 0);
-      const { count: cCount } = await supabase
-        .from("community_posts")
-        .select("id", { count: "exact", head: true })
-        .gt("created_at", new Date(commSeen).toISOString());
-      if (!cancelled) setCommunityUnread(cCount || 0);
+      // Community (announcements) unread — only for non-admin viewers
+      if (!isAdmin) {
+        const commSeen = Number(localStorage.getItem("community_seen_ts") || 0);
+        const { count: cCount } = await supabase
+          .from("community_posts")
+          .select("id", { count: "exact", head: true })
+          .gt("created_at", new Date(commSeen).toISOString());
+        if (!cancelled) setCommunityUnread(cCount || 0);
+      } else if (!cancelled) {
+        setCommunityUnread(0);
+      }
 
       // Owner chat unread only for non-admin logged-in users
       if (user && !isAdmin) {
@@ -67,7 +71,7 @@ const CommunityOwnerStrips = () => {
       gradient: "from-[#5b21b6] via-[#7c3aed] to-[#db2777]",
       glow: "shadow-[0_18px_60px_-15px_rgba(124,58,237,0.55)]",
       ring: "ring-fuchsia-300/30",
-      badge: communityUnread,
+      badge: isAdmin ? 0 : communityUnread,
     },
     {
       id: "owner-chat",
