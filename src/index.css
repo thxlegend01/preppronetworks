@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,19 +6,20 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 10%;
+    /* Editorial Luxury × Soft Glassmorphism — warm cream-pink base */
+    --background: 355 100% 98.5%;   /* ~#FFF8F8 */
+    --foreground: 348 18% 15%;      /* ~#2D2224 deep espresso-pink */
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
+    --card-foreground: 348 18% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
-    --primary: 340 75% 62%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 340 20% 95%;
-    --secondary-foreground: 240 10% 10%;
-    --muted: 240 5% 94%;
-    --muted-foreground: 240 5% 46%;
-    --accent: 328 70% 58%;
+    --popover-foreground: 348 18% 15%;
+    --primary: 349 100% 78%;        /* ~#FFB7C5 sakura */
+    --primary-foreground: 348 30% 12%;
+    --secondary: 350 100% 96%;
+    --secondary-foreground: 348 18% 15%;
+    --muted: 350 40% 95%;
+    --muted-foreground: 348 10% 38%;
+    --accent: 351 100% 78%;         /* ~#FF8E9E rose highlight */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -26,12 +27,12 @@
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 240 10% 10%;
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 340 75% 62%;
-    --radius: 1rem;
-    --gradient-primary: linear-gradient(135deg, hsl(328 88% 52%) 0%, hsl(20 95% 58%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(340 20% 99%) 100%);
+    --border: 350 60% 92%;
+    --input: 350 60% 94%;
+    --ring: 349 100% 78%;
+    --radius: 1.25rem;
+    --gradient-primary: linear-gradient(135deg, hsl(349 100% 82%) 0%, hsl(351 100% 72%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.85) 0%, hsl(350 100% 98% / 0.7) 100%);
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 10% 10%;
     --sidebar-primary: 340 75% 62%;
@@ -94,11 +95,13 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     @apply tracking-tight;
+    letter-spacing: -0.02em;
   }
 
   h1, h2 { font-weight: 800; letter-spacing: -0.02em; }
@@ -114,6 +117,78 @@
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-primary);
   }
+
+  /* Soft pulsing ambient blobs for that "Editorial Luxury" glow. */
+  .ambient-glow::before,
+  .ambient-glow::after {
+    content: "";
+    position: absolute;
+    width: 42rem;
+    height: 42rem;
+    border-radius: 9999px;
+    filter: blur(120px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+    animation: ambient-pulse 9s ease-in-out infinite;
+  }
+  .ambient-glow::before {
+    top: -12rem;
+    right: -10rem;
+    background: radial-gradient(circle, hsl(349 100% 82% / 0.55), transparent 70%);
+  }
+  .ambient-glow::after {
+    bottom: -14rem;
+    left: -10rem;
+    background: radial-gradient(circle, hsl(351 100% 78% / 0.35), transparent 70%);
+    animation-delay: 2.5s;
+  }
+
+  @keyframes ambient-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50%      { transform: scale(1.08); opacity: 0.7; }
+  }
+
+  .luxe-card {
+    @apply relative rounded-3xl border bg-white/70 backdrop-blur-xl transition-all duration-500;
+    border-color: hsl(349 100% 82% / 0.35);
+    box-shadow: 0 8px 30px hsl(349 100% 78% / 0.12);
+  }
+  .luxe-card:hover {
+    transform: translateY(-6px);
+    border-color: hsl(351 100% 72% / 0.5);
+    box-shadow: 0 24px 50px hsl(351 100% 72% / 0.22);
+  }
+
+  .shimmer-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .shimmer-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .shimmer-btn:hover::after { transform: translateX(120%); }
+
+  .underline-grow {
+    position: relative;
+  }
+  .underline-grow::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(349 100% 78%), hsl(351 100% 72%));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .underline-grow:hover::after { transform: scaleX(1); }
 
   .glass-card {
     @apply bg-card/70 backdrop-blur-2xl border border-border/40 shadow-lg shadow-black/5;
