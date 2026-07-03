@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, BookOpen, Trophy, Timer } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, Trophy, Timer, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +10,16 @@ const stats = [
 
 const Hero = () => {
   return (
-    <section className="ambient-glow relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
+    <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
+      {/* Ambient neon blobs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -right-24 w-[36rem] h-[36rem] rounded-full blur-[130px] opacity-40"
+             style={{ background: "radial-gradient(circle, hsl(var(--neon-magenta) / 0.55), transparent 70%)" }} />
+        <div className="absolute -bottom-40 -left-24 w-[36rem] h-[36rem] rounded-full blur-[130px] opacity-35"
+             style={{ background: "radial-gradient(circle, hsl(var(--neon-purple) / 0.55), transparent 70%)" }} />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[28rem] h-[28rem] rounded-full blur-[140px] opacity-25"
+             style={{ background: "radial-gradient(circle, hsl(var(--neon-cyan) / 0.4), transparent 70%)" }} />
+      </div>
       <div className="container mx-auto px-5 relative z-10">
         <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
           {/* LEFT — editorial headline */}
@@ -19,28 +28,27 @@ const Hero = () => {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 backdrop-blur border border-primary/30 mb-7 shadow-sm"
+              className="relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-7 shadow-[0_0_20px_hsl(var(--neon-magenta)/0.35)]"
             >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              <span className="text-[11px] font-semibold tracking-wide text-foreground/70 uppercase">India's #1 Study Network</span>
+              <Star className="w-3.5 h-3.5 text-fuchsia-400 drop-shadow-[0_0_6px_hsl(var(--neon-magenta))]" fill="currentColor" />
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase neon-text">India's #1 Study Network</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="font-display text-[44px] sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold leading-[0.95] tracking-[-0.035em] mb-6 text-foreground"
+              className="font-display text-[44px] sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold leading-[0.98] tracking-[-0.035em] mb-6 text-foreground"
             >
               Unlocking Your{" "}
-              <span className="text-gradient italic font-black">Academic</span>{" "}
-              Network
+              <span className="neon-text font-black">Academic Network</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
-              className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl mb-9"
+              className="text-base md:text-lg text-slate-500 dark:text-slate-400 leading-[1.7] max-w-xl mb-9"
             >
               A calm, premium home for JEE, NEET, NDA & CDS aspirants — every batch, test series, and study tool you actually need, curated in one place.
             </motion.p>
@@ -53,7 +61,7 @@ const Hero = () => {
             >
               <Button
                 size="lg"
-                className="shimmer-btn h-14 px-8 text-sm font-bold rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-[0_14px_40px_-10px_hsl(351_100%_72%/0.55)] hover:shadow-[0_20px_50px_-10px_hsl(351_100%_72%/0.7)] hover:-translate-y-0.5 transition-all duration-500 group"
+                className="shimmer-btn h-14 px-8 text-sm font-bold rounded-full bg-gradient-to-r from-fuchsia-500 via-purple-500 to-purple-600 text-white shadow-[0_0_25px_rgba(255,0,255,0.5)] hover:shadow-[0_0_35px_rgba(255,0,255,0.75)] hover:scale-[1.04] transition-all duration-500 group border-0"
                 onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Get Started
@@ -62,24 +70,24 @@ const Hero = () => {
               <Button
                 variant="ghost"
                 size="lg"
-                className="h-14 px-6 text-sm font-semibold rounded-full text-foreground/80 hover:bg-white/60 hover:backdrop-blur"
+                className="h-14 px-6 text-sm font-semibold rounded-full text-foreground/80 border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur"
                 onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Explore Resources
               </Button>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats — sleek glassmorphic strip */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="grid grid-cols-3 gap-4 max-w-md"
+              className="max-w-md rounded-2xl border border-white/10 bg-white/5 dark:bg-white/[0.03] backdrop-blur-xl p-5 grid grid-cols-3 gap-2 divide-x divide-white/10"
             >
-              {stats.map((s) => (
-                <div key={s.label} className="flex flex-col">
-                  <span className="font-display text-3xl md:text-4xl font-extrabold text-gradient leading-none">{s.value}</span>
-                  <span className="text-[11px] uppercase tracking-widest text-muted-foreground mt-1.5">{s.label}</span>
+              {stats.map((s, i) => (
+                <div key={s.label} className={`flex flex-col items-center text-center ${i > 0 ? "pl-2" : ""}`}>
+                  <span className="font-display text-3xl md:text-4xl font-extrabold neon-text leading-none">{s.value}</span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mt-2 font-semibold">{s.label}</span>
                 </div>
               ))}
             </motion.div>
@@ -96,15 +104,15 @@ const Hero = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="luxe-card absolute top-6 left-4 w-[280px] p-6"
+              className="glass-premium absolute top-6 left-4 w-[280px] p-6"
             >
-              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center mb-4 border border-white/60">
-                <BookOpen className="w-5 h-5 text-foreground" />
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--neon-magenta)/0.5)]">
+                <BookOpen className="w-5 h-5 text-white" />
               </div>
               <h3 className="font-display font-bold text-lg text-foreground mb-1">Curated Batches</h3>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">PW, Allen, Unacademy & more — all handpicked.</p>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-widest text-accent font-semibold">Premium</span>
+                <span className="text-[10px] uppercase tracking-widest neon-text font-bold">Premium</span>
                 <ArrowRight className="w-4 h-4 text-foreground/60" />
               </div>
             </motion.div>
@@ -113,15 +121,15 @@ const Hero = () => {
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="luxe-card absolute top-2 right-0 w-[220px] p-5"
+              className="glass-premium absolute top-2 right-0 w-[220px] p-5"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent/40 to-primary/30 flex items-center justify-center border border-white/60">
-                  <Trophy className="w-4 h-4 text-foreground" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-[0_0_16px_hsl(var(--neon-cyan)/0.5)]">
+                  <Trophy className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-[10px] font-semibold text-accent">LIVE</span>
+                <span className="text-[10px] font-bold neon-text tracking-widest">LIVE</span>
               </div>
-              <div className="font-display text-3xl font-extrabold text-gradient leading-none">#1</div>
+              <div className="font-display text-3xl font-extrabold neon-text leading-none">#1</div>
               <p className="text-xs text-muted-foreground mt-1">Study Tracker Rank</p>
             </motion.div>
 
@@ -129,23 +137,23 @@ const Hero = () => {
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="luxe-card absolute bottom-4 left-16 w-[260px] p-5"
+              className="glass-premium absolute bottom-4 left-16 w-[260px] p-5"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center border border-white/60">
-                  <Timer className="w-4 h-4 text-foreground" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center shadow-[0_0_16px_hsl(var(--neon-magenta)/0.5)]">
+                  <Timer className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <div className="font-display font-bold text-sm text-foreground">Today's Focus</div>
                   <div className="text-[10px] text-muted-foreground">4h 32m tracked</div>
                 </div>
               </div>
-              <div className="h-1.5 rounded-full bg-primary/15 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: "72%" }}
                   transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
-                  className="h-full bg-gradient-to-r from-primary to-accent"
+                  className="h-full bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-400"
                 />
               </div>
             </motion.div>
