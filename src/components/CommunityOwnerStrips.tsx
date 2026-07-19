@@ -93,8 +93,8 @@ const CommunityOwnerStrips = () => {
   ];
 
   return (
-    <section className="py-4 relative z-20">
-      <div className="container mx-auto px-4 max-w-2xl flex flex-col gap-3">
+    <section className="py-3 relative z-20">
+      <div className="container mx-auto px-4 max-w-xl flex flex-col gap-2.5">
         {strips.map((s, i) => (
           <motion.button
             key={s.id}
@@ -128,16 +128,16 @@ const CommunityOwnerStrips = () => {
               transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
             />
 
-            <div className="relative flex items-center gap-3 p-3 sm:p-3.5">
+            <div className="relative flex items-center gap-2.5 p-2.5 sm:p-3">
               {/* Icon column */}
               <div className="shrink-0">
                 <div className="relative">
-                  <div className="absolute -inset-1 bg-white/30 blur-lg rounded-2xl" />
-                  <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/15 ring-1 ring-white/40 backdrop-blur flex items-center justify-center">
-                    <s.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2.4} />
+                  <div className="absolute -inset-1 bg-white/25 blur-lg rounded-2xl" />
+                  <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/15 ring-1 ring-white/40 backdrop-blur flex items-center justify-center">
+                    <s.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.4} />
                   </div>
                   {s.badge > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-black flex items-center justify-center ring-2 ring-white shadow-md">
+                    <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center ring-2 ring-white shadow-md">
                       {s.badge > 99 ? "99+" : s.badge}
                     </span>
                   )}
@@ -146,23 +146,21 @@ const CommunityOwnerStrips = () => {
 
               {/* Content */}
               <div className="flex-1 min-w-0 text-white">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white/20 backdrop-blur text-[9px] font-black tracking-[0.1em] uppercase ring-1 ring-white/30">
-                    <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
-                    {s.tag}
-                  </span>
-                </div>
-                <h3 className="text-base sm:text-lg font-black tracking-tight leading-tight drop-shadow-sm">
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white/20 backdrop-blur text-[8px] sm:text-[9px] font-black tracking-[0.1em] uppercase ring-1 ring-white/30">
+                  <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
+                  {s.tag}
+                </span>
+                <h3 className="text-sm sm:text-base font-black tracking-tight leading-tight drop-shadow-sm mt-0.5">
                   {s.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-white/85 leading-snug line-clamp-1 mt-0.5">
+                <p className="text-[10px] sm:text-[11px] text-white/85 leading-snug line-clamp-1">
                   {s.desc}
                 </p>
               </div>
 
               {/* CTA chevron */}
-              <div className="shrink-0 w-8 h-8 rounded-full bg-white/95 flex items-center justify-center text-foreground shadow group-hover:translate-x-0.5 transition-transform">
-                <ArrowRight className="w-4 h-4" strokeWidth={2.6} />
+              <div className="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 flex items-center justify-center text-foreground shadow group-hover:translate-x-0.5 transition-transform">
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.6} />
               </div>
             </div>
           </motion.button>
