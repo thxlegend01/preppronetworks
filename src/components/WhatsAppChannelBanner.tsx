@@ -18,21 +18,21 @@ const WhatsAppChannelBanner = ({ url, label = "Study Updates Channel", compact =
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, y: 6 }}
-        whileInView={{ opacity: 0.75, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ opacity: 1 }}
         whileTap={{ scale: 0.98 }}
-        className="group relative mx-auto -mt-2 mb-1 flex w-[92%] items-center justify-between gap-2 rounded-b-2xl rounded-t-md border border-green-500/25 border-t-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-teal-500/10 px-3 py-1.5 backdrop-blur-sm transition-all hover:border-green-500/50 hover:shadow-md hover:shadow-green-500/10"
+        className="group relative mx-auto -mt-2 mb-1 flex w-[94%] items-center justify-between gap-2 rounded-b-2xl rounded-t-md border border-green-500/60 border-t-0 bg-gradient-to-r from-green-500/30 via-emerald-500/25 to-teal-500/25 px-3 py-2 shadow-md shadow-green-500/20 backdrop-blur-sm transition-all hover:border-green-500 hover:shadow-lg hover:shadow-green-500/30"
       >
         <div className="flex items-center gap-2 min-w-0">
-          <div className="shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-            <MessageCircleMore className="w-3 h-3 text-white" strokeWidth={2.6} />
+          <div className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm ring-1 ring-white/40">
+            <MessageCircleMore className="w-3.5 h-3.5 text-white" strokeWidth={2.6} />
           </div>
-          <span className="text-[11px] font-semibold text-foreground/80 truncate">
-            Join WhatsApp Channel — <span className="text-green-600 dark:text-green-400">{label}</span>
+          <span className="text-[12px] font-bold text-foreground truncate">
+            Join WhatsApp Channel — <span className="text-green-700 dark:text-green-300">{label}</span>
           </span>
         </div>
-        <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-bold text-green-600 dark:text-green-400">
+        <span className="shrink-0 inline-flex items-center gap-0.5 text-[11px] font-black text-white bg-green-600 px-2 py-0.5 rounded-full shadow-sm">
           Join <ArrowRight className="w-3 h-3" />
         </span>
       </motion.a>
