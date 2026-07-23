@@ -399,12 +399,25 @@ const CommunityPage = () => {
                           const mine = c.user_id === user.id;
                           return (
                             <div key={c.id} className="flex items-start gap-2 group">
-                              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-white text-[11px] font-bold shrink-0">
-                                {(cAuthor?.display_name || cAuthor?.username || "U")[0]?.toUpperCase()}
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() => cAuthor?.username && navigate(`/u/${cAuthor.username}`)}
+                                disabled={!cAuthor?.username}
+                                className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-white text-[11px] font-bold shrink-0 hover:ring-2 hover:ring-primary transition"
+                                aria-label="Open profile"
+                              >
+                                {cAuthor?.avatar_url ? <img src={cAuthor.avatar_url} alt="" className="w-full h-full rounded-full object-cover" /> : (cAuthor?.display_name || cAuthor?.username || "U")[0]?.toUpperCase()}
+                              </button>
                               <div className="flex-1 min-w-0">
                                 <div className="bg-card rounded-2xl px-3 py-1.5 border border-border/50">
-                                  <p className="text-[11px] font-bold text-foreground">{cAuthor?.display_name || cAuthor?.username || "User"}</p>
+                                  <button
+                                    type="button"
+                                    onClick={() => cAuthor?.username && navigate(`/u/${cAuthor.username}`)}
+                                    disabled={!cAuthor?.username}
+                                    className="text-[11px] font-bold text-foreground hover:text-primary transition text-left"
+                                  >
+                                    {cAuthor?.display_name || cAuthor?.username || "User"}
+                                  </button>
                                   <p className="text-sm text-foreground whitespace-pre-wrap break-words">{c.content}</p>
                                 </div>
                                 <p className="text-[10px] text-muted-foreground mt-0.5 px-1">{new Date(c.created_at).toLocaleString()}</p>
