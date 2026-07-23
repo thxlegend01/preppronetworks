@@ -213,6 +213,83 @@ export type Database = {
         }
         Relationships: []
       }
+      direct_messages: {
+        Row: {
+          content: string | null
+          created_at: string
+          deleted_for: string[]
+          deleted_for_everyone: boolean
+          id: string
+          is_edited: boolean
+          media_name: string | null
+          media_type: string | null
+          media_url: string | null
+          recipient_id: string
+          reply_to_id: string | null
+          sender_id: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          deleted_for?: string[]
+          deleted_for_everyone?: boolean
+          id?: string
+          is_edited?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
+          recipient_id: string
+          reply_to_id?: string | null
+          sender_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          deleted_for?: string[]
+          deleted_for_everyone?: boolean
+          id?: string
+          is_edited?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
+          recipient_id?: string
+          reply_to_id?: string | null
+          sender_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "direct_messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "direct_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dm_hidden_threads: {
+        Row: {
+          hidden_at: string
+          id: string
+          partner_id: string
+          user_id: string
+        }
+        Insert: {
+          hidden_at?: string
+          id?: string
+          partner_id: string
+          user_id: string
+        }
+        Update: {
+          hidden_at?: string
+          id?: string
+          partner_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       friend_requests: {
         Row: {
           created_at: string
@@ -620,6 +697,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_blocks: {
+        Row: {
+          blocked_id: string
+          blocker_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          blocked_id: string
+          blocker_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          blocked_id?: string
+          blocker_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
       user_favorites: {
         Row: {
           created_at: string
@@ -857,6 +955,7 @@ export type Database = {
     }
     Functions: {
       is_announcement_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_blocked_between: { Args: { a: string; b: string }; Returns: boolean }
     }
     Enums: {
       friend_request_status: "pending" | "accepted" | "rejected"
