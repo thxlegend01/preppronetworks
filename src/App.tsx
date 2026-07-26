@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AuthProvider } from "@/hooks/useAuth";
 import { UsernameCheckProvider } from "@/hooks/useUsernameCheck";
@@ -31,7 +31,14 @@ const PrepProWorldPage = lazy(() => import("./pages/PrepProWorldPage"));
 const MathangoTestsPage = lazy(() => import("./pages/MathangoTestsPage"));
 const VotsTestsPage = lazy(() => import("./pages/VotsTestsPage"));
 const EtoosHubPage = lazy(() => import("./pages/EtoosHubPage"));
-const PrepChatPage = lazy(() => import("./pages/PrepChatPage"));
+const PrepChatLayout = lazy(() => import("./pages/prepchat/PrepChatLayout"));
+const FeedTab = lazy(() => import("./pages/prepchat/FeedTab"));
+const ExploreTab = lazy(() => import("./pages/prepchat/ExploreTab"));
+const NewPostTab = lazy(() => import("./pages/prepchat/NewPostTab"));
+const ChatsTab = lazy(() => import("./pages/prepchat/ChatsTab"));
+const ProfileTab = lazy(() => import("./pages/prepchat/ProfileTab"));
+const ConversationPage = lazy(() => import("./pages/prepchat/ConversationPage"));
+const NewChatPage = lazy(() => import("./pages/prepchat/NewChatPage"));
 const AnnouncementsPage = lazy(() => import("./pages/AnnouncementsPage"));
 const StudyToolsPage = lazy(() => import("./pages/StudyToolsPage"));
 const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
@@ -100,7 +107,17 @@ const App = () => {
                           <Route path="/mathango-tests" element={<MathangoTestsPage />} />
                           <Route path="/vots-tests" element={<VotsTestsPage />} />
                           <Route path="/etoos-hub" element={<EtoosHubPage />} />
-                          <Route path="/prepchat" element={<PrepChatPage />} />
+                          <Route path="/prepchat/chats/new" element={<ProtectedRoute><NewChatPage /></ProtectedRoute>} />
+                          <Route path="/prepchat/chats/:id" element={<ProtectedRoute><ConversationPage /></ProtectedRoute>} />
+                          <Route path="/prepchat" element={<PrepChatLayout />}>
+                            <Route index element={<Navigate to="/prepchat/feed" replace />} />
+                            <Route path="feed" element={<FeedTab />} />
+                            <Route path="explore" element={<ExploreTab />} />
+                            <Route path="new" element={<NewPostTab />} />
+                            <Route path="chats" element={<ChatsTab />} />
+                            <Route path="me" element={<ProfileTab />} />
+                            <Route path="u/:username" element={<ProfileTab />} />
+                          </Route>
                           <Route path="/announcements" element={<AnnouncementsPage />} />
                           <Route path="/study-tools" element={<StudyToolsPage />} />
                           <Route path="/entertainment" element={<EntertainmentPage />} />
