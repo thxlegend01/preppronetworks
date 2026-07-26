@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield, MessagesSquare, Eye } from "lucide-react";
+import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 
