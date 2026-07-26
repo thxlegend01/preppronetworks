@@ -71,6 +71,181 @@ export type Database = {
         }
         Relationships: []
       }
+      chat_conversations: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_public: boolean
+          last_message_at: string
+          title: string | null
+          type: Database["public"]["Enums"]["conversation_type"]
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          last_message_at?: string
+          title?: string | null
+          type?: Database["public"]["Enums"]["conversation_type"]
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          last_message_at?: string
+          title?: string | null
+          type?: Database["public"]["Enums"]["conversation_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      chat_members: {
+        Row: {
+          conversation_id: string
+          id: string
+          joined_at: string
+          last_read_at: string
+          muted: boolean
+          role: Database["public"]["Enums"]["conversation_role"]
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          id?: string
+          joined_at?: string
+          last_read_at?: string
+          muted?: boolean
+          role?: Database["public"]["Enums"]["conversation_role"]
+          user_id: string
+        }
+        Update: {
+          conversation_id?: string
+          id?: string
+          joined_at?: string
+          last_read_at?: string
+          muted?: boolean
+          role?: Database["public"]["Enums"]["conversation_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_members_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_message_reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          message_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          message_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          message_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_message_reactions_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "chat_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_messages: {
+        Row: {
+          content: string | null
+          conversation_id: string
+          created_at: string
+          deleted_for: string[]
+          deleted_for_everyone: boolean
+          id: string
+          is_edited: boolean
+          is_pinned: boolean
+          media_name: string | null
+          media_type: string | null
+          media_url: string | null
+          reply_to_id: string | null
+          sender_id: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          conversation_id: string
+          created_at?: string
+          deleted_for?: string[]
+          deleted_for_everyone?: boolean
+          id?: string
+          is_edited?: boolean
+          is_pinned?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
+          reply_to_id?: string | null
+          sender_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          conversation_id?: string
+          created_at?: string
+          deleted_for?: string[]
+          deleted_for_everyone?: boolean
+          id?: string
+          is_edited?: boolean
+          is_pinned?: boolean
+          media_name?: string | null
+          media_type?: string | null
+          media_url?: string | null
+          reply_to_id?: string | null
+          sender_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "chat_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       community_banned_users: {
         Row: {
           banned_at: string
@@ -132,6 +307,7 @@ export type Database = {
           id: string
           image_url: string | null
           is_edited: boolean
+          subject_tag: string | null
           updated_at: string
         }
         Insert: {
@@ -141,6 +317,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_edited?: boolean
+          subject_tag?: string | null
           updated_at?: string
         }
         Update: {
@@ -150,6 +327,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_edited?: boolean
+          subject_tag?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -432,6 +610,35 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      post_saves: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_saves_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -742,6 +949,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_follows: {
+        Row: {
+          created_at: string
+          follower_id: string
+          following_id: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          follower_id: string
+          following_id: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          follower_id?: string
+          following_id?: string
+          id?: string
+        }
+        Relationships: []
+      }
       user_goals: {
         Row: {
           created_at: string
@@ -954,10 +1182,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_post_in_conversation: {
+        Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
       is_announcement_admin: { Args: { _user_id: string }; Returns: boolean }
       is_blocked_between: { Args: { a: string; b: string }; Returns: boolean }
+      is_conversation_admin: {
+        Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_conversation_member: {
+        Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
+      conversation_role: "owner" | "admin" | "member"
+      conversation_type: "dm" | "group" | "channel"
       friend_request_status: "pending" | "accepted" | "rejected"
       presence_status: "online" | "offline" | "studying" | "break"
       timer_mode: "normal" | "pomodoro_25_5" | "pomodoro_50_10"
@@ -1089,6 +1331,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      conversation_role: ["owner", "admin", "member"],
+      conversation_type: ["dm", "group", "channel"],
       friend_request_status: ["pending", "accepted", "rejected"],
       presence_status: ["online", "offline", "studying", "break"],
       timer_mode: ["normal", "pomodoro_25_5", "pomodoro_50_10"],
