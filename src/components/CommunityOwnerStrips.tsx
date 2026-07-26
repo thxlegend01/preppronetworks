@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield, MessagesSquare, Eye } from "lucide-react";
+import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -74,23 +74,6 @@ const CommunityOwnerStrips = () => {
       badge: isAdmin ? 0 : communityUnread,
     },
     {
-      id: "dm-inbox",
-      title: "My Messages",
-      tag: "DM • 1-on-1 with users",
-      desc: "Chat privately with other students. Monitored by admins for safety.",
-      icon: MessagesSquare,
-      meta: [
-        { icon: Users, label: "Peer chat" },
-        { icon: Shield, label: "Safe" },
-      ],
-      path: "/dm",
-      cta: "Open Messages",
-      gradient: "from-[#065f46] via-[#059669] to-[#34d399]",
-      glow: "shadow-[0_18px_60px_-15px_rgba(16,185,129,0.55)]",
-      ring: "ring-emerald-300/30",
-      badge: 0,
-    },
-    {
       id: "owner-chat",
       title: "Message the Owner",
       tag: "PRIVATE • 1-on-1",
@@ -107,23 +90,6 @@ const CommunityOwnerStrips = () => {
       ring: "ring-sky-300/30",
       badge: isAdmin ? 0 : ownerUnread,
     },
-    ...(isAdmin ? [{
-      id: "dm-monitor",
-      title: "DM Moderation",
-      tag: "ADMIN • Monitor DMs",
-      desc: "View every 1-on-1 conversation on the platform (admin only).",
-      icon: Eye,
-      meta: [
-        { icon: Shield, label: "Admin" },
-        { icon: Eye, label: "Monitor" },
-      ],
-      path: "/admin/dm-monitor",
-      cta: "Open Monitor",
-      gradient: "from-[#78350f] via-[#b45309] to-[#f59e0b]",
-      glow: "shadow-[0_18px_60px_-15px_rgba(180,83,9,0.55)]",
-      ring: "ring-amber-300/30",
-      badge: 0,
-    }] : []),
   ];
 
   return (
