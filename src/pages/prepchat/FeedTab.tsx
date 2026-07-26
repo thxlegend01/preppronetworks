@@ -64,7 +64,6 @@ const FeedTab = () => {
       setComments(cm);
       setSaves(new Set(((s as { post_id: string }[]) || []).map((x) => x.post_id)));
       const commenters = (c as Comment[] || []).map((x) => x.user_id);
-      if (commenters.length) setProfiles((prev) => ({ ...prev, ...{} }));
       const extra = await fetchProfiles(commenters);
       setProfiles((prev) => ({ ...extra, ...prev }));
     }
