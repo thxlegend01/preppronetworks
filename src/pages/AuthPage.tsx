@@ -64,7 +64,13 @@ const AuthPage = () => {
         redirect_uri: window.location.origin,
       });
       if (result.error) {
-        toast({ variant: "destructive", title: "Google sign-in failed", description: (result.error as Error).message || "Please try again." });
+        const raw = (result.error as Error)?.message || "";
+        const friendly = /popup|closed|window/i.test(raw)
+          ? "The Google window was closed before sign-in finished. Please try again."
+          : /network|fetch|timeout/i.test(raw)
+          ? "Network issue while contacting Google. Check your connection and retry."
+          : "Google sign-in didn't complete. Please try again, or use email & password below.";
+        toast({ variant: "destructive", title: "Google sign-in failed", description: friendly });
         setGoogleLoading(false);
         return;
       }
@@ -72,7 +78,7 @@ const AuthPage = () => {
       toast({ title: "Welcome! 🎉" });
       navigate("/");
     } catch (e: any) {
-      toast({ variant: "destructive", title: "Google sign-in failed", description: e?.message || "Please try again." });
+      toast({ variant: "destructive", title: "Google sign-in failed", description: "Something went wrong with Google. Please try again, or use email & password below." });
       setGoogleLoading(false);
     }
   };
