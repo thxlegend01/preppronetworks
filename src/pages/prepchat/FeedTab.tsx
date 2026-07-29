@@ -41,7 +41,7 @@ const FeedTab = () => {
 
   const load = useCallback(async () => {
     const { data: p } = await supabase
-      .from("community_posts")
+      .from("prepchat_posts")
       .select("id, author_id, content, image_url, subject_tag, created_at")
       .order("created_at", { ascending: false })
       .limit(60);
@@ -52,9 +52,9 @@ const FeedTab = () => {
     const ids = list.map((x) => x.id);
     if (ids.length) {
       const [{ data: r }, { data: c }, { data: s }] = await Promise.all([
-        supabase.from("community_reactions").select("post_id, user_id").in("post_id", ids),
-        supabase.from("community_comments").select("id, post_id, user_id, content, created_at").in("post_id", ids).order("created_at"),
-        user ? supabase.from("post_saves").select("post_id").eq("user_id", user.id) : Promise.resolve({ data: [] as { post_id: string }[] }),
+        supabase.from("prepchat_likes").select("post_id, user_id").in("post_id", ids),
+        supabase.from("prepchat_comments").select("id, post_id, user_id, content, created_at").in("post_id", ids).order("created_at"),
+        user ? supabase.from("prepchat_saves").select("post_id").eq("user_id", user.id) : Promise.resolve({ data: [] as { post_id: string }[] }),
       ]);
       const lk: Record<string, string[]> = {};
       (r || []).forEach((x) => { (lk[x.post_id] ||= []).push(x.user_id); });
@@ -74,8 +74,8 @@ const FeedTab = () => {
     load();
     const ch = supabase
       .channel("prepchat-feed")
-      .on("postgres_changes", { event: "*", schema: "public", table: "community_posts" }, load)
-      .on("postgres_changes", { event: "*", schema: "public", table: "community_reactions" }, load)
+      .on("postgres_changes", { event: "*", schema: "public", table: "prepchat_posts" }, load)
+      .on("postgres_changes", { event: "*", schema: "public", table: "prepchat_likes" }, load)
       .subscribe();
     return () => { supabase.removeChannel(ch); };
   }, [load]);
@@ -88,9 +88,9 @@ const FeedTab = () => {
       [postId]: liked ? (prev[postId] || []).filter((u) => u !== user.id) : [...(prev[postId] || []), user.id],
     }));
     if (liked) {
-      await supabase.from("community_reactions").delete().eq("post_id", postId).eq("user_id", user.id);
+      await supabase.from("prepchat_likes").delete().eq("post_id", postId).eq("user_id", user.id);
     } else {
-      await supabase.from("community_reactions").insert({ post_id: postId, user_id: user.id, emoji: "❤️" });
+      await supabase.from("prepchat_likes").insert({ post_id: postId, user_id: user.id });
     }
   };
 
@@ -102,15 +102,15 @@ const FeedTab = () => {
       saved ? n.delete(postId) : n.add(postId);
       return n;
     });
-    if (saved) await supabase.from("post_saves").delete().eq("post_id", postId).eq("user_id", user.id);
-    else await supabase.from("post_saves").insert({ post_id: postId, user_id: user.id });
+    if (saved) await supabase.from("prepchat_saves").delete().eq("post_id", postId).eq("user_id", user.id);
+    else await supabase.from("prepchat_saves").insert({ post_id: postId, user_id: user.id });
   };
 
   const addComment = async (postId: string) => {
     if (!user || !draft.trim()) return;
     const text = draft.trim();
     setDraft("");
-    const { error } = await supabase.from("community_comments").insert({ post_id: postId, user_id: user.id, content: text });
+    const { error } = await supabase.from("prepchat_comments").insert({ post_id: postId, user_id: user.id, content: text });
     if (error) return toast.error("Could not post comment");
     load();
   };

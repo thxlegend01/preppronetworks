@@ -36,7 +36,7 @@ const ProfileTab = () => {
     if (!prof) { setLoading(false); return; }
 
     const [{ data: p }, { count: followers }, { count: following }, { data: fol }, { data: blk }] = await Promise.all([
-      supabase.from("community_posts").select("id, content, image_url, subject_tag, created_at").eq("author_id", prof.user_id).order("created_at", { ascending: false }).limit(60),
+      supabase.from("prepchat_posts").select("id, content, image_url, subject_tag, created_at").eq("author_id", prof.user_id).order("created_at", { ascending: false }).limit(60),
       supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("following_id", prof.user_id),
       supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("follower_id", prof.user_id),
       user ? supabase.from("user_follows").select("id").eq("follower_id", user.id).eq("following_id", prof.user_id).maybeSingle() : Promise.resolve({ data: null }),
