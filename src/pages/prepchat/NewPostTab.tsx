@@ -21,26 +21,37 @@ const NewPostTab = () => {
 
   const pick = (f: File | null) => {
     if (!f) return;
-    if (f.size > 10 * 1024 * 1024) return toast.error("Max 10MB");
+    if (!f.type.startsWith("image/")) return toast.error("Please choose an image file");
+    if (f.size > 10 * 1024 * 1024) return toast.error("Image too large — max 10MB");
     setFile(f);
     setPreview(URL.createObjectURL(f));
   };
 
   const submit = async () => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please login to post a doubt");
+      navigate("/auth");
+      return;
+    }
     if (!content.trim() && !file) return toast.error("Write your doubt or add a photo");
     setBusy(true);
     try {
       let imageUrl: string | null = null;
-      if (file) imageUrl = await uploadChatMedia(file, user.id);
-      const { error } = await supabase.from("community_posts").insert({
+      if (file) {
+        try {
+          imageUrl = await uploadChatMedia(file, user.id);
+        } catch (err) {
+          throw new Error(`Photo upload failed: ${err instanceof Error ? err.message : "unknown error"}`);
+        }
+      }
+      const { error } = await supabase.from("prepchat_posts").insert({
         author_id: user.id,
         content: content.trim(),
         image_url: imageUrl,
         subject_tag: tag,
       });
-      if (error) throw error;
-      toast.success("Posted to the feed");
+      if (error) throw new Error(error.message);
+      toast.success("Posted to the PrepChat feed");
       setContent(""); setFile(null); setPreview(null);
       navigate("/prepchat/feed");
     } catch (e) {
@@ -52,7 +63,10 @@ const NewPostTab = () => {
 
   return (
     <div className="p-4 space-y-4">
-      <h2 className="text-xl font-black">Post a doubt</h2>
+      <div>
+        <h2 className="text-xl font-black">Post a doubt</h2>
+        <p className="text-xs text-muted-foreground mt-0.5">Only on PrepChat — this does not go to the Community page.</p>
+      </div>
 
       <div
         onClick={() => fileRef.current?.click()}
