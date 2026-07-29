@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ProfileLite, getOrCreateDm, initialsOf, nameOf } from "@/lib/prepchat";
+import { ProfileLite, getOrCreateDm, initialsOf } from "@/lib/prepchat";
 import { toast } from "sonner";
 
 interface PublicConv {

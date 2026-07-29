@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ProfileLite, getOrCreateDm, initialsOf, nameOf } from "@/lib/prepchat";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Post { id: string; content: string; image_url: string | null; subject_tag: string | null; created_at: string; }
 
@@ -19,6 +20,8 @@ const ProfileTab = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isBlocked, setIsBlocked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [listMode, setListMode] = useState<null | "followers" | "following">(null);
+  const [listUsers, setListUsers] = useState<ProfileLite[] | null>(null);
 
   const isMe = !username || (!!profile && profile.user_id === user?.id);
 
@@ -73,6 +76,19 @@ const ProfileTab = () => {
     load();
   };
 
+  const openList = async (mode: "followers" | "following") => {
+    if (!profile) return;
+    setListMode(mode);
+    setListUsers(null);
+    const col = mode === "followers" ? "following_id" : "follower_id";
+    const other = mode === "followers" ? "follower_id" : "following_id";
+    const { data } = await supabase.from("user_follows").select(other).eq(col, profile.user_id).limit(300);
+    const ids = ((data as Record<string, string>[]) || []).map((r) => r[other]);
+    if (!ids.length) { setListUsers([]); return; }
+    const { data: profs } = await supabase.from("profiles").select("user_id, username, display_name, avatar_url").in("user_id", ids);
+    setListUsers((profs as ProfileLite[]) || []);
+  };
+
   const message = async () => {
     if (!user || !profile) return;
     const id = await getOrCreateDm(user.id, profile.user_id);
@@ -96,12 +112,18 @@ const ProfileTab = () => {
           {profile.avatar_url ? <img src={profile.avatar_url} alt={nameOf(profile)} className="w-full h-full object-cover" /> : initialsOf(profile)}
         </div>
         <div className="flex-1 grid grid-cols-3 text-center">
-          {[["Posts", posts.length], ["Followers", counts.followers], ["Following", counts.following]].map(([l, v]) => (
-            <div key={l as string}>
-              <p className="font-black text-lg">{v as number}</p>
-              <p className="text-[11px] text-muted-foreground">{l as string}</p>
-            </div>
-          ))}
+          <div>
+            <p className="font-black text-lg">{posts.length}</p>
+            <p className="text-[11px] text-muted-foreground">Posts</p>
+          </div>
+          <button onClick={() => openList("followers")}>
+            <p className="font-black text-lg">{counts.followers}</p>
+            <p className="text-[11px] text-muted-foreground">Followers</p>
+          </button>
+          <button onClick={() => openList("following")}>
+            <p className="font-black text-lg">{counts.following}</p>
+            <p className="text-[11px] text-muted-foreground">Following</p>
+          </button>
         </div>
       </div>
 
@@ -132,6 +154,31 @@ const ProfileTab = () => {
       <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-muted-foreground pt-2 border-t border-border">
         <Grid3X3 className="w-4 h-4" /> Doubts
       </div>
+
+      <Dialog open={!!listMode} onOpenChange={(o) => !o && setListMode(null)}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader><DialogTitle className="capitalize">{listMode}</DialogTitle></DialogHeader>
+          <div className="max-h-80 overflow-y-auto space-y-1">
+            {!listUsers && <div className="py-8 grid place-items-center"><Loader2 className="w-5 h-5 animate-spin text-primary" /></div>}
+            {listUsers?.length === 0 && <p className="text-sm text-muted-foreground py-6 text-center">Nobody yet.</p>}
+            {listUsers?.map((u) => (
+              <button
+                key={u.user_id}
+                onClick={() => { setListMode(null); if (u.username) navigate(`/prepchat/u/${u.username}`); }}
+                className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-muted text-left"
+              >
+                <div className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-primary to-pink-500 grid place-items-center text-white text-xs font-bold shrink-0">
+                  {u.avatar_url ? <img src={u.avatar_url} alt="" className="w-full h-full object-cover" /> : initialsOf(u)}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold truncate">{nameOf(u)}</p>
+                  {u.username && <p className="text-xs text-muted-foreground truncate">@{u.username}</p>}
+                </div>
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {posts.length ? (
         <div className="grid grid-cols-3 gap-1">
