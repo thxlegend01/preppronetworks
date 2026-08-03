@@ -243,6 +243,7 @@ const FeedTab = () => {
           </motion.article>
         );
       })}
+      </div>
     </div>
   );
 };
