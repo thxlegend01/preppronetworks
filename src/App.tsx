@@ -47,7 +47,6 @@ const OwnerChatPage = lazy(() => import("./pages/OwnerChatPage"));
 const DmInboxPage = lazy(() => import("./pages/DmInboxPage"));
 const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
-const AdminDmMonitorPage = lazy(() => import("./pages/AdminDmMonitorPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -126,7 +125,6 @@ const App = () => {
                           <Route path="/dm" element={<DmInboxPage />} />
                           <Route path="/dm/:userId" element={<DirectMessagePage />} />
                           <Route path="/u/:username" element={<UserProfilePage />} />
-                          <Route path="/admin/dm-monitor" element={<AdminDmMonitorPage />} />
                           <Route path="/batches/:batchId" element={<BatchDetailPage />} />
                           <Route path="/test/:testId" element={<TestPage />} />
                           <Route path="/viewer" element={<ViewerPage />} />
