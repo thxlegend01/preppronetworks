@@ -58,14 +58,31 @@ const AuthPage = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleGoogle = async () => {
+    const host = window.location.hostname;
+    const oauthSupported =
+      host === "localhost" ||
+      host.endsWith("lovable.app") ||
+      host.endsWith("lovableproject.com") ||
+      host === "preppronetworks.lovable.app";
+    if (!oauthSupported) {
+      toast({
+        variant: "destructive",
+        title: "Google sign-in isn't available on this link",
+        description: "Open preppronetworks.lovable.app (the official PrepPro app link) to sign in with Google, or use email & password here.",
+      });
+      return;
+    }
     setGoogleLoading(true);
     try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
-      });
+      const result = (await Promise.race([
+        lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin }),
+        new Promise((resolve) => setTimeout(() => resolve({ error: new Error("timeout") }), 45000)),
+      ])) as { error?: Error; redirected?: boolean };
       if (result.error) {
         const raw = (result.error as Error)?.message || "";
-        const friendly = /popup|closed|window/i.test(raw)
+        const friendly = /timeout/i.test(raw)
+          ? "Google took too long to respond. Please try again, or use email & password below."
+          : /popup|closed|window/i.test(raw)
           ? "The Google window was closed before sign-in finished. Please try again."
           : /network|fetch|timeout/i.test(raw)
           ? "Network issue while contacting Google. Check your connection and retry."

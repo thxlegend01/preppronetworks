@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, MessageSquare, Plus, Radio, Users, Search, ShieldAlert, Eye } from "lucide-react";
+import { Loader2, MessageSquare, Plus, Radio, Users, Search, Trash2, Lock, MoreVertical } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PREPCHAT_ADMIN_EMAILS, ProfileLite, fetchProfiles, initialsOf, nameOf, timeAgo } from "@/lib/prepchat";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
+import { ProfileLite, fetchProfiles, initialsOf, nameOf, timeAgo } from "@/lib/prepchat";
 import { cn } from "@/lib/utils";
 
 interface Row {
@@ -26,18 +30,18 @@ const ChatsTab = () => {
   const [rows, setRows] = useState<Row[]>([]);
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(true);
-  const isAdmin = !!user?.email && PREPCHAT_ADMIN_EMAILS.includes(user.email);
 
   const load = useCallback(async () => {
     if (!user) return;
     const { data: memberships } = await supabase
       .from("chat_members")
-      .select("conversation_id, last_read_at, chat_conversations!inner(id, type, title, avatar_url, last_message_at)")
+      .select("conversation_id, last_read_at, cleared_at, chat_conversations!inner(id, type, title, avatar_url, last_message_at)")
       .eq("user_id", user.id);
 
     const list = (memberships || []) as unknown as {
       conversation_id: string;
       last_read_at: string;
+      cleared_at: string | null;
       chat_conversations: { id: string; type: Row["type"]; title: string | null; avatar_url: string | null; last_message_at: string };
     }[];
     if (!list.length) { setRows([]); setLoading(false); return; }
@@ -55,7 +59,9 @@ const ChatsTab = () => {
 
     const built: Row[] = list.map((m) => {
       const c = m.chat_conversations;
-      const convMsgs = (msgs || []).filter((x) => x.conversation_id === c.id);
+      const convMsgs = (msgs || [])
+        .filter((x) => x.conversation_id === c.id)
+        .filter((x) => !m.cleared_at || new Date(x.created_at) > new Date(m.cleared_at));
       const last = convMsgs[0];
       const unread = convMsgs.filter((x) => new Date(x.created_at) > new Date(m.last_read_at)).length;
       return {
@@ -85,6 +91,23 @@ const ChatsTab = () => {
     return () => { supabase.removeChannel(ch); };
   }, [load]);
 
+  const clearChat = async (convId: string) => {
+    if (!user) return;
+    await supabase.from("chat_members").update({ cleared_at: new Date().toISOString() })
+      .eq("conversation_id", convId).eq("user_id", user.id);
+    toast.success("Chat cleared on your side");
+    load();
+  };
+
+  const deleteChat = async (convId: string) => {
+    if (!user) return;
+    const { error } = await supabase.from("chat_members").delete()
+      .eq("conversation_id", convId).eq("user_id", user.id);
+    if (error) return toast.error("Could not delete chat");
+    setRows((prev) => prev.filter((r) => r.id !== convId));
+    toast.success("Chat deleted from your side");
+  };
+
   const filtered = rows.filter((r) => {
     if (!q.trim()) return true;
     const s = q.toLowerCase();
@@ -103,16 +126,10 @@ const ChatsTab = () => {
         </Button>
       </div>
 
-      <div className="flex items-center gap-2 text-[11px] text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2">
-        <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
-        <span>Chats may be reviewed by admins for safety.</span>
+      <div className="flex items-center gap-2 text-[11px] text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2">
+        <Lock className="w-3.5 h-3.5 shrink-0" />
+        <span>Your chats are private — no admin monitoring.</span>
       </div>
-
-      {isAdmin && (
-        <button onClick={() => navigate("/admin/dm-monitor")} className="w-full flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-xl bg-muted hover:bg-muted/70 transition">
-          <Eye className="w-4 h-4" /> Admin moderation inbox
-        </button>
-      )}
 
       {loading ? (
         <div className="py-16 grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>
@@ -125,10 +142,10 @@ const ChatsTab = () => {
       ) : (
         <div className="space-y-1">
           {filtered.map((r) => (
+            <div key={r.id} className="w-full flex items-center gap-1 rounded-2xl hover:bg-muted transition">
             <button
-              key={r.id}
               onClick={() => navigate(`/prepchat/chats/${r.id}`)}
-              className="w-full flex items-center gap-3 p-2.5 rounded-2xl hover:bg-muted transition text-left"
+              className="flex-1 min-w-0 flex items-center gap-3 p-2.5 text-left"
             >
               <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary to-pink-500 grid place-items-center text-white font-bold shrink-0">
                 {r.type === "dm"
@@ -151,6 +168,20 @@ const ChatsTab = () => {
                 </div>
               </div>
             </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="p-2 mr-1 rounded-full text-muted-foreground hover:bg-background shrink-0">
+                <MoreVertical className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => clearChat(r.id)}>
+                  <Trash2 className="w-4 h-4 mr-2" /> Clear messages (my side)
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-destructive" onClick={() => deleteChat(r.id)}>
+                  <Trash2 className="w-4 h-4 mr-2" /> Delete whole chat (my side)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            </div>
           ))}
         </div>
       )}

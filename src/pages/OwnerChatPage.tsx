@@ -37,7 +37,9 @@ const OwnerChatPage = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const isAdminAccount = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const [userMode, setUserMode] = useState(false);
+  const isAdmin = isAdminAccount && !userMode;
 
   // Admin password gate
   const [adminUnlocked, setAdminUnlocked] = useState(false);
@@ -175,7 +177,7 @@ const OwnerChatPage = () => {
   }
 
   // Admin password gate for owner inbox
-  if (isAdmin && !adminUnlocked) {
+  if (isAdminAccount && !adminUnlocked && !userMode) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
         <form
@@ -197,8 +199,14 @@ const OwnerChatPage = () => {
           {pwdError && <p className="text-xs text-destructive text-center">{pwdError}</p>}
           <div className="flex gap-2">
             <Button type="button" variant="ghost" onClick={() => navigate("/")} className="flex-1 rounded-full">Cancel</Button>
-            <Button type="submit" className="flex-1 rounded-full">Unlock</Button>
+            <Button type="submit" className="flex-1 rounded-full">Continue With Admin Profile</Button>
           </div>
+          <Button type="button" variant="outline" onClick={() => setUserMode(true)} className="w-full rounded-full">
+            Continue as User
+          </Button>
+          <p className="text-[10px] text-center text-muted-foreground">
+            No password? Continue as a normal user and chat with the owner instead.
+          </p>
         </form>
       </div>
     );

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Loader2, Paperclip, Radio, Reply, Send, Users, X, Trash2, Pencil, Pin } from "lucide-react";
+import { ArrowLeft, Loader2, Paperclip, Radio, Reply, Send, Users, X, Trash2, Pencil, Pin, MoreVertical, Ban } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -51,6 +51,7 @@ const ConversationPage = () => {
   const [profiles, setProfiles] = useState<Record<string, ProfileLite>>({});
   const [partner, setPartner] = useState<ProfileLite | null>(null);
   const [myRole, setMyRole] = useState<string | null>(null);
+  const [clearedAt, setClearedAt] = useState<string | null>(null);
   const [memberCount, setMemberCount] = useState(0);
   const [reactions, setReactions] = useState<Record<string, { emoji: string; user_id: string }[]>>({});
   const [text, setText] = useState("");
@@ -63,13 +64,15 @@ const ConversationPage = () => {
     if (!id || !user) return;
     const [{ data: c }, { data: members }, { data: m }] = await Promise.all([
       supabase.from("chat_conversations").select("id, type, title, description, avatar_url, created_by").eq("id", id).maybeSingle(),
-      supabase.from("chat_members").select("user_id, role").eq("conversation_id", id),
+      supabase.from("chat_members").select("user_id, role, cleared_at").eq("conversation_id", id),
       supabase.from("chat_messages").select("*").eq("conversation_id", id).order("created_at", { ascending: true }).limit(500),
     ]);
     setConv((c as Conv) || null);
-    const mem = (members || []) as { user_id: string; role: string }[];
+    const mem = (members || []) as { user_id: string; role: string; cleared_at: string | null }[];
     setMemberCount(mem.length);
-    setMyRole(mem.find((x) => x.user_id === user.id)?.role || null);
+    const me = mem.find((x) => x.user_id === user.id);
+    setMyRole(me?.role || null);
+    setClearedAt(me?.cleared_at || null);
     const list = (m as Msg[]) || [];
     setMsgs(list);
 
@@ -112,8 +115,11 @@ const ConversationPage = () => {
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs.length]);
 
   const visible = useMemo(
-    () => msgs.filter((m) => !(m.deleted_for || []).includes(user?.id || "")),
-    [msgs, user]
+    () =>
+      msgs
+        .filter((m) => !(m.deleted_for || []).includes(user?.id || ""))
+        .filter((m) => !clearedAt || new Date(m.created_at) > new Date(clearedAt)),
+    [msgs, user, clearedAt]
   );
   const pinned = visible.find((m) => m.is_pinned && !m.deleted_for_everyone);
 
@@ -182,6 +188,30 @@ const ConversationPage = () => {
     load();
   };
 
+  const clearChat = async () => {
+    if (!user || !id) return;
+    const now = new Date().toISOString();
+    await supabase.from("chat_members").update({ cleared_at: now }).eq("conversation_id", id).eq("user_id", user.id);
+    setClearedAt(now);
+    toast.success("Chat cleared on your side");
+  };
+
+  const deleteChat = async () => {
+    if (!user || !id) return;
+    const { error } = await supabase.from("chat_members").delete().eq("conversation_id", id).eq("user_id", user.id);
+    if (error) return toast.error("Could not delete chat");
+    toast.success("Chat deleted from your side");
+    navigate("/prepchat/chats");
+  };
+
+  const blockPartner = async () => {
+    if (!user || !partner) return;
+    const { error } = await supabase.from("user_blocks").insert({ blocker_id: user.id, blocked_id: partner.user_id });
+    if (error && !/duplicate/i.test(error.message)) return toast.error("Could not block user");
+    await deleteChat();
+    toast.success(`Blocked ${nameOf(partner)}`);
+  };
+
   if (loading) return <div className="min-h-screen grid place-items-center bg-background"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
   if (!conv) return <div className="min-h-screen grid place-items-center bg-background text-muted-foreground">Chat not found.</div>;
 
@@ -209,6 +239,24 @@ const ConversationPage = () => {
               </p>
             </div>
           </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="p-1.5 rounded-full hover:bg-muted text-muted-foreground shrink-0">
+              <MoreVertical className="w-5 h-5" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={clearChat}>
+                <Trash2 className="w-4 h-4 mr-2" /> Clear messages (my side)
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive" onClick={deleteChat}>
+                <Trash2 className="w-4 h-4 mr-2" /> Delete whole chat (my side)
+              </DropdownMenuItem>
+              {conv?.type === "dm" && partner && (
+                <DropdownMenuItem className="text-destructive" onClick={blockPartner}>
+                  <Ban className="w-4 h-4 mr-2" /> Block & delete user
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         {pinned && (
           <div className="mx-auto max-w-2xl px-3 pb-2 flex items-center gap-2 text-[11px] text-muted-foreground">

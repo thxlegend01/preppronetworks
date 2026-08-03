@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import Stories from "@/components/prepchat/Stories";
 
 interface Post {
   id: string;
@@ -121,21 +122,31 @@ const FeedTab = () => {
   };
 
   if (loading) {
-    return <div className="py-20 grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+    return (
+      <>
+        <Stories />
+        <div className="py-20 grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>
+      </>
+    );
   }
 
   if (!posts.length) {
     return (
-      <div className="py-24 text-center text-muted-foreground px-6">
-        <ImageIcon className="w-10 h-10 mx-auto mb-3 opacity-40" />
-        <p className="font-semibold text-foreground">No doubts posted yet</p>
-        <p className="text-sm mt-1">Be the first — tap the Post tab and share a doubt.</p>
-      </div>
+      <>
+        <Stories />
+        <div className="py-24 text-center text-muted-foreground px-6">
+          <ImageIcon className="w-10 h-10 mx-auto mb-3 opacity-40" />
+          <p className="font-semibold text-foreground">No doubts posted yet</p>
+          <p className="text-sm mt-1">Be the first — tap the Post tab and share a doubt.</p>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="divide-y divide-border">
+    <div>
+      <Stories />
+      <div className="divide-y divide-border border-t border-border">
       {posts.map((post, i) => {
         const author = profiles[post.author_id];
         const liked = !!user && (likes[post.id] || []).includes(user.id);
@@ -232,6 +243,7 @@ const FeedTab = () => {
           </motion.article>
         );
       })}
+      </div>
     </div>
   );
 };
