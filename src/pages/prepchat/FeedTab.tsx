@@ -144,7 +144,9 @@ const FeedTab = () => {
   }
 
   return (
-    <div className="divide-y divide-border">
+    <div>
+      <Stories />
+      <div className="divide-y divide-border border-t border-border">
       {posts.map((post, i) => {
         const author = profiles[post.author_id];
         const liked = !!user && (likes[post.id] || []).includes(user.id);
