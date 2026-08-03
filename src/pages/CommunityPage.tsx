@@ -225,7 +225,7 @@ const CommunityPage = () => {
           {pwdError && <p className="text-xs text-destructive text-center">{pwdError}</p>}
           <div className="flex gap-2">
             <Button type="button" variant="ghost" onClick={() => navigate("/")} className="flex-1 rounded-full">Cancel</Button>
-            <Button type="submit" className="flex-1 rounded-full">Unlock</Button>
+            <Button type="submit" className="flex-1 rounded-full">Continue With Admin Profile</Button>
           </div>
           <Button type="button" variant="outline" onClick={() => setUserMode(true)} className="w-full rounded-full">
             Continue as User
