@@ -112,6 +112,7 @@ export type Database = {
       }
       chat_members: {
         Row: {
+          cleared_at: string | null
           conversation_id: string
           id: string
           joined_at: string
@@ -121,6 +122,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          cleared_at?: string | null
           conversation_id: string
           id?: string
           joined_at?: string
@@ -130,6 +132,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          cleared_at?: string | null
           conversation_id?: string
           id?: string
           joined_at?: string
@@ -756,6 +759,86 @@ export type Database = {
             columns: ["post_id"]
             isOneToOne: false
             referencedRelation: "prepchat_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prepchat_stories: {
+        Row: {
+          author_id: string
+          background: string | null
+          content: string | null
+          correct_option: number | null
+          created_at: string
+          expires_at: string
+          id: string
+          kind: string
+          media_type: string | null
+          media_url: string | null
+          options: string[]
+        }
+        Insert: {
+          author_id: string
+          background?: string | null
+          content?: string | null
+          correct_option?: number | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          kind?: string
+          media_type?: string | null
+          media_url?: string | null
+          options?: string[]
+        }
+        Update: {
+          author_id?: string
+          background?: string | null
+          content?: string | null
+          correct_option?: number | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          kind?: string
+          media_type?: string | null
+          media_url?: string | null
+          options?: string[]
+        }
+        Relationships: []
+      }
+      prepchat_story_views: {
+        Row: {
+          answer_index: number | null
+          answer_text: string | null
+          created_at: string
+          id: string
+          reaction: string | null
+          story_id: string
+          viewer_id: string
+        }
+        Insert: {
+          answer_index?: number | null
+          answer_text?: string | null
+          created_at?: string
+          id?: string
+          reaction?: string | null
+          story_id: string
+          viewer_id: string
+        }
+        Update: {
+          answer_index?: number | null
+          answer_text?: string | null
+          created_at?: string
+          id?: string
+          reaction?: string | null
+          story_id?: string
+          viewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prepchat_story_views_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "prepchat_stories"
             referencedColumns: ["id"]
           },
         ]
