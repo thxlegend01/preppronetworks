@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 
 export const SUBJECT_TAGS = [
   "Physics",
