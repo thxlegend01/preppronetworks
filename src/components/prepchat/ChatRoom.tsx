@@ -9,6 +9,7 @@ import {
   ArrowLeft, Send, Smile, Image as ImageIcon, Sparkles, Pin, X, Users,
 } from "lucide-react";
 import MessageBubble, { ChatMessage, MessageReaction } from "./MessageBubble";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 
 const EMOJI_LIST = ["😀","😂","😍","🤔","😎","🙏","🔥","💪","📚","✅","❤️","👍","👎","😢","😮","🎯","💡","⭐","🚀","✨"];
 const QUICK_REACTIONS = ["❤️","👍","😂","😮","🔥","💯"];
@@ -155,10 +156,14 @@ const ChatRoom = ({ room, userId, onBack, isMobile }: Props) => {
     setUploading(true);
     const ext = file.name.split(".").pop();
     const path = `${room.id}/${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("chat-media").upload(path, file);
-    if (error) { toast.error("Upload failed"); setUploading(false); return; }
-
-    const { data: urlData } = supabase.storage.from("chat-media").getPublicUrl(path);
+    let signedUrl: string;
+    try {
+      signedUrl = await uploadChatMediaSigned(path, file, file.type);
+    } catch {
+      toast.error("Upload failed");
+      setUploading(false);
+      return;
+    }
     const isImage = file.type.startsWith("image/");
 
     await supabase.from("room_messages").insert({
@@ -166,7 +171,7 @@ const ChatRoom = ({ room, userId, onBack, isMobile }: Props) => {
       user_id: userId,
       content: file.name,
       message_type: isImage ? "image" : "file",
-      media_url: urlData.publicUrl,
+      media_url: signedUrl,
       display_name: profile.display_name,
       avatar_url: profile.avatar_url,
     } as any);

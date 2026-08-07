@@ -74,10 +74,7 @@ export async function getOrCreateDm(meId: string, otherId: string): Promise<stri
 export async function uploadChatMedia(file: File, userId: string) {
   const ext = file.name.split(".").pop() || "bin";
   const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const { error } = await supabase.storage.from("chat-media").upload(path, file);
-  if (error) throw error;
-  const { data } = supabase.storage.from("chat-media").getPublicUrl(path);
-  return data.publicUrl;
+  return uploadChatMediaSigned(path, file, file.type);
 }
 
 export function timeAgo(iso: string) {
