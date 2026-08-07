@@ -11,45 +11,31 @@ interface PasswordGateProps {
   appId?: string;
 }
 
-// Normalize code by removing spaces and converting to lowercase
-const normalizeCode = (code: string): string => {
-  return code.toLowerCase().replace(/\s+/g, "").trim();
-};
-
-// Valid universal code (case-insensitive, space-insensitive)
-const VALID_CODES = ["preppronetwork"]; // "PrepPro Network" normalized
-
-// Admin codes for permanent/unlimited access
-const ADMIN_CODES = ["saurabh"];
-
 // Apps that SHOULD show the thank you message (only these 4)
 const SHOW_MESSAGE_APPS = ["raw-app", "kgs-app", "selection-way-app", "cds-app"];
 
 const SHORTENER_LINK = "https://gplinks.co/wtGQu";
 
 const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGateProps) => {
-  const { hasValidAccess, timeRemaining, grantAccess } = useAccessCode();
+  const { hasValidAccess, timeRemaining, verifyCode } = useAccessCode();
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [shake, setShake] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [checking, setChecking] = useState(false);
 
   const shouldShowMessage = SHOW_MESSAGE_APPS.includes(appId);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const normalizedPassword = normalizeCode(password);
-    
-    // Check if code is valid
-    const isValidCode = VALID_CODES.includes(normalizedPassword);
-    const isAdminCode = ADMIN_CODES.includes(normalizedPassword);
-    
-    if (isValidCode || isAdminCode) {
-      // Grant 36-hour access
-      grantAccess();
+    setChecking(true);
+    const ok = await verifyCode(password);
+    setChecking(false);
+
+    if (ok) {
       setError(false);
-      
+
       // Show thank you message for apps that need it
       if (shouldShowMessage) {
         setShowThankYou(true);
@@ -217,9 +203,10 @@ const PasswordGate = ({ onSuccess, onCancel, title, appId = "" }: PasswordGatePr
             
             <Button 
               type="submit" 
+              disabled={checking}
               className="w-full h-12 text-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              Unlock Access (36 Hours)
+              {checking ? "Checking…" : "Unlock Access (36 Hours)"}
             </Button>
             
             <Button
