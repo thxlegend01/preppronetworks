@@ -15,10 +15,11 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import AdminSection from "@/components/AdminSection";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const Index = () => {
   const { user } = useAuth();
-  const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const { isAdmin } = useIsAdmin();
   return (
     <PageTransition>
       <SEO

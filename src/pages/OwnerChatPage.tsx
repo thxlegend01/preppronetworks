@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -30,7 +31,7 @@ const OwnerChatPage = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const isAdminAccount = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const { isAdmin: isAdminAccount } = useIsAdmin();
   const [userMode, setUserMode] = useState(false);
   const isAdmin = isAdminAccount && !userMode;
 

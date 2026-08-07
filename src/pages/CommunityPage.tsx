@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,7 +32,7 @@ const CommunityPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const isAdminAccount = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const { isAdmin: isAdminAccount } = useIsAdmin();
   const [userMode, setUserMode] = useState(false);
   const isAdmin = isAdminAccount && !userMode;
 
@@ -424,7 +425,7 @@ const CommunityPage = () => {
                                 <p className="text-[10px] text-muted-foreground mt-0.5 px-1">{new Date(c.created_at).toLocaleString()}</p>
                               </div>
                               <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
-                                {isAdmin && !ADMIN_EMAILS.includes(cAuthor?.username || "") && (
+                                {isAdmin && (
                                   bannedIds.has(c.user_id)
                                     ? <button onClick={() => unbanUser(c.user_id)} className="text-[10px] text-emerald-500 hover:underline">Unban</button>
                                     : <button onClick={() => banUser(c.user_id)} className="text-[10px] text-destructive hover:underline inline-flex items-center gap-0.5"><Ban className="w-3 h-3" />Ban</button>
