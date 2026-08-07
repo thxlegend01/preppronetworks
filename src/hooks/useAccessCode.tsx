@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { readValidated } from "@/lib/safeStorage";
 
 const ACCESS_STORAGE_KEY = "preppro_access_data";
 const ACCESS_DURATION_HOURS = 36;
@@ -8,6 +11,11 @@ interface AccessData {
   expiresAt: number;
 }
 
+const AccessDataSchema = z.object({
+  grantedAt: z.number().finite(),
+  expiresAt: z.number().finite(),
+});
+
 export const useAccessCode = () => {
   const [hasValidAccess, setHasValidAccess] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
@@ -16,15 +24,14 @@ export const useAccessCode = () => {
   // Check if access is still valid
   const checkAccess = useCallback(() => {
     try {
-      const stored = localStorage.getItem(ACCESS_STORAGE_KEY);
-      if (!stored) {
+      const data = readValidated<AccessData | null>(ACCESS_STORAGE_KEY, AccessDataSchema, null);
+      if (!data) {
         setHasValidAccess(false);
         setTimeRemaining(null);
         setExpiresAt(null);
         return false;
       }
 
-      const data: AccessData = JSON.parse(stored);
       const now = Date.now();
 
       if (now < data.expiresAt) {
@@ -45,23 +52,35 @@ export const useAccessCode = () => {
     }
   }, []);
 
-  // Grant access for 36 hours
-  const grantAccess = useCallback(() => {
-    const now = Date.now();
-    const expiresAt = now + (ACCESS_DURATION_HOURS * 60 * 60 * 1000);
-    
-    const data: AccessData = {
-      grantedAt: now,
-      expiresAt
-    };
-
+  const persistAccess = useCallback((expiry: number) => {
+    const data: AccessData = { grantedAt: Date.now(), expiresAt: expiry };
     localStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(data));
     setHasValidAccess(true);
-    setExpiresAt(expiresAt);
-    
-    // Also set session storage for backward compatibility
-    sessionStorage.setItem("preppro_access", "granted");
+    setExpiresAt(expiry);
   }, []);
+
+  /** Verifies the code on the server. Codes are never stored in the client bundle. */
+  const verifyCode = useCallback(
+    async (code: string): Promise<boolean> => {
+      const trimmed = (code || "").trim();
+      if (!trimmed || trimmed.length > 100) return false;
+      try {
+        const { data, error } = await supabase.functions.invoke("verify-access-code", {
+          body: { code: trimmed },
+        });
+        if (error || !data?.valid) return false;
+        const expiry =
+          typeof data.expiresAt === "number"
+            ? data.expiresAt
+            : Date.now() + ACCESS_DURATION_HOURS * 60 * 60 * 1000;
+        persistAccess(expiry);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [persistAccess],
+  );
 
   // Format time remaining
   const formatTimeRemaining = useCallback((expiresAt: number) => {
@@ -103,7 +122,6 @@ export const useAccessCode = () => {
   // Revoke access (for admin purposes)
   const revokeAccess = useCallback(() => {
     localStorage.removeItem(ACCESS_STORAGE_KEY);
-    sessionStorage.removeItem("preppro_access");
     setHasValidAccess(false);
     setTimeRemaining(null);
     setExpiresAt(null);
@@ -113,7 +131,7 @@ export const useAccessCode = () => {
     hasValidAccess,
     timeRemaining,
     expiresAt,
-    grantAccess,
+    verifyCode,
     revokeAccess,
     checkAccess
   };

@@ -3,14 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
-
-const ADMIN_EMAILS = [
-  "thxlegend01era@gmail.com",
-  "saurabhsaroj2010@gmail.com",
-  "manojadeviaw@gmail.com",
-  "saurabh20103060@gmail.com",
-];
 
 /**
  * Two long horizontal strips: Open Community + Owner Inbox.
@@ -19,7 +13,7 @@ const ADMIN_EMAILS = [
 const CommunityOwnerStrips = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email);
+  const { isAdmin } = useIsAdmin();
   const [ownerUnread, setOwnerUnread] = useState(0);
   const [communityUnread, setCommunityUnread] = useState(0);
 

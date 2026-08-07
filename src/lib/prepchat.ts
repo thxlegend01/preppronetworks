@@ -1,12 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
 
-export const PREPCHAT_ADMIN_EMAILS = [
-  "thxlegend01era@gmail.com",
-  "saurabhsaroj2010@gmail.com",
-  "manojadeviaw@gmail.com",
-  "saurabh20103060@gmail.com",
-];
-
 export const SUBJECT_TAGS = [
   "Physics",
   "Chemistry",
