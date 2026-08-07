@@ -12,13 +12,6 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 
-const ADMIN_EMAILS = [
-  "thxlegend01era@gmail.com",
-  "saurabhsaroj2010@gmail.com",
-  "manojadeviaw@gmail.com",
-  "saurabh20103060@gmail.com",
-];
-
 interface Msg {
   id: string;
   user_id: string;

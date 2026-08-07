@@ -16,13 +16,6 @@ import SEO from "@/components/SEO";
 import AdminSection from "@/components/AdminSection";
 import { useAuth } from "@/hooks/useAuth";
 
-const ADMIN_EMAILS = [
-  "thxlegend01era@gmail.com",
-  "saurabhsaroj2010@gmail.com",
-  "manojadeviaw@gmail.com",
-  "saurabh20103060@gmail.com",
-];
-
 const Index = () => {
   const { user } = useAuth();
   const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email);

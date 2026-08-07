@@ -5,13 +5,6 @@ import { Megaphone, Send, ArrowRight, Sparkles, Users, Shield } from "lucide-rea
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 
-const ADMIN_EMAILS = [
-  "thxlegend01era@gmail.com",
-  "saurabhsaroj2010@gmail.com",
-  "manojadeviaw@gmail.com",
-  "saurabh20103060@gmail.com",
-];
-
 /**
  * Two long horizontal strips: Open Community + Owner Inbox.
  * Replaces the old PrepJee promo. Designed long, distinctive, and bolder than FolderCards.
