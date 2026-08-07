@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
