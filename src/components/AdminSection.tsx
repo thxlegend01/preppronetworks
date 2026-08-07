@@ -16,8 +16,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import NotificationManager from "./NotificationManager";
-
-const ADMIN_PASSWORD = "saurabhsaroj2010@gmail.com";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface UserProfile {
   id: string;
@@ -46,10 +45,8 @@ interface UserStats {
 type AdminTab = "notifications" | "system" | "analytics";
 
 const AdminSection = () => {
+  const { isAdmin, checking } = useIsAdmin();
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState<AdminTab | null>(null);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [stats, setStats] = useState<UserStats>({
@@ -69,15 +66,6 @@ const AdminSection = () => {
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [filterStatus, setFilterStatus] = useState<"all" | "active" | "blocked">("all");
   const { toast } = useToast();
-
-  const handleUnlock = () => {
-    if (password === ADMIN_PASSWORD) {
-      setIsUnlocked(true);
-      setError("");
-    } else {
-      setError("Incorrect password");
-    }
-  };
 
   const fetchStats = async () => {
     setLoading(true);
@@ -187,7 +175,9 @@ const AdminSection = () => {
     }
   };
 
-  // --- LOCK SCREEN ---
+  // --- ACCESS GATE (server-verified admin role) ---
+  if (checking || !isAdmin) return null;
+
   if (!isUnlocked) {
     return (
       <section className="py-6 px-4">
@@ -213,35 +203,16 @@ const AdminSection = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
-                <p className="text-sm font-medium text-foreground mb-4">Admin Access</p>
-                <div className="space-y-3">
-                  <div className="relative">
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && handleUnlock()}
-                      className="pr-10 text-sm h-10 rounded-xl"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                    >
-                      {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-                  {error && <p className="text-destructive text-xs">{error}</p>}
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => setShowLoginForm(false)} className="flex-1 text-xs h-9 rounded-xl">
-                      Cancel
-                    </Button>
-                    <Button size="sm" onClick={handleUnlock} className="flex-1 text-xs h-9 rounded-xl bg-primary hover:bg-primary/90">
-                      <Lock className="mr-1 w-3 h-3" />
-                      Unlock
-                    </Button>
-                  </div>
+                <p className="text-sm font-medium text-foreground mb-1">Admin Access</p>
+                <p className="text-xs text-muted-foreground mb-4">Your admin role is verified on the server.</p>
+                <div className="flex gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => setShowLoginForm(false)} className="flex-1 text-xs h-9 rounded-xl">
+                    Cancel
+                  </Button>
+                  <Button size="sm" onClick={() => setIsUnlocked(true)} className="flex-1 text-xs h-9 rounded-xl bg-primary hover:bg-primary/90">
+                    <Lock className="mr-1 w-3 h-3" />
+                    Open Panel
+                  </Button>
                 </div>
               </motion.div>
             )}
