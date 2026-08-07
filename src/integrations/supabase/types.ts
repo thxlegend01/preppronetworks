@@ -1287,6 +1287,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_streaks: {
         Row: {
           current_streak: number
@@ -1385,8 +1406,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      are_friends: { Args: { _a: string; _b: string }; Returns: boolean }
       can_post_in_conversation: {
         Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_view_room: {
+        Args: { _room_id: string; _user_id: string }
+        Returns: boolean
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
         Returns: boolean
       }
       is_announcement_admin: { Args: { _user_id: string }; Returns: boolean }
@@ -1401,6 +1434,7 @@ export type Database = {
       }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
       conversation_role: "owner" | "admin" | "member"
       conversation_type: "dm" | "group" | "channel"
       friend_request_status: "pending" | "accepted" | "rejected"
@@ -1534,6 +1568,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
       conversation_role: ["owner", "admin", "member"],
       conversation_type: ["dm", "group", "channel"],
       friend_request_status: ["pending", "accepted", "rejected"],
