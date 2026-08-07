@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 import {
   ArrowLeft, Send, Loader2, Paperclip, X, Reply, MoreVertical, Trash2, ShieldAlert, AtSign, Ban,
 } from "lucide-react";
@@ -104,10 +105,13 @@ const DirectMessagePage = () => {
     if (pendingFile) {
       const ext = pendingFile.name.split(".").pop() || "bin";
       const path = `dm/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      const { error: upErr } = await supabase.storage.from("chat-media").upload(path, pendingFile, { contentType: pendingFile.type });
-      if (upErr) { setSending(false); toast({ variant: "destructive", title: "Upload failed", description: upErr.message }); return; }
-      const { data } = supabase.storage.from("chat-media").getPublicUrl(path);
-      media_url = data.publicUrl;
+      try {
+        media_url = await uploadChatMediaSigned(path, pendingFile, pendingFile.type);
+      } catch (e: any) {
+        setSending(false);
+        toast({ variant: "destructive", title: "Upload failed", description: e?.message });
+        return;
+      }
       media_type = pendingFile.type || "application/octet-stream";
       media_name = pendingFile.name;
     }

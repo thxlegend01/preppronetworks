@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 
 interface Message {
   id: string;
@@ -143,14 +144,15 @@ const RoomChatWidget = ({ roomId, roomName }: RoomChatWidgetProps) => {
     setUploading(true);
     const ext = file.name.split(".").pop();
     const path = `${roomId}/${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("chat-media").upload(path, file);
-    if (error) {
+    let signedUrl: string;
+    try {
+      signedUrl = await uploadChatMediaSigned(path, file, file.type);
+    } catch {
       toast.error("Upload failed");
       setUploading(false);
       return;
     }
-    const { data: urlData } = supabase.storage.from("chat-media").getPublicUrl(path);
-    await sendMessage(isVideo ? "📹 Video" : "📷 Photo", isVideo ? "video" : "image", urlData.publicUrl);
+    await sendMessage(isVideo ? "📹 Video" : "📷 Photo", isVideo ? "video" : "image", signedUrl);
     setUploading(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };

@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { uploadChatMediaSigned } from "@/lib/chatMedia";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
@@ -124,11 +125,15 @@ const OwnerChatPage = () => {
       setUploading(true);
       const ext = pendingFile.name.split(".").pop() || "bin";
       const path = `owner-chat/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      const { error: upErr } = await supabase.storage.from("chat-media").upload(path, pendingFile, { contentType: pendingFile.type, upsert: false });
+      try {
+        media_url = await uploadChatMediaSigned(path, pendingFile, pendingFile.type);
+      } catch (e: any) {
+        setUploading(false);
+        setSending(false);
+        toast({ variant: "destructive", title: "Upload failed", description: e?.message });
+        return;
+      }
       setUploading(false);
-      if (upErr) { setSending(false); toast({ variant: "destructive", title: "Upload failed", description: upErr.message }); return; }
-      const { data } = supabase.storage.from("chat-media").getPublicUrl(path);
-      media_url = data.publicUrl;
       media_type = pendingFile.type || "application/octet-stream";
       media_name = pendingFile.name;
     }
