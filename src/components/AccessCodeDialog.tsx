@@ -16,35 +16,21 @@ interface AccessCodeDialogProps {
   onSuccess?: () => void;
 }
 
-// Normalize code by removing spaces and converting to lowercase
-const normalizeCode = (code: string): string => {
-  return code.toLowerCase().replace(/\s+/g, "").trim();
-};
-
-// Valid codes (case-insensitive, space-insensitive)
-const VALID_CODES = ["preppronetwork"]; // "PrepPro Network" normalized
-const ADMIN_CODES = ["saurabh"]; // Admin bypass
-
 const SHORTENER_LINK = "https://gplinks.co/wtGQu";
 
 const AccessCodeDialog = ({ isOpen, onClose, onSuccess }: AccessCodeDialogProps) => {
-  const { hasValidAccess, timeRemaining, grantAccess } = useAccessCode();
+  const { hasValidAccess, timeRemaining, verifyCode } = useAccessCode();
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [shake, setShake] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const normalizedCode = normalizeCode(code);
-    
-    // Check if code is valid
-    const isValidCode = VALID_CODES.includes(normalizedCode);
-    const isAdminCode = ADMIN_CODES.includes(normalizedCode);
-    
-    if (isValidCode || isAdminCode) {
-      grantAccess();
+    const ok = await verifyCode(code);
+
+    if (ok) {
       setError(false);
       setShowSuccess(true);
       
