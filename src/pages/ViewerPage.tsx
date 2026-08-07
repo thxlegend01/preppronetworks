@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BATCHES } from "@/lib/data";
 import { studyMaterials } from "@/pages/StudyMaterialPage";
 import PdfViewer from "@/components/PdfViewer";
+import { isTrustedUrl, openTrustedUrl } from "@/lib/urlSafety";
 
 // Apps that should open internally via iframe
 const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "ipl"];
@@ -58,7 +59,9 @@ const ViewerPage = () => {
     : materialFolderId
       ? `https://drive.google.com/embeddedfolderview?id=${materialFolderId}#list`
       : materialData?.url || "";
-  const url = location.state?.url || queryUrl || materialEmbedUrl || batchData?.externalUrl || "";
+  const requestedUrl = location.state?.url || queryUrl || materialEmbedUrl || batchData?.externalUrl || "";
+  const urlAllowed = isTrustedUrl(requestedUrl);
+  const url = urlAllowed ? requestedUrl : "";
   const title = location.state?.title || queryTitle || materialData?.title || batchData?.title || routeAppId || "App Viewer";
   const openExternal = location.state?.openExternal || query.get("external") === "1";
   const forceInternal = location.state?.forceInternal || query.get("internal") === "1";
@@ -101,7 +104,7 @@ const ViewerPage = () => {
   // Open externally for external apps
   useEffect(() => {
     if (url && shouldOpenExternal) {
-      window.open(url, "_blank");
+      openTrustedUrl(url);
       navigate("/");
     }
   }, [url, navigate, shouldOpenExternal]);
@@ -110,6 +113,22 @@ const ViewerPage = () => {
     setLoadingProgress(100);
     setTimeout(() => setIsLoading(false), 500);
   };
+
+  if (requestedUrl && !urlAllowed) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="text-center animate-fade-in max-w-sm">
+          <h1 className="text-xl font-bold mb-2">Link blocked</h1>
+          <p className="text-sm text-muted-foreground mb-4">
+            This link points to a site that is not part of PrepPro Network, so it can't be opened here.
+          </p>
+          <button onClick={() => navigate("/")} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg">
+            Go Back Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!url && !pdfUrl) {
     return (
