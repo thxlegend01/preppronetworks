@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { z } from "zod";
+import { readValidated } from "@/lib/safeStorage";
 
 const RECENTLY_VIEWED_KEY = "preppro_recently_viewed";
 const MAX_ITEMS = 5;
@@ -12,8 +14,13 @@ export interface RecentItem {
 
 export const useRecentlyViewed = () => {
   const [recentlyViewed, setRecentlyViewed] = useState<RecentItem[]>(() => {
-    const stored = localStorage.getItem(RECENTLY_VIEWED_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const schema = z.array(z.object({
+      id: z.string().max(200),
+      title: z.string().max(300),
+      type: z.enum(["app", "material"]),
+      timestamp: z.number(),
+    })).max(MAX_ITEMS);
+    return readValidated<RecentItem[]>(RECENTLY_VIEWED_KEY, schema, []);
   });
 
   useEffect(() => {

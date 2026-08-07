@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { z } from "zod";
+import { readValidated } from "@/lib/safeStorage";
 
 const FAVORITES_KEY = "preppro_favorites";
 
 export const useFavorites = () => {
   const [favorites, setFavorites] = useState<string[]>(() => {
-    const stored = localStorage.getItem(FAVORITES_KEY);
-    return stored ? JSON.parse(stored) : [];
+    return readValidated<string[]>(FAVORITES_KEY, z.array(z.string().max(200)).max(500), []);
   });
 
   useEffect(() => {
