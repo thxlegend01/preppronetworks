@@ -21,6 +21,7 @@ export interface Batch {
 }
 
 import pwLogoNew from "@/assets/pw-logo-new.jpg";
+import allenLogo from "@/assets/allen-logo.png";
 
 // App-specific access codes (only for apps that need them)
 export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> = {
@@ -29,6 +30,22 @@ export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> =
 
 export const BATCHES: Batch[] = [
   // ──── FEATURED APPS (shown by default) ────
+  {
+    id: "allen-app",
+    title: "ALLEN",
+    description: "ALLEN Career Institute courses, lectures and test material — opens fully inside PrepPro Network.",
+    category: "Apps",
+    status: "Live",
+    image: allenLogo,
+    externalUrl: "https://allen-online.onrender.com",
+    openInternal: true,
+    featured: true,
+    chapters: [
+      { id: "allen-1", title: "JEE Main + Advanced", lessons: 140, duration: "70+ hrs" },
+      { id: "allen-2", title: "NEET Complete", lessons: 130, duration: "65+ hrs" },
+      { id: "allen-3", title: "Test Series & DPPs", lessons: 80, duration: "40+ hrs" },
+    ],
+  },
   {
     id: "pw-app",
     title: "Physics Wallah",
