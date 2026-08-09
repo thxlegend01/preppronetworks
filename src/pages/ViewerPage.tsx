@@ -8,7 +8,7 @@ import PdfViewer from "@/components/PdfViewer";
 import { isTrustedUrl, openTrustedUrl } from "@/lib/urlSafety";
 
 // Apps that should open internally via iframe
-const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "ipl"];
+const INTERNAL_APPS = ["next-toppers-app", "mathango-test-series", "ipl", "allen-app", "ALLEN"];
 
 // Motivational quotes for loading screen
 const MOTIVATIONAL_QUOTES = [

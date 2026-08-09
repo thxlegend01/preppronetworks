@@ -42,8 +42,10 @@ import careerwillLogo from "@/assets/careerwill-logo.png";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 import vibrantLogo from "@/assets/vibrant-logo.png";
 import iitschoolLogo from "@/assets/iitschool-logo.webp";
+import allenLogo from "@/assets/allen-logo.png";
 
 const logoMap: Record<string, string> = {
+  "allen-app": allenLogo,
   "pw-app": pwLogoNew,
   "next-toppers-app": nexttoppersLogo,
   "unacademy-app": unacademyLogo,
@@ -76,7 +78,7 @@ const AppsPage = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
-  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string } | null>(null);
+  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean } | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -96,13 +98,19 @@ const AppsPage = () => {
   const handleStudyNow = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
-    setLaunching({ title, logo: logoMap[id], url });
+    const batch = BATCHES.find(b => b.id === id);
+    setLaunching({ title, logo: logoMap[id], url, id, internal: batch?.openInternal === true });
   };
 
   const finishLaunch = () => {
     if (launching) {
-      window.open(launching.url, "_blank", "noopener,noreferrer");
+      const target = launching;
       setLaunching(null);
+      if (target.internal) {
+        navigate("/viewer", { state: { url: target.url, title: target.title, appId: target.id, forceInternal: true } });
+        return;
+      }
+      window.open(target.url, "_blank", "noopener,noreferrer");
     }
   };
 
