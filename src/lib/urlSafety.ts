@@ -9,6 +9,7 @@ const ALLOWED_HOSTS = [
   "vercel.app",
   "netlify.app",
   "render.com",
+  "onrender.com",
   "graphy.com",
   "novatra.in",
   "theeduverse.xyz",
