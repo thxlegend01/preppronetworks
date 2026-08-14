@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import IndependenceDayBanner from "@/components/IndependenceDayBanner";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import FolderCards from "@/components/FolderCards";
 import GlobalSearch from "@/components/GlobalSearch";
@@ -31,6 +32,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
+        <IndependenceDayBanner />
         <RecentlyViewed />
         <PrepChatPromo />
         <CommunityOwnerStrips />
