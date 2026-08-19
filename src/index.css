@@ -129,6 +129,8 @@
 
   .glass-navbar {
     @apply bg-background/70 backdrop-blur-2xl border-b border-border/30;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .card-hover {
