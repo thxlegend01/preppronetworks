@@ -87,8 +87,16 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Lenis virtual scroll — native smooth-behavior must be off */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: smooth; }
   }
 
   body {
@@ -121,14 +129,31 @@
 
   .glass-navbar {
     @apply bg-background/70 backdrop-blur-2xl border-b border-border/30;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .card-hover {
-    @apply transition-all duration-500 ease-out;
+    @apply transition-transform duration-500;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .card-hover:hover {
-    @apply shadow-xl shadow-primary/10 -translate-y-1;
+    transform: translate3d(0, -4px, 0) scale(1.015);
+  }
+
+  .card-hover:active {
+    transform: translate3d(0, -1px, 0) scale(0.98);
+  }
+
+  /* Hardware layer hint for animated surfaces (cards, heroes, overlays, navbars) */
+  .gpu-layer {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .shine-effect {
@@ -163,7 +188,9 @@
   }
 
   .btn-click-effect {
-    @apply transition-all duration-150;
+    @apply transition-transform duration-150;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
   }
 
   .btn-click-effect:active {
@@ -171,7 +198,9 @@
   }
 
   .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
+    @apply transition-transform duration-200 hover:scale-105 active:scale-[0.98];
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
   }
 
   .no-link-style {
