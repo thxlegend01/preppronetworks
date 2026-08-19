@@ -11,6 +11,7 @@ import { BlockCheckProvider } from "@/hooks/useBlockCheck";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SplashScreen from "@/components/SplashScreen";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import IndependenceDayTheme from "@/components/IndependenceDayTheme";
 import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
@@ -92,6 +93,7 @@ const App = () => {
                   <Sonner />
                   <IndependenceDayTheme />
                   <BrowserRouter>
+                    <SmoothScrollProvider>
                     <Suspense fallback={<PageLoader />}>
                       <AnimatePresence mode="wait">
                         <Routes>
@@ -135,6 +137,7 @@ const App = () => {
                         </Routes>
                       </AnimatePresence>
                     </Suspense>
+                    </SmoothScrollProvider>
                   </BrowserRouter>
                 </TooltipProvider>
               </UsernameCheckProvider>
