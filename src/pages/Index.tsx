@@ -6,6 +6,7 @@ import FolderCards from "@/components/FolderCards";
 import GlobalSearch from "@/components/GlobalSearch";
 import CommunityOwnerStrips from "@/components/CommunityOwnerStrips";
 import PrepChatPromo from "@/components/PrepChatPromo";
+import AdCarousel from "@/components/AdCarousel";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import WhyPrepProHub from "@/components/WhyPrepProHub";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
@@ -32,6 +33,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
+        <AdCarousel />
         <IndependenceDayBanner />
         <RecentlyViewed />
         <PrepChatPromo />
