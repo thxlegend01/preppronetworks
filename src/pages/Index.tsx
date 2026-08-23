@@ -33,6 +33,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
+        <AdCarousel />
         <IndependenceDayBanner />
         <RecentlyViewed />
         <PrepChatPromo />
