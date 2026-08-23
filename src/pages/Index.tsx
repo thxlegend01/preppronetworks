@@ -36,7 +36,6 @@ const Index = () => {
         <AdCarousel />
         <IndependenceDayBanner />
         <RecentlyViewed />
-        <PrepChatPromo />
         <CommunityOwnerStrips />
         <GlobalSearch />
         <FolderCards />

@@ -165,12 +165,12 @@ const AdCarousel = () => {
 
   return (
     <section
-      className="container mx-auto px-4 my-5"
+      className="container mx-auto px-3 sm:px-4 my-5"
       onMouseEnter={() => (paused.current = true)}
       onMouseLeave={() => (paused.current = false)}
     >
       <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-card shadow-[0_18px_50px_-20px_hsl(var(--primary)/0.6)]">
-        <div className="relative h-[190px] sm:h-[260px]">
+        <div className="relative h-[250px] sm:h-[340px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={ad.id}
