@@ -1,8 +1,10 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles, Library } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
+import { openTrustedUrl } from "@/lib/urlSafety";
+
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
 
