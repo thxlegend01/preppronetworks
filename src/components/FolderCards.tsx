@@ -132,7 +132,7 @@ const FolderCards = () => {
           {sections.map((section, i) => (
             <div key={section.id} className="flex flex-col">
               <motion.button
-                onClick={() => navigate(section.path)}
+                onClick={() => ("external" in section && section.external ? openTrustedUrl(section.path) : navigate(section.path))}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
