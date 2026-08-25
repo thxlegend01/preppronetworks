@@ -304,6 +304,7 @@ const AppsPage = () => {
           open={!!launching}
           title={launching?.title || ""}
           logo={launching?.logo}
+          prefetchUrl={launching?.internal ? launching?.url : undefined}
           onComplete={finishLaunch}
         />
 
