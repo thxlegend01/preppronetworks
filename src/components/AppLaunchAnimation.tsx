@@ -8,6 +8,8 @@ interface AppLaunchAnimationProps {
   accent?: string;
   onComplete: () => void;
   durationMs?: number;
+  /** Target URL warmed up (DNS/TLS/prefetch) while the animation plays. */
+  prefetchUrl?: string;
 }
 
 /**
@@ -21,12 +23,39 @@ const AppLaunchAnimation = ({
   accent = "from-primary to-accent",
   onComplete,
   durationMs = 1100,
+  prefetchUrl,
 }: AppLaunchAnimationProps) => {
   useEffect(() => {
     if (!open) return;
     const t = setTimeout(onComplete, durationMs);
     return () => clearTimeout(t);
   }, [open, onComplete, durationMs]);
+
+  // Warm up the destination in the background so it's practically loaded
+  // by the time the animation finishes.
+  useEffect(() => {
+    if (!open || !prefetchUrl) return;
+    let origin: string;
+    try {
+      origin = new URL(prefetchUrl, window.location.href).origin;
+    } catch {
+      return;
+    }
+    const links: HTMLLinkElement[] = [];
+    const add = (rel: string, href: string, crossOrigin?: boolean) => {
+      const el = document.createElement("link");
+      el.rel = rel;
+      el.href = href;
+      if (crossOrigin) el.crossOrigin = "anonymous";
+      document.head.appendChild(el);
+      links.push(el);
+    };
+    add("dns-prefetch", origin);
+    add("preconnect", origin, true);
+    add("prefetch", prefetchUrl);
+    return () => links.forEach((l) => l.remove());
+  }, [open, prefetchUrl]);
+
 
   return (
     <AnimatePresence>

@@ -78,7 +78,7 @@ const AppsPage = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
-  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean } | null>(null);
+  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean; opened?: boolean } | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -99,7 +99,14 @@ const AppsPage = () => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
     const batch = BATCHES.find(b => b.id === id);
-    setLaunching({ title, logo: logoMap[id], url, id, internal: batch?.openInternal === true });
+    const internal = batch?.openInternal === true;
+    // Open the external tab straight away (inside the user gesture) so the app is
+    // already loading in the background while the launch animation plays.
+    let opened = false;
+    if (!internal) {
+      opened = !!window.open(url, "_blank", "noopener,noreferrer");
+    }
+    setLaunching({ title, logo: logoMap[id], url, id, internal, opened });
   };
 
   const finishLaunch = () => {
@@ -110,9 +117,10 @@ const AppsPage = () => {
         navigate("/viewer", { state: { url: target.url, title: target.title, appId: target.id, forceInternal: true } });
         return;
       }
-      window.open(target.url, "_blank", "noopener,noreferrer");
+      if (!target.opened) window.open(target.url, "_blank", "noopener,noreferrer");
     }
   };
+
 
   const handleContinue = () => {
     setDisclaimerOpen(false);
@@ -296,6 +304,7 @@ const AppsPage = () => {
           open={!!launching}
           title={launching?.title || ""}
           logo={launching?.logo}
+          prefetchUrl={launching?.internal ? launching?.url : undefined}
           onComplete={finishLaunch}
         />
 

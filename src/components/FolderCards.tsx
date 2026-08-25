@@ -1,8 +1,10 @@
-import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles } from "lucide-react";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles, Library } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
+import { openTrustedUrl } from "@/lib/urlSafety";
+
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
 
@@ -64,7 +66,23 @@ const sections = [
     ctaWash: "from-emerald-100 to-teal-100 dark:from-emerald-950/60 dark:to-teal-950/40",
   },
   {
+    id: "prepbooks",
+    title: "PrepBooks",
+    subtitle: "Now Live — Free Book Library",
+    description: "NCERTs, modules & reference books — read online, free",
+    icon: Library,
+    path: "https://prepbooks.lovable.app/",
+    external: true,
+    emoji: "📖",
+    accent: "from-indigo-500 to-blue-600",
+    wash: "from-indigo-50 via-blue-50/60 to-sky-50/40 dark:from-indigo-950/40 dark:via-blue-950/30 dark:to-sky-950/20",
+    bar: "from-indigo-400 via-blue-500 to-sky-500",
+    subColor: "text-indigo-500 dark:text-indigo-400",
+    ctaWash: "from-indigo-100 to-blue-100 dark:from-indigo-950/60 dark:to-blue-950/40",
+  },
+  {
     id: "study-tracker",
+
     title: "Study Tracker",
     subtitle: "YPT Style — Track, Compete & Grow",
     description: "Timer, Analytics, Study Rooms, Leaderboard & Friends",
@@ -114,7 +132,7 @@ const FolderCards = () => {
           {sections.map((section, i) => (
             <div key={section.id} className="flex flex-col">
               <motion.button
-                onClick={() => navigate(section.path)}
+                onClick={() => ("external" in section && section.external ? openTrustedUrl(section.path) : navigate(section.path))}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
