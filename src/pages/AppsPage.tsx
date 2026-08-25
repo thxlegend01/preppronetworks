@@ -99,7 +99,14 @@ const AppsPage = () => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
     const batch = BATCHES.find(b => b.id === id);
-    setLaunching({ title, logo: logoMap[id], url, id, internal: batch?.openInternal === true });
+    const internal = batch?.openInternal === true;
+    // Open the external tab straight away (inside the user gesture) so the app is
+    // already loading in the background while the launch animation plays.
+    let opened = false;
+    if (!internal) {
+      opened = !!window.open(url, "_blank", "noopener,noreferrer");
+    }
+    setLaunching({ title, logo: logoMap[id], url, id, internal, opened });
   };
 
   const finishLaunch = () => {
@@ -110,9 +117,10 @@ const AppsPage = () => {
         navigate("/viewer", { state: { url: target.url, title: target.title, appId: target.id, forceInternal: true } });
         return;
       }
-      window.open(target.url, "_blank", "noopener,noreferrer");
+      if (!target.opened) window.open(target.url, "_blank", "noopener,noreferrer");
     }
   };
+
 
   const handleContinue = () => {
     setDisclaimerOpen(false);
