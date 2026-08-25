@@ -78,7 +78,7 @@ const AppsPage = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
-  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean } | null>(null);
+  const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean; opened?: boolean } | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
