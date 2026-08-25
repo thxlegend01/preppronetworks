@@ -81,6 +81,7 @@ const sections = [
     ctaWash: "from-indigo-100 to-blue-100 dark:from-indigo-950/60 dark:to-blue-950/40",
   },
   {
+    id: "study-tracker",
 
     title: "Study Tracker",
     subtitle: "YPT Style — Track, Compete & Grow",
