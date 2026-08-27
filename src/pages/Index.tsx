@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import IndependenceDayBanner from "@/components/IndependenceDayBanner";
+import RakshaBandhanBanner from "@/components/RakshaBandhanBanner";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import FolderCards from "@/components/FolderCards";
 import GlobalSearch from "@/components/GlobalSearch";
@@ -35,6 +36,7 @@ const Index = () => {
         <Hero />
         <AdCarousel />
         <IndependenceDayBanner />
+        <RakshaBandhanBanner />
         <RecentlyViewed />
         <CommunityOwnerStrips />
         <GlobalSearch />
