@@ -79,6 +79,7 @@ const ViewerPage = () => {
 
   const isInternalApp = forceInternal || INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
   const shouldOpenExternal = openExternal || (!isInternalApp);
+  const seamless = batchData?.seamless === true || location.state?.seamless === true || query.get("seamless") === "1";
 
   // Simulate loading progress
   useEffect(() => {
