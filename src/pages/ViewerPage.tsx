@@ -148,7 +148,8 @@ const ViewerPage = () => {
   if (!shouldOpenExternal) {
     return (
       <div className="h-screen flex flex-col bg-background overflow-hidden">
-        {/* Header Bar */}
+        {/* Header Bar (hidden in seamless mode) */}
+        {!seamless && (
         <div className="h-14 glass-navbar flex items-center px-4 border-b border-border/40 relative z-20">
           <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="hover:bg-secondary/50 mr-3 hover:scale-110 transition-transform">
             <ArrowLeft className="w-5 h-5" />
