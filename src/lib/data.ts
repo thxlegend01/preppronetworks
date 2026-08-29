@@ -14,6 +14,7 @@ export interface Batch {
   image: string;
   externalUrl: string;
   openInternal?: boolean;
+  seamless?: boolean;
   showLoadingAnimation?: boolean;
   openExternalAfterLoading?: boolean;
   chapters: Chapter[];
@@ -259,6 +260,35 @@ export const BATCHES: Batch[] = [
     openInternal: false,
     chapters: [
       { id: "iits-1", title: "JEE Foundation", lessons: 60, duration: "30 hrs" },
+    ],
+  },
+  {
+    id: "pw-2-app",
+    title: "Physics Wallah 2",
+    description: "Physics Wallah batches and study material — opens fully inside PrepPro Network.",
+    category: "Apps",
+    status: "Live",
+    image: pwLogoNew,
+    externalUrl: "https://www.learnxpw.site/study/batches",
+    openInternal: true,
+    seamless: true,
+    chapters: [
+      { id: "pw2-1", title: "JEE Batches", lessons: 120, duration: "60+ hrs" },
+      { id: "pw2-2", title: "NEET Batches", lessons: 110, duration: "55+ hrs" },
+    ],
+  },
+  {
+    id: "pw-3-app",
+    title: "Physics Wallah 3",
+    description: "Physics Wallah premium batches mirror — opens fully inside PrepPro Network.",
+    category: "Apps",
+    status: "Live",
+    image: pwLogoNew,
+    externalUrl: "https://raghav-web-f05bab7adcec.herokuapp.com/study/batches",
+    openInternal: true,
+    seamless: true,
+    chapters: [
+      { id: "pw3-1", title: "All Batches", lessons: 150, duration: "75+ hrs" },
     ],
   },
   // ──── TEST SERIES ────

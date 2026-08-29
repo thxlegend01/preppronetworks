@@ -79,6 +79,7 @@ const ViewerPage = () => {
 
   const isInternalApp = forceInternal || INTERNAL_APPS.includes(appId) || (batchData?.openInternal === true);
   const shouldOpenExternal = openExternal || (!isInternalApp);
+  const seamless = batchData?.seamless === true || location.state?.seamless === true || query.get("seamless") === "1";
 
   // Simulate loading progress
   useEffect(() => {
@@ -147,7 +148,8 @@ const ViewerPage = () => {
   if (!shouldOpenExternal) {
     return (
       <div className="h-screen flex flex-col bg-background overflow-hidden">
-        {/* Header Bar */}
+        {/* Header Bar (hidden in seamless mode) */}
+        {!seamless && (
         <div className="h-14 glass-navbar flex items-center px-4 border-b border-border/40 relative z-20">
           <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="hover:bg-secondary/50 mr-3 hover:scale-110 transition-transform">
             <ArrowLeft className="w-5 h-5" />
@@ -165,10 +167,11 @@ const ViewerPage = () => {
             </div>
           )}
         </div>
+        )}
         
         {/* Enhanced Loading Screen */}
         {isLoading && (
-          <div className="absolute inset-0 top-14 z-10 bg-gradient-to-br from-background via-secondary/30 to-background flex items-center justify-center overflow-hidden">
+          <div className={`absolute inset-0 ${seamless ? "" : "top-14"} z-10 bg-gradient-to-br from-background via-secondary/30 to-background flex items-center justify-center overflow-hidden`}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <FloatingIcon icon={Star} delay={0} duration={6} left="10%" size={24} />
               <FloatingIcon icon={BookOpen} delay={1} duration={7} left="25%" size={32} />
