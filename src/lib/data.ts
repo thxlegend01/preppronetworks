@@ -14,6 +14,7 @@ export interface Batch {
   image: string;
   externalUrl: string;
   openInternal?: boolean;
+  seamless?: boolean;
   showLoadingAnimation?: boolean;
   openExternalAfterLoading?: boolean;
   chapters: Chapter[];

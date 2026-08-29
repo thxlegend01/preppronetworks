@@ -20,6 +20,8 @@ const ALLOWED_HOSTS = [
   "telegram.me",
   "t.me",
   "mega.nz",
+  "learnxpw.site",
+  "herokuapp.com",
 ];
 
 export function isTrustedUrl(rawUrl: string): boolean {
