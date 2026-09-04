@@ -291,6 +291,20 @@ export const BATCHES: Batch[] = [
       { id: "pw3-1", title: "All Batches", lessons: 150, duration: "75+ hrs" },
     ],
   },
+  {
+    id: "next-toppers-2-app",
+    title: "Next Toppers 2",
+    description: "Next Toppers batches and lectures — opens fully inside PrepPro Network.",
+    category: "Apps",
+    status: "Live",
+    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
+    externalUrl: "https://eduvibe-nt.pages.dev/",
+    openInternal: true,
+    seamless: true,
+    chapters: [
+      { id: "nt2-1", title: "All Batches", lessons: 100, duration: "50+ hrs" },
+    ],
+  },
   // ──── TEST SERIES ────
   {
     id: "pw-test-series",
