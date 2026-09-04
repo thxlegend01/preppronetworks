@@ -22,6 +22,7 @@ const ALLOWED_HOSTS = [
   "mega.nz",
   "learnxpw.site",
   "herokuapp.com",
+  "pages.dev",
 ];
 
 export function isTrustedUrl(rawUrl: string): boolean {
