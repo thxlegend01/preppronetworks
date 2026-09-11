@@ -246,8 +246,9 @@ const AppsPage = () => {
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search apps..." />
 
-          <div className="mt-6">
+          <div className="mt-6 space-y-3">
             <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Study Apps Updates" />
+            <TelegramChannelBanner url={TELEGRAM_LINK} label="Study Apps Updates" />
           </div>
 
           {isLoading ? (

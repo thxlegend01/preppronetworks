@@ -162,8 +162,9 @@ const TestSeriesPage = () => {
             </div>
           </motion.a>
 
-          <div className="mt-6">
+          <div className="mt-6 space-y-3">
             <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Test Series & PYQs" />
+            <TelegramChannelBanner url={TELEGRAM_LINK} label="Test Series & PYQs" />
           </div>
 
           {isLoading ? (
