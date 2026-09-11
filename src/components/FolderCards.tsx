@@ -197,8 +197,9 @@ const FolderCards = () => {
                 </div>
               </motion.button>
 
-              {/* Subtle WhatsApp strip directly below each card (~75% visibility) */}
+              {/* WhatsApp + Telegram strips directly below each card */}
               <WhatsAppChannelBanner url={WHATSAPP_LINK} label={section.title} compact />
+              <TelegramChannelBanner url={TELEGRAM_LINK} label={section.title} compact />
             </div>
           ))}
         </div>
