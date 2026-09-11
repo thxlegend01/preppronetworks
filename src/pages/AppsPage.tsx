@@ -19,6 +19,7 @@ import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
+import TelegramChannelBanner from "@/components/TelegramChannelBanner";
 import {
   Dialog,
   DialogContent,
@@ -62,6 +63,7 @@ const logoMap: Record<string, string> = {
 };
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
+const TELEGRAM_LINK = "https://t.me/+Vaaty3NWsRIzOThl";
 
 const AppsPage = () => {
   const navigate = useNavigate();
@@ -246,8 +248,9 @@ const AppsPage = () => {
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search apps..." />
 
-          <div className="mt-6">
+          <div className="mt-6 space-y-3">
             <WhatsAppChannelBanner url={WHATSAPP_LINK} label="Study Apps Updates" />
+            <TelegramChannelBanner url={TELEGRAM_LINK} label="Study Apps Updates" />
           </div>
 
           {isLoading ? (

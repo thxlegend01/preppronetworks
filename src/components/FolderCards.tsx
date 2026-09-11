@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import prepproLogo from "@/assets/preppro-logo.jpg";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
+import TelegramChannelBanner from "@/components/TelegramChannelBanner";
 import { openTrustedUrl } from "@/lib/urlSafety";
 
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
+const TELEGRAM_LINK = "https://t.me/+Vaaty3NWsRIzOThl";
 
 const sections = [
   {
@@ -195,8 +197,9 @@ const FolderCards = () => {
                 </div>
               </motion.button>
 
-              {/* Subtle WhatsApp strip directly below each card (~75% visibility) */}
+              {/* WhatsApp + Telegram strips directly below each card */}
               <WhatsAppChannelBanner url={WHATSAPP_LINK} label={section.title} compact />
+              <TelegramChannelBanner url={TELEGRAM_LINK} label={section.title} compact />
             </div>
           ))}
         </div>
