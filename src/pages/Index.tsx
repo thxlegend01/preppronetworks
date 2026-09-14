@@ -8,6 +8,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import CommunityOwnerStrips from "@/components/CommunityOwnerStrips";
 
 import AdCarousel from "@/components/AdCarousel";
+import PaidPromotionBanner from "@/components/PaidPromotionBanner";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import WhyPrepProHub from "@/components/WhyPrepProHub";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
@@ -34,6 +35,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
+        <PaidPromotionBanner />
         <AdCarousel />
         <IndependenceDayBanner />
         <RakshaBandhanBanner />
