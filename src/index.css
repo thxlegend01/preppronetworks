@@ -237,3 +237,57 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.3);
 }
+
+/* ── User-selectable accent themes ─────────────────────────────── */
+@layer base {
+  [data-accent="blue"] {
+    --primary: 217 91% 60%; --ring: 217 91% 60%; --accent: 199 89% 52%;
+    --secondary: 217 40% 95%;
+    --gradient-primary: linear-gradient(135deg, hsl(224 85% 56%) 0%, hsl(190 92% 50%) 100%);
+  }
+  .dark[data-accent="blue"] { --primary: 213 94% 68%; --ring: 213 94% 68%; --accent: 199 89% 60%; --secondary: 217 20% 15%;
+    --gradient-primary: linear-gradient(135deg, hsl(213 94% 68%) 0%, hsl(190 90% 58%) 100%); }
+
+  [data-accent="violet"] {
+    --primary: 262 83% 63%; --ring: 262 83% 63%; --accent: 291 70% 60%; --secondary: 262 40% 95%;
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 60%) 0%, hsl(300 80% 62%) 100%);
+  }
+  .dark[data-accent="violet"] { --primary: 263 90% 70%; --ring: 263 90% 70%; --accent: 291 75% 68%; --secondary: 262 20% 16%;
+    --gradient-primary: linear-gradient(135deg, hsl(263 90% 70%) 0%, hsl(300 80% 68%) 100%); }
+
+  [data-accent="emerald"] {
+    --primary: 158 64% 38%; --ring: 158 64% 38%; --accent: 173 70% 38%; --secondary: 158 30% 94%;
+    --gradient-primary: linear-gradient(135deg, hsl(158 64% 38%) 0%, hsl(173 75% 45%) 100%);
+  }
+  .dark[data-accent="emerald"] { --primary: 158 64% 50%; --ring: 158 64% 50%; --accent: 173 70% 50%; --secondary: 158 18% 14%;
+    --gradient-primary: linear-gradient(135deg, hsl(158 64% 50%) 0%, hsl(173 75% 52%) 100%); }
+
+  [data-accent="amber"] {
+    --primary: 35 92% 48%; --ring: 35 92% 48%; --accent: 22 90% 55%; --secondary: 35 50% 94%;
+    --gradient-primary: linear-gradient(135deg, hsl(35 95% 52%) 0%, hsl(14 92% 56%) 100%);
+  }
+  .dark[data-accent="amber"] { --primary: 38 95% 58%; --ring: 38 95% 58%; --accent: 22 90% 60%; --secondary: 35 20% 15%;
+    --gradient-primary: linear-gradient(135deg, hsl(38 95% 58%) 0%, hsl(14 92% 60%) 100%); }
+
+  [data-accent="cyan"] {
+    --primary: 189 94% 38%; --ring: 189 94% 38%; --accent: 172 80% 40%; --secondary: 189 40% 94%;
+    --gradient-primary: linear-gradient(135deg, hsl(189 94% 42%) 0%, hsl(210 90% 56%) 100%);
+  }
+  .dark[data-accent="cyan"] { --primary: 187 92% 52%; --ring: 187 92% 52%; --accent: 172 80% 52%; --secondary: 189 20% 14%;
+    --gradient-primary: linear-gradient(135deg, hsl(187 92% 52%) 0%, hsl(210 90% 62%) 100%); }
+
+  [data-accent="red"] {
+    --primary: 0 84% 56%; --ring: 0 84% 56%; --accent: 14 90% 55%; --secondary: 0 40% 95%;
+    --gradient-primary: linear-gradient(135deg, hsl(0 84% 56%) 0%, hsl(20 92% 56%) 100%);
+  }
+  .dark[data-accent="red"] { --primary: 0 84% 64%; --ring: 0 84% 64%; --accent: 14 90% 62%; --secondary: 0 20% 15%;
+    --gradient-primary: linear-gradient(135deg, hsl(0 84% 64%) 0%, hsl(20 92% 62%) 100%); }
+
+  [data-accent="mono"] {
+    --primary: 222 20% 30%; --ring: 222 20% 30%; --accent: 222 12% 45%; --secondary: 222 15% 94%;
+    --gradient-primary: linear-gradient(135deg, hsl(222 22% 28%) 0%, hsl(222 12% 52%) 100%);
+  }
+  .dark[data-accent="mono"] { --primary: 222 20% 78%; --ring: 222 20% 78%; --accent: 222 14% 62%; --secondary: 222 12% 15%;
+    --primary-foreground: 222 25% 12%;
+    --gradient-primary: linear-gradient(135deg, hsl(222 20% 82%) 0%, hsl(222 14% 60%) 100%); }
+}
