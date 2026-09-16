@@ -14,6 +14,7 @@ import SplashScreen from "@/components/SplashScreen";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import IndependenceDayTheme from "@/components/IndependenceDayTheme";
 import RakshaBandhanTheme from "@/components/RakshaBandhanTheme";
+import TelegramJoinPopup from "@/components/TelegramJoinPopup";
 import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
@@ -95,6 +96,7 @@ const App = () => {
                   <IndependenceDayTheme />
                   <RakshaBandhanTheme />
                   <BrowserRouter>
+                    <TelegramJoinPopup />
                     <SmoothScrollProvider>
                     <Suspense fallback={<PageLoader />}>
                       <AnimatePresence mode="wait">
