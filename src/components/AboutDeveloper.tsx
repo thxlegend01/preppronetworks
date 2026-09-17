@@ -25,7 +25,7 @@ const AboutDeveloper = () => {
             <span className="text-xs font-semibold text-primary">The Creator</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-2">
-            Meet <span className="text-gradient">Legend</span>
+            Meet <span className="text-gradient">Saurabh</span>
           </h2>
           <p className="text-sm text-muted-foreground">The mind behind PrepPro Network</p>
         </motion.div>
@@ -45,10 +45,10 @@ const AboutDeveloper = () => {
                 whileHover={{ scale: 1.05, rotate: 3 }}
                 className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center text-3xl font-black text-white shadow-xl shadow-primary/20 mb-4"
               >
-                L
+                S
               </motion.div>
 
-              <h3 className="text-xl font-black text-foreground mb-2">Legend</h3>
+              <h3 className="text-xl font-black text-foreground mb-2">Saurabh</h3>
               
               <div className="flex flex-wrap gap-2 justify-center mb-4">
                 <span className="px-3 py-1 bg-gradient-to-r from-primary/15 to-primary/5 text-primary rounded-full text-xs font-bold border border-primary/20">
