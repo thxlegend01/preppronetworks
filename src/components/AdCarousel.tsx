@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Sparkles, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Sparkles, Lock, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import adPrepBooks from "@/assets/ad-prepbooks.jpg";
 import adPrepJee from "@/assets/ad-prepjee.jpg";
 import adApps from "@/assets/ad-apps.jpg";
@@ -51,7 +52,7 @@ const AdCarousel = () => {
       {
         id: "prepbooks",
         tag: launched ? "LIVE NOW" : "LAUNCHING TODAY 9:00 PM",
-        title: "PrepBooks is coming 🔥",
+        title: launched ? "PrepBooks is now live" : "PrepBooks is coming 🔥",
         subtitle: launched
           ? "Every book, module & PYQ set you need — now live, free forever."
           : "A brand-new PrepPro Network website packed with books, modules & PYQs. Get ready!",
@@ -124,6 +125,9 @@ const AdCarousel = () => {
 
   const ad = ads[index];
   const go = (dir: number) => setIndex((i) => (i + dir + ads.length) % ads.length);
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number } }) => {
+    if (Math.abs(info.offset.x) > 45) go(info.offset.x < 0 ? 1 : -1);
+  };
 
   const Inner = (
     <div className="relative h-full w-full">
@@ -136,21 +140,27 @@ const AdCarousel = () => {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className={`absolute inset-0 bg-gradient-to-r ${ad.accent}`} />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/55 via-transparent to-transparent" />
 
-      <div className="relative flex h-full flex-col justify-end p-4 sm:p-6">
-        <span className="mb-2 inline-flex w-fit items-center gap-1 rounded-full border border-primary/50 bg-background/70 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-primary backdrop-blur">
+      <div className="relative flex h-full flex-col justify-end p-5 sm:p-8">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="inline-flex w-fit items-center gap-1 rounded-full border border-primary/50 bg-background/80 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-primary backdrop-blur">
           {ad.countdown ? <Lock className="h-3 w-3" /> : <Sparkles className="h-3 w-3" />}
           {ad.tag}
-        </span>
-        <h3 className="text-lg sm:text-2xl font-black leading-tight text-foreground drop-shadow">
+          </span>
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-foreground/80">
+            <BadgeCheck className="h-3.5 w-3.5 text-primary" /> PrepPro Pick
+          </span>
+        </div>
+        <h3 className="max-w-xl text-xl sm:text-3xl font-black leading-tight text-foreground drop-shadow">
           {ad.title}
         </h3>
-        <p className="mt-1 max-w-[90%] text-[11px] sm:text-sm text-muted-foreground line-clamp-2">
+        <p className="mt-1.5 max-w-xl text-xs sm:text-sm text-foreground/75 line-clamp-2">
           {ad.subtitle}
         </p>
         <span
-          className={`mt-3 inline-flex w-fit items-center gap-1.5 rounded-full px-4 h-9 text-xs font-black ${
+          className={`mt-4 inline-flex w-fit items-center gap-1.5 rounded-full px-4 h-9 text-xs font-black shadow-lg ${
             ad.countdown
               ? "bg-background/80 text-primary border border-primary/50 tabular-nums"
               : "bg-primary text-primary-foreground"
@@ -165,12 +175,12 @@ const AdCarousel = () => {
 
   return (
     <section
-      className="container mx-auto px-3 sm:px-4 my-5"
+      className="container mx-auto max-w-6xl px-3 sm:px-4 my-6"
       onMouseEnter={() => (paused.current = true)}
       onMouseLeave={() => (paused.current = false)}
     >
-      <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-card shadow-[0_18px_50px_-20px_hsl(var(--primary)/0.6)]">
-        <div className="relative h-[250px] sm:h-[340px]">
+      <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_18px_50px_-20px_hsl(var(--primary)/0.6)]">
+        <div className="relative h-[285px] sm:h-[380px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={ad.id}
@@ -178,6 +188,10 @@ const AdCarousel = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.99 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.12}
+              onDragEnd={handleDragEnd}
               className="absolute inset-0"
             >
               {ad.href ? (
@@ -195,20 +209,26 @@ const AdCarousel = () => {
           </AnimatePresence>
 
           {/* arrows */}
-          <button
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
             aria-label="Previous ad"
             onClick={() => go(-1)}
-            className="absolute left-2 top-1/2 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-background/70 text-foreground backdrop-blur border border-border/60"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 h-8 w-8 rounded-full bg-background/75 text-foreground backdrop-blur border border-border/60 shadow-md"
           >
             <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
             aria-label="Next ad"
             onClick={() => go(1)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-background/70 text-foreground backdrop-blur border border-border/60"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 h-8 w-8 rounded-full bg-background/75 text-foreground backdrop-blur border border-border/60 shadow-md"
           >
             <ChevronRight className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
 
         {/* progress bar */}
@@ -221,17 +241,27 @@ const AdCarousel = () => {
         />
 
         {/* dots */}
-        <div className="flex items-center justify-center gap-1.5 py-2.5">
+        <div className="flex items-center justify-between gap-3 px-4 py-2.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Featured • {index + 1}/{ads.length}
+          </span>
+          <div className="flex items-center justify-center gap-1.5">
           {ads.map((a, i) => (
-            <button
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
               key={a.id}
               aria-label={`Show ad ${i + 1}`}
               onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/40"
+              className={`h-5 min-w-5 rounded-full p-0 transition-all ${
+                i === index ? "w-8 bg-primary/15" : "w-5"
               }`}
-            />
+            >
+              <span className={`block h-1.5 rounded-full transition-all ${i === index ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/40"}`} />
+            </Button>
           ))}
+          </div>
         </div>
       </div>
     </section>
