@@ -8,3 +8,6 @@
 ## Security hardening (Sep 25)
 - [x] Chat file uploads stored in each uploader's own folder
 - [ ] Lock ban list + chat upload rules in database — blocked: backend paused, needs resume
+
+## October 1 relaunch
+- [ ] Relaunch PrepPro Network on October 1, 2026 with a completely refreshed presentation inspired by vidyax.site, while preserving every existing resource and feature — intentionally deferred until reveal day.
