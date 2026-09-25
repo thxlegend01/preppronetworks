@@ -5,3 +5,6 @@
 - [x] Improve the rotating advertisement presentation.
 - [x] Change the creator name to Saurabh.
 - [x] Verify colour themes and mobile presentation.
+## Security hardening (Sep 25)
+- [x] Chat file uploads stored in each uploader's own folder
+- [ ] Lock ban list + chat upload rules in database — blocked: backend paused, needs resume
