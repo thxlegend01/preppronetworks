@@ -155,7 +155,7 @@ const ChatRoom = ({ room, userId, onBack, isMobile }: Props) => {
 
     setUploading(true);
     const ext = file.name.split(".").pop();
-    const path = `${room.id}/${Date.now()}.${ext}`;
+    const path = `${userId}/${room.id}/${Date.now()}.${ext}`;
     let signedUrl: string;
     try {
       signedUrl = await uploadChatMediaSigned(path, file, file.type);

@@ -143,7 +143,7 @@ const RoomChatWidget = ({ roomId, roomName }: RoomChatWidgetProps) => {
     }
     setUploading(true);
     const ext = file.name.split(".").pop();
-    const path = `${roomId}/${Date.now()}.${ext}`;
+    const path = `${user?.id}/${roomId}/${Date.now()}.${ext}`;
     let signedUrl: string;
     try {
       signedUrl = await uploadChatMediaSigned(path, file, file.type);
