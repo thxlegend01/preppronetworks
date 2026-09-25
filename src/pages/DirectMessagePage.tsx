@@ -104,7 +104,7 @@ const DirectMessagePage = () => {
     let media_name: string | null = null;
     if (pendingFile) {
       const ext = pendingFile.name.split(".").pop() || "bin";
-      const path = `dm/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const path = `${user.id}/dm/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
       try {
         media_url = await uploadChatMediaSigned(path, pendingFile, pendingFile.type);
       } catch (e: any) {

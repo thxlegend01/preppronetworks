@@ -124,7 +124,7 @@ const OwnerChatPage = () => {
     if (pendingFile) {
       setUploading(true);
       const ext = pendingFile.name.split(".").pop() || "bin";
-      const path = `owner-chat/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const path = `${user.id}/owner-chat/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
       try {
         media_url = await uploadChatMediaSigned(path, pendingFile, pendingFile.type);
       } catch (e: any) {
