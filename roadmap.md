@@ -10,4 +10,6 @@
 - [ ] Lock ban list + chat upload rules in database — blocked: backend paused, needs resume
 
 ## October 1 relaunch
-- [ ] Relaunch PrepPro Network on October 1, 2026 with a completely refreshed presentation inspired by vidyax.site, while preserving every existing resource and feature — intentionally deferred until reveal day.
+- [ ] Build a private pre-release version inspired by vidyax.site, prioritizing equally smooth navigation and motion while preserving every existing resource and feature.
+- [ ] Let the owner review and refine the private version before launch; keep the current public site unchanged throughout testing.
+- [ ] Reveal the approved redesign publicly on October 1, 2026.
