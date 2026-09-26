@@ -25,6 +25,8 @@ const AppLaunchAnimation = ({
   durationMs = 1100,
   prefetchUrl,
 }: AppLaunchAnimationProps) => {
+  const durationSeconds = durationMs / 1000;
+
   useEffect(() => {
     if (!open) return;
     const t = setTimeout(onComplete, durationMs);
@@ -74,7 +76,7 @@ const AppLaunchAnimation = ({
             className={`absolute w-[420px] h-[420px] rounded-full bg-gradient-to-br ${accent} opacity-30 blur-3xl`}
             initial={{ scale: 0.2 }}
             animate={{ scale: [0.2, 1.4, 1.1], opacity: [0.0, 0.45, 0.0] }}
-            transition={{ duration: 1.1, ease: "easeOut" }}
+            transition={{ duration: durationSeconds, ease: "easeOut" }}
           />
 
           {/* Orbit rings */}
@@ -85,7 +87,7 @@ const AppLaunchAnimation = ({
               style={{ width: 180 + i * 80, height: 180 + i * 80 }}
               initial={{ opacity: 0, rotateX: 70, scale: 0.6 }}
               animate={{ opacity: [0, 0.7, 0], scale: [0.6, 1.1, 1.3], rotate: 360 }}
-              transition={{ duration: 1.1, delay: i * 0.08, ease: "easeOut" }}
+              transition={{ duration: durationSeconds, delay: i * 0.08, ease: "easeOut" }}
             />
           ))}
 
@@ -100,21 +102,21 @@ const AppLaunchAnimation = ({
               scale: [0.4, 1, 1.05, 2.4],
               opacity: [0, 1, 1, 0],
             }}
-            transition={{ duration: 1.1, times: [0, 0.45, 0.7, 1], ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: durationSeconds, times: [0, 0.32, 0.82, 1], ease: [0.22, 1, 0.36, 1] }}
           >
             {logo ? (
               <img src={logo} alt={title} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-white text-3xl font-black">
+              <div className="w-full h-full flex items-center justify-center text-primary-foreground text-3xl font-black">
                 {title.charAt(0)}
               </div>
             )}
             {/* Specular highlight */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0"
+              className="absolute inset-0 bg-gradient-to-tr from-primary-foreground/0 via-primary-foreground/40 to-primary-foreground/0"
               initial={{ x: "-120%" }}
               animate={{ x: "120%" }}
-              transition={{ duration: 0.8, delay: 0.25, ease: "easeInOut" }}
+              transition={{ duration: durationSeconds * 0.7, delay: durationSeconds * 0.18, ease: "easeInOut" }}
             />
           </motion.div>
 
@@ -123,7 +125,7 @@ const AppLaunchAnimation = ({
             className="absolute bottom-[28%] text-center"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: [0, 1, 1, 0], y: [12, 0, 0, -8] }}
-            transition={{ duration: 1.1, times: [0, 0.45, 0.75, 1] }}
+            transition={{ duration: durationSeconds, times: [0, 0.3, 0.85, 1] }}
           >
             <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground mb-2">Launching</p>
             <p className="text-2xl font-black text-foreground">{title}</p>

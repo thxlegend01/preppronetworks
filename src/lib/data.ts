@@ -32,6 +32,23 @@ export const APP_ACCESS_CODES: Record<string, { code: string; label: string }> =
 export const BATCHES: Batch[] = [
   // ──── FEATURED APPS (shown by default) ────
   {
+    id: "preppro-pw-app",
+    title: "PrepPro Network — Physics Wallah",
+    description: "PrepPro's complete Physics Wallah learning experience with batches, classes and study resources in one focused app.",
+    category: "Apps",
+    status: "Live",
+    image: pwLogoNew,
+    externalUrl: "https://preppronetworks.pearlspark.xyz/",
+    openInternal: true,
+    seamless: true,
+    featured: true,
+    chapters: [
+      { id: "ppw-1", title: "Live & Recorded Classes", lessons: 150, duration: "Updated daily" },
+      { id: "ppw-2", title: "JEE & NEET Batches", lessons: 120, duration: "Full syllabus" },
+      { id: "ppw-3", title: "Notes, DPPs & Practice", lessons: 200, duration: "All subjects" },
+    ],
+  },
+  {
     id: "allen-app",
     title: "ALLEN",
     description: "ALLEN Career Institute courses, lectures and test material — opens fully inside PrepPro Network.",

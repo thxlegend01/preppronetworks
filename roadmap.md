@@ -15,7 +15,7 @@
 - [ ] Reveal the approved redesign publicly on October 1, 2026.
 
 ## PrepPro Physics Wallah app
-- [ ] Add the large featured PrepPro PW experience at the top of Study Apps.
-- [ ] Add the shareable `/pw` link with a seamless iframe and 3–4 second PW launch.
-- [ ] Recommend PrepPro PW before opening any other PW portal.
-- [ ] Verify the complete experience on mobile and desktop.
+- [x] Add the large featured PrepPro PW experience at the top of Study Apps.
+- [x] Add the shareable `/pw` link with a seamless iframe and 3–4 second PW launch.
+- [x] Recommend PrepPro PW before opening any other PW portal.
+- [x] Verify the complete experience on mobile and desktop.
