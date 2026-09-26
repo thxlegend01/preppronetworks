@@ -23,6 +23,7 @@ const ALLOWED_HOSTS = [
   "learnxpw.site",
   "herokuapp.com",
   "pages.dev",
+  "pearlspark.xyz",
 ];
 
 export function isTrustedUrl(rawUrl: string): boolean {

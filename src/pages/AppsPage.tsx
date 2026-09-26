@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Smartphone, ArrowLeft, ChevronDown, ExternalLink, Globe, Copy, Check } from "lucide-react";
+import { Smartphone, ArrowLeft, ChevronDown, ExternalLink, Globe, Copy, Check, Play, BookOpen, FileText, Radio, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -80,6 +80,7 @@ const AppsPage = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [portalNoticeOpen, setPortalNoticeOpen] = useState(false);
+  const [pwSuggestion, setPwSuggestion] = useState<{ id: string; url: string; title: string } | null>(null);
   const [launching, setLaunching] = useState<{ title: string; logo?: string; url: string; id: string; internal?: boolean; opened?: boolean } | null>(null);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const AppsPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const allApps = BATCHES.filter(b => b.category === "Apps").filter(app => {
+  const allApps = BATCHES.filter(b => b.category === "Apps" && b.id !== "preppro-pw-app").filter(app => {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
     return app.title.toLowerCase().includes(q) || app.description.toLowerCase().includes(q);
@@ -97,7 +98,7 @@ const AppsPage = () => {
   const moreApps = allApps.filter(a => !a.featured);
   const visibleApps = searchQuery.trim() ? allApps : showAll ? allApps : featuredApps;
 
-  const handleStudyNow = (id: string, url: string, title: string) => {
+  const launchApp = (id: string, url: string, title: string) => {
     if (url === "coming-soon") { setComingSoonOpen(true); return; }
     addToRecentlyViewed(id, title, "app");
     const batch = BATCHES.find(b => b.id === id);
@@ -109,6 +110,14 @@ const AppsPage = () => {
       opened = !!window.open(url, "_blank", "noopener,noreferrer");
     }
     setLaunching({ title, logo: logoMap[id], url, id, internal, opened });
+  };
+
+  const handleStudyNow = (id: string, url: string, title: string) => {
+    if (["pw-app", "pw-2-app", "pw-3-app"].includes(id)) {
+      setPwSuggestion({ id, url, title });
+      return;
+    }
+    launchApp(id, url, title);
   };
 
   const finishLaunch = () => {
@@ -205,6 +214,54 @@ const AppsPage = () => {
               Hand-picked premium coaching platforms — tap to launch, free forever.
             </p>
           </motion.div>
+
+          {/* PrepPro Physics Wallah — primary featured app */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08 }}
+            className="relative mb-8 overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-2xl"
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+            <div className="relative p-5 sm:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex min-w-0 items-center gap-4">
+                  <img src={pwLogoNew} alt="Physics Wallah" className="h-16 w-16 shrink-0 rounded-2xl border border-border object-cover shadow-xl sm:h-20 sm:w-20" />
+                  <div className="min-w-0">
+                    <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-black uppercase text-primary">
+                      <Radio className="h-3 w-3" /> PrepPro Original
+                    </span>
+                    <h2 className="text-2xl font-black leading-tight text-foreground sm:text-4xl">PrepPro Network<br />Physics Wallah</h2>
+                  </div>
+                </div>
+                <ShieldCheck className="h-6 w-6 shrink-0 text-primary" aria-label="PrepPro verified" />
+              </div>
+
+              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Your complete PW learning space for JEE and NEET—batches, live and recorded classes, notes, DPPs, and practice resources in one focused experience.
+              </p>
+
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+                {[
+                  { icon: Play, label: "Classes" },
+                  { icon: BookOpen, label: "Batches" },
+                  { icon: FileText, label: "Notes & DPPs" },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex min-h-20 flex-col items-center justify-center gap-2 rounded-lg border border-border/60 bg-secondary/40 px-2 text-center">
+                    <Icon className="h-5 w-5 text-primary" />
+                    <span className="text-xs font-bold text-foreground sm:text-sm">{label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button size="lg" variant="hero" className="w-full font-black sm:w-auto sm:px-8" onClick={() => navigate("/pw")}>
+                  <Play className="mr-2 h-4 w-4 fill-current" /> Launch PW App
+                </Button>
+                <span className="text-center text-xs font-medium text-muted-foreground sm:text-left">Free access · Full-screen experience · Powered by PrepPro</span>
+              </div>
+            </div>
+          </motion.section>
 
           {/* PrepPro Network Portal Card */}
           <motion.div
@@ -344,6 +401,34 @@ const AppsPage = () => {
                 onClick={() => setPortalNoticeOpen(false)}
               >
                 Maybe Later
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={!!pwSuggestion} onOpenChange={(open) => !open && setPwSuggestion(null)}>
+          <DialogContent className="sm:max-w-md border-primary/30 bg-card">
+            <DialogHeader className="text-center">
+              <img src={pwLogoNew} alt="Physics Wallah" className="mx-auto mb-4 h-16 w-16 rounded-2xl border border-border object-cover shadow-lg" />
+              <DialogTitle className="text-xl font-black text-foreground">Try our best PW experience</DialogTitle>
+              <DialogDescription className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                PrepPro Physics Wallah brings classes, batches, notes and practice into one faster, full-screen app.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="mt-4 flex flex-col gap-3">
+              <Button variant="hero" className="w-full font-bold" onClick={() => { setPwSuggestion(null); navigate("/pw"); }}>
+                <Play className="mr-2 h-4 w-4 fill-current" /> Use PrepPro PW App
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  const other = pwSuggestion;
+                  setPwSuggestion(null);
+                  if (other) launchApp(other.id, other.url, other.title);
+                }}
+              >
+                Use Other Portal
               </Button>
             </div>
           </DialogContent>
