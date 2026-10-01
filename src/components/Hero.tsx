@@ -1,56 +1,60 @@
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, BadgeCheck, BookOpen, ClipboardCheck, Smartphone, Timer } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
+const quick = [
+  { to: "/apps", label: "Study Apps", sub: "PW, Allen & more", icon: Smartphone },
+  { to: "/test-series", label: "Test Series", sub: "Mathongo, VOTS", icon: ClipboardCheck },
+  { to: "/study-material", label: "Material", sub: "Notes & books", icon: BookOpen },
+  { to: "/study-tracker", label: "Tracker", sub: "Focus timer", icon: Timer },
+];
+
 const Hero = () => {
+  const reduce = useReducedMotion();
+  const fade = (d = 0) => ({
+    initial: reduce ? false : { opacity: 0, y: 14 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: d },
+  });
+
   return (
-    <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
-      {/* Subtle ambient backdrop */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[radial-gradient(ellipse_at_center,hsl(328_88%_52%/0.08),transparent_70%)]" />
-      </div>
-
-      <div className="container mx-auto px-5 relative z-10">
-        <div className="text-center max-w-3xl mx-auto">
-          {/* Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-foreground/[0.04] border border-foreground/10 mb-8"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent" />
-            <span className="text-[11px] font-semibold tracking-wide text-foreground/70 uppercase">India's #1 Study Network</span>
+    <section className="pt-20 pb-10 md:pt-28 md:pb-16">
+      <div className="container mx-auto px-5 grid lg:grid-cols-[1.15fr_1fr] gap-10 items-center">
+        <div>
+          <motion.div {...fade()} className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-border bg-card mb-6">
+            <BadgeCheck className="w-3.5 h-3.5 text-primary" />
+            <span className="text-xs font-semibold text-muted-foreground">100% Free · JEE · NEET · NDA · CDS</span>
           </motion.div>
-
-          {/* Hero headline — the centerpiece */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="text-[44px] sm:text-6xl md:text-7xl lg:text-[88px] font-black leading-[0.95] tracking-[-0.035em] mb-8"
-          >
-            <span className="block text-foreground">Prep Like a Pro</span>
-            <span className="block text-gradient">With PrepPro</span>
+          <motion.h1 {...fade(0.05)} className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-5">
+            Prep Like a Pro <span className="text-primary">With PrepPro Network</span>
           </motion.h1>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex justify-center"
-          >
-            <Button
-              size="lg"
-              className="h-14 px-9 text-base font-semibold rounded-full bg-foreground text-background hover:bg-foreground/90 shadow-[0_10px_30px_-10px_hsl(var(--foreground)/0.45)] hover:shadow-[0_18px_40px_-12px_hsl(var(--foreground)/0.55)] hover:-translate-y-0.5 transition-all duration-300 group"
-              onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+          <motion.p {...fade(0.1)} className="text-base md:text-lg text-muted-foreground max-w-xl mb-8">
+            Every top study app, test series and resource in one organised place — completely free, forever.
+          </motion.p>
+          <motion.div {...fade(0.15)} className="flex flex-wrap gap-3 mb-8">
+            <Button size="lg" className="h-12 px-6 rounded-lg font-semibold group" onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}>
+              Explore Resources <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 px-6 rounded-lg font-semibold">
+              <Link to="/pw">Open PrepPro PW</Link>
             </Button>
           </motion.div>
+          <motion.div {...fade(0.2)} className="flex gap-6 text-sm">
+            {[["40+", "Resources"], ["₹0", "Cost"], ["24/7", "Access"]].map(([n, l]) => (
+              <div key={l}><div className="font-display font-bold text-xl text-foreground">{n}</div><div className="text-muted-foreground text-xs">{l}</div></div>
+            ))}
+          </motion.div>
         </div>
+        <motion.div {...fade(0.15)} className="grid grid-cols-2 gap-3">
+          {quick.map(({ to, label, sub, icon: Icon }) => (
+            <Link key={to} to={to} className="no-link-style group rounded-xl border border-border bg-card p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-primary/40">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4"><Icon className="w-5 h-5" /></div>
+              <div className="font-display font-semibold text-foreground">{label}</div>
+              <div className="text-xs text-muted-foreground mt-1">{sub}</div>
+            </Link>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
