@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,8 +29,8 @@
     --border: 240 6% 90%;
     --input: 240 6% 90%;
     --ring: 340 75% 62%;
-    --radius: 1rem;
-    --gradient-primary: linear-gradient(135deg, hsl(328 88% 52%) 0%, hsl(20 95% 58%) 100%);
+    --radius: 0.75rem;
+    --gradient-primary: linear-gradient(135deg, hsl(340 75% 58%) 0%, hsl(328 70% 52%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(340 20% 99%) 100%);
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 10% 10%;
@@ -45,18 +45,18 @@
   .dark {
     /* Soft dark palette — #121212 base + #E0E0E0 text.
        Avoids pure black to prevent OLED smearing on low-end phones. */
-    --background: 0 0% 7%;          /* ~#121212 */
-    --foreground: 0 0% 88%;         /* ~#E0E0E0 */
-    --card: 0 0% 10%;               /* ~#1A1A1A */
+    --background: 228 30% 4%;          /* ~#121212 */
+    --foreground: 220 20% 94%;         /* ~#E0E0E0 */
+    --card: 224 35% 9%;               /* ~#1A1A1A */
     --card-foreground: 0 0% 88%;
-    --popover: 0 0% 10%;
+    --popover: 224 35% 9%;
     --popover-foreground: 0 0% 88%;
     --primary: 340 80% 65%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 13%;          /* ~#212121 */
+    --secondary: 224 30% 13%;          /* ~#212121 */
     --secondary-foreground: 0 0% 88%;
-    --muted: 0 0% 14%;              /* ~#242424 */
-    --muted-foreground: 0 0% 60%;   /* ~#999 — readable, not glaring */
+    --muted: 224 25% 14%;              /* ~#242424 */
+    --muted-foreground: 220 12% 64%;   /* ~#999 — readable, not glaring */
     --accent: 328 70% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
@@ -65,8 +65,8 @@
     --success-foreground: 0 0% 88%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 7%;
-    --border: 0 0% 16%;             /* ~#292929 */
-    --input: 0 0% 13%;
+    --border: 224 25% 17%;             /* ~#292929 */
+    --input: 224 30% 13%;
     --ring: 340 80% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(340 80% 65%) 0%, hsl(328 70% 60%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 11%) 0%, hsl(0 0% 8%) 100%);
@@ -101,11 +101,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, sans-serif;
     @apply tracking-tight;
   }
 
