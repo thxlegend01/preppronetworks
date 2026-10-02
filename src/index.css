@@ -1,4 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/fonts/manrope-regular.ttf') format('truetype');
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/fonts/manrope-bold.ttf') format('truetype');
+  font-weight: 700 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sora';
+  src: url('./assets/fonts/sora-regular.ttf') format('truetype');
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sora';
+  src: url('./assets/fonts/sora-bold.ttf') format('truetype');
+  font-weight: 700 800;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -6,15 +32,15 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 10%;
+    --background: 340 25% 98%;
+    --foreground: 225 28% 13%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
     --primary: 340 75% 62%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 340 20% 95%;
+    --secondary: 337 38% 95%;
     --secondary-foreground: 240 10% 10%;
     --muted: 240 5% 94%;
     --muted-foreground: 240 5% 46%;
@@ -26,10 +52,10 @@
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 240 10% 10%;
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
+    --border: 334 18% 88%;
+    --input: 334 18% 88%;
     --ring: 340 75% 62%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     --gradient-primary: linear-gradient(135deg, hsl(340 75% 58%) 0%, hsl(328 70% 52%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(340 20% 99%) 100%);
     --sidebar-background: 0 0% 100%;
@@ -43,20 +69,18 @@
   }
 
   .dark {
-    /* Soft dark palette — #121212 base + #E0E0E0 text.
-       Avoids pure black to prevent OLED smearing on low-end phones. */
-    --background: 228 30% 4%;          /* ~#121212 */
-    --foreground: 220 20% 94%;         /* ~#E0E0E0 */
-    --card: 224 35% 9%;               /* ~#1A1A1A */
+    --background: 228 42% 3%;
+    --foreground: 220 20% 94%;
+    --card: 225 42% 8%;
     --card-foreground: 0 0% 88%;
     --popover: 224 35% 9%;
     --popover-foreground: 0 0% 88%;
     --primary: 340 80% 65%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 224 30% 13%;          /* ~#212121 */
+    --secondary: 225 36% 12%;
     --secondary-foreground: 0 0% 88%;
-    --muted: 224 25% 14%;              /* ~#242424 */
-    --muted-foreground: 220 12% 64%;   /* ~#999 — readable, not glaring */
+    --muted: 225 28% 14%;
+    --muted-foreground: 220 12% 66%;
     --accent: 328 70% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
@@ -65,8 +89,8 @@
     --success-foreground: 0 0% 88%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 7%;
-    --border: 224 25% 17%;             /* ~#292929 */
-    --input: 224 30% 13%;
+    --border: 224 24% 19%;
+    --input: 225 34% 13%;
     --ring: 340 80% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(340 80% 65%) 0%, hsl(328 70% 60%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 11%) 0%, hsl(0 0% 8%) 100%);
@@ -109,7 +133,7 @@
     @apply tracking-tight;
   }
 
-  h1, h2 { font-weight: 800; letter-spacing: -0.02em; }
+  h1, h2 { font-weight: 800; letter-spacing: 0; }
   h3, h4 { font-weight: 700; }
 
   code, pre {
@@ -218,6 +242,24 @@
 
   .pink-glow {
     box-shadow: 0 0 60px hsl(var(--primary) / 0.15), 0 0 120px hsl(var(--primary) / 0.05);
+  }
+
+  .section-shell {
+    @apply container mx-auto px-5 sm:px-6;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase text-primary;
+    letter-spacing: 0.08em;
+  }
+
+  .section-title {
+    @apply font-display text-2xl font-bold leading-tight text-foreground md:text-4xl;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
 }
 

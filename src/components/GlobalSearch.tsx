@@ -69,8 +69,8 @@ const GlobalSearch = () => {
   }, [query, navigate]);
 
   return (
-    <section className="py-8 relative">
-      <div className="container mx-auto px-4 max-w-3xl">
+    <section className="pb-8 md:pb-10 relative z-20">
+      <div className="container mx-auto px-5 max-w-4xl">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
           <Input
@@ -78,7 +78,7 @@ const GlobalSearch = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search apps, test series, books, notes, modules…"
-            className="pl-12 pr-10 h-14 text-base bg-card/60 backdrop-blur border-border/60 focus:border-primary/60 rounded-2xl shadow-sm"
+            className="pl-12 pr-10 h-14 text-sm bg-card border-border focus:border-primary rounded-lg shadow-sm"
           />
           {query && (
             <Button
@@ -98,7 +98,7 @@ const GlobalSearch = () => {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              className="mt-3 rounded-2xl border border-border/60 bg-card/80 backdrop-blur shadow-xl overflow-hidden"
+              className="absolute left-0 right-0 mt-2 rounded-lg border border-border bg-card shadow-xl overflow-hidden"
             >
               {results.length === 0 ? (
                 <div className="p-6 text-center text-sm text-muted-foreground">

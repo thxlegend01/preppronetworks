@@ -10,22 +10,20 @@ const skills = [
 
 const AboutDeveloper = () => {
   return (
-    <section id="developer" className="py-16 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/3 to-transparent" />
-      
-      <div className="container mx-auto px-4 relative">
+    <section id="developer" className="py-16 md:py-24 bg-muted/20 border-y border-border/60">
+      <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-4">
+          <div className="eyebrow mb-3">
             <Code className="w-3.5 h-3.5 text-primary" />
             <span className="text-xs font-semibold text-primary">The Creator</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black mb-2">
-            Meet <span className="text-gradient">Saurabh</span>
+          <h2 className="section-title mb-2">
+            Meet Saurabh
           </h2>
           <p className="text-sm text-muted-foreground">The mind behind PrepPro Network</p>
         </motion.div>
@@ -34,16 +32,15 @@ const AboutDeveloper = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-lg mx-auto"
+          className="max-w-4xl"
         >
-          <div className="relative p-6 md:p-8 rounded-3xl bg-card border border-border/60 overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-br from-primary/10 via-accent/10 to-transparent" />
+          <div className="relative p-6 md:p-8 rounded-lg bg-card border border-border overflow-hidden">
             
             <div className="relative flex flex-col items-center text-center">
               {/* Avatar */}
               <motion.div
                 whileHover={{ scale: 1.05, rotate: 3 }}
-                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center text-3xl font-black text-white shadow-xl shadow-primary/20 mb-4"
+                className="w-20 h-20 rounded-lg bg-primary flex items-center justify-center text-3xl font-black text-primary-foreground mb-4"
               >
                 S
               </motion.div>

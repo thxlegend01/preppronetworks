@@ -2,32 +2,32 @@ import { Atom, Stethoscope, GraduationCap, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 const audiences = [
-  { icon: Atom, title: "JEE Aspirants", description: "Physics, Chemistry & Maths — all levels covered", emoji: "⚛️", gradient: "from-blue-500/20 to-indigo-500/20", border: "border-blue-500/30" },
-  { icon: Stethoscope, title: "NEET Aspirants", description: "Biology, Physics & Chemistry prep materials", emoji: "🩺", gradient: "from-emerald-500/20 to-green-500/20", border: "border-emerald-500/30" },
-  { icon: GraduationCap, title: "Class 11–12", description: "Boards + competitive exam preparation", emoji: "🎓", gradient: "from-amber-500/20 to-yellow-500/20", border: "border-amber-500/30" },
-  { icon: Rocket, title: "Self-Learners", description: "Structured paths for beginners to advanced", emoji: "🚀", gradient: "from-rose-500/20 to-pink-500/20", border: "border-rose-500/30" },
+  { icon: Atom, title: "JEE Aspirants", description: "Physics, Chemistry and Maths — all levels covered" },
+  { icon: Stethoscope, title: "NEET Aspirants", description: "Biology, Physics and Chemistry prep materials" },
+  { icon: GraduationCap, title: "Class 11–12", description: "Boards and competitive exam preparation" },
+  { icon: Rocket, title: "Self-Learners", description: "Structured paths from beginner to advanced" },
 ];
 
 const WhoIsThisFor = () => {
   return (
-    <section className="py-16 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-24">
+      <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 border border-accent/20 rounded-full mb-4">
-            <span className="text-xs font-semibold text-accent">🎯 Built For You</span>
+          <div className="eyebrow mb-3">
+            <span>Built for you</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black mb-2">
-            Who is <span className="text-gradient">PrepPro</span> for?
+          <h2 className="section-title mb-2">
+            One home for ambitious learners
           </h2>
           <p className="text-sm text-muted-foreground">Designed for Indian competitive exam aspirants</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {audiences.map((a, i) => (
             <motion.div
               key={a.title}
@@ -35,11 +35,10 @@ const WhoIsThisFor = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              whileHover={{ scale: 1.03 }}
-              className={`relative p-5 rounded-2xl bg-gradient-to-br ${a.gradient} border ${a.border} backdrop-blur-sm transition-all duration-300 group cursor-default`}
+              className="relative p-5 rounded-lg bg-card border border-border transition-colors hover:border-primary/40"
             >
               <div className="flex items-start gap-4">
-                <div className="text-3xl flex-shrink-0">{a.emoji}</div>
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"><a.icon className="h-5 w-5" /></div>
                 <div>
                   <h3 className="text-base font-bold text-foreground mb-1">{a.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{a.description}</p>
