@@ -47,12 +47,12 @@ const Header = () => {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 hidden md:block"
       >
-        <div className="border-b border-border/70 bg-background/90 backdrop-blur-xl">
-          <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="mx-4 mt-3">
+          <div className="glass-navbar rounded-2xl px-6 h-14 flex items-center justify-between shadow-sm">
             <Link to="/" className="flex items-center gap-2.5 no-link-style">
               <motion.div
                 whileHover={{ rotate: 5, scale: 1.05 }}
-                className="w-9 h-9 rounded-lg overflow-hidden border border-border"
+                className="w-9 h-9 rounded-full overflow-hidden shadow-md border-2 border-primary/20"
               >
                 <img src={prepproLogo} alt="PrepPro Network" className="w-full h-full object-cover" />
               </motion.div>
@@ -62,17 +62,17 @@ const Header = () => {
               </div>
             </Link>
 
-            <nav className="flex items-center gap-1">
+            <nav className="flex items-center gap-1 bg-muted/40 rounded-xl p-1">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     to={link.href}
-                    className={`relative px-3.5 py-2 text-xs font-semibold rounded-md transition-colors duration-200 no-link-style ${
+                    className={`relative px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 no-link-style ${
                       isActive
-                        ? "bg-secondary text-primary"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {link.label}
@@ -112,7 +112,7 @@ const Header = () => {
               ) : (
                 <Button
                   size="sm"
-                  className="h-9 px-5 text-xs font-bold rounded-md"
+                  className="h-9 px-5 text-xs font-bold rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 shadow-md shadow-primary/20"
                   onClick={() => navigate("/auth")}
                 >
                   Sign In
@@ -199,11 +199,11 @@ const Header = () => {
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="md:hidden fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl"
+        className="md:hidden fixed top-0 left-0 right-0 z-50 glass-navbar"
       >
         <div className="flex items-center justify-between px-4 h-12">
           <Link to="/" className="flex items-center gap-2 no-link-style">
-            <div className="w-8 h-8 rounded-md overflow-hidden border border-border">
+            <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm border-2 border-primary/20">
               <img src={prepproLogo} alt="PrepPro Network" className="w-full h-full object-cover" />
             </div>
             <span className="text-sm font-bold text-foreground">PrepPro Network</span>
@@ -220,7 +220,7 @@ const Header = () => {
                 </Avatar>
               </Button>
             ) : (
-              <Button size="sm" className="h-8 px-3 text-[10px] font-bold rounded-md" onClick={() => navigate("/auth")}>
+              <Button size="sm" className="h-8 px-3 text-[10px] font-bold rounded-lg bg-gradient-to-r from-primary to-accent text-primary-foreground" onClick={() => navigate("/auth")}>
                 Sign In
               </Button>
             )}

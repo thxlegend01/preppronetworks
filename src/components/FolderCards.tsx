@@ -1,59 +1,206 @@
-import { ArrowRight, BookOpen, FileText, Library, MessageCircle, Smartphone, Sparkles, Timer, Zap } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { Smartphone, BookOpen, FileText, ArrowRight, Timer, MessageCircle, Zap, Sparkles, Library } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import prepproLogo from "@/assets/preppro-logo.jpg";
+import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
+import TelegramChannelBanner from "@/components/TelegramChannelBanner";
 import { openTrustedUrl } from "@/lib/urlSafety";
 
+
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
+const TELEGRAM_LINK = "https://t.me/+Vaaty3NWsRIzOThl";
+
 const sections = [
-  { id: "apps", title: "Study Apps", subtitle: "PW, Unacademy, Allen and more", detail: "Premium coaching access", icon: Smartphone, path: "/apps", featured: true },
-  { id: "test-series", title: "Test Series", subtitle: "CBT practice, PYQs and chapter tests", detail: "Real exam experience", icon: BookOpen, path: "/test-series" },
-  { id: "prepchat", title: "PrepChat", subtitle: "Doubts, direct messages and study groups", detail: "Student community", icon: MessageCircle, path: "/prepchat" },
-  { id: "study-material", title: "Study Material", subtitle: "Notes, modules and reference books", detail: "Read inside PrepPro", icon: FileText, path: "/study-material" },
-  { id: "prepbooks", title: "PrepBooks", subtitle: "NCERTs, modules and reference books", detail: "Free online library", icon: Library, path: "https://prepbooks.lovable.app/", external: true },
-  { id: "study-tracker", title: "Study Tracker", subtitle: "Timer, analytics, rooms and leaderboard", detail: "Build consistency", icon: Timer, path: "/study-tracker" },
-  { id: "study-tools", title: "Academic Tools", subtitle: "Roadmaps, AI doubts, tests and flashcards", detail: "Six powerful tools", icon: Sparkles, path: "/study-tools" },
+  {
+    id: "apps",
+    title: "Study Apps",
+    subtitle: "Premium Coaching — Free Access",
+    description: "PW, Unacademy, Next Toppers & 10+ platforms",
+    icon: Smartphone,
+    path: "/apps",
+    emoji: "📱",
+    accent: "from-rose-500 to-pink-600",
+    wash: "from-rose-50 via-pink-50/60 to-orange-50/40 dark:from-rose-950/40 dark:via-pink-950/30 dark:to-orange-950/20",
+    bar: "from-rose-400 via-pink-500 to-orange-500",
+    subColor: "text-rose-500 dark:text-rose-400",
+    ctaWash: "from-rose-100 to-pink-100 dark:from-rose-950/60 dark:to-pink-950/40",
+  },
+  {
+    id: "test-series",
+    title: "Test Series",
+    subtitle: "CBT Practice — Real Exam Feel",
+    description: "PW Test Series, PYQs & Chapter Tests",
+    icon: BookOpen,
+    path: "/test-series",
+    emoji: "📝",
+    accent: "from-violet-500 to-purple-600",
+    wash: "from-violet-50 via-purple-50/60 to-fuchsia-50/40 dark:from-violet-950/40 dark:via-purple-950/30 dark:to-fuchsia-950/20",
+    bar: "from-violet-400 via-purple-500 to-fuchsia-500",
+    subColor: "text-violet-500 dark:text-violet-400",
+    ctaWash: "from-violet-100 to-purple-100 dark:from-violet-950/60 dark:to-purple-950/40",
+  },
+  {
+    id: "prepchat",
+    title: "PrepChat",
+    subtitle: "Connect & Discuss",
+    description: "Chat rooms, AI doubts, study groups",
+    icon: MessageCircle,
+    path: "/prepchat",
+    emoji: "💬",
+    accent: "from-sky-500 to-blue-600",
+    wash: "from-sky-50 via-blue-50/60 to-indigo-50/40 dark:from-sky-950/40 dark:via-blue-950/30 dark:to-indigo-950/20",
+    bar: "from-sky-400 via-blue-500 to-indigo-500",
+    subColor: "text-sky-500 dark:text-sky-400",
+    ctaWash: "from-sky-100 to-blue-100 dark:from-sky-950/60 dark:to-blue-950/40",
+  },
+  {
+    id: "study-material",
+    title: "Study Material",
+    subtitle: "Notes, Books & Resources",
+    description: "Allen, FIITJEE, Resonance + Cengage, Arihant",
+    icon: FileText,
+    path: "/study-material",
+    emoji: "📚",
+    accent: "from-emerald-500 to-teal-600",
+    wash: "from-emerald-50 via-teal-50/60 to-cyan-50/40 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-950/20",
+    bar: "from-emerald-400 via-teal-500 to-cyan-500",
+    subColor: "text-emerald-500 dark:text-emerald-400",
+    ctaWash: "from-emerald-100 to-teal-100 dark:from-emerald-950/60 dark:to-teal-950/40",
+  },
+  {
+    id: "prepbooks",
+    title: "PrepBooks",
+    subtitle: "Now Live — Free Book Library",
+    description: "NCERTs, modules & reference books — read online, free",
+    icon: Library,
+    path: "https://prepbooks.lovable.app/",
+    external: true,
+    emoji: "📖",
+    accent: "from-indigo-500 to-blue-600",
+    wash: "from-indigo-50 via-blue-50/60 to-sky-50/40 dark:from-indigo-950/40 dark:via-blue-950/30 dark:to-sky-950/20",
+    bar: "from-indigo-400 via-blue-500 to-sky-500",
+    subColor: "text-indigo-500 dark:text-indigo-400",
+    ctaWash: "from-indigo-100 to-blue-100 dark:from-indigo-950/60 dark:to-blue-950/40",
+  },
+  {
+    id: "study-tracker",
+
+    title: "Study Tracker",
+    subtitle: "YPT Style — Track, Compete & Grow",
+    description: "Timer, Analytics, Study Rooms, Leaderboard & Friends",
+    icon: Timer,
+    path: "/study-tracker",
+    emoji: "🔥",
+    accent: "from-amber-500 to-orange-600",
+    wash: "from-amber-50 via-orange-50/60 to-rose-50/40 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-rose-950/20",
+    bar: "from-amber-400 via-orange-500 to-rose-500",
+    subColor: "text-rose-500 dark:text-rose-400",
+    ctaWash: "from-amber-100 to-orange-100 dark:from-amber-950/60 dark:to-orange-950/40",
+  },
+  {
+    id: "study-tools",
+    title: "PrepPro Study Tools",
+    subtitle: "Pro Academic Toolkit",
+    description: "Roadmap, AI Doubt Solver, Test Forge, Flashcards & more",
+    icon: Sparkles,
+    path: "/study-tools",
+    emoji: "✨",
+    accent: "from-fuchsia-500 to-purple-600",
+    wash: "from-fuchsia-50 via-purple-50/60 to-pink-50/40 dark:from-fuchsia-950/40 dark:via-purple-950/30 dark:to-pink-950/20",
+    bar: "from-fuchsia-400 via-purple-500 to-pink-500",
+    subColor: "text-fuchsia-500 dark:text-fuchsia-400",
+    ctaWash: "from-fuchsia-100 to-purple-100 dark:from-fuchsia-950/60 dark:to-purple-950/40",
+  },
 ];
 
 const FolderCards = () => {
   const navigate = useNavigate();
-  const reduce = useReducedMotion();
 
   return (
-    <section id="apps" className="py-16 md:py-24">
-      <div className="section-shell">
-        <div className="mb-9 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="eyebrow mb-3"><Zap className="h-3.5 w-3.5" /> Resource directory</div>
-            <h2 className="section-title max-w-xl">Everything you need to prepare, organised.</h2>
+    <section id="apps" className="py-16 relative">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-10 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+            <Zap className="w-3 h-3 text-primary" />
+            <span className="text-xs font-medium text-primary">Quick Access</span>
           </div>
-          <p className="max-w-md text-sm leading-6 text-muted-foreground">Move between trusted study apps, focused practice, material and community tools without hunting across the web.</p>
+          <h2 className="text-4xl md:text-5xl font-black tracking-[-0.03em] mb-3 leading-[1]">
+            Explore <span className="text-gradient">PrepPro Network</span>
+          </h2>
+          <p className="text-sm text-muted-foreground">Everything for JEE, NEET & competitive exams</p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map((section, index) => (
-            <motion.button
-              key={section.id}
-              type="button"
-              initial={reduce ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ delay: index * 0.04, duration: 0.4 }}
-              onClick={() => section.external ? openTrustedUrl(section.path) : navigate(section.path)}
-              className={`group min-h-[188px] text-left rounded-lg border p-5 transition-colors ${section.featured ? "border-primary/40 bg-secondary sm:col-span-2 lg:col-span-1" : "border-border bg-card hover:border-primary/40"}`}
-            >
-              <div className="flex h-full flex-col">
-                <div className="mb-8 flex items-start justify-between">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-md bg-primary/10 text-primary">
-                    <section.icon className="h-5 w-5" />
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+        <div className="max-w-2xl mx-auto flex flex-col gap-6">
+          {sections.map((section, i) => (
+            <div key={section.id} className="flex flex-col">
+              <motion.button
+                onClick={() => ("external" in section && section.external ? openTrustedUrl(section.path) : navigate(section.path))}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                whileTap={{ scale: 0.98 }}
+                className={`group relative w-full text-left rounded-3xl border border-border/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-br ${section.wash}`}
+              >
+                {/* Top color bar */}
+                <div className={`h-1.5 w-full bg-gradient-to-r ${section.bar}`} />
+
+                <div className="relative p-5 sm:p-6">
+                  {/* Header row: logo (left) + icon badge (right) */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="relative">
+                      <div className={`absolute -inset-2 bg-gradient-to-br ${section.accent} opacity-25 blur-2xl rounded-full`} />
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white ring-2 ring-white/80 shadow-lg p-1.5">
+                        <img
+                          src={prepproLogo}
+                          alt="PrepPro Network"
+                          className="w-full h-full object-cover rounded-xl"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${section.accent} flex items-center justify-center shadow-lg ring-1 ring-white/40`}>
+                      <section.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2.4} />
+                    </div>
+                  </div>
+
+                  {/* Title with emoji badge */}
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground leading-tight">
+                      {section.title}
+                    </h3>
+                    <span className={`inline-flex items-center justify-center min-w-7 h-6 px-1.5 rounded-full bg-gradient-to-br ${section.accent} text-sm shadow-sm`}>
+                      {section.emoji}
+                    </span>
+                  </div>
+
+                  {/* Colored subtitle */}
+                  <p className={`text-sm sm:text-base font-bold ${section.subColor} mb-2 leading-snug`}>
+                    {section.subtitle}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground/90 leading-snug mb-5 line-clamp-2">
+                    {section.description}
+                  </p>
+
+                  {/* CTA pill */}
+                  <div className={`flex items-center justify-between gap-3 px-4 py-3 rounded-full bg-gradient-to-r ${section.ctaWash} group-hover:shadow-md transition-shadow`}>
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full bg-gradient-to-br ${section.accent}`} />
+                      <span className={`text-sm font-bold ${section.subColor}`}>Explore Now</span>
+                    </div>
+                    <ArrowRight className={`w-5 h-5 ${section.subColor} group-hover:translate-x-1 transition-transform`} strokeWidth={2.5} />
+                  </div>
                 </div>
-                <div className="mt-auto">
-                  <p className="mb-1 text-[10px] font-bold uppercase text-primary" style={{ letterSpacing: "0.08em" }}>{section.detail}</p>
-                  <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
-                  <p className="mt-1 text-xs leading-5 text-muted-foreground">{section.subtitle}</p>
-                </div>
-              </div>
-            </motion.button>
+              </motion.button>
+
+              {/* WhatsApp + Telegram strips directly below each card */}
+              <WhatsAppChannelBanner url={WHATSAPP_LINK} label={section.title} compact />
+              <TelegramChannelBanner url={TELEGRAM_LINK} label={section.title} compact />
+            </div>
           ))}
         </div>
       </div>
