@@ -6,9 +6,9 @@ import pwLogo from "@/assets/pw-logo-new.jpg";
 
 const quick = [
   { to: "/apps", label: "Study Apps", icon: Play },
-  { to: "/tests", label: "Test Series", icon: ClipboardCheck },
-  { to: "/material", label: "Material", icon: BookOpen },
-  { to: "/tracker", label: "Tracker", icon: Timer },
+  { to: "/test-series", label: "Test Series", icon: ClipboardCheck },
+  { to: "/study-material", label: "Material", icon: BookOpen },
+  { to: "/study-tracker", label: "Tracker", icon: Timer },
   { to: "/prepchat", label: "PrepChat", icon: MessageCircle },
 ];
 
@@ -69,13 +69,13 @@ const Hero = () => {
             >
               <Button
                 size="lg"
-                className="h-13 px-8 text-base font-semibold rounded-full bg-foreground text-background hover:bg-foreground/90 hover:-translate-y-0.5 transition-all duration-300 group"
+                className="h-12 px-8 text-base font-semibold rounded-full bg-foreground text-background hover:bg-foreground/90 hover:-translate-y-0.5 transition-all duration-300 group"
                 onClick={() => document.getElementById("apps")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Start Learning Free
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 px-8 text-base font-semibold rounded-full glass-card">
+              <Button asChild size="lg" variant="outline" className="h-12 px-8 text-base font-semibold rounded-full glass-card">
                 <Link to="/pw" className="no-link-style">Open PW App</Link>
               </Button>
             </motion.div>
@@ -134,7 +134,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 flex gap-2.5 overflow-x-auto no-scrollbar justify-start md:justify-center pb-1"
+          className="mt-12 flex gap-2.5 overflow-x-auto justify-start md:justify-center pb-1"
         >
           {quick.map(({ to, label, icon: Icon }) => (
             <Link key={to} to={to} className="no-link-style shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full glass-card text-sm font-medium text-foreground/85 hover:text-primary hover-scale">
