@@ -24,6 +24,7 @@ const ALLOWED_HOSTS = [
   "herokuapp.com",
   "pages.dev",
   "pearlspark.xyz",
+  "eduvibe.cc.cd",
 ];
 
 export function isTrustedUrl(rawUrl: string): boolean {
