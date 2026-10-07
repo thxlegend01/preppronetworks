@@ -38,7 +38,7 @@ export const BATCHES: Batch[] = [
     category: "Apps",
     status: "Live",
     image: pwLogoNew,
-    externalUrl: "https://preppronetworks.pearlspark.xyz/",
+    externalUrl: "https://pw.eduvibe.cc.cd/batches",
     openInternal: true,
     seamless: true,
     featured: true,
