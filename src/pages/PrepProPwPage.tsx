@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
 import pwLogo from "@/assets/pw-logo-new.jpg";
 
-const PREPPRO_PW_URL = "https://pw.eduvibe.cc.cd/batches";
+const PREPPRO_PW_URL = "https://preppronetworks.pearlspark.xyz/";
 
 const PrepProPwPage = () => {
   const [launching, setLaunching] = useState(true);
