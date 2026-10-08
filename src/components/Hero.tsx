@@ -2,7 +2,7 @@ import { ArrowRight, Sparkles, BookOpen, ClipboardCheck, Timer, MessageCircle, P
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import pwLogo from "@/assets/pw-logo-new.jpg";
+import prepproLogo from "@/assets/preppro-logo.jpg";
 
 const quick = [
   { to: "/apps", label: "Study Apps", icon: Play },
