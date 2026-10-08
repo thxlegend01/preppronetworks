@@ -76,7 +76,7 @@ const Hero = () => {
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 px-8 text-base font-semibold rounded-full glass-card">
-                <Link to="/pw" className="no-link-style">Open PW App</Link>
+                <Link to="/PrepInfinity" className="no-link-style">PrepPro Infinity</Link>
               </Button>
             </motion.div>
 
@@ -103,21 +103,21 @@ const Hero = () => {
             className="relative"
           >
             <div className="absolute -inset-4 rounded-[2rem] pink-glow opacity-70" />
-            <Link to="/pw" className="no-link-style block relative rounded-[1.75rem] glass-card p-6 md:p-7 overflow-hidden group card-hover">
+            <Link to="/PrepInfinity" className="no-link-style block relative rounded-[1.75rem] glass-card p-6 md:p-7 overflow-hidden group card-hover">
               <div className="absolute top-0 right-0 w-56 h-56 rounded-full bg-primary/15 blur-3xl" />
               <div className="flex items-center justify-between mb-6 relative">
                 <span className="text-[10px] font-bold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full bg-primary/15 text-primary">Featured</span>
                 <span className="flex items-center gap-1 text-[11px] text-muted-foreground"><ShieldCheck className="w-3.5 h-3.5" /> Official PrepPro</span>
               </div>
               <div className="flex items-center gap-4 mb-5 relative">
-                <img src={pwLogo} alt="PrepPro Physics Wallah" className="w-16 h-16 rounded-2xl object-cover shadow-lg" />
+                <img src={prepproLogo} alt="PrepPro Infinity" className="w-16 h-16 rounded-2xl object-cover shadow-lg" />
                 <div>
-                  <h2 className="text-xl md:text-2xl font-extrabold text-foreground leading-tight">PrepPro × Physics Wallah</h2>
-                  <p className="text-sm text-muted-foreground">Live classes, batches, notes &amp; DPPs</p>
+                  <h2 className="text-xl md:text-2xl font-extrabold text-foreground leading-tight">PrepPro Infinity</h2>
+                  <p className="text-sm text-muted-foreground">Mission Jeet, Next Topper &amp; PW — one home</p>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-6 relative">
-                {["Live", "Batches", "DPPs"].map((t) => (
+                {["Mission Jeet", "Next Topper", "PW Soon"].map((t) => (
                   <div key={t} className="rounded-xl bg-foreground/[0.04] border border-border/50 py-2.5 text-center text-xs font-semibold text-foreground/80">{t}</div>
                 ))}
               </div>
