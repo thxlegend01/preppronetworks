@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 
 // Evaluate catalog data independently of Vite's image imports.
-const source = readFileSync(new URL("./infinityApps.ts", import.meta.url), "utf8").replace(
+const source = readFileSync(new URL("../src/lib/infinityApps.ts", import.meta.url), "utf8").replace(
   /^import (\w+) from "[^\"]+";$/gm,
   'const $1 = "test-logo";',
 );
