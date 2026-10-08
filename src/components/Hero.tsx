@@ -113,11 +113,11 @@ const Hero = () => {
                 <img src={prepproLogo} alt="PrepPro Infinity" className="w-16 h-16 rounded-2xl object-cover shadow-lg" />
                 <div>
                   <h2 className="text-xl md:text-2xl font-extrabold text-foreground leading-tight">PrepPro Infinity</h2>
-                  <p className="text-sm text-muted-foreground">Mission Jeet, Next Topper &amp; PW — one home</p>
+                  <p className="text-sm text-muted-foreground">Mission Jeet, Next Topper, PW &amp; Vibrant — one home</p>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-2 mb-6 relative">
-                {["Mission Jeet", "Next Topper", "PW Soon"].map((t) => (
+               <div className="grid grid-cols-2 gap-2 mb-6 relative">
+                 {["Mission Jeet", "Next Topper", "Physics Wallah", "Vibrant Academy"].map((t) => (
                   <div key={t} className="rounded-xl bg-foreground/[0.04] border border-border/50 py-2.5 text-center text-xs font-semibold text-foreground/80">{t}</div>
                 ))}
               </div>
