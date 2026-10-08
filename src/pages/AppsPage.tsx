@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Smartphone, ArrowLeft, ChevronDown, ExternalLink, Globe, Copy, Check, Play, BookOpen, FileText, Radio, ShieldCheck } from "lucide-react";
+import { Smartphone, ArrowLeft, ChevronDown, ExternalLink, Globe, Copy, Check, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +18,7 @@ import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
+import InfinityFeatured from "@/components/InfinityFeatured";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
 import TelegramChannelBanner from "@/components/TelegramChannelBanner";
 import {
