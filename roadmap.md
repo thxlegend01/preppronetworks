@@ -2,9 +2,9 @@
 
 ## PrepPro Infinity
 - [x] Replace homepage PW promotion and featured Study Apps area with Infinity.
-- [ ] Add available PW and Vibrant iframe apps and remove Infinity launch animations.
-- [ ] Give /PrepInfinity its own detailed app-card front page with large Study Now buttons and PW credit.
-- [ ] Verify navigation, availability and iframe rendering.
+- [x] Add available PW and Vibrant iframe apps and remove Infinity launch animations.
+- [x] Give /PrepInfinity its own detailed app-card front page with large Study Now buttons and PW credit.
+- [x] Verify navigation, availability and iframe rendering.
 
 - [x] Remove the paid promotion banner from the homepage.
 - [x] Make Community and Message Owner shortcuts smaller.
