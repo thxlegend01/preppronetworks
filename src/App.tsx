@@ -53,6 +53,7 @@ const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const PrepProPwPage = lazy(() => import("./pages/PrepProPwPage"));
 const InfinityAppPage = lazy(() => import("./pages/InfinityAppPage"));
+const InfinityPage = lazy(() => import("./pages/InfinityPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
@@ -109,9 +110,9 @@ const App = () => {
                           <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                           <Route path="/apps" element={<AppsPage />} />
                            <Route path="/pw" element={<PrepProPwPage />} />
-                           <Route path="/PrepInfinity" element={<AppsPage />} />
-                           <Route path="/prepinfinity" element={<AppsPage />} />
-                           <Route path="/infinity" element={<AppsPage />} />
+                           <Route path="/PrepInfinity" element={<InfinityPage />} />
+                           <Route path="/prepinfinity" element={<InfinityPage />} />
+                           <Route path="/infinity" element={<InfinityPage />} />
                            <Route path="/infinity/:appId" element={<InfinityAppPage />} />
                            <Route path="/PrepInfinity/:appId" element={<InfinityAppPage />} />
                           <Route path="/test-series" element={<TestSeriesPage />} />

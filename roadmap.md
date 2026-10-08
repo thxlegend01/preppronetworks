@@ -1,9 +1,10 @@
 # Current work
 
 ## PrepPro Infinity
-- [ ] Replace homepage PW promotion and featured Study Apps area with Infinity.
-- [ ] Add branded seamless Mission Jeet and Next Topper launches; mark our PW coming soon.
-- [ ] Verify navigation, availability and iframe rendering.
+- [x] Replace homepage PW promotion and featured Study Apps area with Infinity.
+- [x] Add available PW and Vibrant iframe apps and remove Infinity launch animations.
+- [x] Give /PrepInfinity its own detailed app-card front page with large Study Now buttons and PW credit.
+- [x] Verify navigation, availability and iframe rendering.
 
 - [x] Remove the paid promotion banner from the homepage.
 - [x] Make Community and Message Owner shortcuts smaller.
