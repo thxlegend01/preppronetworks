@@ -109,8 +109,11 @@ const App = () => {
                           <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                           <Route path="/apps" element={<AppsPage />} />
                            <Route path="/pw" element={<PrepProPwPage />} />
-                          <Route path="/infinity" element={<AppsPage />} />
-                          <Route path="/infinity/:appId" element={<InfinityAppPage />} />
+                           <Route path="/PrepInfinity" element={<AppsPage />} />
+                           <Route path="/prepinfinity" element={<AppsPage />} />
+                           <Route path="/infinity" element={<AppsPage />} />
+                           <Route path="/infinity/:appId" element={<InfinityAppPage />} />
+                           <Route path="/PrepInfinity/:appId" element={<InfinityAppPage />} />
                           <Route path="/test-series" element={<TestSeriesPage />} />
                           <Route path="/study-material" element={<StudyMaterialPage />} />
                           <Route path="/batches" element={<BatchesPage />} />
