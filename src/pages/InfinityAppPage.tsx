@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { INFINITY_APPS } from "@/lib/infinityApps";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
 import { useReducedMotion } from "framer-motion";
+import InfinityTelegramStrip from "@/components/InfinityTelegramStrip";
 
 const InfinityAppPage = ({ appId }: { appId?: string }) => {
   const params = useParams();
@@ -50,6 +51,7 @@ const InfinityAppPage = ({ appId }: { appId?: string }) => {
         </div>
       )}
       <iframe key={`${app.id}-${attempt}`} src={app.url} title={app.title} className="h-full w-full border-0" allow="accelerometer *; autoplay *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; fullscreen *; screen-wake-lock *; web-share *" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" onLoad={() => setLoaded(true)} />
+      {app.telegramHeader && <InfinityTelegramStrip />}
       {app.credit && <p className="pointer-events-none absolute bottom-0 left-0 right-0 bg-background px-3 py-1 text-center text-xs text-foreground/40">{app.credit}</p>}
       <AppLaunchAnimation open={opening && !reducedMotion} title={app.title} logo={app.logo} durationMs={1800} prefetchUrl={app.url} onComplete={finishOpening} />
     </main>
