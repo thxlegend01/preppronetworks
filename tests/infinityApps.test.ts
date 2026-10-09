@@ -12,10 +12,14 @@ const catalogExports: { INFINITY_APPS?: Array<{ id: string; url: string; soon: b
 new Function("exports", compiled)(catalogExports);
 
 describe("Infinity app availability", () => {
-  test("PW is available at the supplied batches URL", () => {
-    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "pw")).toMatchObject({ url: "https://pw.eduvibe.cc.cd/batches", soon: false });
+  test("PW is Coming Soon at the supplied batches URL", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "pw")).toMatchObject({ url: "https://pw.eduvibe.cc.cd/batches", soon: true });
   });
-  test("Vibrant Academy is available at the supplied URL", () => {
-    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "vibrant-academy")).toMatchObject({ url: "https://va.eduvibe.cc.cd/", soon: false });
+  test("Vibrant Academy is Coming Soon at the supplied URL", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "vibrant-academy")).toMatchObject({ url: "https://va.eduvibe.cc.cd/", soon: true });
+  });
+  test("Mission Jeet and Next Topper remain available", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "mission-jeet")?.soon).toBe(false);
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "next-topper")?.soon).toBe(false);
   });
 });

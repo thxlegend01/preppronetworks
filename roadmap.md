@@ -1,6 +1,7 @@
 # Current work
 
 ## PrepPro Infinity
+- [x] Separate Infinity from Study Apps, mark PW and Vibrant Coming Soon, and restore opening animations; verify availability and navigation.
 - [x] Replace homepage PW promotion and featured Study Apps area with Infinity.
 - [x] Add available PW and Vibrant iframe apps and remove Infinity launch animations.
 - [x] Give /PrepInfinity its own detailed app-card front page with large Study Now buttons and PW credit.

@@ -18,7 +18,6 @@ import PageTransition from "@/components/PageTransition";
 import { GridSkeleton } from "@/components/skeletons/CardSkeleton";
 import ResourceListRow from "@/components/ResourceListRow";
 import AppLaunchAnimation from "@/components/AppLaunchAnimation";
-import InfinityFeatured from "@/components/InfinityFeatured";
 import WhatsAppChannelBanner from "@/components/WhatsAppChannelBanner";
 import TelegramChannelBanner from "@/components/TelegramChannelBanner";
 import {
@@ -214,11 +213,6 @@ const AppsPage = () => {
             <p className="text-base text-muted-foreground mt-4 max-w-xl">
               Hand-picked premium coaching platforms — tap to launch, free forever.
             </p>
-          </motion.div>
-
-          {/* PrepPro Infinity — primary featured collection */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-            <InfinityFeatured />
           </motion.div>
 
           {/* PrepPro Network Portal Card */}
