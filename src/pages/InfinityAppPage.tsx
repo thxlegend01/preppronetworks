@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Clock3, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { INFINITY_APPS } from "@/lib/infinityApps";
+import AppLaunchAnimation from "@/components/AppLaunchAnimation";
+import { useReducedMotion } from "framer-motion";
 
 const InfinityAppPage = ({ appId }: { appId?: string }) => {
   const params = useParams();
@@ -11,10 +13,14 @@ const InfinityAppPage = ({ appId }: { appId?: string }) => {
   const [loaded, setLoaded] = useState(false);
   const [slow, setSlow] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [opening, setOpening] = useState(true);
+  const reducedMotion = useReducedMotion();
+  const finishOpening = useCallback(() => setOpening(false), []);
 
   useEffect(() => {
     setLoaded(false);
     setSlow(false);
+    setOpening(true);
     const timeout = setTimeout(() => setSlow(true), 15000);
     return () => clearTimeout(timeout);
   }, [app?.id, attempt]);
@@ -45,6 +51,7 @@ const InfinityAppPage = ({ appId }: { appId?: string }) => {
       )}
       <iframe key={`${app.id}-${attempt}`} src={app.url} title={app.title} className="h-full w-full border-0" allow="accelerometer *; autoplay *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; fullscreen *; screen-wake-lock *; web-share *" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" onLoad={() => setLoaded(true)} />
       {app.credit && <p className="pointer-events-none absolute bottom-0 left-0 right-0 bg-background px-3 py-1 text-center text-xs text-foreground/40">{app.credit}</p>}
+      <AppLaunchAnimation open={opening && !reducedMotion} title={app.title} logo={app.logo} durationMs={1800} prefetchUrl={app.url} onComplete={finishOpening} />
     </main>
   );
 };
