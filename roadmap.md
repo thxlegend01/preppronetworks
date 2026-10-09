@@ -1,6 +1,7 @@
 # Current work
 
 ## PrepPro Infinity
+- [x] Add both Unacademy iframe apps and cover their branded headers with a Telegram join strip; verify cards and viewers.
 - [x] Separate Infinity from Study Apps, mark PW and Vibrant Coming Soon, and restore opening animations; verify availability and navigation.
 - [x] Replace homepage PW promotion and featured Study Apps area with Infinity.
 - [x] Add available PW and Vibrant iframe apps and remove Infinity launch animations.

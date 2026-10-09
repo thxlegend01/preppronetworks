@@ -15,7 +15,7 @@ const InfinityFeatured = ({ standalone = false }: { standalone?: boolean }) => {
           {standalone ? <h1 className="text-3xl font-black text-foreground sm:text-5xl">PrepPro Infinity</h1> : <h2 className="text-3xl font-black text-foreground sm:text-4xl">PrepPro Infinity</h2>}
         </div>
       </div>
-      <p className="mb-8 max-w-2xl text-sm text-muted-foreground sm:text-base">Mission Jeet, Next Topper, Physics Wallah and Vibrant Academy — your study apps, together in PrepPro Infinity.</p>
+      <p className="mb-8 max-w-2xl text-sm text-muted-foreground sm:text-base">Mission Jeet, Next Topper, Unacademy, Physics Wallah and Vibrant Academy — your study apps, together in PrepPro Infinity.</p>
       <div className="grid gap-4 md:grid-cols-2">
         {INFINITY_APPS.map(app => (
           <article key={app.id} className="flex flex-col rounded-lg border border-border bg-card p-5 sm:p-7 transition-colors hover:border-primary/50">
