@@ -15,7 +15,7 @@ const InfinityPage = () => {
   const finishOpening = useCallback(() => setOpening(false), []);
   return (
   <main className="min-h-screen bg-background">
-    <SEO title="PrepPro Infinity | Free Study Apps" description="Study with PrepPro Mission Jeet, Next Topper, Physics Wallah and Vibrant Academy in PrepPro Infinity." path="/PrepInfinity" />
+    <SEO title="PrepPro Infinity | Free Study Apps" description="Study with PrepPro Mission Jeet, Next Topper, Unacademy, Physics Wallah and Vibrant Academy in PrepPro Infinity." path="/PrepInfinity" />
     <Header />
     <div className="container mx-auto max-w-5xl px-4 pb-20 pt-24 sm:px-6">
       <Button asChild variant="ghost" className="gap-2">

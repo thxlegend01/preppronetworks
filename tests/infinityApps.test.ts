@@ -8,10 +8,16 @@ const source = readFileSync(new URL("../src/lib/infinityApps.ts", import.meta.ur
   'const $1 = "test-logo";',
 );
 const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
-const catalogExports: { INFINITY_APPS?: Array<{ id: string; url: string; soon: boolean }> } = {};
+const catalogExports: { INFINITY_APPS?: Array<{ id: string; url: string; soon: boolean; telegramHeader?: boolean }> } = {};
 new Function("exports", compiled)(catalogExports);
 
 describe("Infinity app availability", () => {
+  test("Unacademy Batches opens the supplied portal with the Telegram header cover", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "unacademy-batches")).toMatchObject({ url: "https://nexthope.pages.dev/uncoffline/", soon: false, telegramHeader: true });
+  });
+  test("Unacademy teacher batches and courses opens the supplied portal with the Telegram header cover", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "unacademy-teachers")).toMatchObject({ url: "https://nexthope.pages.dev/unacademy/", soon: false, telegramHeader: true });
+  });
   test("PW is Coming Soon at the supplied batches URL", () => {
     expect(catalogExports.INFINITY_APPS?.find(app => app.id === "pw")).toMatchObject({ url: "https://pw.eduvibe.cc.cd/batches", soon: true });
   });
