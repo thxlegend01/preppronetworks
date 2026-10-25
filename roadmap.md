@@ -27,3 +27,5 @@
 - [x] Add the shareable `/pw` link with a seamless iframe and 3–4 second PW launch.
 - [x] Recommend PrepPro PW before opening any other PW portal.
 - [x] Verify the complete experience on mobile and desktop.
+- [x] Point the PW app at https://preppronetworkpw.xyz/ and open it directly without an iframe.
+- [x] Create a homepage ad for PrepPro Physics Wallah in the rotating ad carousel.
