@@ -25,6 +25,7 @@ const ALLOWED_HOSTS = [
   "pages.dev",
   "pearlspark.xyz",
   "eduvibe.cc.cd",
+  "preppronetworkpw.xyz",
 ];
 
 export function isTrustedUrl(rawUrl: string): boolean {
