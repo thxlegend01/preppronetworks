@@ -8,6 +8,7 @@ import adPrepJee from "@/assets/ad-prepjee.jpg";
 import adApps from "@/assets/ad-apps.jpg";
 import adPrepChat from "@/assets/ad-prepchat.jpg";
 import adWhatsApp from "@/assets/ad-whatsapp.jpg";
+import adPrepPw from "@/assets/ad-preppro-pw.jpg";
 
 const SLIDE_MS = 5000;
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb7Q3lrF1YlUHIHepd3V";
@@ -61,6 +62,16 @@ const AdCarousel = () => {
         accent: "from-pink-600/70 via-fuchsia-600/40 to-transparent",
         href: launched ? PREPBOOKS_URL : undefined,
         countdown: !launched,
+      },
+      {
+        id: "preppro-pw",
+        tag: "OUR OWN PW APP",
+        title: "PrepPro Physics Wallah is live",
+        subtitle: "Our very own PW experience — batches, classes, notes & tests in one place.",
+        cta: "Open PrepPro PW",
+        image: adPrepPw,
+        accent: "from-orange-600/70 via-red-500/35 to-transparent",
+        onClick: () => navigate("/pw"),
       },
       {
         id: "prepjee",

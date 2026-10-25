@@ -26,6 +26,27 @@ const InfinityAppPage = ({ appId }: { appId?: string }) => {
     return () => clearTimeout(timeout);
   }, [app?.id, attempt]);
 
+  // Direct apps leave PrepPro entirely: launch animation plays, then redirect.
+  useEffect(() => {
+    if (!app?.direct) return;
+    const t = setTimeout(() => window.location.replace(app.url), reducedMotion ? 0 : 1800);
+    return () => clearTimeout(t);
+  }, [app?.direct, app?.url, reducedMotion]);
+
+  if (app?.direct) {
+    return (
+      <main className="fixed inset-0 grid place-items-center bg-background p-6">
+        <div className="max-w-sm text-center">
+          <img src={app.logo} alt={app.title} className="mx-auto mb-5 h-20 w-20 rounded-lg object-cover" />
+          <h1 className="mb-2 text-2xl font-black text-foreground">{app.title}</h1>
+          <p className="text-sm text-muted-foreground">Opening your app…</p>
+          <a href={app.url} className="mt-4 inline-block text-xs font-bold text-primary underline">Open now</a>
+        </div>
+        <AppLaunchAnimation open={opening && !reducedMotion} title={app.title} logo={app.logo} durationMs={1800} prefetchUrl={app.url} onComplete={finishOpening} />
+      </main>
+    );
+  }
+
   if (!app || app.soon) {
     return (
       <main className="fixed inset-0 grid place-items-center bg-background p-6">

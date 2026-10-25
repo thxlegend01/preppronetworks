@@ -18,8 +18,8 @@ describe("Infinity app availability", () => {
   test("Unacademy teacher batches and courses opens the supplied portal with the Telegram header cover", () => {
     expect(catalogExports.INFINITY_APPS?.find(app => app.id === "unacademy-teachers")).toMatchObject({ url: "https://nexthope.pages.dev/unacademy/", soon: false, telegramHeader: true });
   });
-  test("PW is Coming Soon at the supplied batches URL", () => {
-    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "pw")).toMatchObject({ url: "https://pw.eduvibe.cc.cd/batches", soon: true });
+  test("PW opens the supplied site directly without an iframe", () => {
+    expect(catalogExports.INFINITY_APPS?.find(app => app.id === "pw")).toMatchObject({ url: "https://preppronetworkpw.xyz/", soon: false, direct: true });
   });
   test("Vibrant Academy is Coming Soon at the supplied URL", () => {
     expect(catalogExports.INFINITY_APPS?.find(app => app.id === "vibrant-academy")).toMatchObject({ url: "https://va.eduvibe.cc.cd/", soon: true });
