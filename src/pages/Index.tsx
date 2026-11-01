@@ -8,6 +8,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import CommunityOwnerStrips from "@/components/CommunityOwnerStrips";
 
 import AdCarousel from "@/components/AdCarousel";
+import PrepJeeChannelAd from "@/components/PrepJeeChannelAd";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import WhyPrepProHub from "@/components/WhyPrepProHub";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
@@ -35,6 +36,7 @@ const Index = () => {
         <Header />
         <Hero />
         <AdCarousel />
+        <PrepJeeChannelAd />
         <IndependenceDayBanner />
         <RakshaBandhanBanner />
         <RecentlyViewed />
