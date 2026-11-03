@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { BadgeCheck, Send, Share2, Forward } from "lucide-react";
 import adPrepJee from "@/assets/ad-prepjee.jpg";
 
-const CHANNEL_LINK = "https://t.me/PrepProBot";
+const CHANNEL_LINK = "https://t.me/+Vaaty3NWsRIzOThl";
 
 const PROBLEMS: { bad: string; good: string }[] = [
   { bad: "PYQs scattered everywhere, no proper chapter-wise?", good: "JEE Mains + Advanced + Chapter-wise PYQs" },
@@ -56,7 +56,7 @@ const PrepJeeChannelAd = () => {
           viewport={{ once: true, margin: "-40px" }}
           whileTap={{ scale: 0.985 }}
           className="group relative block overflow-hidden rounded-3xl ring-1 ring-primary/30 shadow-[0_25px_70px_-20px_hsl(var(--primary)/0.55)]"
-          aria-label="PrepJee Jan 2027 Pass offer — contact @PrepProBot on Telegram"
+          aria-label="PrepJee Jan 2027 Pass is free — join the Telegram channel to access"
         >
           {/* Ambient glow */}
           <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background" />
@@ -96,7 +96,7 @@ const PrepJeeChannelAd = () => {
             {/* Message body */}
             <div className="rounded-2xl rounded-tl-md border border-border/70 bg-card/90 backdrop-blur px-4 py-4">
               <h3 className="text-base sm:text-lg font-black leading-snug">
-                🔥 <span className="text-primary">PrepJee</span> — JEE Mains Jan 2027 Pass
+                🔥 <span className="text-primary">PrepJee</span> — JEE Mains Jan 2027 Pass — <span className="text-primary">FREE</span>
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-foreground/80 font-medium">
                 Facing these problems in your JEE prep?
@@ -117,54 +117,24 @@ const PrepJeeChannelAd = () => {
                 ))}
               </div>
 
-              {/* Plans */}
-              <p className="mt-4 text-xs sm:text-sm font-bold">
-                We have <span className="text-primary">2 Plans</span>, Both Valid Till January Attempt:
-              </p>
-              <div className="mt-2 grid gap-2.5 sm:grid-cols-2">
-                <div className="rounded-xl border border-border/70 bg-background/70 p-3">
-                  <p className="text-xs font-black">✅ BASIC — <span className="text-primary">₹120</span></p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Essential</p>
-                  <ul className="mt-2 space-y-1">
-                    {BASIC_ITEMS.map((item) => (
-                      <li key={item} className="flex items-start gap-1.5 text-[11px] text-foreground/85">
-                        <span aria-hidden className="text-primary shrink-0">•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="relative rounded-xl border-2 border-primary/60 bg-background/70 p-3 shadow-[0_10px_30px_-12px_hsl(var(--primary)/0.6)]">
-                  <span className="absolute -top-2.5 right-3 rounded-full bg-primary px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-primary-foreground shadow">
-                    Most Popular
-                  </span>
-                  <p className="text-xs font-black">⭐ PREMIUM — <span className="text-primary">₹200</span></p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Everything in Basic, plus</p>
-                  <ul className="mt-2 space-y-1">
-                    {PREMIUM_EXTRA.map((item) => (
-                      <li key={item} className="flex items-start gap-1.5 text-[11px] text-foreground/85">
-                        <span aria-hidden className="text-primary shrink-0">•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Extra benefit */}
-              <div className="mt-3 rounded-xl border border-amber-300/40 bg-amber-400/10 px-3 py-2.5">
-                <p className="text-[11px] sm:text-xs font-bold">🎁 Extra Benefit with ₹200 Plan:</p>
+              {/* Free access */}
+              <div className="mt-4 rounded-xl border-2 border-primary/60 bg-background/70 p-3 shadow-[0_10px_30px_-12px_hsl(var(--primary)/0.6)]">
+                <p className="text-sm sm:text-base font-black">🎉 Everything is now <span className="text-primary">100% FREE!</span></p>
                 <p className="mt-1 text-[11px] sm:text-xs text-foreground/85">
-                  April Attempt = Only <span className="font-bold text-primary">₹100</span> extra (Otherwise ₹200)
+                  All features below — no Basic, no Premium, no payment. Free for everyone till January Attempt.
                 </p>
-                <p className="text-[11px] sm:text-xs text-foreground/85">
-                  JEE Advanced = Only <span className="font-bold text-primary">₹200</span> extra (Otherwise ₹300)
-                </p>
+                <ul className="mt-2 grid grid-cols-2 gap-1">
+                  {[...BASIC_ITEMS, ...PREMIUM_EXTRA].map((item) => (
+                    <li key={item} className="flex items-start gap-1.5 text-[11px] text-foreground/85">
+                      <span aria-hidden className="text-primary shrink-0">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <p className="mt-3 text-[11px] sm:text-xs font-bold">
-                To Purchase Jan 2027 Pass, Contact on Telegram:{" "}
-                <span className="text-primary">@PrepProBot</span>
+                🔓 To Access, just <span className="text-primary">Join our Telegram Channel</span> 👇
               </p>
 
               {/* Reactions + forward, Telegram style */}
@@ -184,7 +154,7 @@ const PrepJeeChannelAd = () => {
             {/* CTA */}
             <div className="mt-3 flex items-center justify-center gap-2 rounded-full bg-primary px-4 h-11 text-xs font-black text-primary-foreground shadow-lg transition-transform group-hover:scale-[1.02]">
               <Send className="h-4 w-4" />
-              Buy on Telegram — @PrepProBot
+              Join Telegram Channel — Access FREE
             </div>
           </div>
         </motion.a>
