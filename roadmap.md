@@ -1,5 +1,11 @@
 # Current work
 
+## Diwali greeting and PrepJee launch
+- [ ] Add an animated Diwali greeting visible November 8, 2026, 12 AM–12 PM IST.
+- [ ] Change all PrepJee promotion destinations to https://prepjeetests.vercel.app/ and replace the pass Telegram CTA.
+- [ ] Gate PrepJee 2027 Pass access until November 8, 2026, 8 PM IST; verify before and after launch states.
+- [ ] Add and run tests for the exact greeting and access-release boundaries.
+
 ## PrepPro Infinity
 - [x] Add both Unacademy iframe apps and cover their branded headers with a Telegram join strip; verify cards and viewers.
 - [x] Separate Infinity from Study Apps, mark PW and Vibrant Coming Soon, and restore opening animations; verify availability and navigation.
